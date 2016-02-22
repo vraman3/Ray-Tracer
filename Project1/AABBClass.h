@@ -58,18 +58,18 @@ ColourClass AABBClass::GetColour(){ return colour; }
 double AABBClass::GetIntersection(RayClass ray)
 {
 
-	double txmin, txmax, tymin, tymax, tzmin, tzmax;
+	double tmin, tmax, tymin, tymax, tzmin, tzmax;
 
 	// X component
 	if (ray.GetRayDirection().GetX() >= 0)
 	{
-		txmin = (Bmin.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
-		txmax = (Bmax.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
+		tmin = (Bmin.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
+		tmax = (Bmax.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
 	}
 	else
 	{
-		txmin = (Bmax.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
-		txmax = (Bmin.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
+		tmin = (Bmax.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
+		tmax = (Bmin.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
 	}
 
 	// Y component
@@ -84,13 +84,13 @@ double AABBClass::GetIntersection(RayClass ray)
 		tymax = (Bmin.GetY() - ray.GetRayOrigin().GetY()) / ray.GetRayDirection().GetY();
 	}
 
-	if ((txmin > tymax) || (tymin > txmax))
+	if ((tmin > tymax) || (tymin > tmax))
 		return -1;
 
-	if (tymin > txmin)
-		txmin = tymin;
-	if (tymax < txmax)
-		txmax = tymax;
+	if (tymin > tmin)
+		tmin = tymin;
+	if (tymax < tmax)
+		tmax = tymax;
 
 	// Z component
 	if (ray.GetRayDirection().GetY() >= 0)
@@ -104,12 +104,14 @@ double AABBClass::GetIntersection(RayClass ray)
 		tzmax = (Bmin.GetZ() - ray.GetRayOrigin().GetZ()) / ray.GetRayDirection().GetZ();
 	}
 
-	if ((txmin > tzmax) || (tzmin > txmax))
+	if ((tmin > tzmax) || (tzmin > tmax))
 		return -1;
 
-	if (tzmin > txmin)
-		txmin = tzmin;
+	if (tzmin > tmin)
+		tmin = tzmin;
 
-	if (tzmax < txmax)
-		txmax = tzmax;		
+	if (tzmax < tmax)
+		tmax = tzmax;
+
+	return 1;
 }
