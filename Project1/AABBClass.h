@@ -63,7 +63,7 @@ double AABBClass::GetIntersection(RayClass ray)
 	// X component
 	if (ray.GetRayDirection().GetX() >= 0)
 	{
-		tmin = (Bmin.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
+		tmin = (Bmin.GetX() - ray.GetRayOrigin().GetX()) * ray.GetRayDirection().GetX();
 		tmax = (Bmax.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
 	}
 	else
