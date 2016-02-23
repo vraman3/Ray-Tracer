@@ -100,8 +100,8 @@ double AABBClass::GetIntersection(RayClass ray)
 	}
 	else
 	{
-		tzmin = (Bmax.GetZ() - ray.GetRayOrigin().GetZ()) / ray.GetRayDirection().GetZ();
-		tzmax = (Bmin.GetZ() - ray.GetRayOrigin().GetZ()) / ray.GetRayDirection().GetZ();
+		tzmin = (Bmax.GetZ() - ray.GetRayOrigin().GetZ()) * ray.GetRayInvDirection().GetZ();
+		tzmax = (Bmin.GetZ() - ray.GetRayOrigin().GetZ()) * ray.GetRayInvDirection().GetZ();
 	}
 
 	if ((tmin > tzmax) || (tzmin > tmax))
@@ -113,5 +113,5 @@ double AABBClass::GetIntersection(RayClass ray)
 	if (tzmax < tmax)
 		tmax = tzmax;
 
-	return 1;
+	return tmin;
 }
