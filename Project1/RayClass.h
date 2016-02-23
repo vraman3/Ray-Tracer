@@ -22,14 +22,18 @@ RayClass::RayClass()
 {
 	origin		= VectorClass(0, 0, 0);
 	direction	= VectorClass(1, 0, 0);
-	invDirection = 1 / direction;
+	invDirection.SetX( 1 / direction.GetX() );
+	invDirection.SetY( 1 / direction.GetY() );
+	invDirection.SetZ( 1 / direction.GetZ() );
 }
 
 RayClass::RayClass(VectorClass o, VectorClass d)
 {
 	origin		= o;
 	direction	= d;
-	invDirection = 1 / direction;
+	invDirection.SetX(1 / direction.GetX());
+	invDirection.SetY(1 / direction.GetY());
+	invDirection.SetZ(1 / direction.GetZ());
 }
 
 VectorClass RayClass::GetRayOrigin()
