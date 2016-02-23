@@ -16,6 +16,7 @@ public:
 
 	VectorClass GetRayOrigin();
 	VectorClass GetRayDirection();
+	VectorClass GetRayInvDirection();
 };
 
 RayClass::RayClass()
@@ -44,4 +45,9 @@ VectorClass RayClass::GetRayOrigin()
 VectorClass RayClass::GetRayDirection()
 {
 	return direction;
+}
+
+VectorClass RayClass::GetRayInvDirection()
+{
+	return invDirection;
 }
