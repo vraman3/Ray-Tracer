@@ -63,25 +63,25 @@ double AABBClass::GetIntersection(RayClass ray)
 	// X component
 	if (ray.GetRayDirection().GetX() >= 0)
 	{
-		tmin = (Bmin.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
-		tmax = (Bmax.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
+		tmin = (Bmin.GetX() - ray.GetRayOrigin().GetX()) * ray.GetRayInvDirection().GetX();
+		tmax = (Bmax.GetX() - ray.GetRayOrigin().GetX()) * ray.GetRayInvDirection().GetX();
 	}
 	else
 	{
-		tmin = (Bmax.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
-		tmax = (Bmin.GetX() - ray.GetRayOrigin().GetX()) / ray.GetRayDirection().GetX();
+		tmin = (Bmax.GetX() - ray.GetRayOrigin().GetX()) * ray.GetRayInvDirection().GetX();
+		tmax = (Bmin.GetX() - ray.GetRayOrigin().GetX()) * ray.GetRayInvDirection().GetX();
 	}
 
 	// Y component
 	if (ray.GetRayDirection().GetY() >= 0)
 	{
-		tymin = (Bmin.GetY() - ray.GetRayOrigin().GetY()) / ray.GetRayDirection().GetY();
-		tymax = (Bmax.GetY() - ray.GetRayOrigin().GetY()) / ray.GetRayDirection().GetY();
+		tymin = (Bmin.GetY() - ray.GetRayOrigin().GetY()) * ray.GetRayInvDirection().GetY();
+		tymax = (Bmax.GetY() - ray.GetRayOrigin().GetY()) * ray.GetRayInvDirection().GetY();
 	}
 	else
 	{
-		tymin = (Bmax.GetY() - ray.GetRayOrigin().GetY()) / ray.GetRayDirection().GetY();
-		tymax = (Bmin.GetY() - ray.GetRayOrigin().GetY()) / ray.GetRayDirection().GetY();
+		tymin = (Bmax.GetY() - ray.GetRayOrigin().GetY()) * ray.GetRayInvDirection().GetY();
+		tymax = (Bmin.GetY() - ray.GetRayOrigin().GetY()) * ray.GetRayInvDirection().GetY();
 	}
 
 	if ((tmin > tymax) || (tymin > tmax))
@@ -93,10 +93,10 @@ double AABBClass::GetIntersection(RayClass ray)
 		tmax = tymax;
 
 	// Z component
-	if (ray.GetRayDirection().GetY() >= 0)
+	if (ray.GetRayDirection().GetZ() >= 0)
 	{
-		tzmin = (Bmin.GetZ() - ray.GetRayOrigin().GetZ()) / ray.GetRayDirection().GetZ();
-		tzmax = (Bmax.GetZ() - ray.GetRayOrigin().GetZ()) / ray.GetRayDirection().GetZ();
+		tzmin = (Bmin.GetZ() - ray.GetRayOrigin().GetZ()) * ray.GetRayInvDirection().GetZ();
+		tzmax = (Bmax.GetZ() - ray.GetRayOrigin().GetZ()) * ray.GetRayInvDirection().GetZ();
 	}
 	else
 	{
