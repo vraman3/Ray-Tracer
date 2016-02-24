@@ -7,18 +7,22 @@
 #include "ColourClass.h"
 #include "VectorClass.h"
 #include "RayClass.h"
+#include <cmath>
 
 class AABBClass :public ObjectClass
 {
 	private:
 		VectorClass Bmin, Bmax;
+		VectorClass centre;
 		ColourClass colour;
 		double diffuse, specular, ambient;
 
 	public:
 		AABBClass();
 		AABBClass(VectorClass, VectorClass, ColourClass);
+		AABBClass(TriangleClass);
 
+		void SetCentre();
 		VectorClass GetNormal(VectorClass);
 		double GetDiffuse();
 		double GetSpecular();
@@ -43,6 +47,10 @@ AABBClass::AABBClass(VectorClass min, VectorClass max, ColourClass col)
 	diffuse = 0.3;
 	specular = 0.6;
 	ambient = 0.1;
+}
+
+AABBClass::AABBClass(TriangleClass tri)
+{
 }
 
 double AABBClass::GetAmbient() { return ambient; }
@@ -114,4 +122,11 @@ double AABBClass::GetIntersection(RayClass ray)
 		tmax = tzmax;
 
 	return tmin;
+}
+
+void AABBClass::SetCentre()
+{
+	centre.SetX((abs(Bmin.GetX()) + abs(Bmax.GetX())) / 2);
+	centre.SetY((abs(Bmin.GetY()) + abs(Bmax.GetY())) / 2);
+	centre.SetZ((abs(Bmin.GetZ()) + abs(Bmax.GetZ())) / 2);
 }
