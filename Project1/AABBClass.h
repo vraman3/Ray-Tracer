@@ -21,6 +21,7 @@ class AABBClass :public ObjectClass
 		AABBClass(VectorClass, VectorClass);
 
 		void SetCentre();
+		void Expand(AABBClass);
 		VectorClass GetNormal(VectorClass);
 		virtual double GetIntersection(RayClass);
 };
@@ -33,9 +34,28 @@ AABBClass::AABBClass(VectorClass min, VectorClass max)
 {
 	Bmin = min;
 	Bmax = max;
+
+	SetCentre();
 }
 
 VectorClass AABBClass::GetNormal(VectorClass v = VectorClass(0, 0, 0)){ return v; }
+
+void AABBClass::Expand(AABBClass newBox)
+{
+	if (newBox.Bmin.GetX() < Bmin.GetX())
+		Bmin.SetX(newBox.Bmin.GetX());
+	if (newBox.Bmin.GetY() < Bmin.GetY())
+		Bmin.SetY(newBox.Bmin.GetY());
+	if (newBox.Bmin.GetZ() < Bmin.GetZ())
+		Bmin.SetZ(newBox.Bmin.GetZ());
+
+	if (newBox.Bmax.GetX() < Bmax.GetX())
+		Bmax.SetX(newBox.Bmax.GetX());
+	if (newBox.Bmax.GetY() < Bmax.GetY())
+		Bmax.SetY(newBox.Bmax.GetY());
+	if (newBox.Bmax.GetZ() < Bmax.GetZ())
+		Bmax.SetZ(newBox.Bmax.GetZ());
+}
 
 double AABBClass::GetIntersection(RayClass ray)
 {
@@ -104,3 +124,4 @@ void AABBClass::SetCentre()
 	centre.SetY((abs(Bmin.GetY()) + abs(Bmax.GetY())) / 2);
 	centre.SetZ((abs(Bmin.GetZ()) + abs(Bmax.GetZ())) / 2);
 }
+
