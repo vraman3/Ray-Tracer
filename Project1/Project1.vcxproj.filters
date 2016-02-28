@@ -78,7 +78,7 @@
     <ClInclude Include="ReadFromFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="KDNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

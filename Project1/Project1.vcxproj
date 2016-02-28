@@ -71,7 +71,7 @@
     <ClInclude Include="ColourClass.h" />
     <ClInclude Include="AABBClass.h" />
     <ClInclude Include="CheckerboardPattern.h" />
-    <ClInclude Include="Header.h" />
+    <ClInclude Include="KDNode.h" />
     <ClInclude Include="ReadFromFile.h" />
     <ClInclude Include="TextureMapping.h" />
     <ClInclude Include="ToneReproduction.h" />

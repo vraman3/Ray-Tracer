@@ -36,4 +36,9 @@ class ObjectClass
 	{
 		return 0.0;
 	}
+
+	virtual AABBClass getBoundingBox()
+	{
+		return AABBClass();
+	}
 };
