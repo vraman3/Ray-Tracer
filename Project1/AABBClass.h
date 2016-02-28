@@ -14,54 +14,32 @@ class AABBClass :public ObjectClass
 	private:
 		VectorClass Bmin, Bmax;
 		VectorClass centre;
-		ColourClass colour;
-		double diffuse, specular, ambient;
 
 	public:
 		AABBClass();
-		AABBClass(VectorClass, VectorClass, ColourClass);
+		AABBClass(VectorClass, VectorClass);
 		AABBClass(TriangleClass);
 
 		void SetCentre();
 		VectorClass GetNormal(VectorClass);
-		double GetDiffuse();
-		double GetSpecular();
-		double GetAmbient();
-		virtual ColourClass GetColour();
 		virtual double GetIntersection(RayClass);
 };
 
 AABBClass::AABBClass()
 {
-	diffuse = 0.3;
-	specular = 0.6;
-	ambient = 0.1;
 }
 
-AABBClass::AABBClass(VectorClass min, VectorClass max, ColourClass col)
+AABBClass::AABBClass(VectorClass min, VectorClass max)
 {
 	Bmin = min;
 	Bmax = max;
-	colour = col;
-
-	diffuse = 0.3;
-	specular = 0.6;
-	ambient = 0.1;
 }
 
 AABBClass::AABBClass(TriangleClass tri)
 {
 }
 
-double AABBClass::GetAmbient() { return ambient; }
-
-double AABBClass::GetSpecular(){ return specular; }
-
-double AABBClass::GetDiffuse(){ return diffuse; }
-
 VectorClass AABBClass::GetNormal(VectorClass v = VectorClass(0, 0, 0)){ return v; }
-
-ColourClass AABBClass::GetColour(){ return colour; }
 
 double AABBClass::GetIntersection(RayClass ray)
 {
