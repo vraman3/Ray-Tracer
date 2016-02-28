@@ -21,4 +21,4 @@ class KDNode
 		KDNode();
 
 		KDNode* build(std::vector<ObjectClass*>& objs, int depth) const;
-};
+}; 

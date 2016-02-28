@@ -7,6 +7,7 @@
 #include "ColourClass.h"
 #include "VectorClass.h"
 #include "RayClass.h"
+#include "TriangleClass.h"
 #include <cmath>
 
 class AABBClass :public ObjectClass
@@ -18,7 +19,6 @@ class AABBClass :public ObjectClass
 	public:
 		AABBClass();
 		AABBClass(VectorClass, VectorClass);
-		AABBClass(TriangleClass);
 
 		void SetCentre();
 		VectorClass GetNormal(VectorClass);
@@ -33,10 +33,6 @@ AABBClass::AABBClass(VectorClass min, VectorClass max)
 {
 	Bmin = min;
 	Bmax = max;
-}
-
-AABBClass::AABBClass(TriangleClass tri)
-{
 }
 
 VectorClass AABBClass::GetNormal(VectorClass v = VectorClass(0, 0, 0)){ return v; }

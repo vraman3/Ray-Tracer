@@ -3,11 +3,13 @@
 //Author: Vishwanath Raman
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 
 #include "VectorClass.h"
 #include "RayClass.h"
 #include "ColourClass.h"
 #include "ObjectClass.h"
+#include "AABBClass.h"
 
 #define EPSILON 0.00001
 
@@ -33,6 +35,7 @@ class TriangleClass : public ObjectClass
 		double GetAmbient();
 		virtual ColourClass GetColour();
 		virtual double GetIntersection(RayClass);
+		virtual AABBClass GetBoundingBox();
 };
 
 TriangleClass::TriangleClass()
@@ -143,4 +146,31 @@ double TriangleClass::GetIntersection(RayClass ray)
 		return t; 
 	}
 	return -1;
+}
+
+AABBClass TriangleClass::GetBoundingBox()
+{
+	VectorClass minVal, maxVal;
+
+	double ax = A.GetX();
+	double ay = A.GetY();
+	double az = A.GetZ();
+
+	double bx = B.GetX();
+	double by = B.GetY();
+	double bz = B.GetZ();
+
+	double cx = C.GetX();
+	double cy = C.GetY();
+	double cz = C.GetZ();
+
+	minVal.SetX(std::min({ ax, bx, cx }));
+	minVal.SetY(std::min({ ay, by, cy }));
+	minVal.SetZ(std::min({ az, bz, cz }));
+
+	maxVal.SetX(std::max({ ax, bx, cx }));
+	maxVal.SetY(std::max({ ay, by, cy }));
+	maxVal.SetZ(std::max({ az, bz, cz }));
+
+	return AABBClass(minVal, maxVal);
 }
