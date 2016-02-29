@@ -22,6 +22,7 @@ class AABBClass :public ObjectClass
 
 		void SetCentre();
 		void Expand(AABBClass);
+		int GetLongestAxis();
 		VectorClass GetNormal(VectorClass);
 		virtual double GetIntersection(RayClass);
 };
@@ -39,6 +40,28 @@ AABBClass::AABBClass(VectorClass min, VectorClass max)
 }
 
 VectorClass AABBClass::GetNormal(VectorClass v = VectorClass(0, 0, 0)){ return v; }
+
+int AABBClass::GetLongestAxis()
+{
+	double x = Bmax.GetX() - Bmin.GetX();
+	double y = Bmax.GetY() - Bmin.GetY();
+	double z = Bmax.GetZ() - Bmin.GetZ();
+
+	if (x > y)				// X > Y
+	{
+		if (x > z)			// X > Z so return X (0)
+			return 0;
+		else
+			return 2;		// Z > X > Y so return Z (2)
+	}
+	else					// Y > X
+	{
+		if (y > z)			// Y > Z so return Y (1)
+			return 1;
+		else
+			return 2;		// Z > Y > X so return Z (2)
+	}
+}
 
 void AABBClass::Expand(AABBClass newBox)
 {

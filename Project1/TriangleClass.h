@@ -35,6 +35,7 @@ class TriangleClass : public ObjectClass
 		double GetAmbient();
 		virtual ColourClass GetColour();
 		virtual double GetIntersection(RayClass);
+		virtual VectorClass GetMidpoint();
 		virtual AABBClass GetBoundingBox();
 };
 
@@ -146,6 +147,15 @@ double TriangleClass::GetIntersection(RayClass ray)
 		return t; 
 	}
 	return -1;
+}
+
+VectorClass TriangleClass::GetMidpoint()
+{
+	double x = (A.GetX() + B.GetX() + C.GetX()) / 3;
+	double y = (A.GetY() + B.GetY() + C.GetY()) / 3;
+	double z = (A.GetZ() + B.GetZ() + C.GetZ()) / 3;
+
+	return VectorClass(x, y, z);
 }
 
 AABBClass TriangleClass::GetBoundingBox()

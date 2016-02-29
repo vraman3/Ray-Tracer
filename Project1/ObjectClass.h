@@ -41,4 +41,9 @@ class ObjectClass
 	{
 		return AABBClass();
 	}
+
+	virtual VectorClass GetMidpoint()
+	{
+		return VectorClass();
+	}
 };
