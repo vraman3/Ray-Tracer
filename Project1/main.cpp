@@ -22,7 +22,7 @@
 #include "CheckerboardPattern.h"
 #include "SaveToFIle.h"
 #include "ReadFromFile.h"
-
+#include "KDNode.h"
 //typedef techsoft::matrix<double> Matrix;
 
 ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vector<VectorClass*>,
@@ -72,6 +72,15 @@ int main(int argc, char *argv[])
 	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
 		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
 	
+	std::vector<ObjectClass*> testObjects;
+	testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
+	testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
+		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
+
+	KDNode kdtree = KDNode();
+
+	kdtree.build(testObjects, 4);
 	// The Lighting Models for the objects (has to be in SAME order as the objects)
 	std::vector<IlluminationClass*> illuminations;
 	illuminations.push_back(
