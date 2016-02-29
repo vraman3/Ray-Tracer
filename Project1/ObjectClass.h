@@ -37,11 +37,6 @@ class ObjectClass
 		return 0.0;
 	}
 
-	virtual AABBClass GetBoundingBox()
-	{
-		return AABBClass();
-	}
-
 	virtual VectorClass GetMidpoint()
 	{
 		return VectorClass();

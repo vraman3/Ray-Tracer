@@ -36,7 +36,7 @@ class TriangleClass : public ObjectClass
 		virtual ColourClass GetColour();
 		virtual double GetIntersection(RayClass);
 		virtual VectorClass GetMidpoint();
-		virtual AABBClass GetBoundingBox();
+		AABBClass GetBoundingBox();
 };
 
 TriangleClass::TriangleClass()
