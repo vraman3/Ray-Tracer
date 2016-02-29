@@ -8,7 +8,6 @@
 #include "VectorClass.h"
 #include "RayClass.h"
 #include "ColourClass.h"
-#include "ObjectClass.h"
 #include "AABBClass.h"
 
 #define EPSILON 0.00001

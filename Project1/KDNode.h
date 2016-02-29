@@ -8,6 +8,7 @@
 #include "VectorClass.h"
 #include "RayClass.h"
 #include "AABBClass.h"
+#include "TriangleClass.h"
 #include <cmath>
 
 class KDNode
@@ -16,14 +17,17 @@ class KDNode
 		AABBClass aabbBox;
 		KDNode* left;
 		KDNode* right;		
-		std::vector<ObjectClass*> objects;
+		std::vector<TriangleClass*> objects;
 
 		KDNode();
 
-		KDNode* build(std::vector<ObjectClass*>& objs, int depth);
+		KDNode* build(std::vector<TriangleClass*>& objs, int depth);
 };
 
-KDNode* KDNode::build(std::vector<ObjectClass*>& objs, int depth)
+KDNode::KDNode()
+{}
+
+KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 {
 	KDNode* node = new KDNode();
 
@@ -42,8 +46,8 @@ KDNode* KDNode::build(std::vector<ObjectClass*>& objs, int depth)
 		node->aabbBox = objs[0]->GetBoundingBox();
 		node->left  = new KDNode();
 		node->right = new KDNode();
-		node->left->objects  = std::vector<ObjectClass*>();
-		node->right->objects = std::vector<ObjectClass*>();
+		node->left->objects = std::vector<TriangleClass*>();
+		node->right->objects = std::vector<TriangleClass*>();
 		return node;
 	}
 
@@ -63,8 +67,8 @@ KDNode* KDNode::build(std::vector<ObjectClass*>& objs, int depth)
 		midpoint = midpoint + (objs[i]->GetMidpoint() * (1.0 / objs.size()));
 	}
 
-	std::vector<ObjectClass*> left_objs;
-	std::vector<ObjectClass*> right_objs;
+	std::vector<TriangleClass*> left_objs;
+	std::vector<TriangleClass*> right_objs;
 
 	// Get the longest axis for the current bounding box and split
 	// the objects based on that
@@ -122,8 +126,8 @@ KDNode* KDNode::build(std::vector<ObjectClass*>& objs, int depth)
 	{
 		node->left  = new KDNode();
 		node->right = new KDNode();
-		node->left->objects  = std::vector<ObjectClass*>();
-		node->right->objects = std::vector<ObjectClass*>();
+		node->left->objects = std::vector<TriangleClass*>();
+		node->right->objects = std::vector<TriangleClass*>();
 	}
 
 	return node;
