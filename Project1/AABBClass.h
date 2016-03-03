@@ -24,7 +24,7 @@ class AABBClass :public ObjectClass
 		void Expand(AABBClass);
 		int GetLongestAxis();
 		VectorClass GetNormal(VectorClass);
-		virtual double GetIntersection(RayClass);
+		virtual double GetIntersection(RayClass, double *hitt0 = NULL, double *hitt1 = NULL);
 };
 
 AABBClass::AABBClass()
@@ -80,7 +80,7 @@ void AABBClass::Expand(AABBClass newBox)
 		Bmax.SetZ(newBox.Bmax.GetZ());
 }
 
-double AABBClass::GetIntersection(RayClass ray)
+double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
 {
 
 	double tmin, tmax, tymin, tymax, tzmin, tzmax;
@@ -137,6 +137,10 @@ double AABBClass::GetIntersection(RayClass ray)
 
 	if (tzmax < tmax)
 		tmax = tzmax;
+
+
+	if (hitt0) *hitt0 = tmin;
+	if (hitt1) *hitt1 = tmax;
 
 	return tmin;
 }
