@@ -170,36 +170,164 @@ bool KDNode::isLeaf()
 
 bool KDNode::Traverse(RayClass ray)
 {
+	//
 	// Compute initial parametric range of ray inside kd-tree extent
+	//
 	double tmin, tmax;
 
 	// Not comparing parametric range yet.
 	if (!this->aabbBox.GetIntersection(ray, &tmin, &tmax))
 		return false;
 
+	//
+	// End of computing initial parametric range
+	//
+
+	//
+	// Prepare to traverse kd-tree for ray
+	//
 	#define MAX_TODO 64
 	KDToDo todo[MAX_TODO];
 	int todoPos = 0;
 
-	//Traverse KDTree nodes in order for ray
+	//
+	// End of preparing to traverse kd-tree for ray
+	//
+
+	//
+	// Traverse KDTree nodes in order for ray
+	//
 	bool hit = false;
 
 	KDNode *nodeT = &this[0];														// ARE YOU SURE?
 
+	// while loop for traversing all required nodes in kd-tree
 	while (nodeT != NULL)
 	{
-		//Bail out if we found a hit closer than the current node
+		//
+		// Bail out if we found a hit closer than the current node
+		//
 		if (ray.maxT < tmin) break;
+		//
+		// End of bail out if we find a closer hit
+		//
 
 		if (!nodeT->isLeaf())
 		{
+			//
 			// Process kd-tree interior node
+			//
 
+			//
 			// Compute the parametric distance along ray to split
 			// plane
 
 			int axis = nodeT->splitAxis;
-			double tplane = (nodeT->splitPos - ray.GetRayOrigin()[axis]) * ray.GetRayInvDirection()
+			double tplane = (nodeT->splitPos - ray.GetRayOrigin()[axis]) * ray.GetRayInvDirection()[axis];
+			//
+			// End of computing parametric distance along ray
+			//
+
+			//
+			// Get node children pointers for ray
+			//
+			KDNode *firstChild, *secondChild;
+
+			int belowFirst = (ray.GetRayOrigin()[axis] < nodeT->splitPos)
+				|| ( (ray.GetRayOrigin()[axis] == nodeT->splitPos) && 
+					 (ray.GetRayDirection()[axis] >= 0 ) );
+
+			if (belowFirst)
+			{
+				firstChild = nodeT->left;
+				secondChild = nodeT->right;
+			}
+			else
+			{
+				firstChild = nodeT->right;
+				secondChild = nodeT->left;
+			}
+			//
+			// End of node children pointers for ray
+			//
+
+			//
+			// Advance to next child node, possibly enqueue other child
+			//
+
+			if (tplane > tmax || tplane <= 0)
+				nodeT = firstChild;
+			else if (tplane < tmin)
+				nodeT = secondChild;
+			else
+			{
+				//
+				// Enqueue secondChild in todo list
+				//
+				todo[todoPos].node = secondChild;
+				todo[todoPos].tminTD = tplane;
+				todo[todoPos].tmaxTD = tmax;
+				++todoPos;
+				//
+				// End of enqueueing secondChild in todo list
+				//
+
+				nodeT = firstChild;
+				tmax = tplane;
+			}
+			//
+			// End of advance to next child node, possibly enqueue other child
+			//
+		}
+		//
+		// End of process kd-tree interior node
+		//		( and the if block )
+		else
+		{
+			//
+			// Check for intersections inside leaf node
+			//
+
+			// In this program, it will be only triangles as primitives yet.
+			int noOfPrimitives = nodeT->objects.size();
+
+			for (int i = 0; i < noOfPrimitives; i++)
+			{
+				TriangleClass *prim = nodeT->objects[i];
+
+				//
+				// Check one primitive inside leaf node
+				//
+				if (prim->GetIntersection(ray))
+					hit = true;
+				//
+				// End of checking one primitive inside leaf node
+				//
+			}
+			//
+			// End of checking for intersection inside leaf node
+			//
+
+			//
+			// Grab next node to process from todo list
+			//
+			if (todoPos > 0)
+			{
+				--todoPos;
+				nodeT = todo[todoPos].node;
+				tmin = todo[todoPos].tminTD;
+				tmax = todo[todoPos].tmaxTD;
+			}
+			else
+				break;
+			//
+			// End of grabbing next node to process from todo list
+			//
 		}
 	}
+	return hit;
+
+	//
+	// End of traversing kd-tree in order for ray
+	//
 }
