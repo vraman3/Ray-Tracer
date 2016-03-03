@@ -189,5 +189,6 @@ bool KDNode::Traverse(RayClass ray)
 	while (nodeT != NULL)
 	{
 		//Bail out if we found a hit closer than the current node
+		if ()
 	}
 }

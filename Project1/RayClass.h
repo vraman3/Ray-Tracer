@@ -9,10 +9,11 @@ private:
 	VectorClass origin;
 	VectorClass direction;
 	VectorClass invDirection;
+
+public:
 	double minT;
 	double maxT;
 
-public:
 	RayClass();
 	RayClass(VectorClass, VectorClass);
 
