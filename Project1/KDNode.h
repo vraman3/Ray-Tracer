@@ -16,12 +16,22 @@ class KDNode
 	public:
 		AABBClass aabbBox;
 		KDNode* left;
-		KDNode* right;		
+		KDNode* right;
+		int splitAxis;
+		double splitPos;
+
 		std::vector<TriangleClass*> objects;
 
 		KDNode();
-
+		bool isLeaf();
+		bool Traverse(RayClass ray);
 		KDNode* build(std::vector<TriangleClass*>& objs, int depth);
+
+		struct KDToDo
+		{
+			KDNode *node;
+			float tminTD, tmaxTD;
+		};
 };
 
 KDNode::KDNode()
@@ -38,7 +48,10 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 
 	// If there are no objects
 	if (objs.size() == 0)
+	{
+		node->splitAxis = 3;
 		return node;
+	}
 
 	// If only one object
 	if (objs.size() == 1)
@@ -48,6 +61,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 		node->right = new KDNode();
 		node->left->objects = std::vector<TriangleClass*>();
 		node->right->objects = std::vector<TriangleClass*>();
+		node->splitAxis = 3;
 		return node;
 	}
 
@@ -74,6 +88,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	// the objects based on that
 	int axis = node->aabbBox.GetLongestAxis();
 
+
 	for (int i = 0; i < objs.size(); i++)
 	{
 		switch (axis)
@@ -92,6 +107,16 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 				break;
 		}
 	}
+
+	// Assign the splitAxis for the current node and the position where it was
+	// split
+	node->splitAxis = axis;
+	if (axis == 0)
+		node->splitPos = midpoint.GetX();
+	else if (axis == 1)
+		node->splitPos = midpoint.GetY();
+	else if (axis == 2)
+		node->splitPos = midpoint.GetZ();
 
 	// If one side is empty, make both sides equal to stop subdivision further
 	// Since more than 50% of objects will match
@@ -128,7 +153,36 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 		node->right = new KDNode();
 		node->left->objects = std::vector<TriangleClass*>();
 		node->right->objects = std::vector<TriangleClass*>();
+		node->splitAxis = 3;
+
 	}
 
 	return node;
+}
+
+bool KDNode::isLeaf()
+{
+	if (this->splitAxis == 3)
+		return true;
+	else
+		return false;
+}
+
+bool KDNode::Traverse(RayClass ray)
+{
+	// Compute initial parametric range of ray inside kd-tree extent
+	double tmin, tmax;
+
+	// Not comparing parametric range yet.
+	if (!this->aabbBox.GetIntersection(ray))
+		return false;
+
+	#define MAX_TODO 64
+	KDToDo todo[MAX_TODO];
+	int todoPos = 0;
+
+	//Traverse KDTree nodes in order for ray
+	bool hit = false;
+
+	KDNode *nodeT = &this[0];														// ARE YOU SURE?
 }
