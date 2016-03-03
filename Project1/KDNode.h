@@ -174,7 +174,7 @@ bool KDNode::Traverse(RayClass ray)
 	double tmin, tmax;
 
 	// Not comparing parametric range yet.
-	if (!this->aabbBox.GetIntersection(ray))
+	if (!this->aabbBox.GetIntersection(ray, &tmin, &tmax))
 		return false;
 
 	#define MAX_TODO 64
