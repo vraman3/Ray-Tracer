@@ -189,6 +189,17 @@ bool KDNode::Traverse(RayClass ray)
 	while (nodeT != NULL)
 	{
 		//Bail out if we found a hit closer than the current node
-		if ()
+		if (ray.maxT < tmin) break;
+
+		if (!nodeT->isLeaf())
+		{
+			// Process kd-tree interior node
+
+			// Compute the parametric distance along ray to split
+			// plane
+
+			int axis = nodeT->splitAxis;
+			double tplane = (nodeT->splitPos - ray.GetRayOrigin()[axis]) * ray.GetRayInvDirection()
+		}
 	}
 }

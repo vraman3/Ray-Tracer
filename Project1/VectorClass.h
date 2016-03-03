@@ -25,6 +25,8 @@ public:
 	VectorClass operator*(const VectorClass&) const;
 	VectorClass operator*(const double) const;
 	VectorClass operator/(const double) const;
+	
+	double operator[](const int) const;
 
 	double Magnitude();
 	double DotProd(VectorClass );
@@ -32,6 +34,21 @@ public:
 	VectorClass Normalize();
 
 };
+
+double VectorClass::operator[](const int dimension) const
+{
+	switch (dimension)
+	{
+		case 0: return x;
+				break;
+
+		case 1: return y;
+				break;
+
+		case 2: return z;
+				break;
+	}
+}
 
 VectorClass VectorClass::operator+(const VectorClass& b) const
 {
