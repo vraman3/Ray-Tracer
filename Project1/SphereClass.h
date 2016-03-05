@@ -8,7 +8,6 @@
 #include "ColourClass.h"
 #include "ObjectClass.h"
 
-#define EPSILON 0.0001
 
 class SphereClass:public ObjectClass
 {
@@ -112,14 +111,14 @@ double SphereClass::GetIntersection(RayClass ray)
 
 		W = (-B - root) / denom;
 
-		if (W > EPSILON)
+		if (W > EPSILONVAL)
 		{
 			return W;
 		}
 
 		W = (-B + root) / denom;
 
-		if (W > EPSILON)
+		if (W > EPSILONVAL)
 		{
 			return W;
 		}

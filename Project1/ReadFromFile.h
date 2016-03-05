@@ -50,8 +50,6 @@ int ReadFromFile::GetHeight()
 
 ColourClass* ReadFromFile::ReadBMP(char* filename)
 {
-	
-	int i;
 	FILE* f = fopen(filename, "rb");
 
 	if (f == NULL)

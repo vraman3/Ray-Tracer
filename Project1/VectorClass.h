@@ -47,6 +47,9 @@ double VectorClass::operator[](const int dimension) const
 
 		case 2: return z;
 				break;
+
+		default: return NULL;
+				break;
 	}
 }
 

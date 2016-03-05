@@ -30,7 +30,7 @@ class KDNode
 		struct KDToDo
 		{
 			KDNode *node;
-			float tminTD, tmaxTD;
+			double tminTD, tmaxTD;
 		};
 };
 
@@ -46,15 +46,16 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	node->right = NULL;
 	node->aabbBox = AABBClass();
 
+	int objectsSize = objs.size();
 	// If there are no objects
-	if (objs.size() == 0)
+	if (objectsSize == 0)
 	{
 		node->splitAxis = 3;
 		return node;
 	}
 
 	// If only one object
-	if (objs.size() == 1)
+	if (objectsSize == 1)
 	{
 		node->aabbBox = objs[0]->GetBoundingBox();
 		node->left  = new KDNode();
@@ -69,14 +70,14 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	// by getting bounding box for one
 	node->aabbBox = objs[0]->GetBoundingBox();
 	// and then expand for all the objects
-	for (int i = 1; i < objs.size(); i++)
+	for (int i = 1; i < objectsSize; i++)
 	{
 		node->aabbBox.Expand(objs[i]->GetBoundingBox());
 	}
 
 	// Get the sum of midpoints of all objects (For now do this for triangles ONLY)
 	VectorClass midpoint = VectorClass(0, 0, 0);
-	for (int i = 0; i < objs.size(); i++)
+	for (int i = 0; i < objectsSize; i++)
 	{
 		midpoint = midpoint + (objs[i]->GetMidpoint() * (1.0 / objs.size()));
 	}
@@ -89,7 +90,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	int axis = node->aabbBox.GetLongestAxis();
 
 
-	for (int i = 0; i < objs.size(); i++)
+	for (int i = 0; i < objectsSize; i++)
 	{
 		switch (axis)
 		{	
@@ -120,20 +121,23 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 
 	// If one side is empty, make both sides equal to stop subdivision further
 	// Since more than 50% of objects will match
-	if (left_objs.size() == 0 && right_objs.size() > 0)
+	int leftObjSize  = (int)left_objs.size();
+	int rightObjSize = (int)right_objs.size();
+
+	if (leftObjSize == 0 && rightObjSize > 0)
 	{
 		left_objs = right_objs;
 	}
-	if (right_objs.size() == 0 && left_objs.size() > 0)
+	if (rightObjSize == 0 && leftObjSize > 0)
 	{
 		right_objs = left_objs;
 	}
 
 	// Check how many objects match
 	int matches = 0;
-	for (int i = 0; i < left_objs.size(); i++)
+	for (int i = 0; i < leftObjSize; i++)
 	{
-		for (int j = 0; j < right_objs.size(); j++)
+		for (int j = 0; j < rightObjSize; j++)
 		{
 			if (left_objs[i] == right_objs[i])
 				matches++;
@@ -142,7 +146,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 
 	// If more than 50% of objects match, stop subdivision
 	// else subdivide further
-	if ((float)matches / left_objs.size() < 0.5 && (float)matches / right_objs.size() < 0.5)
+	if ((float)matches / leftObjSize < 0.5 && (float)matches / rightObjSize < 0.5)
 	{
 		node->left  = build(left_objs, depth + 1);
 		node->right = build(right_objs, depth + 1);

@@ -8,7 +8,7 @@
 #include "ColourClass.h"
 #include "ObjectClass.h"
 
-#define EPSILON 0.00001
+#define EPSILONPLANE 0.00001
 
 class PlaneClass : public ObjectClass
 {
@@ -90,7 +90,7 @@ double PlaneClass::GetIntersection(RayClass ray)
 	//double d = -(normal.DotProd(A));
 	//double denom = ray.GetRayDirection().DotProd(normal);
 	//double t = 0;
-	//if (denom > EPSILON)
+	//if (denom > EPSILONPLANE)
 	//{
 	//	double num = -normal.DotProd(ray.GetRayOrigin() + normal*d);
 	//	//double num = ray.GetRayOrigin().DotProd(normal * d);
@@ -104,7 +104,7 @@ double PlaneClass::GetIntersection(RayClass ray)
 
 	double denom = ray.GetRayDirection().DotProd(normal);
 	//std::cout << ray.GetRayDirection().GetX() << " ";
-	if (denom > EPSILON)
+	if (denom > EPSILONPLANE)
 	{
 		VectorClass vec = A - ray.GetRayOrigin();
 

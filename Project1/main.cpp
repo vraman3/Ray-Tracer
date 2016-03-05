@@ -251,7 +251,8 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 	ColourClass tmp = ColourClass(0, 0, 0);
 
 	int omegaCounter = 0;
-	for (int objNo = 0; objNo < objects.size(); objNo++)
+	int objectsSize = (int)objects.size();
+	for (int objNo = 0; objNo < objectsSize ; objNo++)
 	{
 		omega = objects[objNo]->GetIntersection(ray);
 		if (omega == -1)
@@ -281,7 +282,8 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 
 		VectorClass V = (ray.GetRayOrigin() - pi).Normalize();
 		double shade = 1.0;
-		for (int g = 0; g < lights.size(); g++)
+		int lightsSize = (int)lights.size();
+		for (int g = 0; g < lightsSize; g++)
 		{
 			double shadowOmega = 0.0;
 			VectorClass shadowRayDirection = (*lights[g] - pi).Normalize();
@@ -289,7 +291,7 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 			RayClass shadowRay(pi, shadowRayDirection);
 
 			noShadow = true;
-			for (int shadowObj = 0; shadowObj < objects.size(); shadowObj++)
+			for (int shadowObj = 0; shadowObj < objectsSize; shadowObj++)
 			{
 				shadowOmega = objects[shadowObj]->GetIntersection(shadowRay);
 				double objkt = illuminations[shadowObj]->Getkt();

@@ -10,7 +10,6 @@
 #include "ColourClass.h"
 #include "AABBClass.h"
 
-#define EPSILON 0.00001
 
 class TriangleClass : public ObjectClass
 {
@@ -125,7 +124,7 @@ double TriangleClass::GetIntersection(RayClass ray)
 	VectorClass P = ray.GetRayDirection().CrossProd(e2);
 	det = e1.DotProd(P);
 
-	if (det < EPSILON && det > -EPSILON) return -1;
+	if (det < EPSILONVAL && det > -EPSILONVAL) return -1;
 	inv_det = 1.0 / det;
 
 	VectorClass T = (ray.GetRayOrigin() - A);
@@ -141,7 +140,7 @@ double TriangleClass::GetIntersection(RayClass ray)
 	if (v < 0.0 || u + v > 1.0)  return -1;
 
 	double t = e2.DotProd(Q) * inv_det;
-	if (t > EPSILON)
+	if (t > EPSILONVAL)
 	{
 		return t; 
 	}
