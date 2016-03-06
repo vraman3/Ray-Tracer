@@ -9,7 +9,7 @@
 #include "RayClass.h"
 #include "ColourClass.h"
 #include "AABBClass.h"
-
+#include "IlluminationClass.h"
 
 class TriangleClass : public ObjectClass
 {
@@ -20,12 +20,14 @@ class TriangleClass : public ObjectClass
 		double		D, D1, D2, D3;
 		double		diffuse, specular, ambient;
 		ColourClass colour;
+		IlluminationClass illum;
 		double GetArea(VectorClass, VectorClass, VectorClass);
 		int testcount;
 
 	public:
 		TriangleClass();
 		TriangleClass(VectorClass, VectorClass, VectorClass, ColourClass);
+		TriangleClass(VectorClass, VectorClass, VectorClass, ColourClass, IlluminationClass);
 		VectorClass GetNormal(VectorClass);
 		
 		double GetDiffuse();
@@ -60,6 +62,19 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	diffuse = 0.4;
 	specular = 0.08;
 	ambient = 0.3;
+}
+
+TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, IlluminationClass inputIllum)
+{
+	A = vert1;
+	B = vert2;
+	C = vert3;
+	normal = (vert3 - vert1).CrossProd(vert2 - vert1);
+	colour = col;
+	diffuse = 0.4;
+	specular = 0.08;
+	ambient = 0.3;
+	illum = inputIllum;
 }
 
 VectorClass TriangleClass::GetNormal(VectorClass P)

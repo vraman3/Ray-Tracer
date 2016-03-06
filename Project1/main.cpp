@@ -28,6 +28,9 @@
 ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vector<VectorClass*>,
 	std::vector<IlluminationClass*>, ColourClass, ColourClass, int);
 
+ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorClass*>,
+	std::vector<IlluminationClass*>, ColourClass, ColourClass, int);
+
 int main(int argc, char *argv[])
 {
 	int whichTR, maxDepth;
