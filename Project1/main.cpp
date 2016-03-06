@@ -334,7 +334,7 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 				tmp = tmp + TraceRay(refRay, depth + 1, incomingni, objects, lights, illuminations, background, pointCol, maxDepth) * reflectKr;
 			}
 
-			if (transmiKt > 0.0)
+			if (transmiKt > 0.0) 
 			{
 				VectorClass I = ray.GetRayDirection().Normalize()*(-1);
 				//VectorClass I = pi - VectorClass(2.5, 4, 0);
