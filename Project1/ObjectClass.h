@@ -10,6 +10,8 @@
 
 class ObjectClass
 {
+	private:
+
 	public:
 	ObjectClass(){}
 

@@ -172,7 +172,7 @@ int main(int argc, char *argv[])
 			VectorClass direction = (val - originalCamera.GetPosition()).Normalize();
 			RayClass ray(originalCamera.GetPosition(), direction);
 
-			ColourClass debugTmpRemoveLater = TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, position);
+			ColourClass debugTmpRemoveLater = TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
 			tmp = tmp + debugTmpRemoveLater;
 
 			/*//Multisampling using 4 points for a pixel
@@ -302,14 +302,14 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 					//if (shadowOmega <= shadowRayDirection.Magnitude())
 					//{
 					noShadow = false;
-					//break;
+					//break;.......
 					if (objkt > 0.0)
 						shade += 1 - objkt;
 					else
 						shade += 1;
 					break;
 					//}
-				}
+				}  
 			}
 			//if (noShadow)
 			//{
