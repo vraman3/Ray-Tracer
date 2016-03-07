@@ -104,7 +104,6 @@ int main(int argc, char *argv[])
 	KDNode kdtree = KDNode();
 	
 	kdtree = *kdtree.build(bunnyObjects, 10);
-	std::exit(0);
 	//std::exit(0);
 
 	//std::cout << "aa";
@@ -314,7 +313,7 @@ int main(int argc, char *argv[])
 			
 			position++;
 		}
-		std::cout << " eol " << std::endl;
+		//std::cout << " eol " << std::endl;
 	}
 	savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 
