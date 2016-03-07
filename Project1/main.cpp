@@ -31,6 +31,12 @@ ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vect
 ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorClass*>,
 	std::vector<IlluminationClass*>, ColourClass, ColourClass, int);
 
+struct returnIntersection
+{
+	TriangleClass *tri;
+	double *hit;
+	bool *flag;
+};
 int main(int argc, char *argv[])
 {
 	int whichTR, maxDepth;
@@ -77,9 +83,9 @@ int main(int argc, char *argv[])
 	
 	std::vector<TriangleClass*> testObjects;
 	testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));
 	testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
+		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));
 
 	KDNode kdtree = KDNode();
 
@@ -244,6 +250,171 @@ int main(int argc, char *argv[])
 	//delete testwrite;
 	return 0;
 }
+
+ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree, std::vector<VectorClass*> lights,ColourClass background, ColourClass pointCol, int maxDepth)
+{
+	double currentLowestVal = 1000000;
+	double omega = 0.0;
+	int closest = -1;
+	ColourClass tmp = ColourClass(0, 0, 0);
+
+	returnIntersection isect;
+
+	int omegaCounter = 0;
+	
+	/*int objectsSize = (int)objects.size();
+	for (int objNo = 0; objNo < objectsSize; objNo++)
+	{
+		omega = objects[objNo]->GetIntersection(ray);
+		if (omega == -1)
+		{
+			continue;
+		}
+		else
+		{
+			if (omega < currentLowestVal)
+			{
+				closest = objNo;
+				currentLowestVal = omega;
+			}
+		}
+	}*/
+
+	kdtree.Traverse(ray, isect);
+	if (hit)
+	{
+		omega = 
+	}
+	if (closest == -1)
+	{
+		//if (depth != 0)
+		//std::cout << depth << std::endl;
+		return background;
+	}
+	else
+	{
+		bool noShadow = true;
+		VectorClass pi = ray.GetRayOrigin() + ray.GetRayDirection() * currentLowestVal;
+		VectorClass N = (objects[closest]->GetNormal(pi)).Normalize();
+
+		VectorClass V = (ray.GetRayOrigin() - pi).Normalize();
+		double shade = 1.0;
+		int lightsSize = (int)lights.size();
+		for (int g = 0; g < lightsSize; g++)
+		{
+			double shadowOmega = 0.0;
+			VectorClass shadowRayDirection = (*lights[g] - pi).Normalize();
+
+			RayClass shadowRay(pi, shadowRayDirection);
+
+			noShadow = true;
+			for (int shadowObj = 0; shadowObj < objectsSize; shadowObj++)
+			{
+				shadowOmega = objects[shadowObj]->GetIntersection(shadowRay);
+				double objkt = illuminations[shadowObj]->Getkt();
+				//std::cout << shadowOmega << " ";
+				if (shadowOmega > 0.00001)
+					//if (false)					// Use this to disable shadows. Comment the "if" condition above.
+				{
+					//if (shadowOmega <= shadowRayDirection.Magnitude())
+					//{
+					noShadow = false;
+					//break;.......
+					if (objkt > 0.0)
+						shade += 1 - objkt;
+					else
+						shade += 1;
+					break;
+					//}
+				}
+			}
+			//if (noShadow)
+			//{
+			VectorClass L = ((*lights[g]) - pi).Normalize();
+
+			tmp = tmp + illuminations[closest]->GetIllumination(pi, ray, N, L, V, (*objects[closest]).GetColour(), pointCol, maxDepth) / shade;
+
+			//}
+		}
+
+		if (depth < maxDepth)
+		{
+			double reflectKr = illuminations[closest]->Getkr();
+			double transmiKt = illuminations[closest]->Getkt();
+
+			if (reflectKr > 0.0)
+			{
+				VectorClass refRayDirection = illuminations[closest]->Reflect(ray.GetRayDirection(), N);
+
+				RayClass refRay = RayClass(pi, refRayDirection);
+
+				tmp = tmp + TraceRay(refRay, depth + 1, incomingni, objects, lights, illuminations, background, pointCol, maxDepth) * reflectKr;
+			}
+
+			if (transmiKt > 0.0)
+			{
+				VectorClass I = ray.GetRayDirection().Normalize()*(-1);
+				//VectorClass I = pi - VectorClass(2.5, 4, 0);
+				double outgoingnt = illuminations[closest]->Getn();
+
+				VectorClass transRayDirection;
+				double niToBePassed;
+
+				//
+				//	FIXED.... FORGOT TO MULTIPLY DIRECTION(I) BY (-1)
+				if (incomingni == outgoingnt)
+				{
+					transRayDirection = I*(-1);
+					niToBePassed = outgoingnt;
+
+					//std::cout << "nobending " << depth << std::endl;
+				}
+				/*if (true)*/else
+				{
+					bool flag = true;
+					double dotNI = N.DotProd(I);
+					double nr = incomingni / outgoingnt;
+
+					if (dotNI < 0)
+					{
+						N = N * (-1);
+						dotNI = -dotNI;
+						nr = incomingni;
+						flag = false;
+					}
+
+					double rootTerm = 1 - (nr*nr)*(1 - (dotNI)*(dotNI));
+
+					if (rootTerm >= 0)
+					{
+						//std::cout << "Bending" << std::endl;
+						double nrdotNI = nr*(dotNI);
+
+						double tempTerm = nrdotNI - sqrt(rootTerm);
+
+						transRayDirection = N * tempTerm - I * nr;
+
+						if (flag)
+							niToBePassed = 1.0;
+						else
+							niToBePassed = outgoingnt;
+					}
+					else
+					{
+						//std::cout << "TotalIntReflection" << std::endl;
+						transRayDirection = illuminations[closest]->Reflect(I*(-1), N);
+						niToBePassed = incomingni;
+					}
+				}
+
+				RayClass transRay = RayClass(pi, transRayDirection);
+				tmp = tmp + TraceRay(transRay, depth + 1, niToBePassed, objects, lights, illuminations, background, pointCol, maxDepth) * transmiKt;
+			}
+		}
+		return tmp;
+	}
+}
+
 
 ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<ObjectClass*> objects, std::vector<VectorClass*> lights,
 	std::vector<IlluminationClass*> illuminations, ColourClass background, ColourClass pointCol, int maxDepth)

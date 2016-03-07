@@ -24,8 +24,8 @@ class KDNode
 
 		KDNode();
 		bool isLeaf();
-		bool Traverse(RayClass ray);
-		KDNode* build(std::vector<TriangleClass*>& objs, int depth);
+		bool Traverse(RayClass, returnIntersection);
+		KDNode* build(std::vector<TriangleClass*>&, int);
 
 		struct KDToDo
 		{
@@ -172,7 +172,7 @@ bool KDNode::isLeaf()
 		return false;
 }
 
-bool KDNode::Traverse(RayClass ray)
+bool KDNode::Traverse(RayClass ray, returnIntersection isect)
 {
 	//
 	// Compute initial parametric range of ray inside kd-tree extent
@@ -180,7 +180,7 @@ bool KDNode::Traverse(RayClass ray)
 	double tmin, tmax;
 
 	// Not comparing parametric range yet.
-	if (!this->aabbBox.GetIntersection(ray, &tmin, &tmax))
+	if (this->aabbBox.GetIntersection(ray, &tmin, &tmax) == -1)
 		return false;
 
 	//
@@ -193,6 +193,9 @@ bool KDNode::Traverse(RayClass ray)
 	#define MAX_TODO 64
 	KDToDo todo[MAX_TODO];
 	int todoPos = 0;
+
+	// Add pointer to object that has the least intersection
+
 
 	//
 	// End of preparing to traverse kd-tree for ray
@@ -302,8 +305,10 @@ bool KDNode::Traverse(RayClass ray)
 				//
 				// Check one primitive inside leaf node
 				//
-				if (prim->GetIntersection(ray))
+				if (prim->GetIntersection(ray) != -1)
+				{
 					hit = true;
+				}
 				//
 				// End of checking one primitive inside leaf node
 				//
