@@ -24,6 +24,7 @@
 #include "ReadFromFile.h"
 #include "KDNode.h"
 #include "IntersectionInfo.h"
+#include "ObjLoaderClass.h"
 //typedef techsoft::matrix<double> Matrix;
 
 ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vector<VectorClass*>,
@@ -83,10 +84,31 @@ int main(int argc, char *argv[])
 	testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
 		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));
 
+
+	ObjLoaderClass objFile = ObjLoaderClass();
+
+	objFile.readObjFile("bunny.obj");
+
+	int noOfFaces = objFile.faces.size();
+
+	std::vector<TriangleClass*> bunnyObjects;
+
+	for (int i = 0; i < noOfFaces/3; i++)
+	{
+		bunnyObjects.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
+			objFile.opVertices[objFile.faces[i + 1] - 1],
+			objFile.opVertices[objFile.faces[i + 2] - 1],
+			ColourClass(0.0, 1.0, 0.0),
+			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	}
+	
 	KDNode kdtree = KDNode();
+	
+	kdtree = *kdtree.build(bunnyObjects, 10);
+	std::exit(0);
+	//std::exit(0);
 
-	kdtree = *kdtree.build(testObjects, 4);
-
+	//std::cout << "aa";
 	/*
 	#define MAX_TODO 64
 	KDToDo todo[MAX_TODO];
