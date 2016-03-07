@@ -186,7 +186,6 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 		isect.flag = false;
 		return isect;
 	}
-
 	//
 	// End of computing initial parametric range
 	//
@@ -212,7 +211,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 
 
 	isect.flag = false;																// Initialize isect flag to false for no intersection
-	KDNode *nodeT = &this[0];														// ARE YOU SURE?
+	KDNode *nodeT = this;														// ARE YOU SURE?
 
 	// while loop for traversing all required nodes in kd-tree
 	while (nodeT != NULL)
@@ -224,7 +223,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 		//
 		// End of bail out if we find a closer hit
 		//
-
+		std::cout << "Is nodeT NULL?";
 		if (!nodeT->isLeaf())
 		{
 			//
@@ -303,7 +302,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 
 			// In this program, it will be only triangles as primitives yet.
 			int noOfPrimitives = nodeT->objects.size();
-
+			std::cout << noOfPrimitives;
 			for (int i = 0; i < noOfPrimitives; i++)
 			{
 				TriangleClass *prim = nodeT->objects[i];
@@ -315,7 +314,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 				if (ans != -1)
 				{
 					// Valid intersection exists between object and ray
-
+					std::cout << ans;
 					// Check if another intersection was already found
 					if (isect.flag == true)
 					{

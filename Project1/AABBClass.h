@@ -110,7 +110,13 @@ double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
 	}
 
 	if ((tmin > tymax) || (tymin > tmax))
+	{
+		if ((tymin > tmax))
+		{
+			std::cout << "test ";
+		}
 		return -1;
+	}
 
 	if (tymin > tmin)
 		tmin = tymin;
@@ -130,7 +136,10 @@ double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
 	}
 
 	if ((tmin > tzmax) || (tzmin > tmax))
+	{
+		std::cout << "bbox returning -1 later";
 		return -1;
+	}
 
 	if (tzmin > tmin)
 		tmin = tzmin;
@@ -142,6 +151,7 @@ double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
 	if (hitt0) *hitt0 = tmin;
 	if (hitt1) *hitt1 = tmax;
 
+	std::cout << "bbox tmin" << tmin;
 	return tmin;
 }
 
