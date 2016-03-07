@@ -30,7 +30,7 @@ ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vect
 	std::vector<IlluminationClass*>, ColourClass, ColourClass, int);
 
 ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorClass*>,
-	std::vector<IlluminationClass*>, ColourClass, ColourClass, int);
+	ColourClass, ColourClass, int);
 
 
 int main(int argc, char *argv[])
@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 			VectorClass direction = (val - originalCamera.GetPosition()).Normalize();
 			RayClass ray(originalCamera.GetPosition(), direction);
 
-			ColourClass debugTmpRemoveLater = TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
+			ColourClass debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
 			tmp = tmp + debugTmpRemoveLater;
 
 			/*//Multisampling using 4 points for a pixel
@@ -275,9 +275,12 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 			}
 		}
 	}*/
+	isect.flag = false;
+	isect.hit = -1;
+	isect.tri = NULL;
 
 	isect = kdtree.Traverse(ray, isect);
-	if (isect.flag)
+	if (!isect.flag)
 	{
 		return background;
 	}
@@ -298,63 +301,50 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 			RayClass shadowRay(pi, shadowRayDirection);
 
 			noShadow = true;
+
 			intersectionInfo shadowIsect;
+			shadowIsect.flag = false;
+			shadowIsect.hit = -1;
+			shadowIsect.tri = NULL;
 
 			shadowIsect = kdtree.Traverse(shadowRay, shadowIsect);
+			double shadowObjkt = shadowIsect.tri->illum->Getkt();
 
 			if (shadowIsect.flag)
 			{
-				if (shadowIsect.tri->)
+				if (shadowObjkt > 0.0)
+					shade += 1 - shadowObjkt;
+				else
+					shade += 1;
+				break;
 			}
 			
-			//for (int shadowObj = 0; shadowObj < objectsSize; shadowObj++)
-			//{
-			//	shadowOmega = objects[shadowObj]->GetIntersection(shadowRay);
-			//	double objkt = illuminations[shadowObj]->Getkt();
-			//	//std::cout << shadowOmega << " ";
-			//	if (shadowOmega > 0.00001)
-			//		//if (false)					// Use this to disable shadows. Comment the "if" condition above.
-			//	{
-			//		//if (shadowOmega <= shadowRayDirection.Magnitude())
-			//		//{
-			//		noShadow = false;
-			//		//break;.......
-			//		if (objkt > 0.0)
-			//			shade += 1 - objkt;
-			//		else
-			//			shade += 1;
-			//		break;
-			//		//}
-			//	}
-			//}
-			//if (noShadow)
-			//{
 			VectorClass L = ((*lights[g]) - pi).Normalize();
 
-			tmp = tmp + illuminations[closest]->GetIllumination(pi, ray, N, L, V, (*objects[closest]).GetColour(), pointCol, maxDepth) / shade;
+			tmp = tmp + isect.tri->illum->GetIllumination(pi, ray, N, L, V, isect.tri->GetColour(), pointCol, maxDepth) / shade;
 
 			//}
 		}
 
 		if (depth < maxDepth)
 		{
-			double reflectKr = illuminations[closest]->Getkr();
-			double transmiKt = illuminations[closest]->Getkt();
+			double reflectKr = isect.tri->illum->Getkr();
+			double transmiKt = isect.tri->illum->Getkt();
 
 			if (reflectKr > 0.0)
 			{
-				VectorClass refRayDirection = illuminations[closest]->Reflect(ray.GetRayDirection(), N);
+				VectorClass refRayDirection = isect.tri->illum->Reflect(ray.GetRayDirection(), N);
 
 				RayClass refRay = RayClass(pi, refRayDirection);
 
-				tmp = tmp + TraceRay(refRay, depth + 1, incomingni, objects, lights, illuminations, background, pointCol, maxDepth) * reflectKr;
+				tmp = tmp + TraceRayKD(refRay, depth + 1, incomingni, kdtree, lights, background, pointCol, maxDepth) * reflectKr;
 			}
 
 			if (transmiKt > 0.0)
 			{
 				VectorClass I = ray.GetRayDirection().Normalize()*(-1);
 				//VectorClass I = pi - VectorClass(2.5, 4, 0);
-				double outgoingnt = illuminations[closest]->Getn();
+				double outgoingnt = isect.tri->illum->Getn();
 
 				VectorClass transRayDirection;
 				double niToBePassed;
@@ -401,13 +391,13 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 					else
 					{
 						//std::cout << "TotalIntReflection" << std::endl;
-						transRayDirection = illuminations[closest]->Reflect(I*(-1), N);
+						transRayDirection = isect.tri->illum->Reflect(I*(-1), N);
 						niToBePassed = incomingni;
 					}
 				}
 
 				RayClass transRay = RayClass(pi, transRayDirection);
-				tmp = tmp + TraceRay(transRay, depth + 1, niToBePassed, objects, lights, illuminations, background, pointCol, maxDepth) * transmiKt;
+				tmp = tmp + TraceRayKD(transRay, depth + 1, niToBePassed, kdtree, lights, background, pointCol, maxDepth) * transmiKt;
 			}
 		}
 		return tmp;
