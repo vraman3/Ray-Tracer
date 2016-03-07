@@ -101,11 +101,9 @@ double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
 		t1 = tFar  < t1 ? tFar  : t1;
 		if (t0 > t1)
 		{
-			//std::cout << i << " aabb ";
 			return -1;
 		}
 	}
-
 	if (hitt0) *hitt0 = t0;
 	if (hitt1) *hitt1 = t1;
 	//std::cout << " bbox ";

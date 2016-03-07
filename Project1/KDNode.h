@@ -271,11 +271,11 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 			// Advance to next child node, possibly enqueue other child
 			//
 
-			if (tplane > tmax || tplane <= 0)
+			/*if (tplane > tmax || tplane <= 0)
 				nodeT = firstChild;
 			else if (tplane < tmin)
 				nodeT = secondChild;
-			else
+			else*/
 			{
 				//
 				// Enqueue secondChild in todo list
