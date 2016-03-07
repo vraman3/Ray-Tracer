@@ -23,6 +23,7 @@
 #include "SaveToFIle.h"
 #include "ReadFromFile.h"
 #include "KDNode.h"
+#include "IntersectionInfo.h"
 //typedef techsoft::matrix<double> Matrix;
 
 ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vector<VectorClass*>,
@@ -31,12 +32,7 @@ ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vect
 ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorClass*>,
 	std::vector<IlluminationClass*>, ColourClass, ColourClass, int);
 
-struct returnIntersection
-{
-	TriangleClass *tri;
-	double *hit;
-	bool *flag;
-};
+
 int main(int argc, char *argv[])
 {
 	int whichTR, maxDepth;
@@ -253,14 +249,14 @@ int main(int argc, char *argv[])
 
 ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree, std::vector<VectorClass*> lights,ColourClass background, ColourClass pointCol, int maxDepth)
 {
-	double currentLowestVal = 1000000;
+	//double currentLowestVal = 1000000;
 	double omega = 0.0;
 	int closest = -1;
 	ColourClass tmp = ColourClass(0, 0, 0);
 
-	returnIntersection isect;
+	intersectionInfo isect;
 
-	int omegaCounter = 0;
+	//int omegaCounter = 0;
 	
 	/*int objectsSize = (int)objects.size();
 	for (int objNo = 0; objNo < objectsSize; objNo++)
@@ -280,22 +276,16 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 		}
 	}*/
 
-	kdtree.Traverse(ray, isect);
-	if (hit)
+	isect = kdtree.Traverse(ray, isect);
+	if (isect.flag)
 	{
-		omega = 
-	}
-	if (closest == -1)
-	{
-		//if (depth != 0)
-		//std::cout << depth << std::endl;
 		return background;
 	}
 	else
 	{
 		bool noShadow = true;
-		VectorClass pi = ray.GetRayOrigin() + ray.GetRayDirection() * currentLowestVal;
-		VectorClass N = (objects[closest]->GetNormal(pi)).Normalize();
+		VectorClass pi = ray.GetRayOrigin() + ray.GetRayDirection() * isect.hit;
+		VectorClass N = (isect.tri->GetNormal(pi)).Normalize();
 
 		VectorClass V = (ray.GetRayOrigin() - pi).Normalize();
 		double shade = 1.0;
@@ -308,26 +298,35 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 			RayClass shadowRay(pi, shadowRayDirection);
 
 			noShadow = true;
-			for (int shadowObj = 0; shadowObj < objectsSize; shadowObj++)
+			intersectionInfo shadowIsect;
+
+			shadowIsect = kdtree.Traverse(shadowRay, shadowIsect);
+
+			if (shadowIsect.flag)
 			{
-				shadowOmega = objects[shadowObj]->GetIntersection(shadowRay);
-				double objkt = illuminations[shadowObj]->Getkt();
-				//std::cout << shadowOmega << " ";
-				if (shadowOmega > 0.00001)
-					//if (false)					// Use this to disable shadows. Comment the "if" condition above.
-				{
-					//if (shadowOmega <= shadowRayDirection.Magnitude())
-					//{
-					noShadow = false;
-					//break;.......
-					if (objkt > 0.0)
-						shade += 1 - objkt;
-					else
-						shade += 1;
-					break;
-					//}
-				}
+				if (shadowIsect.tri->)
 			}
+			
+			//for (int shadowObj = 0; shadowObj < objectsSize; shadowObj++)
+			//{
+			//	shadowOmega = objects[shadowObj]->GetIntersection(shadowRay);
+			//	double objkt = illuminations[shadowObj]->Getkt();
+			//	//std::cout << shadowOmega << " ";
+			//	if (shadowOmega > 0.00001)
+			//		//if (false)					// Use this to disable shadows. Comment the "if" condition above.
+			//	{
+			//		//if (shadowOmega <= shadowRayDirection.Magnitude())
+			//		//{
+			//		noShadow = false;
+			//		//break;.......
+			//		if (objkt > 0.0)
+			//			shade += 1 - objkt;
+			//		else
+			//			shade += 1;
+			//		break;
+			//		//}
+			//	}
+			//}
 			//if (noShadow)
 			//{
 			VectorClass L = ((*lights[g]) - pi).Normalize();

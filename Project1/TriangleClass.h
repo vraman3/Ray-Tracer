@@ -20,7 +20,6 @@ class TriangleClass : public ObjectClass
 		double		D, D1, D2, D3;
 		double		diffuse, specular, ambient;
 		ColourClass colour;
-		IlluminationClass *illum;
 		double GetArea(VectorClass, VectorClass, VectorClass);
 		int testcount;
 
@@ -28,6 +27,7 @@ class TriangleClass : public ObjectClass
 		TriangleClass();
 		TriangleClass(VectorClass, VectorClass, VectorClass, ColourClass);
 		TriangleClass(VectorClass, VectorClass, VectorClass, ColourClass, IlluminationClass*);
+		IlluminationClass *illum;
 		VectorClass GetNormal(VectorClass);
 		
 		double GetDiffuse();

@@ -10,6 +10,7 @@
 #include "AABBClass.h"
 #include "TriangleClass.h"
 #include <cmath>
+#include "IntersectionInfo.h"
 
 class KDNode
 {
@@ -24,7 +25,7 @@ class KDNode
 
 		KDNode();
 		bool isLeaf();
-		bool Traverse(RayClass, returnIntersection);
+		intersectionInfo Traverse(RayClass, intersectionInfo);
 		KDNode* build(std::vector<TriangleClass*>&, int);
 
 		struct KDToDo
@@ -172,7 +173,7 @@ bool KDNode::isLeaf()
 		return false;
 }
 
-bool KDNode::Traverse(RayClass ray, returnIntersection isect)
+intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 {
 	//
 	// Compute initial parametric range of ray inside kd-tree extent
@@ -181,7 +182,10 @@ bool KDNode::Traverse(RayClass ray, returnIntersection isect)
 
 	// Not comparing parametric range yet.
 	if (this->aabbBox.GetIntersection(ray, &tmin, &tmax) == -1)
-		return false;
+	{
+		isect.flag = false;
+		return isect;
+	}
 
 	//
 	// End of computing initial parametric range
@@ -204,8 +208,10 @@ bool KDNode::Traverse(RayClass ray, returnIntersection isect)
 	//
 	// Traverse KDTree nodes in order for ray
 	//
-	bool hit = false;
+	//bool hit = false;
 
+
+	isect.flag = false;																// Initialize isect flag to false for no intersection
 	KDNode *nodeT = &this[0];														// ARE YOU SURE?
 
 	// while loop for traversing all required nodes in kd-tree
@@ -305,9 +311,30 @@ bool KDNode::Traverse(RayClass ray, returnIntersection isect)
 				//
 				// Check one primitive inside leaf node
 				//
-				if (prim->GetIntersection(ray) != -1)
+				double ans = prim->GetIntersection(ray);
+				if (ans != -1)
 				{
-					hit = true;
+					// Valid intersection exists between object and ray
+
+					// Check if another intersection was already found
+					if (isect.flag == true)
+					{
+						// Keep information for object with smaller intersection
+						// value, i.e. the closer object
+						if (ans < isect.hit)
+						{
+							isect.tri = prim;
+							isect.hit = ans;
+							isect.flag = true;
+						}
+					}
+					// First object to intersect with the ray
+					else
+					{
+						isect.tri = prim;
+						isect.hit = ans;
+						isect.flag = true;
+					}
 				}
 				//
 				// End of checking one primitive inside leaf node
@@ -334,7 +361,7 @@ bool KDNode::Traverse(RayClass ray, returnIntersection isect)
 			//
 		}
 	}
-	return hit;
+	return isect;
 
 	//
 	// End of traversing kd-tree in order for ray
