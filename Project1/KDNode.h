@@ -40,7 +40,9 @@ KDNode::KDNode()
 
 KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 {
-	KDNode* node = this;
+	KDNode* node = new KDNode();
+	
+	*node = *this;
 	
 	node->objects = objs;
 	node->left  = NULL;
@@ -163,10 +165,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 		node->left->objects = std::vector<TriangleClass*>();
 		node->right->objects = std::vector<TriangleClass*>();
 		node->splitAxis = 3;
-
-	}
-
-	
+	}	
 	return node;
 }
 

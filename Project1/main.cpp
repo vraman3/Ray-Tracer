@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 
 	KDNode kdtree = KDNode();
 
-	kdtree.build(testObjects, 4);
+	kdtree = *kdtree.build(testObjects, 4);
 	KDNode *tempNode = &kdtree;
 
 	/*
@@ -247,15 +247,16 @@ int main(int argc, char *argv[])
 			{
 				debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
 			}*/
-			debugTmpRemoveLater = TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
+			debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
+			//TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
 			double rt = debugTmpRemoveLater.GetRed();
 			double gt = debugTmpRemoveLater.GetGreen();
 			double bt = debugTmpRemoveLater.GetBlue();
-			//if (rt != 0.3)
-			//{
-			//	//std::cout << rt << "/" << gt << "/" << bt << " ";
-			//	std::cout << " " << i << " "<< j << " -- ";
-			//}
+			if (rt != 0.3)
+			{
+				//std::cout << rt << "/" << gt << "/" << bt << " ";
+				std::cout << " " << i << " "<< j << " -- ";
+			}
 			tmp = tmp + debugTmpRemoveLater;
 
 			/*//Multisampling using 4 points for a pixel
@@ -292,7 +293,7 @@ int main(int argc, char *argv[])
 			
 			position++;
 		}
-		//std::cout << std::endl;
+		std::cout << " eol " << std::endl;
 	}
 	savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 
