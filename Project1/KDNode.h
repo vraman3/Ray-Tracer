@@ -40,8 +40,8 @@ KDNode::KDNode()
 
 KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 {
-	KDNode* node = new KDNode();
-
+	KDNode* node = this;
+	
 	node->objects = objs;
 	node->left  = NULL;
 	node->right = NULL;
@@ -73,6 +73,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	// and then expand for all the objects
 	for (int i = 1; i < objectsSize; i++)
 	{
+		//std::cout << objectsSize << " testExpand ";
 		node->aabbBox.Expand(objs[i]->GetBoundingBox());
 	}
 
@@ -96,15 +97,15 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 		switch (axis)
 		{	
 			// X Axis
-			case 0:
+		case 0: //std::cout << " X ";
 				midpoint.GetX() >= objs[i]->GetMidpoint().GetX() ? right_objs.push_back(objs[i]) : left_objs.push_back(objs[i]);
 				break;
 			// Y Axis
-			case 1:
+		case 1://std::cout << " Y ";
 				midpoint.GetY() >= objs[i]->GetMidpoint().GetY() ? right_objs.push_back(objs[i]) : left_objs.push_back(objs[i]);
 				break;
 			// Z Axis
-			case 2:
+		case 2://std::cout << " Z ";
 				midpoint.GetZ() >= objs[i]->GetMidpoint().GetZ() ? right_objs.push_back(objs[i]) : left_objs.push_back(objs[i]);
 				break;
 		}
@@ -127,10 +128,12 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 
 	if (leftObjSize == 0 && rightObjSize > 0)
 	{
+		//std::cout << " l = r ";
 		left_objs = right_objs;
 	}
 	if (rightObjSize == 0 && leftObjSize > 0)
 	{
+		//std::cout << " r = l ";
 		right_objs = left_objs;
 	}
 
@@ -144,7 +147,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 				matches++;
 		}
 	}
-
+	//std::cout << matches;
 	// If more than 50% of objects match, stop subdivision
 	// else subdivide further
 	if ((float)matches / leftObjSize < 0.5 && (float)matches / rightObjSize < 0.5)
@@ -154,6 +157,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	}
 	else
 	{
+		//std::cout << " hmmm ";
 		node->left  = new KDNode();
 		node->right = new KDNode();
 		node->left->objects = std::vector<TriangleClass*>();
@@ -162,6 +166,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 
 	}
 
+	
 	return node;
 }
 
@@ -223,7 +228,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 		//
 		// End of bail out if we find a closer hit
 		//
-		std::cout << "Is nodeT NULL?";
+		//std::cout << "Is nodeT NULL?";
 		if (!nodeT->isLeaf())
 		{
 			//
@@ -302,7 +307,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 
 			// In this program, it will be only triangles as primitives yet.
 			int noOfPrimitives = nodeT->objects.size();
-			std::cout << noOfPrimitives;
+			//std::cout << noOfPrimitives;
 			for (int i = 0; i < noOfPrimitives; i++)
 			{
 				TriangleClass *prim = nodeT->objects[i];
@@ -314,7 +319,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 				if (ans != -1)
 				{
 					// Valid intersection exists between object and ray
-					std::cout << ans;
+					//std::cout << ans;
 					// Check if another intersection was already found
 					if (isect.flag == true)
 					{

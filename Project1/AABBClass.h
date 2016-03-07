@@ -24,6 +24,7 @@ class AABBClass :public ObjectClass
 		void Expand(AABBClass);
 		int GetLongestAxis();
 		VectorClass GetNormal(VectorClass);
+		double GetIntersection1(RayClass, double *hitt0 = NULL, double *hitt1 = NULL);
 		virtual double GetIntersection(RayClass, double *hitt0 = NULL, double *hitt1 = NULL);
 };
 
@@ -81,6 +82,37 @@ void AABBClass::Expand(AABBClass newBox)
 }
 
 double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
+{
+	double t0 = ray.minT, t1 = ray.maxT;
+
+	for (int i = 0; i < 3; i++)
+	{
+		double tNear = (Bmin[i] - ray.GetRayOrigin()[i]) * ray.GetRayInvDirection()[i];
+		double tFar  = (Bmax[i] - ray.GetRayOrigin()[i]) * ray.GetRayInvDirection()[i];
+
+		if (tNear > tFar)
+		{
+			double temp = tNear;
+			tNear = tFar;
+			tFar = temp;
+		}
+
+		t0 = tNear > t0 ? tNear : t0;
+		t1 = tFar  < t1 ? tFar  : t1;
+		if (t0 > t1)
+		{
+			//std::cout << i << " aabb ";
+			return -1;
+		}
+	}
+
+	if (hitt0) *hitt0 = t0;
+	if (hitt1) *hitt1 = t1;
+	//std::cout << " bbox ";
+	return t0;
+}
+
+double AABBClass::GetIntersection1(RayClass ray, double *hitt0, double *hitt1)
 {
 
 	double tmin, tmax, tymin, tymax, tzmin, tzmax;

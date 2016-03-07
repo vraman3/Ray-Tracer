@@ -86,6 +86,65 @@ int main(int argc, char *argv[])
 	KDNode kdtree = KDNode();
 
 	kdtree.build(testObjects, 4);
+	KDNode *tempNode = &kdtree;
+
+	/*
+	#define MAX_TODO 64
+	KDToDo todo[MAX_TODO];
+	int todoPos = 0;
+	
+	todo[todoPos].node = secondChild;
+	todo[todoPos].tminTD = tplane;
+	todo[todoPos].tmaxTD = tmax;
+	++todoPos;
+			
+	if (todoPos > 0)
+	{
+		--todoPos;
+		nodeT = todo[todoPos].node;
+		tmin = todo[todoPos].tminTD;
+		tmax = todo[todoPos].tmaxTD;
+	}
+	else
+		break;
+	*/
+	//struct tempKD
+	//{
+	//	KDNode *node;
+	//};
+	//tempKD stack[64];
+	//int stackPos = 0;
+
+	//while (tempNode->splitAxis != 3)
+	//{
+	//	//std::cout << " a " << tempNode->objects.size() << std::endl;
+	//	if (tempNode->splitAxis == 3)
+	//		std::cout << " a " << tempNode->objects.size() << std::endl;
+
+	//	/*if (tempNode->left->objects.size() != NULL)
+	//	{
+	//		std::cout << " l " << std::endl;*/
+	//		stack[stackPos].node = tempNode->left;
+	//		++stackPos;
+	//	/*}
+	//	if (tempNode->right->objects.size() != NULL)
+	//	{
+	//		std::cout << " r " << std::endl;*/
+	//		stack[stackPos].node = tempNode->right;
+	//		++stackPos;
+	//	//}
+
+	//	if (stackPos > 0)
+	//	{
+	//		--stackPos;
+	//		tempNode = stack[stackPos].node;
+	//	}
+	//	else
+	//		break;
+	//}
+
+
+
 	// The Lighting Models for the objects (has to be in SAME order as the objects)
 	std::vector<IlluminationClass*> illuminations;
 	//illuminations.push_back(
@@ -177,9 +236,26 @@ int main(int argc, char *argv[])
 			VectorClass direction = (val - originalCamera.GetPosition()).Normalize();
 			RayClass ray(originalCamera.GetPosition(), direction);
 
-			ColourClass debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
-			//ColourClass debugTmpRemoveLater = TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
-			//std::cout << debugTmpRemoveLater.GetRed() <<"/"<<debugTmpRemoveLater.GetGreen()<<"/"<<debugTmpRemoveLater.GetBlue()<<" ";
+			ColourClass debugTmpRemoveLater;
+			//ColourClass debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
+			/*if (i == 158 && j == 700)
+			{
+				debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
+				std::cout << debugTmpRemoveLater.GetRed() << "/" << debugTmpRemoveLater.GetGreen() << "/" << debugTmpRemoveLater.GetBlue() << " ";
+			}
+			else
+			{
+				debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
+			}*/
+			debugTmpRemoveLater = TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
+			double rt = debugTmpRemoveLater.GetRed();
+			double gt = debugTmpRemoveLater.GetGreen();
+			double bt = debugTmpRemoveLater.GetBlue();
+			//if (rt != 0.3)
+			//{
+			//	//std::cout << rt << "/" << gt << "/" << bt << " ";
+			//	std::cout << " " << i << " "<< j << " -- ";
+			//}
 			tmp = tmp + debugTmpRemoveLater;
 
 			/*//Multisampling using 4 points for a pixel
@@ -216,7 +292,7 @@ int main(int argc, char *argv[])
 			
 			position++;
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 	}
 	savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 
@@ -289,7 +365,7 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 	}
 	else
 	{
-		std::cout << "bla";
+		//std::cout << "bla";
 		bool noShadow = true;
 		VectorClass pi = ray.GetRayOrigin() + ray.GetRayDirection() * isect.hit;
 		VectorClass N = (isect.tri->GetNormal(pi)).Normalize();
@@ -312,10 +388,11 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 			shadowIsect.tri = NULL;
 
 			shadowIsect = kdtree.Traverse(shadowRay, shadowIsect);
-			double shadowObjkt = shadowIsect.tri->illum->Getkt();
+			double shadowObjkt;
 
 			if (shadowIsect.flag)
 			{
+				shadowObjkt = shadowIsect.tri->illum->Getkt();
 				if (shadowObjkt > 0.0)
 					shade += 1 - shadowObjkt;
 				else
