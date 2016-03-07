@@ -73,6 +73,7 @@
     <ClInclude Include="CheckerboardPattern.h" />
     <ClInclude Include="IntersectionInfo.h" />
     <ClInclude Include="KDNode.h" />
+    <ClInclude Include="ObjLoaderClass.h" />
     <ClInclude Include="ReadFromFile.h" />
     <ClInclude Include="TextureMapping.h" />
     <ClInclude Include="ToneReproduction.h" />

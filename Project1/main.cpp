@@ -237,7 +237,7 @@ int main(int argc, char *argv[])
 
 			ColourClass debugTmpRemoveLater;
 			//ColourClass debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
-			if (i == 157 && j == 570)
+			/*if (i == 157 && j == 570)
 			{
 				debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
 				std::cout << debugTmpRemoveLater.GetRed() << "/" << debugTmpRemoveLater.GetGreen() << "/" << debugTmpRemoveLater.GetBlue() << " ";
@@ -245,9 +245,9 @@ int main(int argc, char *argv[])
 			else
 			{
 				debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
-			}
+			}*/
 
-			//debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
+			debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
 			//TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
 			double rt = debugTmpRemoveLater.GetRed();
 			double gt = debugTmpRemoveLater.GetGreen();
