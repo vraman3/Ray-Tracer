@@ -145,7 +145,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	{
 		for (int j = 0; j < rightObjSize; j++)
 		{
-			if (left_objs[i] == right_objs[i])
+			if (left_objs[i] == right_objs[j])
 				matches++;
 		}
 	}
@@ -197,7 +197,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 	//
 	// Prepare to traverse kd-tree for ray
 	//
-	#define MAX_TODO 64
+	#define MAX_TODO 5000
 	KDToDo todo[MAX_TODO];
 	int todoPos = 0;
 

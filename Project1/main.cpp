@@ -101,7 +101,6 @@ int main(int argc, char *argv[])
 			ColourClass(0.0, 1.0, 0.0),
 			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 	}
-	
 	KDNode kdtree = KDNode();
 	
 	kdtree = *kdtree.build(bunnyObjects, 10);
