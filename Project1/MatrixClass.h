@@ -19,12 +19,12 @@ class MatrixClass
 		MatrixClass MatrixClass::transpose();
 };
 
-MatrixClass::MatrixClass(int r, int c) : mRows(r), mCols(c), m(r*c)
+MatrixClass::MatrixClass(int r, int c) : mRows(r), mCols(c), m(std::vector<std::vector<double> >(r, std::vector<double>(c,0.0)))
 {}
 
 std::vector<double>& MatrixClass::operator[](int i)
 {
-	assert(i >= 0 && i < mRows);
+	//assert(i >= 0 && i < mRows);
 	return m[i];
 }
 //double& MatrixClass::operator()(int i, int j)
@@ -44,14 +44,8 @@ MatrixClass MatrixClass::identity(int dimension)
 	for (int i = 0; i < dimension; i++)
 		for (int j = 0; j < dimension; j++)
 		{
-			if (i == j)
-			{
-				idt.m[i][j] = 1.0;
-			}
-			else
-				idt.m[i][j] = 0;
+			idt.m[i][j] = ((i == j) ? 1.0 : 0.0);
 		}
-			//idt.m[i][j] = //((i == j) ? 1.0 : 0.0);
 
 	return idt;
 }
