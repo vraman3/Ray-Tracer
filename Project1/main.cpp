@@ -35,7 +35,7 @@ ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorC
 	ColourClass, ColourClass, int);
 
 // Shift these two functions to Camera later after testing
-MatrixClass viewPort(int x, int y, int w, int h);
+MatrixClass viewPort(int x, int y, int w, int h, int depth);
 MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up);
 
 int main(int argc, char *argv[])
@@ -198,11 +198,8 @@ int main(int argc, char *argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
 
-	VectorClass camPosition = VectorClass(1.5, 3, -1);
-	VectorClass camLookAt = VectorClass(0, 0, 20);
-
-	/*VectorClass camPosition = VectorClass(1.5, 3, 1);
-	VectorClass camLookAt = VectorClass(2, 2, 120);*/
+	VectorClass camPosition = VectorClass(1.5, 3, 1);
+	VectorClass camLookAt = VectorClass(2, 2, 120);
 	double f = 3.0;
 
 	VectorClass eye(1.0, 1.0, 3.0);
@@ -214,7 +211,6 @@ int main(int argc, char *argv[])
 
 	projection[3][2] = -1 / ((eye - centreNew).Magnitude());
 
-	bunnyObjects.at(1)->
 	// Unused. Left for future clean build
 	//double scale = tan(90 * 3.1415925 / 180);
 	//double imageAspectRatio = screenWidth / screenHeight;
@@ -380,6 +376,7 @@ MatrixClass viewPort(int x, int y, int w, int h, int depth)
 
 MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up)
 {
+	std::cout << "lookat" << std::endl;
 	VectorClass z = (eye - centre).Normalize();
 	VectorClass x = (up.CrossProd(z)).Normalize();
 	VectorClass y = (z.CrossProd(x)).Normalize();
@@ -393,7 +390,7 @@ MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up)
 		result[2][i] = z[i];
 		result[i][3] = -centre[i];
 	}
-
+	std::cout << "lookat end";
 	return result;
 }
 
