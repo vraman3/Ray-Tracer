@@ -25,6 +25,7 @@
 #include "KDNode.h"
 #include "IntersectionInfo.h"
 #include "ObjLoaderClass.h"
+#include "MatrixClass.h"
 //typedef techsoft::matrix<double> Matrix;
 
 ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vector<VectorClass*>,
@@ -33,6 +34,9 @@ ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vect
 ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorClass*>,
 	ColourClass, ColourClass, int);
 
+// Shift these two functions to Camera later after testing
+MatrixClass viewPort(int x, int y, int w, int h);
+MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up);
 
 int main(int argc, char *argv[])
 {
@@ -201,7 +205,16 @@ int main(int argc, char *argv[])
 	VectorClass camLookAt = VectorClass(2, 2, 120);*/
 	double f = 3.0;
 
+	VectorClass eye(1.0, 1.0, 3.0);
+	VectorClass centreNew(0.0, 0.0, 0.0);
 
+	MatrixClass modelView = lookAt(eye, centreNew, VectorClass(0, 1, 0));
+	MatrixClass projection = MatrixClass::identity(4);
+	MatrixClass viewport = viewPort(screenWidth / 8, screenHeight / 8, screenWidth * 3 / 4, screenHeight * 3 / 4, 255);
+
+	projection[3][2] = -1 / ((eye - centreNew).Magnitude());
+
+	bunnyObjects.at(1)->
 	// Unused. Left for future clean build
 	//double scale = tan(90 * 3.1415925 / 180);
 	//double imageAspectRatio = screenWidth / screenHeight;
@@ -350,6 +363,38 @@ int main(int argc, char *argv[])
 
 	//delete testwrite;
 	return 0;
+}
+
+MatrixClass viewPort(int x, int y, int w, int h, int depth)
+{
+	MatrixClass vp = MatrixClass::identity(4);
+	vp[0][3] = x + (w / 2.0);
+	vp[1][3] = y + (h / 2.0);
+	vp[2][3] = depth / 2.0;
+
+	vp[0][0] = w / 2.0;
+	vp[1][1] = h / 2.0;
+	vp[2][2] = depth / 2.0;
+	return vp;
+}
+
+MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up)
+{
+	VectorClass z = (eye - centre).Normalize();
+	VectorClass x = (up.CrossProd(z)).Normalize();
+	VectorClass y = (z.CrossProd(x)).Normalize();
+
+	MatrixClass result = MatrixClass::identity(4);
+
+	for (int i = 0; i < 3; i++)
+	{
+		result[0][i] = x[i];
+		result[1][i] = y[i];
+		result[2][i] = z[i];
+		result[i][3] = -centre[i];
+	}
+
+	return result;
 }
 
 ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree, std::vector<VectorClass*> lights,ColourClass background, ColourClass pointCol, int maxDepth)

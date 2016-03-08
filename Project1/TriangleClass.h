@@ -30,6 +30,9 @@ class TriangleClass : public ObjectClass
 		IlluminationClass *illum;
 		VectorClass GetNormal(VectorClass);
 		
+		VectorClass GetA();
+		VectorClass GetB();
+		VectorClass GetC();
 		double GetDiffuse();
 		double GetSpecular();
 		double GetAmbient();
@@ -77,6 +80,20 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	illum = inputIllum;
 }
 
+VectorClass TriangleClass::GetA()
+{
+	return A;
+}
+
+VectorClass TriangleClass::GetB()
+{
+	return B;
+}
+
+VectorClass TriangleClass::GetC()
+{
+	return C;
+}
 VectorClass TriangleClass::GetNormal(VectorClass P)
 {
 	/*double areaT = GetArea(A, B, C);
