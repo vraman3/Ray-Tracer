@@ -79,17 +79,19 @@ int main(int argc, char *argv[])
 		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
 	
 	std::vector<TriangleClass*> testObjects;
-	testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+	testObjects.push_back(new TriangleClass(VectorClass(1.2, 0.4, 3.300), VectorClass(5.5, 0.4, 22.0),
 		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));
-	testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));
+	/*testObjects.push_back(new TriangleClass(VectorClass(0.0, 0.5, 0.0), VectorClass(1.5, 0.5, 1.5),
+		VectorClass(1.5,0.5,0.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));*/
+	/*testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
+		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));*/
 
 
 	ObjLoaderClass objFile = ObjLoaderClass();
 
 	objFile.readObjFile("bunny.obj");
 
-	int noOfFaces = objFile.faces.size();
+	int noOfFaces = objFile.faces.size(); 
 
 	std::vector<TriangleClass*> bunnyObjects;
 
@@ -103,7 +105,7 @@ int main(int argc, char *argv[])
 	}
 	KDNode kdtree = KDNode();
 	
-	kdtree = *kdtree.build(bunnyObjects, 10);
+	kdtree = *kdtree.build(testObjects, 10);
 	//std::exit(0);
 
 	//std::cout << "aa";
@@ -192,8 +194,11 @@ int main(int argc, char *argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
 
-	VectorClass camPosition = VectorClass(1.5, 3, 1);
-	VectorClass camLookAt = VectorClass(2, 2, 120);
+	VectorClass camPosition = VectorClass(1.5, 3, -1);
+	VectorClass camLookAt = VectorClass(0, 0, 20);
+
+	/*VectorClass camPosition = VectorClass(1.5, 3, 1);
+	VectorClass camLookAt = VectorClass(2, 2, 120);*/
 	double f = 3.0;
 
 

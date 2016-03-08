@@ -83,6 +83,7 @@
     <ClInclude Include="PhongModel.h" />
     <ClInclude Include="IlluminationClass.h" />
     <ClInclude Include="PlaneClass.h" />
+    <ClInclude Include="MatrixClass.h" />
     <ClInclude Include="TriangleClass.h" />
     <ClInclude Include="SaveToFIle.h" />
     <ClInclude Include="lodepng.h" />
