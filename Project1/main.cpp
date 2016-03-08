@@ -73,102 +73,7 @@ int main(int argc, char *argv[])
 	//int screenWidth = 320, screenHeight = 240;
 	//int screenWidth = 64, screenHeight = 48;
 	
-	// The list of objects
-	std::vector<ObjectClass*> objects;
-	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
-	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
 	
-	std::vector<TriangleClass*> testObjects;
-	testObjects.push_back(new TriangleClass(VectorClass(1.2, 0.4, 3.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));
-	/*testObjects.push_back(new TriangleClass(VectorClass(0.0, 0.5, 0.0), VectorClass(1.5, 0.5, 1.5),
-		VectorClass(1.5,0.5,0.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));*/
-	/*testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));*/
-
-
-	ObjLoaderClass objFile = ObjLoaderClass();
-
-	objFile.readObjFile("bunny.obj");
-
-	int noOfFaces = objFile.faces.size(); 
-
-	std::vector<TriangleClass*> bunnyObjects;
-
-	for (int i = 0; i < noOfFaces/3; i++)
-	{
-		bunnyObjects.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
-			objFile.opVertices[objFile.faces[i + 1] - 1],
-			objFile.opVertices[objFile.faces[i + 2] - 1],
-			ColourClass(0.0, 1.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
-	}
-	KDNode kdtree = KDNode();
-	
-	kdtree = *kdtree.build(testObjects, 10);
-	//std::exit(0);
-
-	//std::cout << "aa";
-	/*
-	#define MAX_TODO 64
-	KDToDo todo[MAX_TODO];
-	int todoPos = 0;
-	
-	todo[todoPos].node = secondChild;
-	todo[todoPos].tminTD = tplane;
-	todo[todoPos].tmaxTD = tmax;
-	++todoPos;
-			
-	if (todoPos > 0)
-	{
-		--todoPos;
-		nodeT = todo[todoPos].node;
-		tmin = todo[todoPos].tminTD;
-		tmax = todo[todoPos].tmaxTD;
-	}
-	else
-		break;
-	*/
-	//struct tempKD
-	//{
-	//	KDNode *node;
-	//};
-	//tempKD stack[64];
-	//int stackPos = 0;
-
-	//while (tempNode->splitAxis != 3)
-	//{
-	//	//std::cout << " a " << tempNode->objects.size() << std::endl;
-	//	if (tempNode->splitAxis == 3)
-	//		std::cout << " a " << tempNode->objects.size() << std::endl;
-
-	//	/*if (tempNode->left->objects.size() != NULL)
-	//	{
-	//		std::cout << " l " << std::endl;*/
-	//		stack[stackPos].node = tempNode->left;
-	//		++stackPos;
-	//	/*}
-	//	if (tempNode->right->objects.size() != NULL)
-	//	{
-	//		std::cout << " r " << std::endl;*/
-	//		stack[stackPos].node = tempNode->right;
-	//		++stackPos;
-	//	//}
-
-	//	if (stackPos > 0)
-	//	{
-	//		--stackPos;
-	//		tempNode = stack[stackPos].node;
-	//	}
-	//	else
-	//		break;
-	//}
-
-
 
 	// The Lighting Models for the objects (has to be in SAME order as the objects)
 	std::vector<IlluminationClass*> illuminations;
@@ -211,6 +116,49 @@ int main(int argc, char *argv[])
 
 	projection[3][2] = -1 / ((eye - centreNew).Magnitude());
 
+	// The list of objects
+	std::vector<ObjectClass*> objects;
+	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
+	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
+	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
+	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
+		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
+
+	std::vector<TriangleClass*> testObjects;
+	testObjects.push_back(new TriangleClass(VectorClass(1.2, 0.4, 3.300), VectorClass(5.5, 0.4, 22.0),
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));
+	/*testObjects.push_back(new TriangleClass(VectorClass(0.0, 0.5, 0.0), VectorClass(1.5, 0.5, 1.5),
+	VectorClass(1.5,0.5,0.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));*/
+	/*testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
+	VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));*/
+
+
+	ObjLoaderClass objFile = ObjLoaderClass();
+
+	objFile.readObjFile("bunny.obj");
+
+	int noOfFaces = objFile.faces.size();
+
+	std::vector<TriangleClass*> bunnyObjects;
+
+	for (int i = 0; i < noOfFaces / 3; i++)
+	{
+		bunnyObjects.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
+			objFile.opVertices[objFile.faces[i + 1] - 1],
+			objFile.opVertices[objFile.faces[i + 2] - 1],
+			ColourClass(0.0, 1.0, 0.0),
+			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	}
+
+	for (int i = 0; i < noOfFaces / 3; i++)
+	{
+
+	}
+
+	KDNode kdtree = KDNode();
+
+	kdtree = *kdtree.build(testObjects, 10);
 	// Unused. Left for future clean build
 	//double scale = tan(90 * 3.1415925 / 180);
 	//double imageAspectRatio = screenWidth / screenHeight;
