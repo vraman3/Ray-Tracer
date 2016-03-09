@@ -11,6 +11,7 @@ class MatrixClass
 	public:
 		std::vector<double>& operator[](int i);
 		MatrixClass(int, int);
+		MatrixClass(VectorClass);
 		static MatrixClass identity(int);
 	/*	double& operator()(int, int);
 		double operator()(int, int) const;*/
@@ -21,6 +22,13 @@ class MatrixClass
 
 MatrixClass::MatrixClass(int r, int c) : mRows(r), mCols(c), m(std::vector<std::vector<double> >(r, std::vector<double>(c,0.0)))
 {}
+
+MatrixClass::MatrixClass(VectorClass v) : m(std::vector<std::vector<double> >(4, std::vector<double>(1, 1.0))), mRows(4), mCols(1)
+{
+	m[0][0] = v.GetX();
+	m[1][0] = v.GetY();
+	m[2][0] = v.GetZ();
+}
 
 std::vector<double>& MatrixClass::operator[](int i)
 {
