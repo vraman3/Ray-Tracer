@@ -30,9 +30,11 @@ class TriangleClass : public ObjectClass
 		IlluminationClass *illum;
 		VectorClass GetNormal(VectorClass);
 		
+		VectorClass operator[](const int) const;
 		VectorClass GetA();
 		VectorClass GetB();
 		VectorClass GetC();
+
 		double GetDiffuse();
 		double GetSpecular();
 		double GetAmbient();
@@ -78,6 +80,24 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	specular = 0.08;
 	ambient = 0.3;
 	illum = inputIllum;
+}
+
+VectorClass TriangleClass::operator[](const int dimension) const
+{
+	switch (dimension)
+	{
+	case 0: return A;
+		break;
+
+	case 1: return B;
+		break;
+
+	case 2: return C;
+		break;
+
+	default: return VectorClass(-1,-1,-1);
+		break;
+	}
 }
 
 VectorClass TriangleClass::GetA()

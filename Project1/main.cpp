@@ -151,9 +151,14 @@ int main(int argc, char *argv[])
 			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 	}
 
-	for (int i = 0; i < noOfFaces / 3; i++)
+	for (int i = 0; i < bunnyObjects.size(); i++)
 	{
+		VectorClass screenCoord;
 
+		for (int j = 0; j < 3; j++)
+		{
+			VectorClass v = bunnyObjects[0]->
+		}
 	}
 
 	KDNode kdtree = KDNode();
