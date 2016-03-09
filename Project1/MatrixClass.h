@@ -4,21 +4,27 @@
 #include <cassert>
 #include <vector>
 #include <iostream>
+
+#include "VectorClass.h"
 class MatrixClass
 {
 		int mRows, mCols;
 		std::vector<std::vector<double>> m;
+
 	public:
-		std::vector<double>& operator[](int i);
+				
 		MatrixClass(int, int);
 		MatrixClass(VectorClass);
-		static MatrixClass identity(int);
-	/*	double& operator()(int, int);
-		double operator()(int, int) const;*/
-		
+				
 		MatrixClass operator*(const MatrixClass& a);
-		MatrixClass MatrixClass::transpose();
+		std::vector<double>& operator[](int i);
+
+		static MatrixClass identity(int);
+		MatrixClass transpose();
+		VectorClass toVector();
 };
+
+
 
 MatrixClass::MatrixClass(int r, int c) : mRows(r), mCols(c), m(std::vector<std::vector<double> >(r, std::vector<double>(c,0.0)))
 {}
@@ -86,4 +92,10 @@ MatrixClass MatrixClass::transpose()
 			result.m[j][i] = m[i][j];
 
 	return result;
+}
+
+VectorClass MatrixClass::toVector()
+{
+	return VectorClass(m[0][0] / m[3][0], m[1][0] / m[3][0], m[2][0] / m[3][0]);
+	//x(m[0][0] / m[3][0]), y(m[1][0] / m[3][0]), z(m[2][0] / m[3][0])
 }

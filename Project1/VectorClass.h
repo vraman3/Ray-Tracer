@@ -2,6 +2,7 @@
 
 //Author: Vishwanath Raman
 #include <math.h>
+//#include "MatrixClass.h"
 
 class VectorClass
 {
@@ -11,7 +12,7 @@ private:
 public:
 	VectorClass();
 	VectorClass(double, double, double);
-	
+	//VectorClass(MatrixClass);
 	double GetX();
 	double GetY();
 	double GetZ();
@@ -34,6 +35,9 @@ public:
 	VectorClass Normalize();
 
 };
+
+//VectorClass::VectorClass(MatrixClass m) : x(m[0][0] / m[3][0]), y(m[1][0] / m[3][0]), z(m[2][0] / m[3][0])
+//{}
 
 double VectorClass::operator[](const int dimension) const
 {

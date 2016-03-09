@@ -153,11 +153,13 @@ int main(int argc, char *argv[])
 
 	for (int i = 0; i < bunnyObjects.size(); i++)
 	{
-		VectorClass screenCoord;
+		VectorClass screenCoord[3];
 
 		for (int j = 0; j < 3; j++)
 		{
-			VectorClass v = bunnyObjects[0]->
+			VectorClass v = (*bunnyObjects[i])[j];
+			
+			screenCoord[j] = (viewport*projection*modelView*MatrixClass(v)).toVector();
 		}
 	}
 
