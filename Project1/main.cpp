@@ -103,12 +103,14 @@ int main(int argc, char *argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
 
-	VectorClass camPosition = VectorClass(1.5, 3, 1);
-	VectorClass camLookAt = VectorClass(2, 2, 120);
-	double f = 3.0;
+	VectorClass eye(1.5,3,1);//(1.0, 1.0, 3.0);
+	VectorClass centreNew(2,2,120);
 
-	VectorClass eye(1.0, 1.0, 3.0);
-	VectorClass centreNew(0.0, 0.0, 0.0);
+	VectorClass camPosition = eye;//VectorClass(1.5, 3, 1);
+	VectorClass camLookAt = centreNew;// VectorClass(2, 2, 120);
+	double f = 0.3;
+
+	
 
 	MatrixClass modelView = lookAt(eye, centreNew, VectorClass(0, 1, 0));
 	MatrixClass projection = MatrixClass::identity(4);
@@ -117,13 +119,13 @@ int main(int argc, char *argv[])
 	projection[3][2] = -1 / ((eye - centreNew).Magnitude());
 
 	// The list of objects
-	std::vector<ObjectClass*> objects;
+	std::vector<TriangleClass*> objects;
 	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
 	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
 	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
+		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 
 	std::vector<TriangleClass*> testObjects;
 	testObjects.push_back(new TriangleClass(VectorClass(1.2, 0.4, 3.300), VectorClass(5.5, 0.4, 22.0),
@@ -151,21 +153,26 @@ int main(int argc, char *argv[])
 			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 	}
 
-	for (int i = 0; i < bunnyObjects.size(); i++)
+	std::vector<TriangleClass*> convObjects;
+
+	for (int i = 0; i < objects.size(); i++)
 	{
 		VectorClass screenCoord[3];
 
 		for (int j = 0; j < 3; j++)
 		{
-			VectorClass v = (*bunnyObjects[i])[j];
+			VectorClass v = (*objects[i])[j];
 			
 			screenCoord[j] = (viewport*projection*modelView*MatrixClass(v)).toVector();
 		}
+
+		convObjects.push_back(new TriangleClass(screenCoord[0], screenCoord[1], screenCoord[2],
+					ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 	}
 
 	KDNode kdtree = KDNode();
 
-	kdtree = *kdtree.build(testObjects, 10);
+	kdtree = *kdtree.build(convObjects, 10);
 	// Unused. Left for future clean build
 	//double scale = tan(90 * 3.1415925 / 180);
 	//double imageAspectRatio = screenWidth / screenHeight;
@@ -173,9 +180,9 @@ int main(int argc, char *argv[])
 
 	// Calculate the Camera parameters
 	VectorClass camRight = camLookAt.Normalize().CrossProd(VectorClass(0, 1, 0));
-	VectorClass camUp = camRight.CrossProd(camLookAt);
+	//VectorClass camUp = camRight.CrossProd(camLookAt);
 	//VectorClass camUp = VectorClass(0,1,0);
-	CameraClass originalCamera = CameraClass(camPosition, camLookAt, camUp, f);
+	CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
 
 
 	VectorClass camN = (originalCamera.GetPosition() - originalCamera.GetLookAt()).Normalize();
@@ -218,8 +225,8 @@ int main(int argc, char *argv[])
 			ColourClass tmp = ColourClass(0, 0, 0);
 			
 			VectorClass val = VectorClass(startPixel.GetX() + camU.GetX() * (j + 0.5) * pixelW + camV.GetX() * (i + 0.5) * pixelH,
-				startPixel.GetY() + camU.GetY() * (j + 0.5) * pixelW + camV.GetY() * (i + 0.5) * pixelH,
-				startPixel.GetZ() + camU.GetZ() * (j + 0.5) * pixelW + camV.GetZ() * (i + 0.5) * pixelH);
+										  startPixel.GetY() + camU.GetY() * (j + 0.5) * pixelW + camV.GetY() * (i + 0.5) * pixelH,
+										  startPixel.GetZ() + camU.GetZ() * (j + 0.5) * pixelW + camV.GetZ() * (i + 0.5) * pixelH);
 
 			VectorClass direction = (val - originalCamera.GetPosition()).Normalize();
 			RayClass ray(originalCamera.GetPosition(), direction);
@@ -331,7 +338,7 @@ MatrixClass viewPort(int x, int y, int w, int h, int depth)
 
 MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up)
 {
-	std::cout << "lookat" << std::endl;
+	//std::cout << "lookat" << std::endl;
 	VectorClass z = (eye - centre).Normalize();
 	VectorClass x = (up.CrossProd(z)).Normalize();
 	VectorClass y = (z.CrossProd(x)).Normalize();
@@ -345,7 +352,7 @@ MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up)
 		result[2][i] = z[i];
 		result[i][3] = -centre[i];
 	}
-	std::cout << "lookat end";
+	//std::cout << "lookat end";
 	return result;
 }
 
