@@ -40,6 +40,7 @@ MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up);
 
 int main(int argc, char *argv[])
 {
+#pragma region start
 	int whichTR, maxDepth;
 	int screenWidth, screenHeight;
 	double worldWidth = 2 * 16 / 9, worldHeight = 2;
@@ -47,12 +48,12 @@ int main(int argc, char *argv[])
 	// Get command line arguments if any
 	if (argc == 5)
 	{
-		
+
 		screenWidth = std::atoi(argv[1]);
 		screenHeight = std::atoi(argv[2]);
 		maxDepth = std::atoi(argv[3]);
 		whichTR = std::atoi(argv[4]);
-		std::cout << " Width:"<<argv[1] << "  Height:" << argv[2] << " Max Depth:" << argv[3] << " ToneReproduction:" << argv[4] <<std::endl;
+		std::cout << " Width:" << argv[1] << "  Height:" << argv[2] << " Max Depth:" << argv[3] << " ToneReproduction:" << argv[4] << std::endl;
 	}
 	else
 	{
@@ -67,56 +68,11 @@ int main(int argc, char *argv[])
 	//  2 - Reinhard
 	//  3 - Adaptive Logarithmic
 	//  0 - No Tone Reproduction (By Default)
-		
+
 	//int screenWidth = 1400, screenHeight = 900;
 	//int screenWidth = 640, screenHeight = 480;
 	//int screenWidth = 320, screenHeight = 240;
 	//int screenWidth = 64, screenHeight = 48;
-	
-	
-
-	// The Lighting Models for the objects (has to be in SAME order as the objects)
-	std::vector<IlluminationClass*> illuminations;
-	//illuminations.push_back(
-	//	/*new StraussModel(0.3, 0.3, 0.1, 0.0, 0.0, 0.0)*/
-	//	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8, 0.98)
-	//	/*new NoShadingModel(0.0, 0.0, 1.0)*/ );
-	//illuminations.push_back(
-	//	new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0, 1.0)
-	//	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
-	illuminations.push_back(
-		new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)
-		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
-		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
-	illuminations.push_back(
-		new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)
-		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
-		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
-
-	std::vector<VectorClass*> lights;
-
-	lights.push_back(new VectorClass(5, 7.4, 9));
-
-	ColourClass background(0.3 , 0.8, 1.0);
-	ColourClass pointCol(1.0, 1.0, 1.0);	
-
-	int filesize = screenWidth * screenHeight;
-	ColourClass *pixels = new ColourClass[filesize];
-
-	VectorClass eye(1.5,3,1);//(1.0, 1.0, 3.0);
-	VectorClass centreNew(2,2,120);
-
-	VectorClass camPosition = eye;//VectorClass(1.5, 3, 1);
-	VectorClass camLookAt = centreNew;// VectorClass(2, 2, 120);
-	double f = 0.3;
-
-	
-
-	MatrixClass modelView = lookAt(eye, centreNew, VectorClass(0, 1, 0));
-	MatrixClass projection = MatrixClass::identity(4);
-	MatrixClass viewport = viewPort(screenWidth / 8, screenHeight / 8, screenWidth * 3 / 4, screenHeight * 3 / 4, 255);
-
-	projection[3][2] = -1 / ((eye - centreNew).Magnitude());
 
 	// The list of objects
 	std::vector<TriangleClass*> objects;
@@ -155,6 +111,56 @@ int main(int argc, char *argv[])
 
 	std::vector<TriangleClass*> convObjects;
 
+#pragma region illuminations
+	// The Lighting Models for the objects (has to be in SAME order as the objects)
+	std::vector<IlluminationClass*> illuminations;
+	//illuminations.push_back(
+	//	/*new StraussModel(0.3, 0.3, 0.1, 0.0, 0.0, 0.0)*/
+	//	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8, 0.98)
+	//	/*new NoShadingModel(0.0, 0.0, 1.0)*/ );
+	//illuminations.push_back(
+	//	new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0, 1.0)
+	//	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
+	illuminations.push_back(
+		new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)
+		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
+		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
+	illuminations.push_back(
+		new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)
+		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
+		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
+#pragma endregion
+
+
+	std::vector<VectorClass*> lights;
+
+	lights.push_back(new VectorClass(5, 7.4, 9));
+
+	ColourClass background(0.3, 0.8, 1.0);
+	ColourClass pointCol(1.0, 1.0, 1.0);
+#pragma endregion
+
+
+	int filesize = screenWidth * screenHeight;
+	ColourClass *pixels = new ColourClass[filesize];
+
+	VectorClass eye(1.5,3,1);//(1.0, 1.0, 3.0);
+	VectorClass centreNew(2,2,120);
+
+	VectorClass camPosition = eye;//VectorClass(1.5, 3, 1);
+	VectorClass camLookAt = centreNew;// VectorClass(2, 2, 120);
+	double f = 0.3;
+
+	
+
+	MatrixClass modelView = lookAt(eye, centreNew, VectorClass(0, 1, 0));
+	MatrixClass projection = MatrixClass::identity(4);
+	MatrixClass viewport = viewPort(screenWidth / 8, screenHeight / 8, screenWidth * 3 / 4, screenHeight * 3 / 4, 255);
+
+	projection[3][2] = -1 / ((eye - centreNew).Magnitude());
+
+	
+
 	for (int i = 0; i < objects.size(); i++)
 	{
 		VectorClass screenCoord[3];
@@ -172,10 +178,7 @@ int main(int argc, char *argv[])
 
 	KDNode kdtree = KDNode();
 
-	kdtree = *kdtree.build(convObjects, 10);
-	// Unused. Left for future clean build
-	//double scale = tan(90 * 3.1415925 / 180);
-	//double imageAspectRatio = screenWidth / screenHeight;
+	kdtree = *kdtree.build(objects, 10);
 
 
 	// Calculate the Camera parameters
@@ -188,8 +191,6 @@ int main(int argc, char *argv[])
 	VectorClass camN = (originalCamera.GetPosition() - originalCamera.GetLookAt()).Normalize();
 	VectorClass camU = (camN.CrossProd(originalCamera.GetUpVector())).Normalize();
 	VectorClass camV = camU.CrossProd(camN);
-	//VectorClass camU = (originalCamera.GetUpVector().CrossProd(camN)).Normalize();
-	//VectorClass camV = camN.CrossProd(camU);
 	
 	// Calculate center pixel of image plane
 	VectorClass center( originalCamera.GetPosition().GetX() + f * camN.GetX(),
@@ -206,17 +207,12 @@ int main(int argc, char *argv[])
 	double pixelW = worldWidth / screenWidth;
 	double pixelH = worldHeight / screenHeight;
 
-	double pw2 = pixelW / 2;
-	double ph2 = pixelH / 2;
+	// For multisampling
+	//double pw2 = pixelW / 2;
+	//double ph2 = pixelH / 2;
 
 	int position = 0, testCounter = 0;
 	int noOfSamples = 4;
-
-	//VectorClass U = VectorClass(0,1,0).Normalize();
-	//VectorClass N = camLookAt.Normalize();
-	//VectorClass V = N.CrossProd(U);
-	//double wtcam = { U.GetX(),  }
-	//Matrix worldToCamera()
 
 	for (int i = 0; i < screenHeight; i++)
 	{
@@ -232,16 +228,6 @@ int main(int argc, char *argv[])
 			RayClass ray(originalCamera.GetPosition(), direction);
 
 			ColourClass debugTmpRemoveLater;
-			//ColourClass debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
-			/*if (i == 157 && j == 570)
-			{
-				debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
-				std::cout << debugTmpRemoveLater.GetRed() << "/" << debugTmpRemoveLater.GetGreen() << "/" << debugTmpRemoveLater.GetBlue() << " ";
-			}
-			else
-			{
-				debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);
-			}*/
 
 			debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
 			//TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
