@@ -40,7 +40,9 @@ MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up);
 
 int main(int argc, char *argv[])
 {
-#pragma region start
+
+#pragma region startStuff
+
 	int whichTR, maxDepth;
 	int screenWidth, screenHeight;
 	double worldWidth = 2 * 16 / 9, worldHeight = 2;
@@ -73,6 +75,10 @@ int main(int argc, char *argv[])
 	//int screenWidth = 640, screenHeight = 480;
 	//int screenWidth = 320, screenHeight = 240;
 	//int screenWidth = 64, screenHeight = 48;
+
+#pragma endregion
+
+#pragma region ObjectCreation
 
 	// The list of objects
 	std::vector<TriangleClass*> objects;
@@ -109,7 +115,9 @@ int main(int argc, char *argv[])
 			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 	}
 
-	std::vector<TriangleClass*> convObjects;
+#pragma endregion
+
+	
 
 #pragma region illuminations
 	// The Lighting Models for the objects (has to be in SAME order as the objects)
@@ -131,6 +139,7 @@ int main(int argc, char *argv[])
 		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
 #pragma endregion
 
+#pragma region lightsAndPixels
 
 	std::vector<VectorClass*> lights;
 
@@ -138,11 +147,11 @@ int main(int argc, char *argv[])
 
 	ColourClass background(0.3, 0.8, 1.0);
 	ColourClass pointCol(1.0, 1.0, 1.0);
-#pragma endregion
-
 
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
+
+#pragma endregion
 
 	VectorClass eye(1.5,3,1);//(1.0, 1.0, 3.0);
 	VectorClass centreNew(2,2,120);
@@ -160,6 +169,7 @@ int main(int argc, char *argv[])
 	projection[3][2] = -1 / ((eye - centreNew).Magnitude());
 
 	
+	std::vector<TriangleClass*> convObjects;
 
 	for (int i = 0; i < objects.size(); i++)
 	{
@@ -230,18 +240,13 @@ int main(int argc, char *argv[])
 			ColourClass debugTmpRemoveLater;
 
 			debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
-			//TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
 			double rt = debugTmpRemoveLater.GetRed();
 			double gt = debugTmpRemoveLater.GetGreen();
 			double bt = debugTmpRemoveLater.GetBlue();
-			//if (rt != 0.3)
-			//{
-			//	//std::cout << rt << "/" << gt << "/" << bt << " ";
-			//	std::cout << " " << i << " "<< j << " -- ";
-			//}
 			tmp = tmp + debugTmpRemoveLater;
 
-			/*//Multisampling using 4 points for a pixel
+			/* Multisampling
+			Multisampling using 4 points for a pixel
 			
 			VectorClass val1 = VectorClass(val.GetX() - pw2, val.GetY() + ph2, val.GetZ());
 			VectorClass val2 = VectorClass(val.GetX() + pw2, val.GetY() + ph2, val.GetZ());
@@ -275,37 +280,9 @@ int main(int argc, char *argv[])
 			
 			position++;
 		}
-		//std::cout << " eol " << std::endl;
 	}
 	savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 
-	// Read and write from a bmp file
-	//////ReadFromFile *readObj = new ReadFromFile();
-	//////int start = 0, testCounter1 = 0;
-	//////
-	//////ColourClass *testwrite;
-	//////testwrite = readObj->ReadBMP("Texturemaps/24-640x480.bmp");
-
-	//////for (int i = 0; i < 512; i++)
-	//////{
-	//////	for (int j = 0; j < 384; j++)
-	//////	{
-
-	//////		if (testCounter1 < 20)
-	//////		{
-	//////			//std::cout << testwrite[start].GetRed() << " " << testwrite[start].GetGreen() << " " << testwrite[start].GetBlue() << std::endl;
-	//////			testCounter1++;
-	//////		}
-
-	//////		start++;
-
-	//////	}
-	//////}
-
-	////////std::cout << readObj->GetWidth() << std::endl;
-	//////savebmp("testwrite.bmp", readObj->GetWidth(), readObj->GetHeight(), 72, testwrite);
-
-	//delete testwrite;
 	return 0;
 }
 
@@ -324,7 +301,6 @@ MatrixClass viewPort(int x, int y, int w, int h, int depth)
 
 MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up)
 {
-	//std::cout << "lookat" << std::endl;
 	VectorClass z = (eye - centre).Normalize();
 	VectorClass x = (up.CrossProd(z)).Normalize();
 	VectorClass y = (z.CrossProd(x)).Normalize();
@@ -338,38 +314,17 @@ MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up)
 		result[2][i] = z[i];
 		result[i][3] = -centre[i];
 	}
-	//std::cout << "lookat end";
 	return result;
 }
 
 ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree, std::vector<VectorClass*> lights,ColourClass background, ColourClass pointCol, int maxDepth)
 {
-	//double currentLowestVal = 1000000;
 	double omega = 0.0;
 	int closest = -1;
 	ColourClass tmp = ColourClass(0, 0, 0);
 
 	intersectionInfo isect;
 
-	//int omegaCounter = 0;
-	
-	/*int objectsSize = (int)objects.size();
-	for (int objNo = 0; objNo < objectsSize; objNo++)
-	{
-		omega = objects[objNo]->GetIntersection(ray);
-		if (omega == -1)
-		{
-			continue;
-		}
-		else
-		{
-			if (omega < currentLowestVal)
-			{
-				closest = objNo;
-				currentLowestVal = omega;
-			}
-		}
-	}*/
 	isect.flag = false;
 	isect.hit = -1;
 	isect.tri = NULL;
@@ -381,7 +336,6 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 	}
 	else
 	{
-		//std::cout << "bla";
 		bool noShadow = true;
 		VectorClass pi = ray.GetRayOrigin() + ray.GetRayDirection() * isect.hit;
 		VectorClass N = (isect.tri->GetNormal(pi)).Normalize();
@@ -419,8 +373,6 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 			VectorClass L = ((*lights[g]) - pi).Normalize();
 
 			tmp = tmp + isect.tri->illum->GetIllumination(pi, ray, N, L, V, isect.tri->GetColour(), pointCol, maxDepth) / shade;
-
-			//}
 		}
 
 		if (depth < maxDepth)
@@ -440,7 +392,6 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 			if (transmiKt > 0.0)
 			{
 				VectorClass I = ray.GetRayDirection().Normalize()*(-1);
-				//VectorClass I = pi - VectorClass(2.5, 4, 0);
 				double outgoingnt = isect.tri->illum->Getn();
 
 				VectorClass transRayDirection;
@@ -452,8 +403,6 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 				{
 					transRayDirection = I*(-1);
 					niToBePassed = outgoingnt;
-
-					//std::cout << "nobending " << depth << std::endl;
 				}
 				/*if (true)*/else
 				{
@@ -473,7 +422,6 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 
 					if (rootTerm >= 0)
 					{
-						//std::cout << "Bending" << std::endl;
 						double nrdotNI = nr*(dotNI);
 
 						double tempTerm = nrdotNI - sqrt(rootTerm);
@@ -487,12 +435,10 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 					}
 					else
 					{
-						//std::cout << "TotalIntReflection" << std::endl;
 						transRayDirection = isect.tri->illum->Reflect(I*(-1), N);
 						niToBePassed = incomingni;
 					}
 				}
-
 				RayClass transRay = RayClass(pi, transRayDirection);
 				tmp = tmp + TraceRayKD(transRay, depth + 1, niToBePassed, kdtree, lights, background, pointCol, maxDepth) * transmiKt;
 			}
@@ -530,8 +476,6 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 	}
 	if (closest == -1)
 	{
-		//if (depth != 0)
-		//std::cout << depth << std::endl;
 		return background;
 	}
 	else
@@ -555,28 +499,21 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 			{
 				shadowOmega = objects[shadowObj]->GetIntersection(shadowRay);
 				double objkt = illuminations[shadowObj]->Getkt();
-				//std::cout << shadowOmega << " ";
 				if (shadowOmega > 0.00001)
-					//if (false)					// Use this to disable shadows. Comment the "if" condition above.
+				//if (false)					// Use this to disable shadows. Comment the "if" condition above.
 				{
-					//if (shadowOmega <= shadowRayDirection.Magnitude())
-					//{
 					noShadow = false;
-					//break;.......
 					if (objkt > 0.0)
 						shade += 1 - objkt;
 					else
 						shade += 1;
 					break;
-					//}
 				}  
 			}
 			//if (noShadow)
 			//{
 			VectorClass L = ((*lights[g]) - pi).Normalize();
-
 			tmp = tmp + illuminations[closest]->GetIllumination(pi, ray, N, L, V, (*objects[closest]).GetColour(), pointCol, maxDepth) / shade;
-
 			//}
 		}
 
@@ -597,7 +534,6 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 			if (transmiKt > 0.0) 
 			{
 				VectorClass I = ray.GetRayDirection().Normalize()*(-1);
-				//VectorClass I = pi - VectorClass(2.5, 4, 0);
 				double outgoingnt = illuminations[closest]->Getn();
 
 				VectorClass transRayDirection;
@@ -609,8 +545,6 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 				{
 					transRayDirection = I*(-1);
 					niToBePassed = outgoingnt;
-
-					//std::cout << "nobending " << depth << std::endl;
 				}
 				/*if (true)*/else
 				{
@@ -630,7 +564,6 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 
 					if (rootTerm >= 0)
 					{
-						//std::cout << "Bending" << std::endl;
 						double nrdotNI = nr*(dotNI);
 
 						double tempTerm = nrdotNI - sqrt(rootTerm);
@@ -644,12 +577,10 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 					}
 					else
 					{
-						//std::cout << "TotalIntReflection" << std::endl;
 						transRayDirection = illuminations[closest]->Reflect(I*(-1), N);
 						niToBePassed = incomingni;
 					}
 				}
-
 				RayClass transRay = RayClass(pi, transRayDirection);
 				tmp = tmp + TraceRay(transRay, depth + 1, niToBePassed, objects, lights, illuminations, background, pointCol, maxDepth) * transmiKt;
 			}
