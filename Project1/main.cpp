@@ -38,6 +38,8 @@ ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorC
 MatrixClass viewPort(int x, int y, int w, int h, int depth);
 MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up);
 
+#define PI 3.14159265
+
 int main(int argc, char *argv[])
 {
 
@@ -46,7 +48,7 @@ int main(int argc, char *argv[])
 	int whichTR, maxDepth;
 	int screenWidth, screenHeight;
 	double worldWidth = 2 * 16 / 9, worldHeight = 2;
-
+	double fov = 90;
 	// Get command line arguments if any
 	if (argc == 5)
 	{
@@ -84,10 +86,12 @@ int main(int argc, char *argv[])
 	std::vector<TriangleClass*> objects;
 	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
 	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	/*objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));*/
 	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
 		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	objects.push_back(new TriangleClass(VectorClass(-5, -3, -6), VectorClass(5, -3, -6),
+		VectorClass(5, -3, -16), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 
 	std::vector<TriangleClass*> testObjects;
 	testObjects.push_back(new TriangleClass(VectorClass(1.2, 0.4, 3.300), VectorClass(5.5, 0.4, 22.0),
@@ -153,76 +157,82 @@ int main(int argc, char *argv[])
 
 #pragma endregion
 
-	VectorClass eye(1.5,3,1);//(1.0, 1.0, 3.0);
-	VectorClass centreNew(2,2,120);
+#pragma region commentCameraStuff
+	//VectorClass eye(1.5,3,1);//(1.0, 1.0, 3.0);
+	//VectorClass centreNew(2,2,120);
 
-	VectorClass camPosition = eye;//VectorClass(1.5, 3, 1);
-	VectorClass camLookAt = centreNew;// VectorClass(2, 2, 120);
-	double f = 0.3;
+	//VectorClass camPosition = eye;//VectorClass(1.5, 3, 1);
+	//VectorClass camLookAt = centreNew;// VectorClass(2, 2, 120);
+	//double f = 0.3;
 
+	//
+
+	//MatrixClass modelView = lookAt(eye, centreNew, VectorClass(0, 1, 0));
+	//MatrixClass projection = MatrixClass::identity(4);
+	//MatrixClass viewport = viewPort(screenWidth / 8, screenHeight / 8, screenWidth * 3 / 4, screenHeight * 3 / 4, 255);
+
+	//projection[3][2] = -1 / ((eye - centreNew).Magnitude());
+
+	//
+	//std::vector<TriangleClass*> convObjects;
+
+	//for (int i = 0; i < objects.size(); i++)
+	//{
+	//	VectorClass screenCoord[3];
+
+	//	for (int j = 0; j < 3; j++)
+	//	{
+	//		VectorClass v = (*objects[i])[j];
+	//		
+	//		screenCoord[j] = (viewport*projection*modelView*MatrixClass(v)).toVector();
+	//	}
+
+	//	convObjects.push_back(new TriangleClass(screenCoord[0], screenCoord[1], screenCoord[2],
+	//				ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	//}
+
+
+	//// Calculate the Camera parameters
+	//VectorClass camRight = camLookAt.Normalize().CrossProd(VectorClass(0, 1, 0));
+	////VectorClass camUp = camRight.CrossProd(camLookAt);
+	////VectorClass camUp = VectorClass(0,1,0);
+	//CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
+
+
+	//VectorClass camN = (originalCamera.GetPosition() - originalCamera.GetLookAt()).Normalize();
+	//VectorClass camU = (camN.CrossProd(originalCamera.GetUpVector())).Normalize();
+	//VectorClass camV = camU.CrossProd(camN);
+	//
+	//// Calculate center pixel of image plane
+	//VectorClass center( originalCamera.GetPosition().GetX() + f * camN.GetX(),
+	//					originalCamera.GetPosition().GetY() + f * camN.GetY(),
+	//					originalCamera.GetPosition().GetZ() + f * camN.GetZ());
+
+	//// The bottom leftmost point of the image plane
+	//VectorClass startPixel;
+
+	//startPixel.SetX(center.GetX() - ((worldWidth * camU.GetX()) + (worldHeight*camV.GetX())) / 2.0);
+	//startPixel.SetY(center.GetY() - ((worldWidth * camU.GetY()) + (worldHeight*camV.GetY())) / 2.0);
+	//startPixel.SetZ(originalCamera.GetFocalLength());
+
+	//double pixelW = worldWidth / screenWidth;
+	//double pixelH = worldHeight / screenHeight;
+
+	//// For multisampling
+	////double pw2 = pixelW / 2;
+	////double ph2 = pixelH / 2;
+	////int noOfSamples = 4;
 	
+#pragma endregion
 
-	MatrixClass modelView = lookAt(eye, centreNew, VectorClass(0, 1, 0));
-	MatrixClass projection = MatrixClass::identity(4);
-	MatrixClass viewport = viewPort(screenWidth / 8, screenHeight / 8, screenWidth * 3 / 4, screenHeight * 3 / 4, 255);
-
-	projection[3][2] = -1 / ((eye - centreNew).Magnitude());
-
-	
-	std::vector<TriangleClass*> convObjects;
-
-	for (int i = 0; i < objects.size(); i++)
-	{
-		VectorClass screenCoord[3];
-
-		for (int j = 0; j < 3; j++)
-		{
-			VectorClass v = (*objects[i])[j];
-			
-			screenCoord[j] = (viewport*projection*modelView*MatrixClass(v)).toVector();
-		}
-
-		convObjects.push_back(new TriangleClass(screenCoord[0], screenCoord[1], screenCoord[2],
-					ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
-	}
+	int position = 0, testCounter = 0;	
 
 	KDNode kdtree = KDNode();
-
 	kdtree = *kdtree.build(objects, 10);
 
-
-	// Calculate the Camera parameters
-	VectorClass camRight = camLookAt.Normalize().CrossProd(VectorClass(0, 1, 0));
-	//VectorClass camUp = camRight.CrossProd(camLookAt);
-	//VectorClass camUp = VectorClass(0,1,0);
-	CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
-
-
-	VectorClass camN = (originalCamera.GetPosition() - originalCamera.GetLookAt()).Normalize();
-	VectorClass camU = (camN.CrossProd(originalCamera.GetUpVector())).Normalize();
-	VectorClass camV = camU.CrossProd(camN);
-	
-	// Calculate center pixel of image plane
-	VectorClass center( originalCamera.GetPosition().GetX() + f * camN.GetX(),
-						originalCamera.GetPosition().GetY() + f * camN.GetY(),
-						originalCamera.GetPosition().GetZ() + f * camN.GetZ());
-
-	// The bottom leftmost point of the image plane
-	VectorClass startPixel;
-
-	startPixel.SetX(center.GetX() - ((worldWidth * camU.GetX()) + (worldHeight*camV.GetX())) / 2.0);
-	startPixel.SetY(center.GetY() - ((worldWidth * camU.GetY()) + (worldHeight*camV.GetY())) / 2.0);
-	startPixel.SetZ(originalCamera.GetFocalLength());
-
-	double pixelW = worldWidth / screenWidth;
-	double pixelH = worldHeight / screenHeight;
-
-	// For multisampling
-	//double pw2 = pixelW / 2;
-	//double ph2 = pixelH / 2;
-
-	int position = 0, testCounter = 0;
-	int noOfSamples = 4;
+	double scale = tan(fov * PI / 180.0);
+	VectorClass origin = VectorClass(0, 0, 0);
+	double aspectRatio = screenWidth / (double)screenHeight;
 
 	for (int i = 0; i < screenHeight; i++)
 	{
@@ -230,12 +240,18 @@ int main(int argc, char *argv[])
 		{
 			ColourClass tmp = ColourClass(0, 0, 0);
 			
-			VectorClass val = VectorClass(startPixel.GetX() + camU.GetX() * (j + 0.5) * pixelW + camV.GetX() * (i + 0.5) * pixelH,
+			double x = (2 * (j + 0.5) / (double)screenWidth - 1) * aspectRatio * scale;
+			double y = (1 - 2 * (i + 0.5) / (double)screenHeight) * scale;
+
+			VectorClass dir = VectorClass(x, y, -1).Normalize();
+			/*VectorClass val = VectorClass(startPixel.GetX() + camU.GetX() * (j + 0.5) * pixelW + camV.GetX() * (i + 0.5) * pixelH,
 										  startPixel.GetY() + camU.GetY() * (j + 0.5) * pixelW + camV.GetY() * (i + 0.5) * pixelH,
 										  startPixel.GetZ() + camU.GetZ() * (j + 0.5) * pixelW + camV.GetZ() * (i + 0.5) * pixelH);
 
 			VectorClass direction = (val - originalCamera.GetPosition()).Normalize();
-			RayClass ray(originalCamera.GetPosition(), direction);
+			RayClass ray(originalCamera.GetPosition(), direction);*/
+
+			RayClass ray(origin, dir);
 
 			ColourClass debugTmpRemoveLater;
 
