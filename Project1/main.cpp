@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		screenWidth = 1400;
-		screenHeight = 900;
+		screenWidth = 640;
+		screenHeight = 480;
 		maxDepth = 5;
 		whichTR = 3;
 	}
@@ -83,14 +83,16 @@ int main(int argc, char *argv[])
 #pragma region ObjectCreation
 
 	// The list of objects
-	std::vector<TriangleClass*> objects;
+	std::vector<ObjectClass*> objects;
 	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
 	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
-	/*objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));*/
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	/*objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
+		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));*/
 	objects.push_back(new TriangleClass(VectorClass(-5, -3, -6), VectorClass(5, -3, -6),
+		VectorClass(5, -3, -16), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	objects.push_back(new TriangleClass(VectorClass(5, -3, -6), VectorClass(5, -3, -16),
 		VectorClass(5, -3, -16), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 
 	std::vector<TriangleClass*> testObjects;
@@ -141,6 +143,10 @@ int main(int argc, char *argv[])
 		new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)
 		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
 		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
+	illuminations.push_back(
+		new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0));
+	illuminations.push_back(
+		new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0));
 #pragma endregion
 
 #pragma region lightsAndPixels
@@ -228,9 +234,9 @@ int main(int argc, char *argv[])
 	int position = 0, testCounter = 0;	
 
 	KDNode kdtree = KDNode();
-	kdtree = *kdtree.build(objects, 10);
+	//kdtree = *kdtree.build(objects, 10);
 
-	double scale = tan(fov * PI / 180.0);
+	double scale = tan( (fov * 0.5) * PI / 180.0);
 	VectorClass origin = VectorClass(0, 0, 0);
 	double aspectRatio = screenWidth / (double)screenHeight;
 
@@ -255,12 +261,15 @@ int main(int argc, char *argv[])
 
 			ColourClass debugTmpRemoveLater;
 
-			debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
+			//debugTmpRemoveLater = TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
+			debugTmpRemoveLater = TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, 3);
 			double rt = debugTmpRemoveLater.GetRed();
 			double gt = debugTmpRemoveLater.GetGreen();
 			double bt = debugTmpRemoveLater.GetBlue();
 			tmp = tmp + debugTmpRemoveLater;
 
+			/*ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<ObjectClass*> objects, std::vector<VectorClass*> lights,
+				std::vector<IlluminationClass*> illuminations, ColourClass background, ColourClass pointCol, int maxDepth)*/
 			/* Multisampling
 			Multisampling using 4 points for a pixel
 			
@@ -294,8 +303,13 @@ int main(int argc, char *argv[])
 			pixels[position].SetGreen(tmp.GetGreen());
 			pixels[position].SetBlue(tmp.GetBlue());
 			
+			if ((position == 182792) && (i == 285) && (j = 392))
+				std::cout << position << " "<< i<< " " <<j<< " ||| ";
+
+
 			position++;
 		}
+		std::cout<<std::endl;
 	}
 	savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 
