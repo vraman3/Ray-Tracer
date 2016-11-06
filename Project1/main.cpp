@@ -149,19 +149,19 @@ int main(int argc, char *argv[])
 
 	VectorClass camPosition = eye;//VectorClass(1.5, 3, 1);
 	VectorClass camLookAt = centreNew;// VectorClass(2, 2, 120);
-	double f = 0.3;
+	double f = 3.0;
 
 	
 
-	MatrixClass modelView = lookAt(eye, centreNew, VectorClass(0, 1, 0));
+	/*MatrixClass modelView = lookAt(eye, centreNew, VectorClass(0, 1, 0));
 	MatrixClass projection = MatrixClass::identity(4);
 	MatrixClass viewport = viewPort(screenWidth / 8, screenHeight / 8, screenWidth * 3 / 4, screenHeight * 3 / 4, 255);
 
-	projection[3][2] = -1 / ((eye - centreNew).Magnitude());
+	projection[3][2] = -1 / ((eye - centreNew).Magnitude());*/
 
 	
 
-	for (int i = 0; i < objects.size(); i++)
+	/*for (int i = 0; i < objects.size(); i++)
 	{
 		VectorClass screenCoord[3];
 
@@ -174,7 +174,7 @@ int main(int argc, char *argv[])
 
 		convObjects.push_back(new TriangleClass(screenCoord[0], screenCoord[1], screenCoord[2],
 					ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
-	}
+	}*/
 
 	KDNode kdtree = KDNode();
 
@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
 
 	// Calculate the Camera parameters
 	VectorClass camRight = camLookAt.Normalize().CrossProd(VectorClass(0, 1, 0));
-	//VectorClass camUp = camRight.CrossProd(camLookAt);
+	VectorClass camUp = camRight.CrossProd(camLookAt);
 	//VectorClass camUp = VectorClass(0,1,0);
 	CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
 
