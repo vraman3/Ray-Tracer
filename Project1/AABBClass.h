@@ -30,6 +30,8 @@ class AABBClass :public ObjectClass
 
 AABBClass::AABBClass()
 {
+	Bmin = VectorClass(INFINITY, INFINITY, INFINITY);
+	Bmax = VectorClass(-INFINITY, -INFINITY, -INFINITY);
 }
 
 AABBClass::AABBClass(VectorClass min, VectorClass max)
@@ -66,19 +68,23 @@ int AABBClass::GetLongestAxis()
 
 void AABBClass::Expand(AABBClass newBox)
 {
-	if (newBox.Bmin.GetX() < Bmin.GetX())
-		Bmin.SetX(newBox.Bmin.GetX());
-	if (newBox.Bmin.GetY() < Bmin.GetY())
-		Bmin.SetY(newBox.Bmin.GetY());
-	if (newBox.Bmin.GetZ() < Bmin.GetZ())
-		Bmin.SetZ(newBox.Bmin.GetZ());
+	if (newBox.Bmin.GetX() < this->Bmin.GetX())
+		this->Bmin.SetX(newBox.Bmin.GetX());
 
-	if (newBox.Bmax.GetX() > Bmax.GetX())
-		Bmax.SetX(newBox.Bmax.GetX());
-	if (newBox.Bmax.GetY() > Bmax.GetY())
-		Bmax.SetY(newBox.Bmax.GetY());
-	if (newBox.Bmax.GetZ() > Bmax.GetZ())
-		Bmax.SetZ(newBox.Bmax.GetZ());
+	if (newBox.Bmin.GetY() < this->Bmin.GetY())
+		this->Bmin.SetY(newBox.Bmin.GetY());
+	
+	if (newBox.Bmin.GetZ() < this->Bmin.GetZ())
+		this->Bmin.SetZ(newBox.Bmin.GetZ());
+
+	if (newBox.Bmax.GetX() > this->Bmax.GetX())
+		this->Bmax.SetX(newBox.Bmax.GetX());
+
+	if (newBox.Bmax.GetY() > this->Bmax.GetY())
+		this->Bmax.SetY(newBox.Bmax.GetY());
+
+	if (newBox.Bmax.GetZ() > this->Bmax.GetZ())
+		this->Bmax.SetZ(newBox.Bmax.GetZ());
 }
 
 double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
