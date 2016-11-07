@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
 	KDNode kdtree = KDNode();
 
 	//kdtree = *kdtree.build(objects, 10);
-	kdtree = *kdtree.build(bunnyObjects, 10);
+	kdtree = *kdtree.build(bunnyObjects, 1, 10);
 
 
 	// Calculate the Camera parameters

@@ -27,7 +27,7 @@ class KDNode
 		bool isLeaf();
 		AABBClass CreateBoundingBox(std::vector<TriangleClass*>);
 		intersectionInfo Traverse(RayClass, intersectionInfo);
-		KDNode* build(std::vector<TriangleClass*>&, int);
+		KDNode* build(std::vector<TriangleClass*>&, int, int);
 
 		struct KDToDo
 		{
@@ -39,7 +39,7 @@ class KDNode
 KDNode::KDNode()
 {}
 
-KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
+KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth, int maxDepth)
 {
 	/*KDNode* this = new KDNode();
 	
@@ -52,7 +52,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 
 	int objectsSize = objs.size();
 	// If there are no objects
-	if (objectsSize == 0)
+	if (objectsSize == 0 || depth > maxDepth)
 	{
 		this->splitAxis = 3;
 		return this;
@@ -70,16 +70,18 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 		return this;
 	}
 
-	// For multiple objects get boundingbox for whole scene
-	// by getting bounding box for one
-	this->aabbBox = objs[0]->GetBoundingBox();
-	// and then expand for all the objects
-	for (int i = 1; i < objectsSize; i++)
-	{
-		std::cout << "i :" << i << std::endl;
-		//std::cout << objectsSize << " testExpand ";
-		this->aabbBox.Expand(objs[i]->GetBoundingBox());
-	}
+
+	this->aabbBox = CreateBoundingBox(objs);
+	//// For multiple objects get boundingbox for whole scene
+	//// by getting bounding box for one
+	//this->aabbBox = objs[0]->GetBoundingBox();
+	//// and then expand for all the objects
+	//for (int i = 1; i < objectsSize; i++)
+	//{
+	//	std::cout << "i :" << i << std::endl;
+	//	//std::cout << objectsSize << " testExpand ";
+	//	this->aabbBox.Expand(objs[i]->GetBoundingBox());
+	//}
 	
 	// Get the sum of midpoints of all objects (For now do this for triangles ONLY)
 	VectorClass midpoint = VectorClass(0, 0, 0);
@@ -156,8 +158,8 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	// else subdivide further
 	if ((float)matches / leftObjSize < 0.5 && (float)matches / rightObjSize < 0.5)
 	{
-		this->left  = build(left_objs, depth + 1);
-		this->right = build(right_objs, depth + 1);
+		this->left  = build(left_objs, depth + 1, maxDepth);
+		this->right = build(right_objs, depth + 1, maxDepth);
 	}
 	else
 	{
@@ -181,22 +183,40 @@ bool KDNode::isLeaf()
 
 AABBClass KDNode::CreateBoundingBox(std::vector<TriangleClass*> objects)
 {
-	VectorClass minimum, maximum;
-
 	double minX, minY, minZ;
 	double maxX, maxY, maxZ;
 
 	minX = minY = minZ =  INFINITY;
-	maxX = maxY = maxY = -INFINITY;
+	maxX = maxY = maxZ = -INFINITY;
 
-	for (int i = 0; i < objects.size; i++)
+	for (int i = 0; i < objects.size(); i++)
 	{
 		//std::cout << "i :" << i << std::endl;
 		//std::cout << objectsSize << " testExpand ";
 		AABBClass temp = objects[i]->GetBoundingBox();
 
-		if ( temp.)
+		// Min
+		if (temp.GetBmin().GetX() < minX)
+			minX = temp.GetBmin().GetX();
+
+		if (temp.GetBmin().GetY() < minY)
+			minY = temp.GetBmin().GetY();
+
+		if (temp.GetBmin().GetZ() < minZ)
+			minZ = temp.GetBmin().GetZ();
+
+		// Max
+		if (temp.GetBmax().GetX() > maxX)
+			maxX = temp.GetBmax().GetX();
+
+		if (temp.GetBmax().GetY() > maxY)
+			maxY = temp.GetBmax().GetY();
+
+		if (temp.GetBmax().GetZ() > maxZ)
+			maxZ = temp.GetBmax().GetZ();
 	}
+
+	return AABBClass(VectorClass(minX, minY, minZ), VectorClass(maxX, maxY, maxZ));
 }
 
 intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
