@@ -76,7 +76,7 @@ void ObjLoaderClass::readObjFile(std::string filename)
 	else
 		std::cout << "Unable to open file.";
 
-	for (int i = 0; i < vertices.size() / 3; i++)
+	for (int i = 0; i < vertices.size(); i += 3)
 	{
 		opVertices.push_back(VectorClass(vertices[i], vertices[i + 1], vertices[i + 2]));
 	}

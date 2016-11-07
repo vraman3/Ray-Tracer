@@ -57,6 +57,7 @@ TriangleClass::TriangleClass()
 	testcount = 0;
 }
 
+// Vertices in counter clockwise order
 TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col)
 {
 	A = vert1;
@@ -69,6 +70,7 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	ambient = 0.3;
 }
 
+// Vertices in counter clockwise order
 TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, IlluminationClass *inputIllum)
 {
 	A = vert1;

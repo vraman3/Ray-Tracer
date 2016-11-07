@@ -20,6 +20,12 @@ class AABBClass :public ObjectClass
 		AABBClass();
 		AABBClass(VectorClass, VectorClass);
 
+		VectorClass GetBmin();
+		VectorClass GetBmax();
+
+		void SetBmin(VectorClass);
+		void SetBmax(VectorClass);
+
 		void SetCentre();
 		void Expand(AABBClass);
 		int GetLongestAxis();
@@ -43,6 +49,27 @@ AABBClass::AABBClass(VectorClass min, VectorClass max)
 }
 
 VectorClass AABBClass::GetNormal(VectorClass v = VectorClass(0, 0, 0)){ return v; }
+
+VectorClass AABBClass::GetBmin()
+{
+	return this->Bmin;
+}
+
+VectorClass AABBClass::GetBmax()
+{
+	return this->Bmax;
+}
+
+void AABBClass::SetBmin(VectorClass val)
+{
+	this->Bmin = val;
+}
+
+void AABBClass::SetBmax(VectorClass val)
+{
+	this->Bmax = val;
+}
+
 
 int AABBClass::GetLongestAxis()
 {
@@ -68,23 +95,67 @@ int AABBClass::GetLongestAxis()
 
 void AABBClass::Expand(AABBClass newBox)
 {
-	if (newBox.Bmin.GetX() < this->Bmin.GetX())
-		this->Bmin.SetX(newBox.Bmin.GetX());
+	float newMinX = newBox.Bmin.GetX();
+	float newMinY = newBox.Bmin.GetY();
+	float newMinZ = newBox.Bmin.GetZ();
 
-	if (newBox.Bmin.GetY() < this->Bmin.GetY())
-		this->Bmin.SetY(newBox.Bmin.GetY());
-	
-	if (newBox.Bmin.GetZ() < this->Bmin.GetZ())
-		this->Bmin.SetZ(newBox.Bmin.GetZ());
+	float newMaxX = newBox.Bmax.GetX();
+	float newMaxY = newBox.Bmax.GetY();
+	float newMaxZ = newBox.Bmax.GetZ();
 
-	if (newBox.Bmax.GetX() > this->Bmax.GetX())
-		this->Bmax.SetX(newBox.Bmax.GetX());
+	// For debugging only. Delete later.
+	float oldMinX = this->Bmin.GetX();
+	float oldMinY = this->Bmin.GetY();
+	float oldMinZ = this->Bmin.GetZ();
 
-	if (newBox.Bmax.GetY() > this->Bmax.GetY())
-		this->Bmax.SetY(newBox.Bmax.GetY());
+	float oldMaxX = this->Bmax.GetX();
+	float oldMaxY = this->Bmax.GetY();
+	float oldMaxZ = this->Bmax.GetZ();
 
-	if (newBox.Bmax.GetZ() > this->Bmax.GetZ())
-		this->Bmax.SetZ(newBox.Bmax.GetZ());
+	// Min
+	std::cout << " Min " << std::endl;
+	std::cout << newMinX << " : old : " << oldMinX << std::endl;
+	if (newMinX < oldMinX)
+	{
+		std::cout << "setting X min to: " << newMinX << std::endl;
+		this->Bmin.SetX(newMinX);
+	}
+
+	std::cout << newMinY << " : old : " << oldMinY << std::endl;
+	if (newMinY < oldMinY)
+	{
+		std::cout << "setting Y min to: " << newMinY << std::endl;
+		this->Bmin.SetY(newMinY);
+	}
+
+	std::cout << newMinZ << " : old : " << oldMinZ << std::endl;
+	if (newMinZ < oldMinZ)
+	{
+		std::cout << "setting Z min to: " << newMinZ << std::endl;
+		this->Bmin.SetZ(newMinZ);
+	}
+	// Max
+	std::cout << " Max " << std::endl;
+	std::cout << newMaxX << " : old : " << oldMaxX << std::endl;
+	if (newMaxX > oldMaxX)
+	{
+		std::cout << "setting X max to: " << newMaxX << std::endl;
+		this->Bmax.SetX(newMaxX);
+	}
+
+	std::cout << newMaxY << " : old : " << oldMaxY << std::endl;
+	if (newMaxY > oldMaxY)
+	{
+		std::cout << "setting Y max to: " << newMaxY << std::endl;
+		this->Bmax.SetY(newMaxY);
+	}
+
+	std::cout << newMaxZ << " : old : " << oldMaxZ << std::endl;
+	if (newMaxZ > oldMaxZ)
+	{
+		std::cout << "setting Z max to: " << newMaxZ << std::endl;
+		this->Bmax.SetZ(newMaxZ);
+	}
 }
 
 double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)

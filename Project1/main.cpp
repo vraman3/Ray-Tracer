@@ -114,16 +114,18 @@ int main(int argc, char *argv[])
 
 	std::vector<TriangleClass*> bunnyObjects;
 
-	for (int i = 0; i < noOfFaces / 3; i++)
+	for (int i = 0; i < noOfFaces; i += 3)
 	{/*
 		std::cout << i << std::endl;
 
 		std::cout << objFile.faces[i] - 1 << std::endl;
 		std::cout << objFile.faces[i + 1] - 1 << std::endl;
 		std::cout << objFile.faces[i + 2] - 1  << std::endl;*/
-		bunnyObjects.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],			
-			objFile.opVertices[objFile.faces[i + 1] - 1],
-			objFile.opVertices[objFile.faces[i + 2] - 1],
+		bunnyObjects.push_back(
+			new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],			
+								
+								objFile.opVertices[objFile.faces[i + 2] - 1],
+								objFile.opVertices[objFile.faces[i + 1] - 1],
 			
 			ColourClass(0.0, 1.0, 0.0),
 			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
