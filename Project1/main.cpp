@@ -43,7 +43,8 @@ int main(int argc, char *argv[])
 #pragma region start
 	int whichTR, maxDepth;
 	int screenWidth, screenHeight;
-	double worldWidth = 2 * 16 / 9, worldHeight = 2;
+	double aspectRatio = 16 / 9;
+	double worldWidth = 2, worldHeight = worldWidth / aspectRatio;
 
 	// Get command line arguments if any
 	if (argc == 5)
@@ -57,8 +58,8 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		screenWidth = 1400;
-		screenHeight = 900;
+		screenWidth = 640;
+		screenHeight = 480;
 		maxDepth = 5;
 		whichTR = 3;
 	}
@@ -78,10 +79,23 @@ int main(int argc, char *argv[])
 	std::vector<TriangleClass*> objects;
 	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
 	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	//old
+	///*objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+	//	VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	//objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
+	//	VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));*/
+
+	// From Lonkar
+	objects.push_back(new TriangleClass(VectorClass(4.0, -2.69, 2.68), VectorClass(4.0, -2.69, 16.61),
+		VectorClass(-4.0, -2.69, 16.61), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	objects.push_back(new TriangleClass(VectorClass(4.0, -2.69, 2.68), VectorClass(-4.0, -2.69, 16.61),
+		VectorClass(-4.0, -2.69, 2.68), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+
+	// From Lonkar Negative Z axis FAIL
+	//objects.push_back(new TriangleClass(VectorClass(4.0, -2.69, -2.68), VectorClass(4.0, -2.69, -16.61),
+	//	VectorClass(-4.0, -2.69, -16.61), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+	//objects.push_back(new TriangleClass(VectorClass(4.0, -2.69, -2.68), VectorClass(-4.0, -2.69, -16.61),
+	//	VectorClass(-4.0, -2.69, -2.68), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 
 	std::vector<TriangleClass*> testObjects;
 	testObjects.push_back(new TriangleClass(VectorClass(1.2, 0.4, 3.300), VectorClass(5.5, 0.4, 22.0),
@@ -94,15 +108,20 @@ int main(int argc, char *argv[])
 
 	ObjLoaderClass objFile = ObjLoaderClass();
 
-	objFile.readObjFile("bunny.obj");
+	objFile.readObjFile("unityBunnyS15.obj");
 
 	int noOfFaces = objFile.faces.size();
 
 	std::vector<TriangleClass*> bunnyObjects;
 
 	for (int i = 0; i < noOfFaces / 3; i++)
-	{
-		bunnyObjects.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
+	{/*
+		std::cout << i << std::endl;
+
+		std::cout << objFile.faces[i] - 1 << std::endl;
+		std::cout << objFile.faces[i + 1] - 1 << std::endl;
+		std::cout << objFile.faces[i + 2] - 1  << std::endl;*/
+		bunnyObjects.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],			
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
 			ColourClass(0.0, 1.0, 0.0),
@@ -144,47 +163,32 @@ int main(int argc, char *argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
 
-	VectorClass eye(0,0,-1);//(1.0, 1.0, 3.0);
-	VectorClass centreNew(2,2,120);
+	////VectorClass eye(0,0,-1);//(1.0, 1.0, 3.0);
+	////VectorClass centreNew(2,2,120);
+
+	////VectorClass camPosition = eye;//VectorClass(1.5, 3, 1);
+	////VectorClass camLookAt = centreNew;// VectorClass(2, 2, 120);
+	////double f = 3.0;
+
+	VectorClass eye(0, 0, 0);//(1.0, 1.0, 3.0);
+	VectorClass centreNew(0, 0, 1);
 
 	VectorClass camPosition = eye;//VectorClass(1.5, 3, 1);
 	VectorClass camLookAt = centreNew;// VectorClass(2, 2, 120);
-	double f = 3.0;
+	double f = 1;
 
-	
-
-	/*MatrixClass modelView = lookAt(eye, centreNew, VectorClass(0, 1, 0));
-	MatrixClass projection = MatrixClass::identity(4);
-	MatrixClass viewport = viewPort(screenWidth / 8, screenHeight / 8, screenWidth * 3 / 4, screenHeight * 3 / 4, 255);
-
-	projection[3][2] = -1 / ((eye - centreNew).Magnitude());*/
-
-	
-
-	/*for (int i = 0; i < objects.size(); i++)
-	{
-		VectorClass screenCoord[3];
-
-		for (int j = 0; j < 3; j++)
-		{
-			VectorClass v = (*objects[i])[j];
-			
-			screenCoord[j] = (viewport*projection*modelView*MatrixClass(v)).toVector();
-		}
-
-		convObjects.push_back(new TriangleClass(screenCoord[0], screenCoord[1], screenCoord[2],
-					ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
-	}*/
 
 	KDNode kdtree = KDNode();
 
-	kdtree = *kdtree.build(objects, 10);
+	//kdtree = *kdtree.build(objects, 10);
+	kdtree = *kdtree.build(bunnyObjects, 10);
 
 
 	// Calculate the Camera parameters
-	VectorClass camRight = camLookAt.Normalize().CrossProd(VectorClass(0, 1, 0));
-	VectorClass camUp = camRight.CrossProd(camLookAt);
+	///*VectorClass camRight = camLookAt.Normalize().CrossProd(VectorClass(0, 1, 0));
+	//VectorClass camUp = camRight.CrossProd(camLookAt);*/
 	//VectorClass camUp = VectorClass(0,1,0);
+
 	CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
 
 
@@ -193,9 +197,9 @@ int main(int argc, char *argv[])
 	VectorClass camV = camU.CrossProd(camN);
 	
 	// Calculate center pixel of image plane
-	VectorClass center( originalCamera.GetPosition().GetX() + f * camN.GetX(),
-						originalCamera.GetPosition().GetY() + f * camN.GetY(),
-						originalCamera.GetPosition().GetZ() + f * camN.GetZ());
+	VectorClass center( originalCamera.GetPosition().GetX() - f * camN.GetX(),
+						originalCamera.GetPosition().GetY() - f * camN.GetY(),
+						originalCamera.GetPosition().GetZ() - f * camN.GetZ());
 
 	// The bottom leftmost point of the image plane
 	VectorClass startPixel;
@@ -241,8 +245,8 @@ int main(int argc, char *argv[])
 			//}
 			tmp = tmp + debugTmpRemoveLater;
 
-			/*//Multisampling using 4 points for a pixel
-			
+			#pragma region Multisampling using 4 points for a pixel
+			/*
 			VectorClass val1 = VectorClass(val.GetX() - pw2, val.GetY() + ph2, val.GetZ());
 			VectorClass val2 = VectorClass(val.GetX() + pw2, val.GetY() + ph2, val.GetZ());
 			VectorClass val3 = VectorClass(val.GetX() + pw2, val.GetY() - ph2, val.GetZ());
@@ -268,7 +272,8 @@ int main(int argc, char *argv[])
 			tmp = tmp + debugTmpRemoveLater4;
 
 			tmp = tmp / (noOfSamples);*/
-
+			#pragma endregion
+			
 			pixels[position].SetRed(tmp.GetRed());
 			pixels[position].SetGreen(tmp.GetGreen());
 			pixels[position].SetBlue(tmp.GetBlue());
@@ -278,34 +283,6 @@ int main(int argc, char *argv[])
 		//std::cout << " eol " << std::endl;
 	}
 	savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
-
-	// Read and write from a bmp file
-	//////ReadFromFile *readObj = new ReadFromFile();
-	//////int start = 0, testCounter1 = 0;
-	//////
-	//////ColourClass *testwrite;
-	//////testwrite = readObj->ReadBMP("Texturemaps/24-640x480.bmp");
-
-	//////for (int i = 0; i < 512; i++)
-	//////{
-	//////	for (int j = 0; j < 384; j++)
-	//////	{
-
-	//////		if (testCounter1 < 20)
-	//////		{
-	//////			//std::cout << testwrite[start].GetRed() << " " << testwrite[start].GetGreen() << " " << testwrite[start].GetBlue() << std::endl;
-	//////			testCounter1++;
-	//////		}
-
-	//////		start++;
-
-	//////	}
-	//////}
-
-	////////std::cout << readObj->GetWidth() << std::endl;
-	//////savebmp("testwrite.bmp", readObj->GetWidth(), readObj->GetHeight(), 72, testwrite);
-
-	//delete testwrite;
 	return 0;
 }
 
@@ -381,7 +358,7 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 	}
 	else
 	{
-		//std::cout << "bla";
+		//std::cout << "intersect" << std::endl;
 		bool noShadow = true;
 		VectorClass pi = ray.GetRayOrigin() + ray.GetRayDirection() * isect.hit;
 		VectorClass N = (isect.tri->GetNormal(pi)).Normalize();

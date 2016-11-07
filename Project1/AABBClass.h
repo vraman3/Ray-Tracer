@@ -73,11 +73,11 @@ void AABBClass::Expand(AABBClass newBox)
 	if (newBox.Bmin.GetZ() < Bmin.GetZ())
 		Bmin.SetZ(newBox.Bmin.GetZ());
 
-	if (newBox.Bmax.GetX() < Bmax.GetX())
+	if (newBox.Bmax.GetX() > Bmax.GetX())
 		Bmax.SetX(newBox.Bmax.GetX());
-	if (newBox.Bmax.GetY() < Bmax.GetY())
+	if (newBox.Bmax.GetY() > Bmax.GetY())
 		Bmax.SetY(newBox.Bmax.GetY());
-	if (newBox.Bmax.GetZ() < Bmax.GetZ())
+	if (newBox.Bmax.GetZ() > Bmax.GetZ())
 		Bmax.SetZ(newBox.Bmax.GetZ());
 }
 
@@ -185,6 +185,9 @@ double AABBClass::GetIntersection1(RayClass ray, double *hitt0, double *hitt1)
 	return tmin;
 }
 
+///
+/// THIS IS WRONG
+///
 void AABBClass::SetCentre()
 {
 	centre.SetX((abs(Bmin.GetX()) + abs(Bmax.GetX())) / 2);

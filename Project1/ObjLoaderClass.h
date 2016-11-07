@@ -51,10 +51,20 @@ void ObjLoaderClass::readObjFile(std::string filename)
 			}
 			else if (name == "f")
 			{
+
 				int face[3];
+				
+				
+				// Unity Scene OBJ Exporter
+				//f 3/3/3 4/4/4 5/5/5
+				std::sscanf(line.c_str(), "%*s %i %*[/] %*i %*[/] %*i %i %*[/] %*i %*[/] %*i %i", &face[0], &face[1], &face[2]);
 
-				std::sscanf(line.c_str(), "%*s %i %i %i", &face[0], &face[1], &face[2]);
+				// Maya
+				// f 1061//1 2041//2 1567//3
+				//std::sscanf(line.c_str(), "%*s %i %*[//] %*i %i %*[//] %*i %i", &face[0], &face[1], &face[2]);
 
+				// Regular
+				//std::sscanf(line.c_str(), "%*s %i %i %i", &face[0], &face[1], &face[2]);
 				//std::cout << "f1: " << face[0] << " f2: " << face[1] << " f3: " << face[2] << std::endl;
 				faces.push_back(face[0]);
 				faces.push_back(face[1]);
