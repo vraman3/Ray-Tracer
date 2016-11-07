@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
 
 	ObjLoaderClass objFile = ObjLoaderClass();
 
-	objFile.readObjFile("unityCubeT.obj");
+	objFile.readObjFile("unityBunny.obj");
 
 	int noOfFaces = objFile.faces.size();
 
@@ -122,13 +122,11 @@ int main(int argc, char *argv[])
 		std::cout << objFile.faces[i + 1] - 1 << std::endl;
 		std::cout << objFile.faces[i + 2] - 1  << std::endl;*/
 		bunnyObjects.push_back(
-			new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],			
-								
-								objFile.opVertices[objFile.faces[i + 2] - 1],
+			new TriangleClass(	objFile.opVertices[objFile.faces[i] - 1],
 								objFile.opVertices[objFile.faces[i + 1] - 1],
-			
-			ColourClass(0.0, 1.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+								objFile.opVertices[objFile.faces[i + 2] - 1],
+								ColourClass(0.0, 1.0, 0.0),
+								new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
 	}
 
 	std::vector<TriangleClass*> convObjects;
