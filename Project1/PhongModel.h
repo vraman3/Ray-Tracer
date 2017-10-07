@@ -29,7 +29,9 @@ ColourClass PhongModel::GetIllumination(VectorClass pi, RayClass ray, VectorClas
 {
 	ColourClass tmp = ColourClass(0.0, 0.0, 0.0);
 
-	if (ray.GetRayDirection().DotProd(N) < 0)
+	//std::cout << ray.GetRayDirection().DotProd(N) << std::endl;
+	//std::cout << L.DotProd(N) << std::endl;
+	if (ray.GetRayDirection().DotProd(N) > 0.000000001)
 	{
 		if (kd > 0)
 		{
@@ -40,7 +42,7 @@ ColourClass PhongModel::GetIllumination(VectorClass pi, RayClass ray, VectorClas
 			std::cout << dotNL << " dnl" << std::endl;
 			testCounter += 50;
 			}*/
-			if (dotNL > 0.0001)
+			if (dotNL > 0.0000000001)
 			{
 				double diff = kd * dotNL;
 				ColourClass diffuse = objColour * diff * pointCol;
@@ -53,7 +55,7 @@ ColourClass PhongModel::GetIllumination(VectorClass pi, RayClass ray, VectorClas
 				double dotVR = R.DotProd(V);									//2//
 
 
-				if (dotVR > 0.0001)
+				if (dotVR > 0.000000001)
 				{
 					double spec = ks * pow(dotVR, ke);
 					ColourClass specular = (ColourClass(1.0, 1.0, 1.0) * spec) * pointCol;

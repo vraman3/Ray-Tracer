@@ -76,7 +76,8 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	A = vert1;
 	B = vert2;
 	C = vert3;
-	normal = (vert3 - vert1).CrossProd(vert2 - vert1);
+	normal = (vert3 - vert1).CrossProd(vert2 - vert1); // original
+	//normal = (vert2 - vert1).CrossProd(vert3 - vert1);
 	colour = col;
 	diffuse = 0.4;
 	specular = 0.08;

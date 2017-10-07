@@ -108,8 +108,8 @@ int main(int argc, char *argv[])
 
 	ObjLoaderClass objFile = ObjLoaderClass();
 
+	//objFile.readObjFile("planeTestMayaPerpcularCutVertsMerged.obj");
 	objFile.readObjFile("unityBunny.obj");
-
 	int noOfFaces = objFile.faces.size();
 
 	std::vector<TriangleClass*> bunnyObjects;
@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
 								objFile.opVertices[objFile.faces[i + 1] - 1],
 								objFile.opVertices[objFile.faces[i + 2] - 1],
 								ColourClass(0.0, 1.0, 0.0),
-								new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+								new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.3, 1.0)));
 	}
 
 	std::vector<TriangleClass*> convObjects;
@@ -396,7 +396,7 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 			
 			VectorClass L = ((*lights[g]) - pi).Normalize();
 
-			tmp = tmp + isect.tri->illum->GetIllumination(pi, ray, N, L, V, isect.tri->GetColour(), pointCol, maxDepth) / shade;
+			tmp = tmp + isect.tri->illum->GetIllumination(pi, shadowRay, N, L, V, isect.tri->GetColour(), pointCol, maxDepth) / shade;
 
 			//}
 		}
