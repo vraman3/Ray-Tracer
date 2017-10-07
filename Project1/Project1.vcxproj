@@ -96,6 +96,7 @@
   <ItemGroup>
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="VectorClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RayTracing.rc" />
