@@ -18,32 +18,34 @@ private:
 	double x, y, z;
 
 public:
+	// Constructors
 	VectorClass();
 	VectorClass(double, double, double);
 	//VectorClass(MatrixClass);
+
+	// Getters
 	double GetX();
 	double GetY();
 	double GetZ();
 
+	// Setters
 	void SetX(double);
 	void SetY(double);
 	void SetZ(double);
 
+	// Overloaded operators
 	VectorClass operator+(const VectorClass&) const;
 	VectorClass operator-(const VectorClass&) const;
 	VectorClass operator*(const VectorClass&) const;
 	VectorClass operator*(const double) const;
 	VectorClass operator/(const double) const;
-	
 	double operator[](const int) const;
 
+	// Methods
 	double Magnitude();
 	double DotProd(VectorClass );
 	VectorClass CrossProd(VectorClass );
 	VectorClass Normalize();
 
 };
-
-//VectorClass::VectorClass(MatrixClass m) : x(m[0][0] / m[3][0]), y(m[1][0] / m[3][0]), z(m[2][0] / m[3][0])
-//{}
 
