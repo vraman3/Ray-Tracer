@@ -39,9 +39,6 @@
     <ClInclude Include="lodepng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SaveToFIle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TriangleClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -88,6 +85,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MatrixClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveToFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

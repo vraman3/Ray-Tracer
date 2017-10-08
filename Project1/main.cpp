@@ -20,7 +20,7 @@
 #include "StraussModel.h"
 #include "NoShadingModel.h"
 #include "CheckerboardPattern.h"
-#include "SaveToFIle.h"
+#include "SaveToFile.h"
 #include "ReadFromFile.h"
 #include "KDNode.h"
 #include "IntersectionInfo.h"
