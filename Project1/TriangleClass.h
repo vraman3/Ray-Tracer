@@ -20,6 +20,7 @@ class TriangleClass : public ObjectClass
 		double		D, D1, D2, D3;
 		double		diffuse, specular, ambient;
 		ColourClass colour;
+		VectorClass minValBbox, maxValBbox;
 		double GetArea(VectorClass, VectorClass, VectorClass);
 		int testcount;
 
@@ -35,11 +36,20 @@ class TriangleClass : public ObjectClass
 		VectorClass GetB();
 		VectorClass GetC();
 
+		VectorClass GetMinValBBox();
+		VectorClass GetMaxValBBox();
+
+		void SetMinValBBox(VectorClass);
+		void SetMaxValBBox(VectorClass);
+
+		void SetValuesForBoundingBox();
+
 		double GetDiffuse();
 		double GetSpecular();
 		double GetAmbient();
+
 		virtual ColourClass GetColour();
 		virtual double GetIntersection(RayClass);
 		virtual VectorClass GetMidpoint();
-		AABBClass GetBoundingBox();
+		
 };

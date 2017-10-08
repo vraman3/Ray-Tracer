@@ -18,7 +18,7 @@ class AABBClass :public ObjectClass
 
 	public:
 		AABBClass();
-		AABBClass(VectorClass, VectorClass);
+		AABBClass(VectorClass min, VectorClass max);
 
 		void SetCentre();
 		void Expand(AABBClass);

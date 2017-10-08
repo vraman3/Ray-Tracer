@@ -9,7 +9,8 @@ TriangleClass::TriangleClass()
 	diffuse = 0.4;
 	specular = 0.08;
 	ambient = 0.3;
-
+	minValBbox = VectorClass(1.0, 1.0, 1.0);
+	maxValBbox = VectorClass(1.0, 1.0, 1.0);
 	testcount = 0;
 }
 
@@ -23,6 +24,7 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	diffuse = 0.4;
 	specular = 0.08;
 	ambient = 0.3;
+	SetValuesForBoundingBox();
 }
 
 TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, IlluminationClass *inputIllum)
@@ -36,6 +38,8 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	specular = 0.08;
 	ambient = 0.3;
 	illum = inputIllum;
+
+	SetValuesForBoundingBox();
 }
 
 VectorClass TriangleClass::operator[](const int dimension) const
@@ -164,7 +168,26 @@ VectorClass TriangleClass::GetMidpoint()
 	return VectorClass(x, y, z);
 }
 
-AABBClass TriangleClass::GetBoundingBox()
+VectorClass TriangleClass::GetMinValBBox()
+{
+	return minValBbox;
+}
+VectorClass TriangleClass::GetMaxValBBox()
+{
+	return maxValBbox;
+}
+
+void TriangleClass::SetMinValBBox(VectorClass newMinVal)
+{
+	minValBbox = newMinVal;
+}
+
+void TriangleClass::SetMaxValBBox(VectorClass newMaxVal)
+{
+	maxValBbox = newMaxVal;
+}
+
+void TriangleClass::SetValuesForBoundingBox()
 {
 	VectorClass minVal, maxVal;
 
@@ -188,5 +211,7 @@ AABBClass TriangleClass::GetBoundingBox()
 	maxVal.SetY(std::max({ ay, by, cy }));
 	maxVal.SetZ(std::max({ az, bz, cz }));
 
-	return AABBClass(minVal, maxVal);
+	this->SetMinValBBox(minVal);
+	this->SetMaxValBBox(maxVal);
+	//return AABBClass(minVal, maxVal);
 }

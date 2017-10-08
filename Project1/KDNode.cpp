@@ -12,7 +12,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	node->objects = objs;
 	node->left = NULL;
 	node->right = NULL;
-	node->aabbBox = AABBClass();
+	//node->aabbBox = AABBClass();
 
 	int objectsSize = objs.size();
 	// If there are no objects
@@ -25,7 +25,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	// If only one object
 	if (objectsSize == 1)
 	{
-		node->aabbBox = objs[0]->GetBoundingBox();
+		node->aabbBox = AABBClass(objs[0]->GetMinValBBox(), objs[0]->GetMaxValBBox());//objs[0]->GetBoundingBox();
 		node->left = new KDNode();
 		node->right = new KDNode();
 		node->left->objects = std::vector<TriangleClass*>();
@@ -36,12 +36,12 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 
 	// For multiple objects get boundingbox for whole scene
 	// by getting bounding box for one
-	node->aabbBox = objs[0]->GetBoundingBox();
+	node->aabbBox = AABBClass(objs[0]->GetMinValBBox(), objs[0]->GetMaxValBBox()); //objs[0]->GetBoundingBox();
 	// and then expand for all the objects
 	for (int i = 1; i < objectsSize; i++)
 	{
 		//std::cout << objectsSize << " testExpand ";
-		node->aabbBox.Expand(objs[i]->GetBoundingBox());
+		node->aabbBox.Expand(AABBClass(objs[i]->GetMinValBBox(), objs[i]->GetMaxValBBox()));//GetBoundingBox());
 	}
 
 	// Get the sum of midpoints of all objects (For now do this for triangles ONLY)
