@@ -1,0 +1,40 @@
+#include "RayClass.h"
+
+RayClass::RayClass()
+{
+	minT = 0.0;
+	maxT = DBL_MAX;
+
+	origin = VectorClass(0, 0, 0);
+	direction = VectorClass(1, 0, 0);
+	invDirection.SetX(1 / direction.GetX());
+	invDirection.SetY(1 / direction.GetY());
+	invDirection.SetZ(1 / direction.GetZ());
+}
+
+RayClass::RayClass(VectorClass o, VectorClass d)
+{
+	minT = 0.0;
+	maxT = DBL_MAX;
+
+	origin = o;
+	direction = d;
+	invDirection.SetX(1 / direction.GetX());
+	invDirection.SetY(1 / direction.GetY());
+	invDirection.SetZ(1 / direction.GetZ());
+}
+
+VectorClass RayClass::GetRayOrigin()
+{
+	return origin;
+}
+
+VectorClass RayClass::GetRayDirection()
+{
+	return direction;
+}
+
+VectorClass RayClass::GetRayInvDirection()
+{
+	return invDirection;
+}

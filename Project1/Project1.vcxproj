@@ -94,8 +94,27 @@
     <ClInclude Include="VectorClass.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AABBClass.cpp" />
+    <ClCompile Include="CameraClass.cpp" />
+    <ClCompile Include="CheckerboardPattern.cpp" />
+    <ClCompile Include="ColourClass.cpp" />
+    <ClCompile Include="IlluminationClass.cpp" />
+    <ClCompile Include="KDNode.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MatrixClass.cpp" />
+    <ClCompile Include="NoShadingModel.cpp" />
+    <ClCompile Include="ObjLoaderClass.cpp" />
+    <ClCompile Include="PhongBlinnModel.cpp" />
+    <ClCompile Include="PhongModel.cpp" />
+    <ClCompile Include="PlaneClass.cpp" />
+    <ClCompile Include="RayClass.cpp" />
+    <ClCompile Include="ReadFromFile.cpp" />
+    <ClCompile Include="SphereClass.cpp" />
+    <ClCompile Include="StraussModel.cpp" />
+    <ClCompile Include="TextureMapping.cpp" />
+    <ClCompile Include="ToneReproduction.cpp" />
+    <ClCompile Include="TriangleClass.cpp" />
     <ClCompile Include="VectorClass.cpp" />
   </ItemGroup>
   <ItemGroup>
