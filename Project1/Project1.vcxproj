@@ -110,6 +110,7 @@
     <ClCompile Include="PlaneClass.cpp" />
     <ClCompile Include="RayClass.cpp" />
     <ClCompile Include="ReadFromFile.cpp" />
+    <ClCompile Include="SaveToFile.cpp" />
     <ClCompile Include="SphereClass.cpp" />
     <ClCompile Include="StraussModel.cpp" />
     <ClCompile Include="TextureMapping.cpp" />

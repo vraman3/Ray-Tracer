@@ -6,7 +6,7 @@ KDNode::KDNode()
 KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 {
 	KDNode* node = new KDNode();
-
+	
 	*node = *this;
 
 	node->objects = objs;

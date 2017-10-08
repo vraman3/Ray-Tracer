@@ -277,7 +277,8 @@ int main(int argc, char *argv[])
 		}
 		//std::cout << " eol " << std::endl;
 	}
-	savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
+	SaveToFile saveObject = SaveToFile();
+	saveObject.savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 
 	// Read and write from a bmp file
 	//////ReadFromFile *readObj = new ReadFromFile();

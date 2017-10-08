@@ -13,7 +13,7 @@ private:
 public:
 	double minT;
 	double maxT;
-
+	
 	RayClass();
 	RayClass(VectorClass, VectorClass);
 

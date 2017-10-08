@@ -11,7 +11,19 @@ Code:http://sourceforge.net/projects/rasterrain/
 #include "ColourClass.h"
 #include "ToneReproduction.h"
 
-void savebmp(const char *filename, int w, int h, int dpi, ColourClass *data, int whichTR=0) {
+class SaveToFile
+{
+public:
+	SaveToFile();
+	void savebmp(const char*, int, int, int, ColourClass*, int);
+
+};
+
+SaveToFile::SaveToFile()
+{}
+
+void SaveToFile::savebmp(const char* filename, int w, int h, int dpi, ColourClass* data, int whichTR=0) 
+{
 	FILE *f;
 	int noOfPixels = w*h;
 	int s = 4 * noOfPixels;

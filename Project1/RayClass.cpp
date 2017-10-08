@@ -1,4 +1,5 @@
 #include "RayClass.h"
+#include <cfloat>
 
 RayClass::RayClass()
 {

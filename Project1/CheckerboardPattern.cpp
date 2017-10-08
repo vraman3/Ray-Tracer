@@ -1,4 +1,5 @@
 #include "CheckerboardPattern.h"
+#include "PhongModel.h"
 
 CheckerboardPattern::CheckerboardPattern(int w, int h, double inkr, double inkt, double inn) : IlluminationClass(inkr, inkt, inn)
 {

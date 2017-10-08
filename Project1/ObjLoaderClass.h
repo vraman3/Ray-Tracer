@@ -1,10 +1,13 @@
 #pragma once
 
+#include "VectorClass.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <cstring>
 #include <sstream>
+#include <vector>
 
 class ObjLoaderClass
 {
