@@ -31,8 +31,8 @@ TextureMapping::TextureMapping(double paramU, double paramV)
 	@param l:
 	@param v:
 	@param objColour: The colour of the current object.
-	@param pointColour:
-	@param position:
+	@param pointColour: To be tested. Colour of the point. To affect brightness?
+	@param position: Not used currently.
 
 	@return the colour of the  current point of intersection as a ColourClass.
 */
