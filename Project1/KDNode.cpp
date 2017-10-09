@@ -65,15 +65,15 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 		{
 			// X Axis
 		case 0: //std::cout << " X ";
-			midpoint.GetX() >= objs[i]->GetMidpoint().GetX() ? right_objs.push_back(objs[i]) : left_objs.push_back(objs[i]);
+			midpoint.getX() >= objs[i]->GetMidpoint().getX() ? right_objs.push_back(objs[i]) : left_objs.push_back(objs[i]);
 			break;
 			// Y Axis
 		case 1://std::cout << " Y ";
-			midpoint.GetY() >= objs[i]->GetMidpoint().GetY() ? right_objs.push_back(objs[i]) : left_objs.push_back(objs[i]);
+			midpoint.getY() >= objs[i]->GetMidpoint().getY() ? right_objs.push_back(objs[i]) : left_objs.push_back(objs[i]);
 			break;
 			// Z Axis
 		case 2://std::cout << " Z ";
-			midpoint.GetZ() >= objs[i]->GetMidpoint().GetZ() ? right_objs.push_back(objs[i]) : left_objs.push_back(objs[i]);
+			midpoint.getZ() >= objs[i]->GetMidpoint().getZ() ? right_objs.push_back(objs[i]) : left_objs.push_back(objs[i]);
 			break;
 		}
 	}
@@ -82,11 +82,11 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	// split
 	node->splitAxis = axis;
 	if (axis == 0)
-		node->splitPos = midpoint.GetX();
+		node->splitPos = midpoint.getX();
 	else if (axis == 1)
-		node->splitPos = midpoint.GetY();
+		node->splitPos = midpoint.getY();
 	else if (axis == 2)
-		node->splitPos = midpoint.GetZ();
+		node->splitPos = midpoint.getZ();
 
 	// If one side is empty, make both sides equal to stop subdivision further
 	// Since more than 50% of objects will match

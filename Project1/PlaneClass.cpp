@@ -19,8 +19,8 @@ PlaneClass::PlaneClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, 
 	specular = 0.08;
 	ambient = 0.3;
 
-	normal = (edge2.CrossProd(edge1)).Normalize();
-	std::cout << normal.GetX() << " " << normal.GetY() << " " << normal.GetZ() << std::endl;
+	normal = (edge2.crossProd(edge1)).normalize();
+	std::cout << normal.getX() << " " << normal.getY() << " " << normal.getZ() << std::endl;
 	colour = col;
 	count = 0;
 }
@@ -28,7 +28,7 @@ PlaneClass::PlaneClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, 
 VectorClass PlaneClass::GetNormal(VectorClass P)
 {
 	if (count < 500)
-		//std::cout << normal.GetX() << " " << normal.GetY() << " " << normal.GetZ() << std::endl;
+		//std::cout << normal.getX() << " " << normal.getY() << " " << normal.getZ() << std::endl;
 
 		count += 50;
 	return normal;
@@ -55,13 +55,13 @@ ColourClass PlaneClass::GetColour() { return colour; }
 double PlaneClass::GetIntersection(RayClass ray)
 {
 
-	//double d = -(normal.DotProd(A));
-	//double denom = ray.GetRayDirection().DotProd(normal);
+	//double d = -(normal.dotProd(A));
+	//double denom = ray.GetRayDirection().dotProd(normal);
 	//double t = 0;
 	//if (denom > EPSILONPLANE)
 	//{
-	//	double num = -normal.DotProd(ray.GetRayOrigin() + normal*d);
-	//	//double num = ray.GetRayOrigin().DotProd(normal * d);
+	//	double num = -normal.dotProd(ray.GetRayOrigin() + normal*d);
+	//	//double num = ray.GetRayOrigin().dotProd(normal * d);
 	//	double temp = num / denom;
 	//	//if (temp > 0)
 	//	//{
@@ -70,13 +70,13 @@ double PlaneClass::GetIntersection(RayClass ray)
 	//}
 	//return -1;
 
-	double denom = ray.GetRayDirection().DotProd(normal);
-	//std::cout << ray.GetRayDirection().GetX() << " ";
+	double denom = ray.GetRayDirection().dotProd(normal);
+	//std::cout << ray.GetRayDirection().getX() << " ";
 	if (denom > EPSILONPLANE)
 	{
 		VectorClass vec = A - ray.GetRayOrigin();
 
-		double t = vec.DotProd(normal) / denom;
+		double t = vec.dotProd(normal) / denom;
 
 		if (t >= 0)
 		{
@@ -98,20 +98,20 @@ double PlaneClass::GetIntersection(RayClass ray)
 //double c2 = areaB / areaT;
 //double c3 = areaC / areaT;
 //
-//VectorClass NA = (C - A).CrossProd(B - A);
-//VectorClass NB = (A - B).CrossProd(C - B);
-//VectorClass NC = (B - C).CrossProd(A - C);
+//VectorClass NA = (C - A).crossProd(B - A);
+//VectorClass NB = (A - B).crossProd(C - B);
+//VectorClass NC = (B - C).crossProd(A - C);
 //
-//double nx = NA.GetX() * c1 + NB.GetX() * c2 + NC.GetX() * c3;
-//double ny = NA.GetY() * c1 + NB.GetY() * c2 + NC.GetY() * c3;
-//double nz = NA.GetZ() * c1 + NB.GetZ() * c2 + NC.GetZ() * c3;
+//double nx = NA.getX() * c1 + NB.getX() * c2 + NC.getX() * c3;
+//double ny = NA.getY() * c1 + NB.getY() * c2 + NC.getY() * c3;
+//double nz = NA.getZ() * c1 + NB.getZ() * c2 + NC.getZ() * c3;
 //
 //return VectorClass(nx,ny,nz);*/
 //double PlaneClass::GetArea(VectorClass A, VectorClass B, VectorClass C)
 //{
-//	double a = A.GetX() - B.GetX() * A.GetX() - B.GetX() + A.GetY() - B.GetY() * A.GetY() - B.GetY() + A.GetZ() - B.GetZ() * A.GetZ() - B.GetZ();
-//	double b = A.GetX() - C.GetX() * A.GetX() - C.GetX() + A.GetY() - C.GetY() * A.GetY() - B.GetY() + A.GetZ() - B.GetZ() * A.GetZ() - B.GetZ();
-//	double c = B.GetX() - C.GetX() * B.GetX() - C.GetX() + B.GetY() - C.GetY() * B.GetY() - C.GetY() + B.GetZ() - C.GetZ() * B.GetZ() - C.GetZ();
+//	double a = A.getX() - B.getX() * A.getX() - B.getX() + A.getY() - B.getY() * A.getY() - B.getY() + A.getZ() - B.getZ() * A.getZ() - B.getZ();
+//	double b = A.getX() - C.getX() * A.getX() - C.getX() + A.getY() - C.getY() * A.getY() - B.getY() + A.getZ() - B.getZ() * A.getZ() - B.getZ();
+//	double c = B.getX() - C.getX() * B.getX() - C.getX() + B.getY() - C.getY() * B.getY() - C.getY() + B.getZ() - C.getZ() * B.getZ() - C.getZ();
 //
 //	double s = (sqrt(abs(a)) + sqrt(abs(b)) + sqrt(abs(c))) / 2;
 //	double area = sqrt(abs(s * (s - a) * (s - b) * (s - c)));

@@ -16,9 +16,9 @@ VectorClass AABBClass::GetNormal(VectorClass v = VectorClass(0, 0, 0)){ return v
 
 int AABBClass::GetLongestAxis()
 {
-	double x = Bmax.GetX() - Bmin.GetX();
-	double y = Bmax.GetY() - Bmin.GetY();
-	double z = Bmax.GetZ() - Bmin.GetZ();
+	double x = Bmax.getX() - Bmin.getX();
+	double y = Bmax.getY() - Bmin.getY();
+	double z = Bmax.getZ() - Bmin.getZ();
 
 	if (x > y)				// X > Y
 	{
@@ -38,19 +38,19 @@ int AABBClass::GetLongestAxis()
 
 void AABBClass::Expand(AABBClass newBox)
 {
-	if (newBox.Bmin.GetX() < Bmin.GetX())
-		Bmin.SetX(newBox.Bmin.GetX());
-	if (newBox.Bmin.GetY() < Bmin.GetY())
-		Bmin.SetY(newBox.Bmin.GetY());
-	if (newBox.Bmin.GetZ() < Bmin.GetZ())
-		Bmin.SetZ(newBox.Bmin.GetZ());
+	if (newBox.Bmin.getX() < Bmin.getX())
+		Bmin.setX(newBox.Bmin.getX());
+	if (newBox.Bmin.getY() < Bmin.getY())
+		Bmin.setY(newBox.Bmin.getY());
+	if (newBox.Bmin.getZ() < Bmin.getZ())
+		Bmin.setZ(newBox.Bmin.getZ());
 
-	if (newBox.Bmax.GetX() < Bmax.GetX())
-		Bmax.SetX(newBox.Bmax.GetX());
-	if (newBox.Bmax.GetY() < Bmax.GetY())
-		Bmax.SetY(newBox.Bmax.GetY());
-	if (newBox.Bmax.GetZ() < Bmax.GetZ())
-		Bmax.SetZ(newBox.Bmax.GetZ());
+	if (newBox.Bmax.getX() < Bmax.getX())
+		Bmax.setX(newBox.Bmax.getX());
+	if (newBox.Bmax.getY() < Bmax.getY())
+		Bmax.setY(newBox.Bmax.getY());
+	if (newBox.Bmax.getZ() < Bmax.getZ())
+		Bmax.setZ(newBox.Bmax.getZ());
 }
 
 double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
@@ -88,27 +88,27 @@ double AABBClass::GetIntersection1(RayClass ray, double *hitt0, double *hitt1)
 	double tmin, tmax, tymin, tymax, tzmin, tzmax;
 
 	// X component
-	if (ray.GetRayDirection().GetX() >= 0)
+	if (ray.GetRayDirection().getX() >= 0)
 	{
-		tmin = (Bmin.GetX() - ray.GetRayOrigin().GetX()) * ray.GetRayInvDirection().GetX();
-		tmax = (Bmax.GetX() - ray.GetRayOrigin().GetX()) * ray.GetRayInvDirection().GetX();
+		tmin = (Bmin.getX() - ray.GetRayOrigin().getX()) * ray.GetRayInvDirection().getX();
+		tmax = (Bmax.getX() - ray.GetRayOrigin().getX()) * ray.GetRayInvDirection().getX();
 	}
 	else
 	{
-		tmin = (Bmax.GetX() - ray.GetRayOrigin().GetX()) * ray.GetRayInvDirection().GetX();
-		tmax = (Bmin.GetX() - ray.GetRayOrigin().GetX()) * ray.GetRayInvDirection().GetX();
+		tmin = (Bmax.getX() - ray.GetRayOrigin().getX()) * ray.GetRayInvDirection().getX();
+		tmax = (Bmin.getX() - ray.GetRayOrigin().getX()) * ray.GetRayInvDirection().getX();
 	}
 
 	// Y component
-	if (ray.GetRayDirection().GetY() >= 0)
+	if (ray.GetRayDirection().getY() >= 0)
 	{
-		tymin = (Bmin.GetY() - ray.GetRayOrigin().GetY()) * ray.GetRayInvDirection().GetY();
-		tymax = (Bmax.GetY() - ray.GetRayOrigin().GetY()) * ray.GetRayInvDirection().GetY();
+		tymin = (Bmin.getY() - ray.GetRayOrigin().getY()) * ray.GetRayInvDirection().getY();
+		tymax = (Bmax.getY() - ray.GetRayOrigin().getY()) * ray.GetRayInvDirection().getY();
 	}
 	else
 	{
-		tymin = (Bmax.GetY() - ray.GetRayOrigin().GetY()) * ray.GetRayInvDirection().GetY();
-		tymax = (Bmin.GetY() - ray.GetRayOrigin().GetY()) * ray.GetRayInvDirection().GetY();
+		tymin = (Bmax.getY() - ray.GetRayOrigin().getY()) * ray.GetRayInvDirection().getY();
+		tymax = (Bmin.getY() - ray.GetRayOrigin().getY()) * ray.GetRayInvDirection().getY();
 	}
 
 	if ((tmin > tymax) || (tymin > tmax))
@@ -126,15 +126,15 @@ double AABBClass::GetIntersection1(RayClass ray, double *hitt0, double *hitt1)
 		tmax = tymax;
 
 	// Z component
-	if (ray.GetRayDirection().GetZ() >= 0)
+	if (ray.GetRayDirection().getZ() >= 0)
 	{
-		tzmin = (Bmin.GetZ() - ray.GetRayOrigin().GetZ()) * ray.GetRayInvDirection().GetZ();
-		tzmax = (Bmax.GetZ() - ray.GetRayOrigin().GetZ()) * ray.GetRayInvDirection().GetZ();
+		tzmin = (Bmin.getZ() - ray.GetRayOrigin().getZ()) * ray.GetRayInvDirection().getZ();
+		tzmax = (Bmax.getZ() - ray.GetRayOrigin().getZ()) * ray.GetRayInvDirection().getZ();
 	}
 	else
 	{
-		tzmin = (Bmax.GetZ() - ray.GetRayOrigin().GetZ()) * ray.GetRayInvDirection().GetZ();
-		tzmax = (Bmin.GetZ() - ray.GetRayOrigin().GetZ()) * ray.GetRayInvDirection().GetZ();
+		tzmin = (Bmax.getZ() - ray.GetRayOrigin().getZ()) * ray.GetRayInvDirection().getZ();
+		tzmax = (Bmin.getZ() - ray.GetRayOrigin().getZ()) * ray.GetRayInvDirection().getZ();
 	}
 
 	if ((tmin > tzmax) || (tzmin > tmax))
@@ -159,7 +159,7 @@ double AABBClass::GetIntersection1(RayClass ray, double *hitt0, double *hitt1)
 
 void AABBClass::SetCentre()
 {
-	centre.SetX((abs(Bmin.GetX()) + abs(Bmax.GetX())) / 2);
-	centre.SetY((abs(Bmin.GetY()) + abs(Bmax.GetY())) / 2);
-	centre.SetZ((abs(Bmin.GetZ()) + abs(Bmax.GetZ())) / 2);
+	centre.setX((abs(Bmin.getX()) + abs(Bmax.getX())) / 2);
+	centre.setY((abs(Bmin.getY()) + abs(Bmax.getY())) / 2);
+	centre.setZ((abs(Bmin.getZ()) + abs(Bmax.getZ())) / 2);
 }

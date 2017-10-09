@@ -119,7 +119,7 @@ VectorClass::VectorClass(double i, double j, double k)
 
 	@return the value of 'x' of a VectorClass.
 */
-double VectorClass::GetX()
+double VectorClass::getX()
 {
 	return x;
 }
@@ -129,7 +129,7 @@ double VectorClass::GetX()
 
 	@return the value of 'y' of a VectorClass.
 */
-double VectorClass::GetY()
+double VectorClass::getY()
 {
 	return y;
 }
@@ -139,7 +139,7 @@ double VectorClass::GetY()
 
 	@return the value of 'z' of a VectorClass.
 */
-double VectorClass::GetZ()
+double VectorClass::getZ()
 {
 	return z;
 }
@@ -149,7 +149,7 @@ double VectorClass::GetZ()
 
 	@param val: The value of 'x' to be set.
 */
-void VectorClass::SetX(double val)
+void VectorClass::setX(double val)
 {
 	x = val;
 }
@@ -159,7 +159,7 @@ void VectorClass::SetX(double val)
 
 	@param val: The value of 'y' to be set.
 */
-void VectorClass::SetY(double val)
+void VectorClass::setY(double val)
 {
 	y = val;
 }
@@ -169,7 +169,7 @@ void VectorClass::SetY(double val)
 
 	@param val: The value of 'z' to be set.
 */
-void VectorClass::SetZ(double val)
+void VectorClass::setZ(double val)
 {
 	z = val;
 }
@@ -179,7 +179,7 @@ void VectorClass::SetZ(double val)
 
 	@return the magnitude of the VectorClass.
 */
-double VectorClass::Magnitude()
+double VectorClass::magnitude()
 {
 	double temp = x*x + y*y + z*z;
 	return sqrt(temp);
@@ -192,9 +192,9 @@ double VectorClass::Magnitude()
 	@param the second VectorClass for the dot product.
 	@return the dot product of the two VectorClasses.
 */
-double VectorClass::DotProd(VectorClass temp)
+double VectorClass::dotProd(VectorClass temp)
 {
-	return x * temp.GetX() + y * temp.GetY() + z * temp.GetZ();
+	return x * temp.getX() + y * temp.getY() + z * temp.getZ();
 }
 
 /**
@@ -203,9 +203,9 @@ double VectorClass::DotProd(VectorClass temp)
 	@param the second VectorClass for the cross product.
 	@return the cross product of the two VectorClasses.
 */
-VectorClass VectorClass::CrossProd(VectorClass temp)
+VectorClass VectorClass::crossProd(VectorClass temp)
 {
-	return VectorClass(y*temp.GetZ() - z*temp.GetY(), z*temp.GetX() - x*temp.GetZ(), x*temp.GetY() - y*temp.GetX());
+	return VectorClass(y*temp.getZ() - z*temp.getY(), z*temp.getX() - x*temp.getZ(), x*temp.getY() - y*temp.getX());
 }
 
 /**
@@ -214,7 +214,7 @@ VectorClass VectorClass::CrossProd(VectorClass temp)
 
 	@return the normalized VectorClass.
 */
-VectorClass VectorClass::Normalize()
+VectorClass VectorClass::normalize()
 {
 	double value = sqrt(x*x + y*y + z*z);
 	return VectorClass(x / value, y / value, z / value);

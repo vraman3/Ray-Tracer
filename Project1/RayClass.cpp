@@ -8,9 +8,9 @@ RayClass::RayClass()
 
 	origin = VectorClass(0, 0, 0);
 	direction = VectorClass(1, 0, 0);
-	invDirection.SetX(1 / direction.GetX());
-	invDirection.SetY(1 / direction.GetY());
-	invDirection.SetZ(1 / direction.GetZ());
+	invDirection.setX(1 / direction.getX());
+	invDirection.setY(1 / direction.getY());
+	invDirection.setZ(1 / direction.getZ());
 }
 
 RayClass::RayClass(VectorClass o, VectorClass d)
@@ -20,9 +20,9 @@ RayClass::RayClass(VectorClass o, VectorClass d)
 
 	origin = o;
 	direction = d;
-	invDirection.SetX(1 / direction.GetX());
-	invDirection.SetY(1 / direction.GetY());
-	invDirection.SetZ(1 / direction.GetZ());
+	invDirection.setX(1 / direction.getX());
+	invDirection.setY(1 / direction.getY());
+	invDirection.setZ(1 / direction.getZ());
 }
 
 VectorClass RayClass::GetRayOrigin()

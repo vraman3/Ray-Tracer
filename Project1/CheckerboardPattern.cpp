@@ -9,9 +9,9 @@ CheckerboardPattern::CheckerboardPattern(int w, int h, double inkr, double inkt,
 
 ColourClass CheckerboardPattern::GetIllumination(VectorClass pi, RayClass ray, VectorClass N, VectorClass L, VectorClass V, ColourClass objColour, ColourClass pointCol, int position)
 {
-	double x = pi.GetX();
-	double y = pi.GetY();
-	double z = pi.GetZ();
+	double x = pi.getX();
+	double y = pi.getY();
+	double z = pi.getZ();
 	double size = 1.0;
 
 	PhongModel *p = new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 0.0);

@@ -21,8 +21,8 @@ SphereClass::SphereClass(double r, VectorClass cent, ColourClass col)
 
 VectorClass SphereClass::GetNormal(VectorClass point)
 {
-	//std::cout << center.GetX() << " " << center.GetY() << " " << center.GetZ() << " ";
-	return VectorClass((point.GetX() - center.GetX()), (point.GetY() - center.GetY()), (point.GetZ() - center.GetZ()));
+	//std::cout << center.getX() << " " << center.getY() << " " << center.getZ() << " ";
+	return VectorClass((point.getX() - center.getX()), (point.getY() - center.getY()), (point.getZ() - center.getZ()));
 }
 
 VectorClass SphereClass::GetCenter(){ return center; }
@@ -37,11 +37,11 @@ ColourClass SphereClass::GetColour(){ return colour; }
 
 double SphereClass::GetIntersection(RayClass ray)
 {
-	//double A = ray.GetRayDirection().DotProd(ray.GetRayDirection()); // Since dx2 + dy2 + dz2 = 1 if D is normalized
+	//double A = ray.GetRayDirection().dotProd(ray.GetRayDirection()); // Since dx2 + dy2 + dz2 = 1 if D is normalized
 	//
-	//double B = 2.0 * (ray.GetRayDirection().DotProd(ray.GetRayOrigin() - this->center));
+	//double B = 2.0 * (ray.GetRayDirection().dotProd(ray.GetRayOrigin() - this->center));
 
-	//double C = (ray.GetRayOrigin() - this->center).DotProd((ray.GetRayOrigin() - this->center)) - this->radius * this->radius;
+	//double C = (ray.GetRayOrigin() - this->center).dotProd((ray.GetRayOrigin() - this->center)) - this->radius * this->radius;
 
 	//if (B * B >= 4 * A * C)
 	//{
@@ -61,12 +61,12 @@ double SphereClass::GetIntersection(RayClass ray)
 	//else
 	//	return -1;
 
-	double A = ray.GetRayDirection().DotProd(ray.GetRayDirection()); // Since dx2 + dy2 + dz2 = 1 if D is normalized
+	double A = ray.GetRayDirection().dotProd(ray.GetRayDirection()); // Since dx2 + dy2 + dz2 = 1 if D is normalized
 
 	VectorClass temp = ray.GetRayOrigin() - this->center;
-	double B = 2.0 * (ray.GetRayDirection().DotProd(temp));
+	double B = 2.0 * (ray.GetRayDirection().dotProd(temp));
 
-	double C = (temp).DotProd(temp) - this->radius * this->radius;
+	double C = (temp).dotProd(temp) - this->radius * this->radius;
 
 	double check = B*B - 4 * A*C;
 

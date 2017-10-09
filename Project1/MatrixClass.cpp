@@ -5,9 +5,9 @@ MatrixClass::MatrixClass(int r, int c) : mRows(r), mCols(c), m(std::vector<std::
 
 MatrixClass::MatrixClass(VectorClass v) : m(std::vector<std::vector<double> >(4, std::vector<double>(1, 1.0))), mRows(4), mCols(1)
 {
-	m[0][0] = v.GetX();
-	m[1][0] = v.GetY();
-	m[2][0] = v.GetZ();
+	m[0][0] = v.getX();
+	m[1][0] = v.getY();
+	m[2][0] = v.getZ();
 }
 
 std::vector<double>& MatrixClass::operator[](int i)

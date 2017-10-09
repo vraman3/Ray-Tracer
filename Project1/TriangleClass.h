@@ -1,14 +1,10 @@
 #pragma once
 
 //Author: Vishwanath Raman
-#include <iostream>
-#include <math.h>
-#include <algorithm>
-
 #include "VectorClass.h"
 #include "RayClass.h"
 #include "ColourClass.h"
-#include "AABBClass.h"
+#include "ObjectClass.h"
 #include "IlluminationClass.h"
 
 class TriangleClass : public ObjectClass

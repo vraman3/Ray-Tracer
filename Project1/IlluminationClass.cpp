@@ -9,7 +9,7 @@ IlluminationClass::IlluminationClass(double inkr, double inkt, double inn)
 
 VectorClass IlluminationClass::Reflect(VectorClass incident, VectorClass normal)
 {
-	double temp = 2.0 * incident.DotProd(normal);
+	double temp = 2.0 * incident.dotProd(normal);
 
 	VectorClass reflectedRay = incident - (normal * temp);
 

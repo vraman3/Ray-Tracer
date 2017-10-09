@@ -16,9 +16,9 @@ ColourClass StraussModel::GetIllumination(VectorClass pi, RayClass ray, VectorCl
 
 	VectorClass H = Reflect(L, N);
 
-	double dotNL = N.DotProd(L);
-	double dotNV = N.DotProd(V);
-	double dotHV = H.DotProd(V);
+	double dotNL = N.dotProd(L);
+	double dotNV = N.dotProd(V);
+	double dotHV = H.dotProd(V);
 
 	double fdotNL = Fresnel(dotNL);
 

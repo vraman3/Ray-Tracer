@@ -21,11 +21,11 @@ ColourClass PhongBlinnModel::GetIllumination(VectorClass pi, RayClass ray, Vecto
 	std::cout << kd << " dnl" << std::endl;
 	testCounter += 50;
 	}*/
-	if (ray.GetRayDirection().DotProd(N) < 0)
+	if (ray.GetRayDirection().dotProd(N) < 0)
 	{
 		if (kd > 0)
 		{
-			double dotNL = N.DotProd(L);
+			double dotNL = N.dotProd(L);
 
 			/*if (closest == 2 && testCounter < 500)
 			{
@@ -39,14 +39,14 @@ ColourClass PhongBlinnModel::GetIllumination(VectorClass pi, RayClass ray, Vecto
 
 				tmp = tmp + diffuse;
 
-				//VectorClass V = (ray.GetRayOrigin() - pi).Normalize();			
+				//VectorClass V = (ray.GetRayOrigin() - pi).normalize();			
 
-				VectorClass temp = (L + V).Normalize();							//1//
-				VectorClass R = temp / temp.Magnitude();						//2//  For Phong-Blinn
-				double dotVR = R.DotProd(N);									//3//		
+				VectorClass temp = (L + V).normalize();							//1//
+				VectorClass R = temp / temp.magnitude();						//2//  For Phong-Blinn
+				double dotVR = R.dotProd(N);									//3//		
 
-				//VectorClass R = (N * 2 * dotNL - L).Normalize();				//1//	For Phong
-				//double dotVR = R.DotProd(V);									//2//
+				//VectorClass R = (N * 2 * dotNL - L).normalize();				//1//	For Phong
+				//double dotVR = R.dotProd(V);									//2//
 
 
 				if (dotVR > 0)
@@ -65,14 +65,14 @@ ColourClass PhongBlinnModel::GetIllumination(VectorClass pi, RayClass ray, Vecto
 	}
 	else
 	{
-		double dotNL = N.DotProd(L);
+		double dotNL = N.dotProd(L);
 
 		//if (dotNL > 0.0001)
 		//{
 		if (kt == 1.0)
 		{
-			VectorClass R = (N * 2 * dotNL - L).Normalize();				//1//	For Phong
-			double dotVR = R.DotProd(V);									//2//
+			VectorClass R = (N * 2 * dotNL - L).normalize();				//1//	For Phong
+			double dotVR = R.dotProd(V);									//2//
 
 
 			if (dotVR > 0.0001)

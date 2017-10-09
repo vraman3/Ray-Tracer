@@ -24,14 +24,14 @@ public:
 	//VectorClass(MatrixClass);
 
 	// Getters
-	double GetX();
-	double GetY();
-	double GetZ();
+	double getX();
+	double getY();
+	double getZ();
 
 	// Setters
-	void SetX(double);
-	void SetY(double);
-	void SetZ(double);
+	void setX(double);
+	void setY(double);
+	void setZ(double);
 
 	// Overloaded operators
 	VectorClass operator+(const VectorClass&) const;
@@ -42,10 +42,10 @@ public:
 	double operator[](const int) const;
 
 	// Methods
-	double Magnitude();
-	double DotProd(VectorClass );
-	VectorClass CrossProd(VectorClass );
-	VectorClass Normalize();
+	double magnitude();
+	double dotProd(VectorClass );
+	VectorClass crossProd(VectorClass );
+	VectorClass normalize();
 
 };
 

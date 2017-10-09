@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
 	MatrixClass projection = MatrixClass::identity(4);
 	MatrixClass viewport = viewPort(screenWidth / 8, screenHeight / 8, screenWidth * 3 / 4, screenHeight * 3 / 4, 255);
 
-	projection[3][2] = -1 / ((eye - centreNew).Magnitude());*/
+	projection[3][2] = -1 / ((eye - centreNew).magnitude());*/
 
 	
 
@@ -182,27 +182,27 @@ int main(int argc, char *argv[])
 
 
 	// Calculate the Camera parameters
-	VectorClass camRight = camLookAt.Normalize().CrossProd(VectorClass(0, 1, 0));
-	VectorClass camUp = camRight.CrossProd(camLookAt);
+	VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
+	VectorClass camUp = camRight.crossProd(camLookAt);
 	//VectorClass camUp = VectorClass(0,1,0);
 	CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
 
 
-	VectorClass camN = (originalCamera.GetPosition() - originalCamera.GetLookAt()).Normalize();
-	VectorClass camU = (camN.CrossProd(originalCamera.GetUpVector())).Normalize();
-	VectorClass camV = camU.CrossProd(camN);
+	VectorClass camN = (originalCamera.GetPosition() - originalCamera.GetLookAt()).normalize();
+	VectorClass camU = (camN.crossProd(originalCamera.GetUpVector())).normalize();
+	VectorClass camV = camU.crossProd(camN);
 	
 	// Calculate center pixel of image plane
-	VectorClass center( originalCamera.GetPosition().GetX() + f * camN.GetX(),
-						originalCamera.GetPosition().GetY() + f * camN.GetY(),
-						originalCamera.GetPosition().GetZ() + f * camN.GetZ());
+	VectorClass center( originalCamera.GetPosition().getX() + f * camN.getX(),
+						originalCamera.GetPosition().getY() + f * camN.getY(),
+						originalCamera.GetPosition().getZ() + f * camN.getZ());
 
 	// The bottom leftmost point of the image plane
 	VectorClass startPixel;
 
-	startPixel.SetX(center.GetX() - ((worldWidth * camU.GetX()) + (worldHeight*camV.GetX())) / 2.0);
-	startPixel.SetY(center.GetY() - ((worldWidth * camU.GetY()) + (worldHeight*camV.GetY())) / 2.0);
-	startPixel.SetZ(originalCamera.GetFocalLength());
+	startPixel.setX(center.getX() - ((worldWidth * camU.getX()) + (worldHeight*camV.getX())) / 2.0);
+	startPixel.setY(center.getY() - ((worldWidth * camU.getY()) + (worldHeight*camV.getY())) / 2.0);
+	startPixel.setZ(originalCamera.GetFocalLength());
 
 	double pixelW = worldWidth / screenWidth;
 	double pixelH = worldHeight / screenHeight;
@@ -220,11 +220,11 @@ int main(int argc, char *argv[])
 		{
 			ColourClass tmp = ColourClass(0, 0, 0);
 			
-			VectorClass val = VectorClass(startPixel.GetX() + camU.GetX() * (j + 0.5) * pixelW + camV.GetX() * (i + 0.5) * pixelH,
-										  startPixel.GetY() + camU.GetY() * (j + 0.5) * pixelW + camV.GetY() * (i + 0.5) * pixelH,
-										  startPixel.GetZ() + camU.GetZ() * (j + 0.5) * pixelW + camV.GetZ() * (i + 0.5) * pixelH);
+			VectorClass val = VectorClass(startPixel.getX() + camU.getX() * (j + 0.5) * pixelW + camV.getX() * (i + 0.5) * pixelH,
+										  startPixel.getY() + camU.getY() * (j + 0.5) * pixelW + camV.getY() * (i + 0.5) * pixelH,
+										  startPixel.getZ() + camU.getZ() * (j + 0.5) * pixelW + camV.getZ() * (i + 0.5) * pixelH);
 
-			VectorClass direction = (val - originalCamera.GetPosition()).Normalize();
+			VectorClass direction = (val - originalCamera.GetPosition()).normalize();
 			RayClass ray(originalCamera.GetPosition(), direction);
 
 			ColourClass debugTmpRemoveLater;
@@ -243,15 +243,15 @@ int main(int argc, char *argv[])
 
 			/*//Multisampling using 4 points for a pixel
 			
-			VectorClass val1 = VectorClass(val.GetX() - pw2, val.GetY() + ph2, val.GetZ());
-			VectorClass val2 = VectorClass(val.GetX() + pw2, val.GetY() + ph2, val.GetZ());
-			VectorClass val3 = VectorClass(val.GetX() + pw2, val.GetY() - ph2, val.GetZ());
-			VectorClass val4 = VectorClass(val.GetX() - pw2, val.GetY() - ph2, val.GetZ());
+			VectorClass val1 = VectorClass(val.getX() - pw2, val.getY() + ph2, val.getZ());
+			VectorClass val2 = VectorClass(val.getX() + pw2, val.getY() + ph2, val.getZ());
+			VectorClass val3 = VectorClass(val.getX() + pw2, val.getY() - ph2, val.getZ());
+			VectorClass val4 = VectorClass(val.getX() - pw2, val.getY() - ph2, val.getZ());
 
-			VectorClass direction1 = (val1 - originalCamera.GetPosition()).Normalize();
-			VectorClass direction2 = (val2 - originalCamera.GetPosition()).Normalize();
-			VectorClass direction3 = (val3 - originalCamera.GetPosition()).Normalize();
-			VectorClass direction4 = (val4 - originalCamera.GetPosition()).Normalize();
+			VectorClass direction1 = (val1 - originalCamera.GetPosition()).normalize();
+			VectorClass direction2 = (val2 - originalCamera.GetPosition()).normalize();
+			VectorClass direction3 = (val3 - originalCamera.GetPosition()).normalize();
+			VectorClass direction4 = (val4 - originalCamera.GetPosition()).normalize();
 
 			RayClass ray1(originalCamera.GetPosition(), direction1);
 			RayClass ray2(originalCamera.GetPosition(), direction2);
@@ -326,9 +326,9 @@ MatrixClass viewPort(int x, int y, int w, int h, int depth)
 MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up)
 {
 	//std::cout << "lookat" << std::endl;
-	VectorClass z = (eye - centre).Normalize();
-	VectorClass x = (up.CrossProd(z)).Normalize();
-	VectorClass y = (z.CrossProd(x)).Normalize();
+	VectorClass z = (eye - centre).normalize();
+	VectorClass x = (up.crossProd(z)).normalize();
+	VectorClass y = (z.crossProd(x)).normalize();
 
 	MatrixClass result = MatrixClass::identity(4);
 
@@ -385,15 +385,15 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 		//std::cout << "bla";
 		bool noShadow = true;
 		VectorClass pi = ray.GetRayOrigin() + ray.GetRayDirection() * isect.hit;
-		VectorClass N = (isect.tri->GetNormal(pi)).Normalize();
+		VectorClass N = (isect.tri->GetNormal(pi)).normalize();
 
-		VectorClass V = (ray.GetRayOrigin() - pi).Normalize();
+		VectorClass V = (ray.GetRayOrigin() - pi).normalize();
 		double shade = 1.0;
 		int lightsSize = (int)lights.size();
 		for (int g = 0; g < lightsSize; g++)
 		{
 			double shadowOmega = 0.0;
-			VectorClass shadowRayDirection = (*lights[g] - pi).Normalize();
+			VectorClass shadowRayDirection = (*lights[g] - pi).normalize();
 
 			RayClass shadowRay(pi, shadowRayDirection);
 
@@ -417,7 +417,7 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 				break;
 			}
 			
-			VectorClass L = ((*lights[g]) - pi).Normalize();
+			VectorClass L = ((*lights[g]) - pi).normalize();
 
 			tmp = tmp + isect.tri->illum->GetIllumination(pi, ray, N, L, V, isect.tri->GetColour(), pointCol, maxDepth) / shade;
 
@@ -440,7 +440,7 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 
 			if (transmiKt > 0.0)
 			{
-				VectorClass I = ray.GetRayDirection().Normalize()*(-1);
+				VectorClass I = ray.GetRayDirection().normalize()*(-1);
 				//VectorClass I = pi - VectorClass(2.5, 4, 0);
 				double outgoingnt = isect.tri->illum->Getn();
 
@@ -459,7 +459,7 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 				/*if (true)*/else
 				{
 					bool flag = true;
-					double dotNI = N.DotProd(I);
+					double dotNI = N.dotProd(I);
 					double nr = incomingni / outgoingnt;
 
 					if (dotNI < 0)
@@ -539,15 +539,15 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 	{
 		bool noShadow = true;
 		VectorClass pi = ray.GetRayOrigin() + ray.GetRayDirection() * currentLowestVal;
-		VectorClass N = (objects[closest]->GetNormal(pi)).Normalize();
+		VectorClass N = (objects[closest]->GetNormal(pi)).normalize();
 
-		VectorClass V = (ray.GetRayOrigin() - pi).Normalize();
+		VectorClass V = (ray.GetRayOrigin() - pi).normalize();
 		double shade = 1.0;
 		int lightsSize = (int)lights.size();
 		for (int g = 0; g < lightsSize; g++)
 		{
 			double shadowOmega = 0.0;
-			VectorClass shadowRayDirection = (*lights[g] - pi).Normalize();
+			VectorClass shadowRayDirection = (*lights[g] - pi).normalize();
 
 			RayClass shadowRay(pi, shadowRayDirection);
 
@@ -560,7 +560,7 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 				if (shadowOmega > 0.00001)
 					//if (false)					// Use this to disable shadows. Comment the "if" condition above.
 				{
-					//if (shadowOmega <= shadowRayDirection.Magnitude())
+					//if (shadowOmega <= shadowRayDirection.magnitude())
 					//{
 					noShadow = false;
 					//break;.......
@@ -574,7 +574,7 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 			}
 			//if (noShadow)
 			//{
-			VectorClass L = ((*lights[g]) - pi).Normalize();
+			VectorClass L = ((*lights[g]) - pi).normalize();
 
 			tmp = tmp + illuminations[closest]->GetIllumination(pi, ray, N, L, V, (*objects[closest]).GetColour(), pointCol, maxDepth) / shade;
 
@@ -597,7 +597,7 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 
 			if (transmiKt > 0.0) 
 			{
-				VectorClass I = ray.GetRayDirection().Normalize()*(-1);
+				VectorClass I = ray.GetRayDirection().normalize()*(-1);
 				//VectorClass I = pi - VectorClass(2.5, 4, 0);
 				double outgoingnt = illuminations[closest]->Getn();
 
@@ -616,7 +616,7 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 				/*if (true)*/else
 				{
 					bool flag = true;
-					double dotNI = N.DotProd(I);
+					double dotNI = N.dotProd(I);
 					double nr = incomingni / outgoingnt;
 
 					if (dotNI < 0)
