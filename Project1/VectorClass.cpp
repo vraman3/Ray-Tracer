@@ -1,5 +1,5 @@
 /**
-	RayTracing, VectorClass.h
+	RayTracing, VectorClass.cpp
 	Class file for direction vector class
 
 	@author: Vishwanath Raman

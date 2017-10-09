@@ -1,9 +1,9 @@
 /**
-RayTracing, VectorClass.h
-Custom class for direction vector
+	RayTracing, VectorClass.h
+	Custom class for direction vector
 
-@author: Vishwanath Raman
-@version: 1.0 Oct/07/2017
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/07/2017
 
 */
 
@@ -18,22 +18,22 @@ private:
 	double x, y, z;
 
 public:
-	// Constructors
+	/* Constructors */
 	VectorClass();
 	VectorClass(double, double, double);
 	//VectorClass(MatrixClass);
 
-	// Getters
+	/* Getters */
 	double getX();
 	double getY();
 	double getZ();
 
-	// Setters
+	/* Setters */
 	void setX(double);
 	void setY(double);
 	void setZ(double);
 
-	// Overloaded operators
+	/* Overloaded operators */
 	VectorClass operator+(const VectorClass&) const;
 	VectorClass operator-(const VectorClass&) const;
 	VectorClass operator*(const VectorClass&) const;
@@ -41,7 +41,7 @@ public:
 	VectorClass operator/(const double) const;
 	double operator[](const int) const;
 
-	// Methods
+	/* Methods */
 	double magnitude();
 	double dotProd(VectorClass );
 	VectorClass crossProd(VectorClass );
