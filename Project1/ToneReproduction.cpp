@@ -1,5 +1,23 @@
+/**
+	RayTracing, ToneReproduction.cpp
+	Class file to implement Tone Reproduction.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/10/2017
+
+*/
+
 #include "ToneReproduction.h"
 
+/**
+	Implement the Adaptive Logarithmic MApping for High Contrast Scenes
+
+	@param noOfPixels: Total numberof pixels in the scene.
+	@param		*data: Reference to all the colour data for the scene.
+	@param		 Lmax: Maximum luminance in the scene.
+	@param		Ldmax: Maximum display luminance. ?
+	@return the entire scene data after transformation using Adaptive Logarithmic Mapping.
+*/
 ColourClass* ToneReproduction::AdaptiveLogarithmic(int noOfPixels, ColourClass *data, double Lmax, double Ldmax, double b)
 {
 	ColourClass *scaledToLmax = new ColourClass[noOfPixels];
@@ -100,7 +118,18 @@ ColourClass* ToneReproduction::AdaptiveLogarithmic(int noOfPixels, ColourClass *
 	return target;
 }
 
+/**
+	Implement the Reinhard Model for Tone Reproduction
 
+	@param	  noOfPixels: Total numberof pixels in the scene.
+	@param		   *data: Reference to all the colour data for the scene.
+	@param			Lmax: Maximum luminance in the scene.
+	@param		   Ldmax: Maximum display luminance. ?
+	@param			   a:
+	@param		  choice:
+	@param incomingValue:
+	@return the entire scene data after transformation using the Reinhard Model.
+*/
 ColourClass* ToneReproduction::Reinhard(int noOfPixels, ColourClass *data, double Lmax, double Ldmax, double a, int choice, double incomingValue)
 {
 	ColourClass *scaledToLmax = new ColourClass[noOfPixels];
@@ -220,6 +249,15 @@ ColourClass* ToneReproduction::Reinhard(int noOfPixels, ColourClass *data, doubl
 	return target;
 }
 
+/**
+	Implement the Ward Model for Tone Reproduction
+
+	@param	  noOfPixels: Total numberof pixels in the scene.
+	@param		   *data: Reference to all the colour data for the scene.
+	@param			Lmax: Maximum luminance in the scene.
+	@param		   Ldmax: Maximum display luminance. ?
+	@return the entire scene data after transformation using the Ward model.
+*/
 ColourClass* ToneReproduction::WardTP(int noOfPixels, ColourClass *data, double Lmax, double Ldmax)
 {
 	int testCounter = 0, k = noOfPixels;
