@@ -1,6 +1,6 @@
 /**
 	RayTracing, PhongModel.cpp
-	Class to implement the Phong shading model.
+	Class file to implement the Phong illumination model.
 
 	@author: Vishwanath Raman
 	@version: 1.0 Oct/09/2017

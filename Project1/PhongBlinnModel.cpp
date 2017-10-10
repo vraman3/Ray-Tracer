@@ -1,6 +1,6 @@
 /**
 	RayTracing, PhongBlinnModel.cpp
-	Class to implement the Phong-Blinn shading model.
+	Class file to implement the Phong-Blinn illumination model.
 
 	@author: Vishwanath Raman
 	@version: 1.0 Oct/09/2017

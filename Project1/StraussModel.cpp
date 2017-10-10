@@ -1,52 +1,90 @@
+/**
+	RayTracing, StraussModel.cpp
+	Class file to implement Strauss illumination model.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/09/2017
+
+*/
+
 #include "StraussModel.h"
 
-StraussModel::StraussModel(double ts, double tm, double tt, double inkr, double inkt) : IlluminationClass(inkr, inkt)
+/**
+	Parameterized constructor.
+
+*/
+StraussModel::StraussModel(double paramS, double paramM, double paramT, double paramReflectivity, double paramTransmissivity) : IlluminationClass(paramReflectivity, paramTransmissivity)
 {
-	s = ts;
-	m = tm;
-	t = tt;
+	smoothness = paramS;
+	metalness = paramM;
+	transparency = paramT;
 	kf = 1.12;
 	ks = 1.01;
 	debugcounter = 0;
 }
 
-ColourClass StraussModel::GetIllumination(VectorClass pi, RayClass ray, VectorClass N, VectorClass L, VectorClass V, ColourClass objColour, ColourClass pointCol, int position)
+/**
+	Implementation of the GetIllumination virtual function for PhongModel class.
+
+	@param		  pi: The point of intersection of the ray and the current object.
+	@param		 ray: The current ray.
+	@param	  normal: The normal to the current point.
+	@param	lightRay: The ray from the (current) light source to the intersection point.
+	@param viewerRay: Ray from viewer to the intersection point.
+	@param objColour: The colour of the current object.
+	@param	pointCol: Currently always (1.0,1.0,1.0). Use for light intensity?						INCOMPLETE.
+	@param	maxDepth: Maximum depth of the kd-tree, if present.
+	@return the colour of the intersection point as a ColourClass.
+*/
+ColourClass StraussModel::GetIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
 {
 	ColourClass tmp = ColourClass(0, 0, 0);
 
-	VectorClass H = Reflect(L, N);
+	VectorClass H = Reflect(lightRay, normal);
 
-	double dotNL = N.dotProd(L);
-	double dotNV = N.dotProd(V);
-	double dotHV = H.dotProd(V);
+	double dotNL = normal.dotProd(lightRay);
+	double dotNV = normal.dotProd(viewerRay);
+	double dotHV = H.dotProd(viewerRay);
 
 	double fdotNL = Fresnel(dotNL);
 
-	double s3 = s*s*s;
+	
+	/*
+		The Diffuse component
 
-	double d = (1.0 - m * s);
-	double rd = (1.0 - s3) * (1.0 - t);
+		diffuse = (N dot L) * d * rDiffuse * C
+		rDiffuse = (1 - s^3)(1 - t)
+		d = (1 - ms)
+	*/
+	double s3 = smoothness*smoothness*smoothness;
+	double rDiffuse = (1.0 - s3) * (1.0 - transparency);
+	double d = (1.0 - metalness * smoothness);
 
-	ColourClass diffuse = objColour * (dotNL * d * rd);
+	ColourClass diffuse = objColour * (dotNL * d * rDiffuse);
 
-	double r = (1.0 - t) - rd;
+	/*
+		The Specular component
+
+		rn = (1.0 - transparency) - rDiffuse
+	*/
+	double rn = (1.0 - transparency) - rDiffuse;
 
 	double j = fdotNL * Shadow(dotNL) * Shadow(dotNV);
 
-	double reflectVar = fmin(1.0, r + j*(r + 0.1));
+	double rj = fmin(1.0, rn + j*(rn + 0.1));
 
-	ColourClass C1 = ColourClass(1.0, 1.0, 1.0);
+	ColourClass c1 = ColourClass(1.0, 1.0, 1.0);
 
-	ColourClass Cs = C1 + (objColour - C1) * m * (1.0 - fdotNL);
+	ColourClass cs  = c1 + (objColour - c1) * metalness * (1.0 - fdotNL);
 
-	ColourClass specular = Cs * reflectVar;
+	ColourClass specular = cs * rj;
 
 
 	// HOW TO APPROXIMATE POW OF A NEGATIVE BASE AND NON INTEGER EXPONENET
 	// WHICH IS A COMPLEX ANSEWER TO A GOD DAMN REAL NUMBER
 
-	//if (s < 1.0)
-	specular = specular * pow(-dotHV, 3.0 / (1.0 - s));
+	//if (smoothness < 1.0)
+	specular = specular * pow(-dotHV, 3.0 / (1.0 - smoothness));
 	//else
 	//specular = specular * pow(-dotHV, 3.0 / 1.0);
 
@@ -58,14 +96,14 @@ ColourClass StraussModel::GetIllumination(VectorClass pi, RayClass ray, VectorCl
 	//std::cout << "in " << specular.GetRed() << " " << specular.GetGreen() << " " << specular.GetBlue() << " " << std::endl;
 	//std::cout << "in " << diffuse.GetRed() << " " << diffuse.GetGreen() << " " << diffuse.GetBlue() << " " << std::endl;
 	//std::cout << "in " << Cs.GetRed() << " " << Cs.GetGreen() << " " << Cs.GetBlue() << " " << std::endl;
-	//std::cout << "in " << powl(-dotHV, 3.0 / (1.0 - s)) << std::endl;
+	//std::cout << "in " << powl(-dotHV, 3.0 / (1.0 - smoothness)) << std::endl;
 	//debugcounter += 50;
 	//}
 
 	//##################################################################################################################################################//
 	/////////////////////////////
 	// AMBIENT IS WRONG.. AFFECTS WHOLE PIC. DEBUG
-	ColourClass ambient = objColour * rd;
+	ColourClass ambient = objColour * rDiffuse;
 
 	//std::cout << diffuse.GetRed() << " " << diffuse.GetGreen() << " " <<diffuse.GetBlue() << " " << std::endl;
 
