@@ -1,25 +1,60 @@
+/**
+	RayTracing, ReadFromFile.cpp
+	Class file to implement reading from a BMP file.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/10/2017
+
+*/
+
 #include "ReadFromFile.h"
 
-void ReadFromFile::SetWidth(int w)
+/**
+	Set the width of the image.
+
+	@param paramW: The width to be set.
+*/
+void ReadFromFile::SetWidth(int paramW)
 {
-	width = w;
+	width = paramW;
 }
 
-void ReadFromFile::SetHeight(int h)
+/**
+	Set the height of the image.
+
+	@param paramH: The height to be set.
+*/
+void ReadFromFile::SetHeight(int paramH)
 {
-	height = h;
+	height = paramH;
 }
 
+/**
+	Get the width of the image.
+
+	@return the width of the current image.
+*/
 int ReadFromFile::GetWidth()
 {
 	return width;
 }
 
+/**
+	Get the height of the image.
+
+	@return the height of the current image.
+*/
 int ReadFromFile::GetHeight()
 {
 	return height;
 }
 
+/**
+	Read from a .BMP file.
+
+	@param *filename: Name of the file to be read.
+	@return the data for all colour values for each pixel in the file read.
+*/
 ColourClass* ReadFromFile::ReadBMP(char* filename)
 {
 	FILE* f = fopen(filename, "rb");
