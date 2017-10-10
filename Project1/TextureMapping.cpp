@@ -22,7 +22,7 @@ TextureMapping::TextureMapping(double paramU, double paramV)
 }
 
 /**
-	Implementation of the GetIllumination virtual function for PhongModel class.
+	Implementation of the GetIllumination virtual function for TextureMapping class.
 
 	@param		  pi: The point of intersection of the ray and the current object.
 	@param		 ray: The current ray.

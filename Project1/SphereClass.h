@@ -1,6 +1,14 @@
+/**
+	RayTracing, SphereClass.h
+	Header file for SphereClass.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/10/2017
+
+*/
+
 #pragma once
 
-//Author: Vishwanath Raman
 #include <iostream>
 #include <math.h>
 #include "VectorClass.h"
@@ -17,8 +25,11 @@ private:
 	ColourClass colour;
 
 public:
+	/* Constructors */
 	SphereClass();
 	SphereClass(double, VectorClass, ColourClass);
+
+	/* Getters */
 	VectorClass GetNormal(VectorClass);
 	VectorClass GetCenter();
 	double GetDiffuse();
@@ -26,5 +37,10 @@ public:
 	double GetAmbient();
 	virtual ColourClass GetColour();
 	virtual double GetIntersection(RayClass);
+
+	/* Setters */
+	void SetDiffuse(double paramDiffuse);
+	void SetSpecular(double paramSpecular);
+	void SetAmbient(double paramAmbient);
 };
 

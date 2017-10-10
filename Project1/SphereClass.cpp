@@ -1,5 +1,18 @@
+
+/**
+	RayTracing, SphereClass.cpp
+	The class file to implement a Sphere.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/10/2017
+
+*/
+
 #include "SphereClass.h"
 
+/**
+	Default constructor.
+*/
 SphereClass::SphereClass()
 {
 	radius = 0.6;
@@ -9,32 +22,76 @@ SphereClass::SphereClass()
 	ambient = 0.1;
 }
 
-SphereClass::SphereClass(double r, VectorClass cent, ColourClass col)
+/**
+	Parameterized Constructor.
+
+	@param paramRadius: Radius of the sphere.
+	@param paramCenter: Position of the center of the sphere.
+	@param paramColour: Colour of the sphere.
+*/
+SphereClass::SphereClass(double paramRadius, VectorClass paramCenter, ColourClass paramColour)
 {
-	radius = r;
-	center = cent;
-	colour = col;
+	radius = paramRadius;
+	center = paramCenter;
+	colour = paramColour;
 	diffuse = 0.3;
 	specular = 0.6;
 	ambient = 0.1;
 }
 
+/**
+	Get the normal at a point on the sphere.
+
+	@param point: The point at which to calculate the normal.
+	@return the normal at the given point, as a VectorClass
+*/
 VectorClass SphereClass::GetNormal(VectorClass point)
 {
 	//std::cout << center.getX() << " " << center.getY() << " " << center.getZ() << " ";
 	return VectorClass((point.getX() - center.getX()), (point.getY() - center.getY()), (point.getZ() - center.getZ()));
 }
 
+/**
+	Get the center of the sphere.
+
+	@return the center of the sphere.
+*/
 VectorClass SphereClass::GetCenter(){ return center; }
 
+/**
+	Get the ambient coefficient of the sphere.
+
+	@return the ambient coefficient of the sphere.
+*/
 double SphereClass::GetAmbient(){ return ambient; }
 
+/**
+	Get the specular coefficient of the sphere.
+
+	@return the specular coefficient of the sphere.
+*/
 double SphereClass::GetSpecular(){ return specular; }
 
+/**
+	Get the diffuse coefficient of the sphere.
+
+	@return the diffuse coefficient of the sphere.
+*/
 double SphereClass::GetDiffuse(){ return diffuse; }
 
+/**
+	Get the colour of the sphere.
+
+	@return the colour of the sphere.
+*/
 ColourClass SphereClass::GetColour(){ return colour; }
 
+/**
+	Get the intersection point of the current sphere with a given ray
+	if they intersect.
+
+	@return the intersection point between the sphere and the ray, if it exists.
+*/
 double SphereClass::GetIntersection(RayClass ray)
 {
 	//double A = ray.GetRayDirection().dotProd(ray.GetRayDirection()); // Since dx2 + dy2 + dz2 = 1 if D is normalized
@@ -97,4 +154,34 @@ double SphereClass::GetIntersection(RayClass ray)
 	}
 
 	return -1;
+}
+
+/**
+	Set the diffuse coefficient of the sphere.
+
+	@param paramDiffuse: The diffuse coefficient to be set.
+*/
+void SphereClass::SetDiffuse(double paramDiffuse)
+{
+	diffuse = paramDiffuse;
+}
+
+/**
+	Set the specular coefficient of the sphere.
+
+	@param paramSpecular: The specular coefficient to be set.
+*/
+void SphereClass::SetSpecular(double paramSpecular)
+{
+	specular = paramSpecular;
+}
+
+/**
+	Set the diffuse coefficient of the sphere.
+
+	@param paramAmbient: The ambient coefficient to be set.
+*/
+void SphereClass::SetAmbient(double paramAmbient)
+{
+	ambient = paramAmbient;
 }
