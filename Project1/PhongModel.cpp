@@ -30,18 +30,19 @@ PhongModel::PhongModel(double paramDiffuse, double paramSpecular, double paramAm
 /**
 	Implementation of the GetIllumination virtual function for PhongModel class.
 
-	@param pi: The point of intersection of the ray and the current object.
-	@param ray: The current ray.
-	@param n: The normal to the current point.
-	@param l: The ray from the (current) light source to the intersection point.
-	@param v: Ray from viewer to the intersection point.
+	@param		  pi: The point of intersection of the ray and the current object.
+	@param		 ray: The current ray.
+	@param	  normal: The normal to the current point.
+	@param	lightRay: The ray from the (current) light source to the intersection point.
+	@param viewerRay: Ray from viewer to the intersection point.
 	@param objColour: The colour of the current object.
-	@param pointCol: Currently always (1,1,1). Use for light intensity? INCOMPLETE.
+	@param	pointCol: Currently always (1,1,1). Use for light intensity?						INCOMPLETE.
+	@param	maxDepth: Maximum depth of the kd-tree, if present.
 	@return the colour of the intersection point as a ColourClass.
 */
 ColourClass PhongModel::GetIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
 {
-	ColourClass tmp = ColourClass(0.0, 0.0, 0.0);
+	ColourClass currentColour = ColourClass(0.0, 0.0, 0.0);
 
 	if (ray.GetRayDirection().dotProd(normal) < 0)
 	{
@@ -61,7 +62,7 @@ ColourClass PhongModel::GetIllumination(VectorClass pi, RayClass ray, VectorClas
 				double diff = kdDiffuse * dotNL;
 				ColourClass diffuse = objColour * diff * pointCol;
 
-				tmp = tmp + diffuse;
+				currentColour = currentColour + diffuse;
 
 				//VectorClass V = (ray.GetRayOrigin() - pi).normalize();
 
@@ -73,16 +74,16 @@ ColourClass PhongModel::GetIllumination(VectorClass pi, RayClass ray, VectorClas
 				{
 					double spec = ksSpecular * pow(dotVR, keHardness);
 					ColourClass specular = (ColourClass(1.0, 1.0, 1.0) * spec) * pointCol;
-					tmp = tmp + specular;
+					currentColour = currentColour + specular;
 				}
 			}
 		}
 
 		// Add ambient
 		ColourClass ambient = objColour * pointCol * kaAmbient;
-		tmp = tmp + ambient;
+		currentColour = currentColour + ambient;
 
-		return tmp;
+		return currentColour;
 	}
 	else
 	{
@@ -100,9 +101,9 @@ ColourClass PhongModel::GetIllumination(VectorClass pi, RayClass ray, VectorClas
 			{
 				double spec = ksSpecular * pow(dotVR, keHardness);
 				ColourClass specular = (ColourClass(1.0, 1.0, 1.0) * spec) * pointCol;
-				tmp = tmp + specular;
+				currentColour = currentColour + specular;
 			}
 		}
-		return tmp;
+		return currentColour;
 	}
 }

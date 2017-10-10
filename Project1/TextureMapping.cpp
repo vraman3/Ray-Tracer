@@ -22,21 +22,19 @@ TextureMapping::TextureMapping(double paramU, double paramV)
 }
 
 /**
-	INCOMPLETE
-	Implementation of the GetIllumination virtual class for the TextureMapping class.
+	Implementation of the GetIllumination virtual function for PhongModel class.
 
-	@param pi: The point of intersection.
-	@param ray: The current ray.
-	@param n: The normal to the current point of interseciton.
-	@param l:
-	@param v:
+	@param		  pi: The point of intersection of the ray and the current object.
+	@param		 ray: The current ray.
+	@param	  normal: The normal to the current point.
+	@param	lightRay: The ray from the (current) light source to the intersection point.
+	@param viewerRay: Ray from viewer to the intersection point.
 	@param objColour: The colour of the current object.
-	@param pointColour: To be tested. Colour of the point. To affect brightness?
-	@param position: Not used currently.
-
-	@return the colour of the  current point of intersection as a ColourClass.
+	@param	pointCol: Currently always (1,1,1). Use for light intensity?						INCOMPLETE.
+	@param	maxDepth: Maximum depth of the kd-tree, if present.
+	@return the colour of the intersection point as a ColourClass.
 */
-ColourClass TextureMapping::GetIllumination(VectorClass pi, RayClass ray, VectorClass n, VectorClass l, VectorClass v, ColourClass objColour, ColourClass pointCol, int position)
+ColourClass TextureMapping::GetIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
 {
 	return ColourClass();
 }

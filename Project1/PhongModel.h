@@ -1,6 +1,6 @@
 /**
 	RayTracing, PhongModel.h
-	Class to implement the Phong shading model.
+	Header file for PhongModel class.
 
 	@author: Vishwanath Raman
 	@version: 1.0 Oct/09/2017
