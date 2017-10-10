@@ -1,6 +1,14 @@
+/**
+	RayTracing, NoShadingModel.h
+	Header file for the NoShadingModel class.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/10/2017
+
+*/
+
 #pragma once
 
-//Author: Vishwanath Raman
 #include "IlluminationClass.h"
 #include "ColourClass.h"
 #include "VectorClass.h"
@@ -8,10 +16,11 @@
 
 class NoShadingModel :public IlluminationClass
 {
-	//private:
-
 	public:
+		/* Constructors */
 		NoShadingModel(double, double);
+
+		/* Methods */
 		ColourClass GetIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);
 };
 

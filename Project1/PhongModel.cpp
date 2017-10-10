@@ -12,14 +12,14 @@
 /**
 	Parameterized constructor.
 
-	@param paramDiffuse: The parameter for diffuse value (Lambertian reflection) of the current object.
-	@param paramSpecular: The parameter for specular value (mirror-like reflection) of the current object.
-	@param paramAmbient: The parameter for ambient value (background light) of the current object.
-	@param paramSpecHardness: The parameter for the specular hardness of the current object.
-	@param paramReflective: The parameter for reflectivity of the current object.
-	@param paramTransmissive: The parameter for transmissivity of the current object.
+	@param		  paramDiffuse: The parameter for diffuse value (Lambertian reflection) of the current object.
+	@param		 paramSpecular: The parameter for specular value (mirror-like reflection) of the current object.
+	@param		  paramAmbient: The parameter for ambient value (background light) of the current object.
+	@param   paramSpecHardness: The parameter for the specular hardness of the current object.
+	@param   paramReflectivity: The parameter for reflectivity of the current object.
+	@param paramTransmissivity: The parameter for transmissivity of the current object.
 */
-PhongModel::PhongModel(double paramDiffuse, double paramSpecular, double paramAmbient, double paramSpecHardness, double paramReflective, double paramTransmissive) : IlluminationClass(paramReflective, paramTransmissive)
+PhongModel::PhongModel(double paramDiffuse, double paramSpecular, double paramAmbient, double paramSpecHardness, double paramReflectivity, double paramTransmissivity) : IlluminationClass(paramReflectivity, paramTransmissivity)
 {
 	kaAmbient = paramAmbient;
 	kdDiffuse = paramDiffuse;
