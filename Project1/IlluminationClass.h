@@ -8,19 +8,19 @@
 class IlluminationClass
 {
 	protected:
-		double kr, kt, ni;
+		double krReflectivity, ktTransmissivity;
 
 	public:
 		IlluminationClass()
 		{}
 
-		IlluminationClass(double, double, double);
+		IlluminationClass(double, double);
 
-		double Getkr(){ return kr; }
+		double Getkr(){ return krReflectivity; }
 
-		double Getkt(){ return kt; }
+		double Getkt(){ return ktTransmissivity; }
 
-		double Getn(){ return ni; }
+		double Getn(){ return 0.0; }
 
 		virtual ColourClass GetIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int)
 		{			

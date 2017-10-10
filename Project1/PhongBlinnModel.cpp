@@ -1,6 +1,6 @@
 #include "PhongBlinnModel.h"
 
-PhongBlinnModel::PhongBlinnModel(double tkd, double tks, double tka, double tke, double inkr, double inkt, double inn) : IlluminationClass(inkr, inkt, inn)
+PhongBlinnModel::PhongBlinnModel(double tkd, double tks, double tka, double tke, double inkr, double inkt) : IlluminationClass(inkr, inkt)
 {
 	ka = tka;
 	kd = tkd;
@@ -69,7 +69,7 @@ ColourClass PhongBlinnModel::GetIllumination(VectorClass pi, RayClass ray, Vecto
 
 		//if (dotNL > 0.0001)
 		//{
-		if (kt == 1.0)
+		if (ktTransmissivity == 1.0)
 		{
 			VectorClass R = (N * 2 * dotNL - L).normalize();				//1//	For Phong
 			double dotVR = R.dotProd(V);									//2//

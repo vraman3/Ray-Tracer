@@ -1,6 +1,14 @@
+/**
+	RayTracing, PhongModel.h
+	Class to implement the Phong shading model.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/09/2017
+
+*/
+
 #pragma once
 
-//Author: Vishwanath Raman
 #include "IlluminationClass.h"
 #include "ColourClass.h"
 #include "VectorClass.h"
@@ -9,10 +17,20 @@
 class PhongModel : public IlluminationClass
 {
 	private:
-		double ka, kd, ks, ke;
+		/* Coefficients 
+			
+			ka = Ambient coefficient, Background light. 
+			kd = Diffuse coefficient, Lambertian reflection.			
+			ks = Specular coefficient, mirror-like reflection.
+			ke = Specular Hardness. Controls size of specular highlight.
+		*/
+		double kaAmbient, kdDiffuse, ksSpecular, keHardness;
 
 	public:
-		PhongModel(double, double, double, double, double, double, double);
+		/* Constructors */
+		PhongModel(double diffuseQuotient, double specularQuotient, double ambientQuotient, double tke, double reflectiveQuotient, double transmissiveQuotient);
+
+		/* Methods */
 		ColourClass GetIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);
 };
 

@@ -18,7 +18,7 @@ private:
 	int width, height;
 
 public:
-	CheckerboardPattern(int, int, double, double, double);
+	CheckerboardPattern(int, int, double, double);
 	ColourClass GetIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);
 };
 

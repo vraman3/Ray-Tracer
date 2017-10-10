@@ -1,10 +1,10 @@
 #include "IlluminationClass.h"
 
-IlluminationClass::IlluminationClass(double inkr, double inkt, double inn)
+IlluminationClass::IlluminationClass(double inkr, double inkt)
 {
-	kr = inkr;
-	kt = inkt;
-	ni = inn;
+	krReflectivity = inkr;
+	ktTransmissivity = inkt;
+	//ni = inn;
 }
 
 VectorClass IlluminationClass::Reflect(VectorClass incident, VectorClass normal)

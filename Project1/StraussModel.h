@@ -13,7 +13,7 @@ class StraussModel : public IlluminationClass
 
 	public:
 		double debugcounter;
-		StraussModel(double, double, double, double, double, double);
+		StraussModel(double, double, double, double, double);
 		ColourClass GetIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);
 		double Fresnel(double);
 		double Shadow(double);

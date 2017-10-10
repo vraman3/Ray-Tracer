@@ -1,6 +1,6 @@
 #include "StraussModel.h"
 
-StraussModel::StraussModel(double ts, double tm, double tt, double inkr, double inkt, double inn) : IlluminationClass(inkr, inkt, inn)
+StraussModel::StraussModel(double ts, double tm, double tt, double inkr, double inkt) : IlluminationClass(inkr, inkt)
 {
 	s = ts;
 	m = tm;

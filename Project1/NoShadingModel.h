@@ -11,7 +11,7 @@ class NoShadingModel :public IlluminationClass
 	//private:
 
 	public:
-		NoShadingModel(double, double, double);
+		NoShadingModel(double, double);
 		ColourClass GetIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);
 };
 

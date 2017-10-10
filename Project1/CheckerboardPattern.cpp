@@ -1,7 +1,7 @@
 #include "CheckerboardPattern.h"
 #include "PhongModel.h"
 
-CheckerboardPattern::CheckerboardPattern(int w, int h, double inkr, double inkt, double inn) : IlluminationClass(inkr, inkt, inn)
+CheckerboardPattern::CheckerboardPattern(int w, int h, double inkr, double inkt) : IlluminationClass(inkr, inkt)
 {
 	width = w;
 	height = h;
@@ -14,7 +14,7 @@ ColourClass CheckerboardPattern::GetIllumination(VectorClass pi, RayClass ray, V
 	double z = pi.getZ();
 	double size = 1.0;
 
-	PhongModel *p = new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 0.0);
+	PhongModel *p = new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0);
 
 	int val = 0;
 

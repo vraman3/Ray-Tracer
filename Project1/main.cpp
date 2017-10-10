@@ -79,13 +79,13 @@ int main(int argc, char *argv[])
 	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
 	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
 	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
 	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
 
 	std::vector<TriangleClass*> testObjects;
 	testObjects.push_back(new TriangleClass(VectorClass(1.2, 0.4, 3.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0)));
 	/*testObjects.push_back(new TriangleClass(VectorClass(0.0, 0.5, 0.0), VectorClass(1.5, 0.5, 1.5),
 	VectorClass(1.5,0.5,0.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));*/
 	/*testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
 			ColourClass(0.0, 1.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0, 1.0)));
+			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
 	}
 
 	std::vector<TriangleClass*> convObjects;
@@ -122,11 +122,11 @@ int main(int argc, char *argv[])
 	//	new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0, 1.0)
 	//	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
 	illuminations.push_back(
-		new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)
+		new CheckerboardPattern(320, 240, 0.0, 0.0)
 		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
 		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
 	illuminations.push_back(
-		new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)
+		new CheckerboardPattern(320, 240, 0.0, 0.0)
 		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
 		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
 #pragma endregion

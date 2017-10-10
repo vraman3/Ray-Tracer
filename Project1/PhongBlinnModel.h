@@ -12,7 +12,7 @@ class PhongBlinnModel : public IlluminationClass
 		double ka, kd, ks, ke;
 
 	public:
-		PhongBlinnModel(double, double, double, double, double, double, double);
+		PhongBlinnModel(double, double, double, double, double, double);
 		ColourClass GetIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);
 };
 
