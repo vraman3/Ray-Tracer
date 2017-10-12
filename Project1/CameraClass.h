@@ -1,6 +1,13 @@
+/**
+	RayTracing, CameraClass.h
+	Header file for the CamerClass.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/12/2017
+
+*/
 #pragma once
 
-//Author: Vishwanath Raman
 #include "VectorClass.h"
 
 class CameraClass
@@ -12,16 +19,17 @@ private:
 	VectorClass up;
 
 public:
+	/* Constructors */
 	CameraClass();
 	CameraClass(VectorClass, VectorClass, VectorClass, double);
 
+	/* Getters */
 	double GetFocalLength();
-	void   SetFocalLength(double);
-
 	VectorClass GetPosition();
 	VectorClass GetLookAt();
 	VectorClass GetUpVector();
 
-
+	/* Setters */
+	void   SetFocalLength(double);
 };
 

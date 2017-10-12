@@ -16,7 +16,6 @@
 #include "ColourClass.h"
 #include "ObjectClass.h"
 
-
 class SphereClass:public ObjectClass
 {
 private:
