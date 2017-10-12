@@ -1,6 +1,13 @@
+/**
+	RayTracing, AABBClass.h
+	Header file for the AABBClass.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/12/2017
+
+*/
 #pragma once
 
-//Author: Vishwanath Raman
 #include <iostream>
 
 #include "ObjectClass.h"
@@ -13,18 +20,23 @@
 class AABBClass :public ObjectClass
 {
 	private:
-		VectorClass Bmin, Bmax;
-		VectorClass centre;
+		// The centre, minimum and maximum values for the bounding box
+		VectorClass bMin, bMax, centre;
 
 	public:
+		/* Constructors */
 		AABBClass();
 		AABBClass(VectorClass min, VectorClass max);
 
-		void SetCentre();
-		void Expand(AABBClass);
+		/* Getters */
 		int GetLongestAxis();
 		VectorClass GetNormal(VectorClass);
 		double GetIntersection1(RayClass, double *hitt0 = NULL, double *hitt1 = NULL);
 		virtual double GetIntersection(RayClass, double *hitt0 = NULL, double *hitt1 = NULL);
+
+		/* Methods */
+		void calculateCenter();
+		void Expand(AABBClass);
+		
 };
 
