@@ -57,16 +57,16 @@ VectorClass VectorClass::operator-(const VectorClass& b) const
 	return VectorClass(this->x - b.x, this->y - b.y, this->z - b.z);
 }
 
-/**
-	Operator overload for multiplying (*) two VectorClasses.
-	
-	@param b: The VectorClass to be multiplied with the first.
-	@return the multiplication of both VectorClasses, as a VectorClass.
-*/
-VectorClass VectorClass::operator*(const VectorClass& b) const
-{
-	return VectorClass(this->x * b.x, this->y * b.y, this->z * b.z);
-}
+///**
+//	Operator overload for multiplying (*) two VectorClasses.
+//	
+//	@param b: The VectorClass to be multiplied with the first.
+//	@return the multiplication of both VectorClasses, as a VectorClass.
+//*/
+//VectorClass VectorClass::operator*(const VectorClass& b) const
+//{
+//	return VectorClass(this->x * b.x, this->y * b.y, this->z * b.z);
+//}
 
 /**
 	Operator overload for multiplying (*) a VectorClass with an integer constant.

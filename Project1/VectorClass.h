@@ -36,7 +36,7 @@ public:
 	/* Overloaded operators */
 	VectorClass operator+(const VectorClass&) const;
 	VectorClass operator-(const VectorClass&) const;
-	VectorClass operator*(const VectorClass&) const;
+	//VectorClass operator*(const VectorClass&) const;
 	VectorClass operator*(const double) const;
 	VectorClass operator/(const double) const;
 	double operator[](const int) const;
