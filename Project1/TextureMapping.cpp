@@ -22,7 +22,7 @@ TextureMapping::TextureMapping(double paramU, double paramV)
 }
 
 /**
-	Implementation of the GetIllumination virtual function for TextureMapping class.
+	Implementation of the getIllumination virtual function for TextureMapping class.
 
 	@param		  pi: The point of intersection of the ray and the current object.
 	@param		 ray: The current ray.
@@ -34,7 +34,7 @@ TextureMapping::TextureMapping(double paramU, double paramV)
 	@param	maxDepth: Maximum depth of the kd-tree, if present.
 	@return the colour of the intersection point as a ColourClass.
 */
-ColourClass TextureMapping::GetIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
+ColourClass TextureMapping::getIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
 {
 	return ColourClass();
 }

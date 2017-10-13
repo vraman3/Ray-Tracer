@@ -28,7 +28,7 @@ PhongBlinnModel::PhongBlinnModel(double paramDiffuse, double paramSpecular, doub
 }
 
 /**
-	Implementation of the GetIllumination virtual function for PhongModel class.
+	Implementation of the getIllumination virtual function for PhongModel class.
 
 	@param		  pi: The point of intersection of the ray and the current object.
 	@param		 ray: The current ray.
@@ -40,7 +40,7 @@ PhongBlinnModel::PhongBlinnModel(double paramDiffuse, double paramSpecular, doub
 	@param	maxDepth: Maximum depth of the kd-tree, if present.
 	@return the colour of the intersection point as a ColourClass.
 */
-ColourClass PhongBlinnModel::GetIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
+ColourClass PhongBlinnModel::getIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
 {
 	ColourClass tmp = ColourClass(0.0, 0.0, 0.0);
 	//double kdDiffuse = objects[closest]->GetDiffuse();

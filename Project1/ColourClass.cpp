@@ -117,6 +117,17 @@ ColourClass ColourClass::operator-(const double b) const
 }
 
 /**
+	Operator overloading for multiplying two ColourClasses together.
+
+	@param b: The ColourClass to be multiplied to the first.
+	@return the addition of both the ColourClasses.
+*/
+ColourClass ColourClass::operator*(const ColourClass& b) const
+{
+	return ColourClass(this->red * b.red, this->green * b.green, this->blue * b.blue);
+}
+
+/**
 	Operator overloading to add two ColourClasses together.
 
 	@param b: The ColourClass to be added to the first.

@@ -19,7 +19,7 @@ NoShadingModel::NoShadingModel(double paramReflectivity, double paramTransmissiv
 {}
 
 /**
-	Implementation of the GetIllumination virtual function for PhongModel class.
+	Implementation of the getIllumination virtual function for PhongModel class.
 	Always returns the original object colour without calculations.
 
 	@param		  pi: The point of intersection of the ray and the current object.
@@ -32,7 +32,7 @@ NoShadingModel::NoShadingModel(double paramReflectivity, double paramTransmissiv
 	@param	maxDepth: Maximum depth of the kd-tree, if present.
 	@return the colour of the intersection point as a ColourClass.
 */
-ColourClass NoShadingModel::GetIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
+ColourClass NoShadingModel::getIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
 {
 	//return ColourClass(0,0,0);
 

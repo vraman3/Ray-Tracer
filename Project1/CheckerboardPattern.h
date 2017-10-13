@@ -29,6 +29,6 @@ public:
 	CheckerboardPattern(int, int, double, double);
 
 	/* Methods */
-	ColourClass GetIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth, int patternChoice)
+	ColourClass getIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth);
 };
 

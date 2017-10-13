@@ -31,6 +31,6 @@ class PhongModel : public IlluminationClass
 		PhongModel(double diffuseQuotient, double specularQuotient, double ambientQuotient, double tke, double reflectiveQuotient, double transmissiveQuotient);
 
 		/* Methods */
-		ColourClass GetIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);
+		ColourClass getIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);
 };
 

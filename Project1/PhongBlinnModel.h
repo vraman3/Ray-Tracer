@@ -31,6 +31,6 @@ class PhongBlinnModel : public IlluminationClass
 		PhongBlinnModel(double, double, double, double, double, double);
 
 		/* Methods */
-		ColourClass GetIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);
+		ColourClass getIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);
 };
 

@@ -409,7 +409,7 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 
 			if (shadowIsect.flag)
 			{
-				shadowObjkt = shadowIsect.tri->illum->Getkt();
+				shadowObjkt = shadowIsect.tri->illum->getTransmissivitykt();
 				if (shadowObjkt > 0.0)
 					shade += 1 - shadowObjkt;
 				else
@@ -419,15 +419,15 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 			
 			VectorClass L = ((*lights[g]) - pi).normalize();
 
-			tmp = tmp + isect.tri->illum->GetIllumination(pi, ray, N, L, V, isect.tri->GetColour(), pointCol, maxDepth) / shade;
+			tmp = tmp + isect.tri->illum->getIllumination(pi, ray, N, L, V, isect.tri->GetColour(), pointCol, maxDepth) / shade;
 
 			//}
 		}
 
 		if (depth < maxDepth)
 		{
-			double reflectKr = isect.tri->illum->Getkr();
-			double transmiKt = isect.tri->illum->Getkt();
+			double reflectKr = isect.tri->illum->getReflectivitykr();
+			double transmiKt = isect.tri->illum->getTransmissivitykt();
 
 			if (reflectKr > 0.0)
 			{
@@ -442,7 +442,7 @@ ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree
 			{
 				VectorClass I = ray.GetRayDirection().normalize()*(-1);
 				//VectorClass I = pi - VectorClass(2.5, 4, 0);
-				double outgoingnt = isect.tri->illum->Getn();
+				double outgoingnt = isect.tri->illum->getNormal();
 
 				VectorClass transRayDirection;
 				double niToBePassed;
@@ -555,7 +555,7 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 			for (int shadowObj = 0; shadowObj < objectsSize; shadowObj++)
 			{
 				shadowOmega = objects[shadowObj]->GetIntersection(shadowRay);
-				double objkt = illuminations[shadowObj]->Getkt();
+				double objkt = illuminations[shadowObj]->getTransmissivitykt();
 				//std::cout << shadowOmega << " ";
 				if (shadowOmega > 0.00001)
 					//if (false)					// Use this to disable shadows. Comment the "if" condition above.
@@ -576,15 +576,15 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 			//{
 			VectorClass L = ((*lights[g]) - pi).normalize();
 
-			tmp = tmp + illuminations[closest]->GetIllumination(pi, ray, N, L, V, (*objects[closest]).GetColour(), pointCol, maxDepth) / shade;
+			tmp = tmp + illuminations[closest]->getIllumination(pi, ray, N, L, V, (*objects[closest]).GetColour(), pointCol, maxDepth) / shade;
 
 			//}
 		}
 
 		if (depth < maxDepth)
 		{
-			double reflectKr = illuminations[closest]->Getkr();
-			double transmiKt = illuminations[closest]->Getkt();
+			double reflectKr = illuminations[closest]->getReflectivitykr();
+			double transmiKt = illuminations[closest]->getTransmissivitykt();
 
 			if (reflectKr > 0.0)
 			{
@@ -599,7 +599,7 @@ ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<Obj
 			{
 				VectorClass I = ray.GetRayDirection().normalize()*(-1);
 				//VectorClass I = pi - VectorClass(2.5, 4, 0);
-				double outgoingnt = illuminations[closest]->Getn();
+				double outgoingnt = illuminations[closest]->getNormal();
 
 				VectorClass transRayDirection;
 				double niToBePassed;

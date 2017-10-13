@@ -1,6 +1,13 @@
+/**
+	RayTracing, IlluminationClass.h
+	Header file for the IlluminationClass.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/13/2017
+
+*/
 #pragma once
 
-//Author: Vishwanath Raman
 #include "ColourClass.h"
 #include "RayClass.h"
 #include "VectorClass.h"
@@ -11,27 +18,20 @@ class IlluminationClass
 		double krReflectivity, ktTransmissivity;
 
 	public:
-		IlluminationClass()
-		{}
-
+		/* Constructors */
+		IlluminationClass();
 		IlluminationClass(double, double);
 
-		double Getkr(){ return krReflectivity; }
+		/* Getters */
+		double getReflectivitykr();
+		double getTransmissivitykt();
+		double getNormal();
 
-		double Getkt(){ return ktTransmissivity; }
+		/* Virtual functions */
+		virtual ColourClass getIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth);
+		virtual double getIntersectData(RayClass ray);
 
-		double Getn(){ return 0.0; }
-
-		virtual ColourClass GetIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int)
-		{			
-			return ColourClass(0.0, 0.0, 0.0);
-		}
-
-		virtual double GetIntersectData(RayClass ray)
-		{
-			return 0.0;
-		}
-
+		/* Methods */
 		VectorClass Reflect(VectorClass, VectorClass);
 };
 
