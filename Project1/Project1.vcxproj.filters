@@ -87,7 +87,7 @@
     <ClInclude Include="MatrixClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SaveToFile.h">
+    <ClInclude Include="SaveToFIle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -158,7 +158,7 @@
     <ClCompile Include="CameraClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SaveToFile.cpp">
+    <ClCompile Include="SaveToFIle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

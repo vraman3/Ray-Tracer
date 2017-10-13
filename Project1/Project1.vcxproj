@@ -76,6 +76,7 @@
     <ClInclude Include="KDNode.h" />
     <ClInclude Include="ObjLoaderClass.h" />
     <ClInclude Include="ReadFromFile.h" />
+    <ClInclude Include="SaveToFIle.h" />
     <ClInclude Include="TextureMapping.h" />
     <ClInclude Include="ToneReproduction.h" />
     <ClInclude Include="NoShadingModel.h" />
@@ -86,7 +87,6 @@
     <ClInclude Include="PlaneClass.h" />
     <ClInclude Include="MatrixClass.h" />
     <ClInclude Include="TriangleClass.h" />
-    <ClInclude Include="SaveToFile.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="ObjectClass.h" />
     <ClInclude Include="resource.h" />
@@ -111,7 +111,7 @@
     <ClCompile Include="PlaneClass.cpp" />
     <ClCompile Include="RayClass.cpp" />
     <ClCompile Include="ReadFromFile.cpp" />
-    <ClCompile Include="SaveToFile.cpp" />
+    <ClCompile Include="SaveToFIle.cpp" />
     <ClCompile Include="SphereClass.cpp" />
     <ClCompile Include="StraussModel.cpp" />
     <ClCompile Include="TextureMapping.cpp" />
