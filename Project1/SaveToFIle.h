@@ -11,10 +11,10 @@ Code:http://sourceforge.net/projects/rasterrain/
 #include "ColourClass.h"
 #include "ToneReproduction.h"
 
-class SaveToFile
+class SaveToFIle
 {
 public:
-	SaveToFile();
+	SaveToFIle();
 	void savebmp(const char*, int, int, int, ColourClass*, int);
 
 };

@@ -20,7 +20,7 @@
 #include "StraussModel.h"
 #include "NoShadingModel.h"
 #include "CheckerboardPattern.h"
-#include "SaveToFile.h"
+#include "SaveToFIle.h"
 #include "ReadFromFile.h"
 #include "KDNode.h"
 #include "IntersectionInfo.h"
@@ -277,7 +277,7 @@ int main(int argc, char *argv[])
 		}
 		//std::cout << " eol " << std::endl;
 	}
-	SaveToFile saveObject = SaveToFile();
+	SaveToFIle saveObject = SaveToFIle();
 	saveObject.savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 
 	// Read and write from a bmp file

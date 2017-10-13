@@ -1,9 +1,9 @@
-#include "SaveToFile.h"
+#include "SaveToFIle.h"
 
-SaveToFile::SaveToFile()
+SaveToFIle::SaveToFIle()
 {}
 
-void SaveToFile::savebmp(const char* filename, int w, int h, int dpi, ColourClass* data, int whichTR = 0)
+void SaveToFIle::savebmp(const char* filename, int w, int h, int dpi, ColourClass* data, int whichTR = 0)
 {
 	FILE *f;
 	int noOfPixels = w*h;
