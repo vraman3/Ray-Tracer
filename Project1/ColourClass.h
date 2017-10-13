@@ -33,7 +33,6 @@ public:
 	ColourClass operator/(const double) const;
 	ColourClass operator+(const double) const;
 	ColourClass operator-(const double) const;
-	ColourClass operator*(const ColourClass&) const;
 	ColourClass operator+(const ColourClass&) const;
 	ColourClass operator-(const ColourClass&) const;
 

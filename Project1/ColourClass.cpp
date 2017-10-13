@@ -70,45 +70,77 @@ void ColourClass::SetGreen(double paramVal) { green = paramVal; }
 void ColourClass::SetBlue(double paramVal) { blue = paramVal; }
 
 /**
-	Operator overload for multiplying (*) a ColourClass with a constant.
+	Operator overloading for multiplying (*) a ColourClass with a constant.
 	
-	@param b: The ColourClass to be multiplied with the first.
-	@return the multiplication of both ColourClass, as a VectorClass.
+	@param b: The constant to be multiplied with the ColourClass.
+	@return the VectorClass after multiplication of each of its elements 
+			with the constant
 */
 ColourClass ColourClass::operator*(const double b) const
 {
 	return ColourClass(this->red * b, this->green * b, this->blue * b);
 }
 
+/**
+	Operator overloading for dividing (/) a ColourClass with a constant.
+	
+	@param b: The divisor.
+	@return the division of each of the elements of ColourClass with the divisor.
+*/
 ColourClass ColourClass::operator/(const double b) const
 {
 	return ColourClass(this->red / b, this->green / b, this->blue / b);
 }
 
+/**
+	Operator overloading for adding a ColourClass with a constant.
+	Add the constant to each element of the ColourClass.
+
+	@param b: The constant to be added.
+	@return the addition of the ColourClass with the constant.
+*/
 ColourClass ColourClass::operator+(const double b) const
 {
 	return ColourClass(this->red + b, this->green + b, this->blue + b);
 }
 
+/**
+	Operator overloading for subtracting a constant from a ColourClass.
+	Subtract the constant from each element of the ColourClass.
+
+	@param b: The constant to be added.
+	@return the ColourClass after  the subtraction.
+*/
 ColourClass ColourClass::operator-(const double b) const
 {
 	return ColourClass(this->red - b, this->green - b, this->blue - b);
 }
-ColourClass ColourClass::operator*(const ColourClass& b) const
-{
-	return ColourClass(this->red * b.red, this->green * b.green, this->blue * b.blue);
-}
 
+/**
+	Operator overloading to add two ColourClasses together.
+
+	@param b: The ColourClass to be added to the first.
+	@return the addition of both the ColourClasses.
+*/
 ColourClass ColourClass::operator+(const ColourClass& b) const
 {
 	return ColourClass(this->red + b.red, this->green + b.green, this->blue + b.blue);
 }
 
+/**
+	Operator overloading to subtract a ColourClasses from the current ColourClass.
+
+	@param b: The ColourClass to be subtracted from the first.
+	@return the resultant ColourClass after the subtraction.
+*/
 ColourClass ColourClass::operator-(const ColourClass& b) const
 {
 	return ColourClass(this->red - b.red, this->green - b.green, this->blue - b.blue);
 }
 
+/**
+	Reset the colour of the current pixel to Black (R,G,B = 0,0,0)
+*/
 void ColourClass::resetColour()
 {
 	this->red = 0.0;
