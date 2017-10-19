@@ -13,13 +13,20 @@ Currently in the process of beautifying the code, especially main.cpp
 
 Things to do:
 1. - [ ] Comment all files with a consistent industry standard.
-2. - [ ] Refactor main.cpp to be more modular, mainly including:
+2. Debug k-d trees implementation.
+- [x] Implemented Oct-trees. 
+- [ ] Debug.
+      Current output shows backside of a model. Check if kd tree issue
+      or camera system.
+- [ ] Runs.
+- [ ] Extend to k-d trees.
+3. - [ ] Refactor main.cpp to be more modular, mainly including:
    - [ ] Modularizing the camera controls.
    - [ ] Separating the TraceRay functions to another class/file.
-3. - [ ] Add a way to see the output.
+4. - [ ] Add a way to see the output.
    - [ ] See the current output of the ray tracer.
    - [ ] See outputs for techniques already implemented and working.
-4. - [ ] Improve the ReadME.
+5. - [ ] Improve the ReadME.
    - [ ] Make interactive with sections.
    - [ ] Add info about major techniques.
    - [ ] Index.
@@ -41,9 +48,6 @@ Files needing additional comments/explanation:
 - [ ] IlluminationClass.cpp <br>
 - [ ] MatrixClass.cpp <br>
 
-Near future techniques to be implemented:
-1. K-d Trees.
-The implementation is in place. Need to debug. Output shows backside of a model.
-
+Techniques to be implemented:
 2. Multi-threading.
 3. Photon mapping.
