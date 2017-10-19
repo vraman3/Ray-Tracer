@@ -13,7 +13,7 @@ Currently in the process of beautifying the code, especially main.cpp
 
 Things to do:
 1. - [ ] Comment all files with a consistent industry standard.
-2. Debug k-d trees implementation.
+2. - [ ] Debug k-d trees implementation.
 - [x] Implemented Oct-trees. 
 - [ ] Debug.
       Current output shows backside of a model. Check if kd tree issue
@@ -49,5 +49,5 @@ Files needing additional comments/explanation:
 - [ ] MatrixClass.cpp <br>
 
 Techniques to be implemented:
-2. Multi-threading.
-3. Photon mapping.
+1. Multi-threading. <br>
+2. Photon mapping.
