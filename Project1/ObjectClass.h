@@ -1,6 +1,13 @@
+/**
+	RayTracing, ObjectClass.h
+	Header file to implement base ObjectClass.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/21/2017
+
+*/
 #pragma once
 
-//Author: Vishwanath Raman
 #include <iostream>
 
 #include "ColourClass.h"
@@ -10,39 +17,18 @@
 
 class ObjectClass
 {
-	private:
-
-	public:
+public:
+	/* Constructors*/
 	ObjectClass(){}
 
-	virtual double GetAmbient()
-	{
-		return 0.0;
-	}
-	virtual double GetSpecular()
-	{
-		return 0.0;
-	}
-	virtual double GetDiffuse()
-	{
-		return 0.0;
-	}
+	/* Getters */
+	virtual double GetAmbient();
+	virtual double GetSpecular();
+	virtual double GetDiffuse();
 
-	virtual VectorClass GetNormal(VectorClass pi)
-	{
-		return VectorClass(0, 0, 0);
-	}
-	virtual ColourClass GetColour()
-	{
-		return ColourClass(0, 0, 0);
-	}
-	virtual double GetIntersection(RayClass ray)
-	{
-		return 0.0;
-	}
+	virtual VectorClass GetNormal(VectorClass pi);
+	virtual ColourClass GetColour();
+	virtual double GetIntersection(RayClass ray);
 
-	virtual VectorClass GetMidpoint()
-	{
-		return VectorClass();
-	}
+	virtual VectorClass GetMidpoint();
 };
