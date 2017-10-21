@@ -105,6 +105,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MatrixClass.cpp" />
     <ClCompile Include="NoShadingModel.cpp" />
+    <ClCompile Include="ObjectClass.cpp" />
     <ClCompile Include="ObjLoaderClass.cpp" />
     <ClCompile Include="PhongBlinnModel.cpp" />
     <ClCompile Include="PhongModel.cpp" />
