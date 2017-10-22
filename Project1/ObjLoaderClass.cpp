@@ -1,9 +1,24 @@
+/**
+	RayTracing, ObjectClass.cpp
+	Read an object file (.obj) and parse it to get the information
+	about all the triangles in the model.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/21/2017
+
+*/
 #include "ObjLoaderClass.h"
 
-void ObjLoaderClass::readObjFile(std::string filename)
+/**
+	Read an object file (.obj) and store the vertices and faces for each triangle
+	in the model.
+
+	@param paramFilename: String name of the file. (e.g. thisThing.obj)
+*/
+void ObjLoaderClass::readObjFile(std::string paramFilename)
 {
 	std::string line;
-	std::ifstream myfile(filename);
+	std::ifstream myfile(paramFilename);
 	std::string name;
 
 
@@ -20,7 +35,10 @@ void ObjLoaderClass::readObjFile(std::string filename)
 			}
 			std::istringstream linestream(line);
 			linestream >> name;
-
+			
+			//
+			// Store the vertices
+			//
 			if (name == "v")
 			{
 				float vertex[3];
@@ -32,6 +50,9 @@ void ObjLoaderClass::readObjFile(std::string filename)
 				vertices.push_back(vertex[1]);
 				vertices.push_back(vertex[2]);
 			}
+			//
+			// Store the faces
+			//
 			else if (name == "f")
 			{
 				int face[3];
@@ -49,6 +70,9 @@ void ObjLoaderClass::readObjFile(std::string filename)
 	else
 		std::cout << "Unable to open file.";
 
+	//
+	// Store all the vertices currently in a flat array in a VectorClass.
+	//
 	for (int i = 0; i < vertices.size() / 3; i++)
 	{
 		opVertices.push_back(VectorClass(vertices[i], vertices[i + 1], vertices[i + 2]));
