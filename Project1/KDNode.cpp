@@ -1,8 +1,25 @@
+/**
+	RayTracing, KDNode.h
+	Class to implement a k-d tree
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/22/2017
+
+*/
 #include "KDNode.h"
 
+/**
+	Default constructor.
+*/
 KDNode::KDNode()
 {}
 
+/**
+	Parameterized constructor.
+
+	@param  objs: The objects to be put in the k-d tree.
+	@param depth: Maximum allowed depth of the k-d tree.
+*/
 KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 {
 	KDNode* node = new KDNode();
@@ -15,6 +32,7 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	//node->aabbBox = AABBClass();
 
 	int objectsSize = objs.size();
+
 	// If there are no objects
 	if (objectsSize == 0)
 	{
@@ -134,6 +152,11 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	return node;
 }
 
+/**
+	Check if current node in the tree is a leaf node.
+
+	@return true if node is a leaf, else false.
+*/
 bool KDNode::isLeaf()
 {
 	if (this->splitAxis == 3)
@@ -142,10 +165,13 @@ bool KDNode::isLeaf()
 		return false;
 }
 
+/**
+	Traverse through the k-d tree
+*/
 intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 {
 	//
-	// Compute initial parametric range of ray inside kd-tree extent
+	// Compute initial parametric range of ray inside k-d tree extent
 	//
 	double tmin, tmax;
 
@@ -160,7 +186,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 	//
 
 	//
-	// Prepare to traverse kd-tree for ray
+	// Prepare to traverse k-d tree for ray
 	//
 #define MAX_TODO 5000
 	KDToDo todo[MAX_TODO];
@@ -170,11 +196,11 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 
 
 	//
-	// End of preparing to traverse kd-tree for ray
+	// End of preparing to traverse k-d tree for ray
 	//
 
 	//
-	// Traverse KDTree nodes in order for ray
+	// Traverse k-D Tree nodes in order for ray
 	//
 	//bool hit = false;
 
@@ -182,7 +208,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 	isect.flag = false;																// Initialize isect flag to false for no intersection
 	KDNode *nodeT = this;														// ARE YOU SURE?
 
-	// while loop for traversing all required nodes in kd-tree
+	// while loop for traversing all required nodes in k-d tree
 	while (nodeT != NULL)
 	{
 		//
@@ -196,7 +222,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 		if (!nodeT->isLeaf())
 		{
 			//
-			// Process kd-tree interior node
+			// Process k-d tree interior node
 			//
 
 			//

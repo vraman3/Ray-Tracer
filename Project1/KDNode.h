@@ -1,6 +1,13 @@
+/**
+	RayTracing, KDNode.h
+	Header file to implement KDNode class.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/22/2017
+
+*/
 #pragma once
 
-//Author: Vishwanath Raman
 #include <iostream>
 #include <vector>
 #include "ObjectClass.h"
@@ -15,6 +22,7 @@
 class KDNode
 {
 	public:
+		/* Variables */
 		AABBClass aabbBox;
 		KDNode* left;
 		KDNode* right;
@@ -23,11 +31,15 @@ class KDNode
 
 		std::vector<TriangleClass*> objects;
 
+		/* Constructors */
 		KDNode();
+
+		/* Methods */
 		bool isLeaf();
 		intersectionInfo Traverse(RayClass, intersectionInfo);
 		KDNode* build(std::vector<TriangleClass*>&, int);
 
+		/* Store info about min td and max td*/
 		struct KDToDo
 		{
 			KDNode *node;
