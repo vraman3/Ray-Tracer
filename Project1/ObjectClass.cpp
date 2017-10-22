@@ -63,7 +63,8 @@ ColourClass ObjectClass::GetColour()
 /**
 	Get the intersection of the current object with a ray.
 
-	@return the distance of the intersection of current object along the ray.
+	@return the distance of the intersection of the current object and given ray,
+	along the ray.
 */
 double ObjectClass::GetIntersection(RayClass paramRay)
 {
