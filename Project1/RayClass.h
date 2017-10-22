@@ -1,22 +1,33 @@
+/**
+	RayTracing, RayClass.h
+	Header file for class RayClass.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/21/2017
+
+*/
 #pragma once
 
-//Author: Vishwanath Raman
 #include "VectorClass.h"
 
 class RayClass
 {
 private:
+	/* Variables */
 	VectorClass origin;
 	VectorClass direction;
 	VectorClass invDirection;
 
 public:
+	/* Variables */
 	double minT;
 	double maxT;
 	
+	/* Constructors */
 	RayClass();
 	RayClass(VectorClass, VectorClass);
 
+	/* Getters */
 	VectorClass GetRayOrigin();
 	VectorClass GetRayDirection();
 	VectorClass GetRayInvDirection();

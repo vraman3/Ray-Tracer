@@ -1,6 +1,17 @@
+/**
+	RayTracing, RayClass.cpp
+	Class to store and implement a Ray.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/21/2017
+
+*/
 #include "RayClass.h"
 #include <cfloat>
 
+/**
+	Default constructor.
+*/
 RayClass::RayClass()
 {
 	minT = 0.0;
@@ -13,28 +24,49 @@ RayClass::RayClass()
 	invDirection.setZ(1 / direction.getZ());
 }
 
-RayClass::RayClass(VectorClass o, VectorClass d)
+/**
+	Parameterized constructor.
+
+	@param	  paramOrigin: The coordiantes for origin of the current ray.
+	@param paramDirection: The direction vector for the current ray.
+*/
+RayClass::RayClass(VectorClass paramOrigin, VectorClass paramDirection)
 {
 	minT = 0.0;
 	maxT = DBL_MAX;
 
-	origin = o;
-	direction = d;
+	origin = paramOrigin;
+	direction = paramDirection;
 	invDirection.setX(1 / direction.getX());
 	invDirection.setY(1 / direction.getY());
 	invDirection.setZ(1 / direction.getZ());
 }
 
+/**
+	Get the origin of the current ray.
+
+	@return the coordinates of origin of the current ray.
+*/
 VectorClass RayClass::GetRayOrigin()
 {
 	return origin;
 }
 
+/**
+	Get the direction of the current ray.
+
+	@return the coordinates of direction vector of the current ray.
+*/
 VectorClass RayClass::GetRayDirection()
 {
 	return direction;
 }
 
+/**
+	Get the inverse of the direction of the current ray.
+
+	@return the coordinates of the inverse direction of the current ray.
+*/
 VectorClass RayClass::GetRayInvDirection()
 {
 	return invDirection;
