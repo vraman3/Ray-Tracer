@@ -1,11 +1,32 @@
+/**
+	RayTracing, Tracing.cpp
+	Class to run the functions to actually trace the ray on every object.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/23/2017
+
+*/
 
 #include "Tracing.h"
 
+/**
+	Default constructor.
+*/
 Tracing::Tracing()
-{
+{}
 
-}
+/**
+	Trace a ray across all objects store in a k-d tree.
 
+	@param ray: The ray to be traced.
+	@param depth: The current depth of the tracing. For multiple light bounces.
+	@param incomingni: The refractive index of the medium outside the objects.
+	@param kdtree: The k-d tree that has all the objects for the scene.
+	@param lights: All the light sources for the current scene.
+	@param background: The background colour.
+	@param pointCol: The intensity of the light.
+	@param maxDepth: The maximum allowed depth for all light bounces.
+*/
 ColourClass Tracing::TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree, std::vector<VectorClass*> lights,ColourClass background, ColourClass pointCol, int maxDepth)
 {
 	//double currentLowestVal = 1000000;
@@ -165,7 +186,20 @@ ColourClass Tracing::TraceRayKD(RayClass ray, int depth, double incomingni, KDNo
 	}
 }
 
+/**
+	Trace a ray across all objects store in a k-d tree.
 
+	@param ray: The ray to be traced.
+	@param depth: The current depth of the tracing. For multiple light bounces.
+	@param incomingni: The refractive index of the medium outside the objects.
+	@param objects: A vector array of all the Objects in the current scene.
+	@param lights: All the light sources for the current scene.
+	@param illuminations: The illumination model for all the objects. Ordered synced with 
+						  the order of the Objects in 'objects'
+	@param background: The background colour.
+	@param pointCol: The intensity of the light.
+	@param maxDepth: The maximum allowed depth for all light bounces.
+*/
 ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::vector<ObjectClass*> objects, std::vector<VectorClass*> lights,
 	std::vector<IlluminationClass*> illuminations, ColourClass background, ColourClass pointCol, int maxDepth)
 {

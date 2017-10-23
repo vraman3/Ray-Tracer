@@ -72,6 +72,7 @@
     <ClInclude Include="ColourClass.h" />
     <ClInclude Include="AABBClass.h" />
     <ClInclude Include="CheckerboardPattern.h" />
+    <ClInclude Include="IncludesList.h" />
     <ClInclude Include="IntersectionInfo.h" />
     <ClInclude Include="KDNode.h" />
     <ClInclude Include="ObjLoaderClass.h" />

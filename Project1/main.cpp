@@ -1,40 +1,15 @@
+/**
+	RayTracing, main.cpp
+	The main class to execute the program.
 
-//Author: Vishwanath Raman
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/23/2017
 
+*/
 
-#include <vector>
-#include <iostream>
-#include <math.h>
-#include <cstdlib>
-#include "VectorClass.h"
-#include "CameraClass.h"
-#include "RayClass.h"
-#include "CameraClass.h"
-#include "SphereClass.h"
-#include "TriangleClass.h"
-#include "PlaneClass.h"
-#include "AABBClass.h"
-#include "IlluminationClass.h"
-#include "PhongModel.h"
-#include "PhongBlinnModel.h"
-#include "StraussModel.h"
-#include "NoShadingModel.h"
-#include "CheckerboardPattern.h"
-#include "SaveToFIle.h"
-#include "ReadFromFile.h"
-#include "KDNode.h"
-#include "IntersectionInfo.h"
-#include "ObjLoaderClass.h"
-#include "Tracing.h"
-#include "MatrixClass.h"
+#include "IncludesList.h"
 //typedef techsoft::matrix<double> Matrix;
 
-
-//ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vector<VectorClass*>,
-//	std::vector<IlluminationClass*>, ColourClass, ColourClass, int);
-//
-//ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorClass*>,
-//	ColourClass, ColourClass, int);
 
 int main(int argc, char *argv[])
 {

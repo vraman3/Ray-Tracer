@@ -1,3 +1,11 @@
+/**
+	RayTracing, Tracing.h
+	Header file for class Tracing.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/23/2017
+
+*/
 #pragma once
 
 #include "ColourClass.h"
