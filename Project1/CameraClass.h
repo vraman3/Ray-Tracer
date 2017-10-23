@@ -9,6 +9,7 @@
 #pragma once
 
 #include "VectorClass.h"
+#include "MatrixClass.h"
 
 class CameraClass
 {
@@ -31,5 +32,9 @@ public:
 
 	/* Setters */
 	void   SetFocalLength(double);
+
+	/* Methods */
+	MatrixClass viewPort(int x, int y, int w, int h, int depth);
+	MatrixClass calcLookAt(VectorClass eye, VectorClass centre, VectorClass up);
 };
 

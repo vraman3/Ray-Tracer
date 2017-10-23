@@ -1,11 +1,11 @@
 
 //Author: Vishwanath Raman
 
+
 #include <vector>
 #include <iostream>
 #include <math.h>
 #include <cstdlib>
-//#include <cmatrix>
 #include "VectorClass.h"
 #include "CameraClass.h"
 #include "RayClass.h"
@@ -28,15 +28,12 @@
 #include "MatrixClass.h"
 //typedef techsoft::matrix<double> Matrix;
 
+
 ColourClass TraceRay(RayClass, int, double, std::vector<ObjectClass*>, std::vector<VectorClass*>,
 	std::vector<IlluminationClass*>, ColourClass, ColourClass, int);
 
 ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorClass*>,
 	ColourClass, ColourClass, int);
-
-// Shift these two functions to Camera later after testing
-MatrixClass viewPort(int x, int y, int w, int h, int depth);
-MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up);
 
 int main(int argc, char *argv[])
 {
@@ -310,38 +307,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-MatrixClass viewPort(int x, int y, int w, int h, int depth)
-{
-	MatrixClass vp = MatrixClass::identity(4);
-	vp[0][3] = x + (w / 2.0);
-	vp[1][3] = y + (h / 2.0);
-	vp[2][3] = depth / 2.0;
 
-	vp[0][0] = w / 2.0;
-	vp[1][1] = h / 2.0;
-	vp[2][2] = depth / 2.0;
-	return vp;
-}
-
-MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up)
-{
-	//std::cout << "lookat" << std::endl;
-	VectorClass z = (eye - centre).normalize();
-	VectorClass x = (up.crossProd(z)).normalize();
-	VectorClass y = (z.crossProd(x)).normalize();
-
-	MatrixClass result = MatrixClass::identity(4);
-
-	for (int i = 0; i < 3; i++)
-	{
-		result[0][i] = x[i];
-		result[1][i] = y[i];
-		result[2][i] = z[i];
-		result[i][3] = -centre[i];
-	}
-	//std::cout << "lookat end";
-	return result;
-}
 
 ColourClass TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree, std::vector<VectorClass*> lights,ColourClass background, ColourClass pointCol, int maxDepth)
 {

@@ -72,3 +72,59 @@ VectorClass CameraClass::GetUpVector() { return up; }
 	
 */
 void CameraClass::SetFocalLength(double f) { focalLength = f; }
+
+/**
+	Calculate the viewPort for the current Camera.
+
+	Currently unused and incomplete.
+
+	@param x: x coordinate.
+	@param y: y coordinate.
+	@param w: width of the screen.
+	@param h: height of the screen.
+	@param depth: depth.
+	@return the viewPort as a Matrix.
+*/
+MatrixClass viewPort(int x, int y, int w, int h, int depth)
+{
+	MatrixClass vp = MatrixClass::identity(4);
+	vp[0][3] = x + (w / 2.0);
+	vp[1][3] = y + (h / 2.0);
+	vp[2][3] = depth / 2.0;
+
+	vp[0][0] = w / 2.0;
+	vp[1][1] = h / 2.0;
+	vp[2][2] = depth / 2.0;
+	return vp;
+}
+
+/**
+	Calculate the look at vector for the current Camera.
+
+	Currently unused and incomplete.
+
+	@param	  eye: The eye of 
+	@param centre: y coordinate.
+	@param	   up: width of the screen.
+	
+	@return the viewPort as a Matrix.
+*/
+MatrixClass lookAt(VectorClass eye, VectorClass centre, VectorClass up)
+{
+	//std::cout << "lookat" << std::endl;
+	VectorClass z = (eye - centre).normalize();
+	VectorClass x = (up.crossProd(z)).normalize();
+	VectorClass y = (z.crossProd(x)).normalize();
+
+	MatrixClass result = MatrixClass::identity(4);
+
+	for (int i = 0; i < 3; i++)
+	{
+		result[0][i] = x[i];
+		result[1][i] = y[i];
+		result[2][i] = z[i];
+		result[i][3] = -centre[i];
+	}
+	//std::cout << "lookat end";
+	return result;
+}

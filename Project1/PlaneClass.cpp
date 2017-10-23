@@ -142,7 +142,7 @@ double PlaneClass::GetIntersection(RayClass ray)
 	return -1;
 }
 
-/* Old way to get normal at a particular point. Unnecessary?
+// Old way to get normal at a particular point. Unnecessary?
 //
 ///*double areaT = GetArea(A, B, C);
 //double areaB = GetArea(A, P, C);
@@ -161,7 +161,7 @@ double PlaneClass::GetIntersection(RayClass ray)
 //double ny = NA.getY() * c1 + NB.getY() * c2 + NC.getY() * c3;
 //double nz = NA.getZ() * c1 + NB.getZ() * c2 + NC.getZ() * c3;
 //
-//return VectorClass(nx,ny,nz);*/
+//return VectorClass(nx,ny,nz);
 //double PlaneClass::GetArea(VectorClass A, VectorClass B, VectorClass C)
 //{
 //	double a = A.getX() - B.getX() * A.getX() - B.getX() + A.getY() - B.getY() * A.getY() - B.getY() + A.getZ() - B.getZ() * A.getZ() - B.getZ();
@@ -173,4 +173,3 @@ double PlaneClass::GetIntersection(RayClass ray)
 //
 //	return area;
 //}
-*/
