@@ -86,6 +86,7 @@
     <ClInclude Include="IlluminationClass.h" />
     <ClInclude Include="PlaneClass.h" />
     <ClInclude Include="MatrixClass.h" />
+    <ClInclude Include="Tracing.h" />
     <ClInclude Include="TriangleClass.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="ObjectClass.h" />
@@ -117,6 +118,7 @@
     <ClCompile Include="StraussModel.cpp" />
     <ClCompile Include="TextureMapping.cpp" />
     <ClCompile Include="ToneReproduction.cpp" />
+    <ClCompile Include="Tracing.cpp" />
     <ClCompile Include="TriangleClass.cpp" />
     <ClCompile Include="VectorClass.cpp" />
   </ItemGroup>
