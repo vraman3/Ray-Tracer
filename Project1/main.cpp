@@ -234,6 +234,9 @@ int main(int argc, char *argv[])
 			double rt = debugTmpRemoveLater.GetRed();
 			double gt = debugTmpRemoveLater.GetGreen();
 			double bt = debugTmpRemoveLater.GetBlue();
+
+			// This was for the VS push. Delete this comment line later.
+
 			//if (rt != 0.3)
 			//{
 			//	//std::cout << rt << "/" << gt << "/" << bt << " ";
