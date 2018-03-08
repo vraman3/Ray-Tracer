@@ -68,12 +68,13 @@ int main(int argc, char *argv[])
 		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
 
 	std::vector<ObjectClass*> objectsForBruteForce;
-	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
-	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
-	/*objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));*/
+	objectsForBruteForce.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
+	objectsForBruteForce.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
 	objectsForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
 		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+
+	objectsForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
+		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
 	
 	/*
 	From file
@@ -82,46 +83,45 @@ int main(int argc, char *argv[])
 	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
 		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
 	*/
-	std::vector<TriangleClass*> testObjects;
-	testObjects.push_back(new TriangleClass(VectorClass(1.2, 0.4, 3.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0)));
-	/*testObjects.push_back(new TriangleClass(VectorClass(0.0, 0.5, 0.0), VectorClass(1.5, 0.5, 1.5),
-	VectorClass(1.5,0.5,0.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));*/
-	/*testObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-	VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(320, 240, 0.0, 0.0, 1.0)));*/
 
 	
 #pragma region illuminations
 	// The Lighting Models for the objects (has to be in SAME order as the objects)
 	std::vector<IlluminationClass*> illuminations;
-	//illuminations.push_back(
-	//	/*new StraussModel(0.3, 0.3, 0.1, 0.0, 0.0, 0.0)*/
-	//	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8, 0.98)
-	//	/*new NoShadingModel(0.0, 0.0, 1.0)*/ );
-	//illuminations.push_back(
-	//	new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0, 1.0)
-	//	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
-
-	//illuminations.push_back(
-	//	new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)
-	//	/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
-	//	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
 	illuminations.push_back(
-		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)
-		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
+		/*new StraussModel(0.3, 0.3, 0.1, 0.0, 0.0, 0.0)*/
+		new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8)
+		/*new NoShadingModel(0.0, 0.0, 1.0)*/ );
+	illuminations.push_back(
+		new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0)
 		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
+	illuminations.push_back(
+		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
+	illuminations.push_back(
+		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
 
 	/* From File
-	illuminations.push_back(
-		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0, 1.0)
-		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0));
-		//new NoShadingModel(0.0, 0.0, 1.0));
-	illuminations.push_back(
-		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0, 1.0));
-		//new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)
-		//new NoShadingModel(0.0, 0.0, 1.0)/
-	
-	*/
+	////illuminations.push_back(
+	////	/*new StraussModel(0.3, 0.3, 0.1, 0.0, 0.0, 0.0)*/
+
+	//// //From old model PhongModel::PhongModel(double tkd, double tks, double tka, double tke, double inkr, double inkt, double inn) : IlluminationClass(inkr, inkt, inn)
+	//// //In the newer one, the 'inn' doesn't exist. Check
+	//// // 
+	////new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8, 0.98)
+	////	/*new NoShadingModel(0.0, 0.0, 1.0)*/ );
+	////	illuminations.push_back(
+	////		new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0, 1.0)
+	////	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
+	////	illuminations.push_back(
+	////		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0, 1.0)
+	////		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
+	////	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
+	////	illuminations.push_back(
+	////		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0, 1.0)
+	////		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
+	////	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
+	/**/
+
 #pragma endregion
 
 	ObjLoaderClass objFile = ObjLoaderClass();
@@ -229,26 +229,6 @@ int main(int argc, char *argv[])
 			RayClass ray(originalCamera.GetPosition(), direction);
 			
 			ColourClass debugTmpRemoveLater;
-			//debugTmpKDRemoveLater = traceObject.TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
-			/*if (position == 5201)
-			{
-				int temppp = 1;
-			}*/
-			debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsForBruteForce, lights, illuminations, background, pointCol, maxDepth);
-
-			//TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
-			double rt = debugTmpRemoveLater.GetRed();
-			double gt = debugTmpRemoveLater.GetGreen();
-			double bt = debugTmpRemoveLater.GetBlue();
-
-			// This was for the VS push. Delete this comment line later.
-
-			/*if (position == 5522)
-			{
-				std::cout << rt << "/" << gt << "/" << bt << " ";
-				std::cout << " " << i << " "<< j << " -- ";
-			}*/
-			tmp = tmp + debugTmpRemoveLater;
 
 			/*
 			 0 = Regular ray tracing. Brute Force.
@@ -257,41 +237,34 @@ int main(int argc, char *argv[])
 			*/
 
 
-			////bool choice = 0;
+			bool choice = 0;
 
-			////if (choice == 0)
-			////{
-			////	ColourClass debugTmpRemoveLater;
+			if (choice == 0)
+			{
+				ColourClass debugTmpRemoveLater;
 
-			////	debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsForBruteForce, lights, illuminations, background, pointCol, maxDepth);
+				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsForBruteForce, lights, illuminations, background, pointCol, maxDepth);
 
-			////	//TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
-			////	double rt = debugTmpRemoveLater.GetRed();
-			////	double gt = debugTmpRemoveLater.GetGreen();
-			////	double bt = debugTmpRemoveLater.GetBlue();
-			////	//if (rt != 0.3)
-			////	//{
-			////	//	//std::cout << rt << "/" << gt << "/" << bt << " ";
-			////	//	std::cout << " " << i << " "<< j << " -- ";
-			////	//}
-			////	tmp = tmp + debugTmpRemoveLater;
-			////}
-			////else if (choice == 1)
-			////{
-			////	ColourClass debugTmpKDRemoveLater;
-			////	debugTmpKDRemoveLater = traceObject.TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
-			////	
-			////	//TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
-			////	double rt = debugTmpKDRemoveLater.GetRed();
-			////	double gt = debugTmpKDRemoveLater.GetGreen();
-			////	double bt = debugTmpKDRemoveLater.GetBlue();
-			////	//if (rt != 0.3)
-			////	//{
-			////	//	//std::cout << rt << "/" << gt << "/" << bt << " ";
-			////	//	std::cout << " " << i << " "<< j << " -- ";
-			////	//}
-			////	tmp = tmp + debugTmpKDRemoveLater;
-			////}
+				double rt = debugTmpRemoveLater.GetRed();
+				double gt = debugTmpRemoveLater.GetGreen();
+				double bt = debugTmpRemoveLater.GetBlue();
+				tmp = tmp + debugTmpRemoveLater;
+			}
+			else if (choice == 1)
+			{
+				ColourClass debugTmpKDRemoveLater;
+				debugTmpKDRemoveLater = traceObject.TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
+				
+				double rt = debugTmpKDRemoveLater.GetRed();
+				double gt = debugTmpKDRemoveLater.GetGreen();
+				double bt = debugTmpKDRemoveLater.GetBlue();
+				//if (rt != 0.3)
+				//{
+				//	//std::cout << rt << "/" << gt << "/" << bt << " ";
+				//	std::cout << " " << i << " "<< j << " -- ";
+				//}
+				tmp = tmp + debugTmpKDRemoveLater;
+			}
 
 
 
@@ -324,22 +297,13 @@ int main(int argc, char *argv[])
 
 			tmp = tmp / (noOfSamples);*/
 #pragma endregion
-
-			//std::cout << tmp.GetRed() << " " << tmp.GetGreen() << " " << tmp.GetBlue() << std::endl;
-			/*if (position == 5522)
-			{
-				std::cout << position << " " << tmp.GetRed() << " " << tmp.GetGreen() << " " << tmp.GetBlue() << std::endl;
-
-				return 1;
-			}*/
-
+						
 			pixels[position].SetRed(tmp.GetRed());
 			pixels[position].SetGreen(tmp.GetGreen());
 			pixels[position].SetBlue(tmp.GetBlue());
 			
 			position++;
 		}
-		//std::cout << " eol " << std::endl;
 	}
 	SaveToFIle saveObject = SaveToFIle();
 	saveObject.savebmp("C:/Users/Vishwanath/Desktop/scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
