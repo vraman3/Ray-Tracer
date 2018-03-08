@@ -41,8 +41,8 @@ int main(int argc, char *argv[])
 		screenHeight = 48;
 		*/
 		
-		screenWidth = 1400;
-		screenHeight = 900;
+		screenWidth = 320; //1400;
+		screenHeight = 240; //900;
 		maxDepth = 5;
 		whichTR = 3;
 	}
@@ -70,11 +70,11 @@ int main(int argc, char *argv[])
 	std::vector<ObjectClass*> objectsForBruteForce;
 	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
 	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+	/*objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));*/
+	objectsForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
 		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-
+	
 	/*
 	From file
 	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
@@ -101,12 +101,13 @@ int main(int argc, char *argv[])
 	//illuminations.push_back(
 	//	new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0, 1.0)
 	//	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
+
+	//illuminations.push_back(
+	//	new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)
+	//	/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
+	//	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
 	illuminations.push_back(
-		new CheckerboardPattern(320, 240, 0.0, 0.0)
-		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
-		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
-	illuminations.push_back(
-		new CheckerboardPattern(320, 240, 0.0, 0.0)
+		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)
 		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
 		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
 
@@ -178,7 +179,7 @@ int main(int argc, char *argv[])
 	VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
 	VectorClass camUp = camRight.crossProd(camLookAt);
 	//VectorClass camUp = VectorClass(0,1,0);
-	CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
+	CameraClass originalCamera = CameraClass(camPosition, camLookAt, camUp, f);
 
 	/* From File
 	VectorClass camRight = camLookAt.Normalize().CrossProd(VectorClass(0, 1, 0));
@@ -229,6 +230,10 @@ int main(int argc, char *argv[])
 			
 			ColourClass debugTmpRemoveLater;
 			//debugTmpKDRemoveLater = traceObject.TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
+			/*if (position == 5201)
+			{
+				int temppp = 1;
+			}*/
 			debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsForBruteForce, lights, illuminations, background, pointCol, maxDepth);
 
 			//TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
@@ -238,11 +243,11 @@ int main(int argc, char *argv[])
 
 			// This was for the VS push. Delete this comment line later.
 
-			//if (rt != 0.3)
-			//{
-			//	//std::cout << rt << "/" << gt << "/" << bt << " ";
-			//	std::cout << " " << i << " "<< j << " -- ";
-			//}
+			/*if (position == 5522)
+			{
+				std::cout << rt << "/" << gt << "/" << bt << " ";
+				std::cout << " " << i << " "<< j << " -- ";
+			}*/
 			tmp = tmp + debugTmpRemoveLater;
 
 			/*
@@ -319,6 +324,14 @@ int main(int argc, char *argv[])
 
 			tmp = tmp / (noOfSamples);*/
 #pragma endregion
+
+			//std::cout << tmp.GetRed() << " " << tmp.GetGreen() << " " << tmp.GetBlue() << std::endl;
+			/*if (position == 5522)
+			{
+				std::cout << position << " " << tmp.GetRed() << " " << tmp.GetGreen() << " " << tmp.GetBlue() << std::endl;
+
+				return 1;
+			}*/
 
 			pixels[position].SetRed(tmp.GetRed());
 			pixels[position].SetGreen(tmp.GetGreen());

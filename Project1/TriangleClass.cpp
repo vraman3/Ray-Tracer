@@ -311,6 +311,7 @@ double TriangleClass::GetIntersection(RayClass ray)
 	if (v < 0.0 || u + v > 1.0)  return -1;
 
 	double t = e2.dotProd(Q) * inv_det;
+	//std::cout << t << " t" << std::endl;
 	if (t > EPSILONVAL)
 	{
 		return t;

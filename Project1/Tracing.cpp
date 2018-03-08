@@ -209,23 +209,30 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 	ColourClass tmp = ColourClass(0, 0, 0);
 
 	int omegaCounter = 0;
-	int objectsSize = (int)objects.size();
+	int objectsSize = objects.size();
+	//std::cout << "objsize" << objectsSize << std::endl;
 	for (int objNo = 0; objNo < objectsSize ; objNo++)
 	{
 		omega = objects[objNo]->GetIntersection(ray);
+		
 		if (omega == -1)
 		{
 			continue;
 		}
 		else
 		{
+			//std::cout << omega << " this " << std::endl;
+			//std::getchar();
 			if (omega < currentLowestVal)
 			{
 				closest = objNo;
 				currentLowestVal = omega;
 			}
+			//std::cout << omega << " om " << closest << std::endl;
 		}
+		
 	}
+	
 	if (closest == -1)
 	{
 		//if (depth != 0)
