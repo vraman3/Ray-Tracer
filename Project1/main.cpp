@@ -10,8 +10,6 @@
 #include "IncludesList.h"
 //typedef techsoft::matrix<double> Matrix;
 
-// Test comment for checking out git commands on command line.
-
 int main(int argc, char *argv[])
 {
 #pragma region start
@@ -46,84 +44,80 @@ int main(int argc, char *argv[])
 		maxDepth = 5;
 		whichTR = 3;
 	}
-	//  Tone Reproduction Operator
-	//
-	//  1 - Ward 
-	//  2 - Reinhard
-	//  3 - Adaptive Logarithmic
-	//  0 - No Tone Reproduction (By Default)
 
-	//int screenWidth = 1400, screenHeight = 900;
-	//int screenWidth = 640, screenHeight = 480;
-	//int screenWidth = 320, screenHeight = 240;
-	//int screenWidth = 64, screenHeight = 48;
+#pragma region objects and their illumination models
 
-	// The list of objects
+	// The objects
 	std::vector<TriangleClass*> objects;
-	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
-	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
 
+	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
+
+	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
+
+	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
+										VectorClass(5.5, 0.4, 22.0),
+										VectorClass(0.2, 0.4, 22.0),
+										ColourClass(0.0, 1.0, 0.0),
+					  new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+
+	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
+										VectorClass(5.5, 0.4, 9.3),
+										VectorClass(5.5, 0.4, 22.0),
+										ColourClass(0.0, 1.0, 0.0),
+					  new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+
+	std::vector<ObjectClass*> objectsTraceRay;
+
+	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
+
+	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
+
+	objectsTraceRay.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
+										VectorClass(5.5, 0.4, 22.0),
+										VectorClass(0.2, 0.4, 22.0),
+										ColourClass(0.0, 1.0, 0.0),
+					  new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+
+	objectsTraceRay.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
+										VectorClass(5.5, 0.4, 9.3),
+										VectorClass(5.5, 0.4, 22.0),
+										ColourClass(0.0, 1.0, 0.0),
+					  new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+
+	// The illuminations
+	// The Lighting Models for the objects (has to be in SAME order as the objects)
+	std::vector<IlluminationClass*> illuminations;
+
+	//illuminations.push_back(	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8) );
+
+	//illuminations.push_back(	new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0) );
+
+	illuminations.push_back(	new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0) );
+
+	illuminations.push_back(	new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0) );
+	
+#pragma endregion
+
+#pragma region bruteForce
+	// Objects
 	std::vector<ObjectClass*> objectsForBruteForce;
 	objectsForBruteForce.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
 	objectsForBruteForce.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
 	objectsForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
 		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-
 	objectsForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
 		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-	
-	/*
-	From file
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0)));
-	*/
 
-	
-#pragma region illuminations
+	// Illuminations
 	// The Lighting Models for the objects (has to be in SAME order as the objects)
-	std::vector<IlluminationClass*> illuminations;
-	illuminations.push_back(
-		/*new StraussModel(0.3, 0.3, 0.1, 0.0, 0.0, 0.0)*/
-		new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8)
-		/*new NoShadingModel(0.0, 0.0, 1.0)*/ );
-	illuminations.push_back(
-		new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0)
-		/*new NoShadingModel(0.0, 0.0, 1.0)*/);
-	illuminations.push_back(
-		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
-	illuminations.push_back(
-		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
-
-	/* From File
-	////illuminations.push_back(
-	////	/*new StraussModel(0.3, 0.3, 0.1, 0.0, 0.0, 0.0)*/
-
-	//// //From old model PhongModel::PhongModel(double tkd, double tks, double tka, double tke, double inkr, double inkt, double inn) : IlluminationClass(inkr, inkt, inn)
-	//// //In the newer one, the 'inn' doesn't exist. Check
-	//// // 
-	////new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8, 0.98)
-	////	/*new NoShadingModel(0.0, 0.0, 1.0)*/ );
-	////	illuminations.push_back(
-	////		new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0, 1.0)
-	////	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
-	////	illuminations.push_back(
-	////		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0, 1.0)
-	////		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
-	////	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
-	////	illuminations.push_back(
-	////		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0, 1.0)
-	////		/*new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0, 1.0)*/
-	////	/*new NoShadingModel(0.0, 0.0, 1.0)*/);
-	/**/
-
+	std::vector<IlluminationClass*> illuminationsForBruteForce;
+	illuminationsForBruteForce.push_back(new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8));
+	illuminationsForBruteForce.push_back(new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0));
+	illuminationsForBruteForce.push_back(new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
+	illuminationsForBruteForce.push_back(new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
 #pragma endregion
 
+#pragma region KDTrees Object Loading
 	ObjLoaderClass objFile = ObjLoaderClass();
 
 	objFile.readObjFile("bunny.obj");
@@ -141,13 +135,17 @@ int main(int argc, char *argv[])
 			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
 	}
 
-	std::vector<TriangleClass*> convObjects;
+	// std::vector<TriangleClass*> convObjects;	
+#pragma endregion
 
+	KDNode kdtree = KDNode();
+	kdtree = *kdtree.build(objects, 10);
 
-
+#pragma region Lights
 	std::vector<VectorClass*> lights;
 
 	lights.push_back(new VectorClass(5, 7.4, 9));
+#pragma endregion
 
 	ColourClass background(0.3, 0.8, 1.0);
 	ColourClass pointCol(1.0, 1.0, 1.0);
@@ -157,36 +155,18 @@ int main(int argc, char *argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
 
-	VectorClass eye(0,0,-1);//(1.0, 1.0, 3.0);
+	VectorClass eye(0,0,-1);
 	VectorClass centreNew(2,2,120);
 
-	//VectorClass camPosition = VectorClass(0, 0, -1);//eye;//VectorClass(1.5, 3, 1);
-	//VectorClass camLookAt = VectorClass(); //centreNew;// VectorClass(2, 2, 120);
-	//double f = 3.0;
-
-	// From File
 	VectorClass camPosition = VectorClass(2.5, 3, 0);
 	VectorClass camLookAt = VectorClass(2.5, 2, 120);
 	double f = 3.0;
-	
-
-	KDNode kdtree = KDNode();
-
-	kdtree = *kdtree.build(objects, 10);
-
 
 	// Calculate the Camera parameters
 	VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
 	VectorClass camUp = camRight.crossProd(camLookAt);
-	//VectorClass camUp = VectorClass(0,1,0);
 	CameraClass originalCamera = CameraClass(camPosition, camLookAt, camUp, f);
 
-	/* From File
-	VectorClass camRight = camLookAt.Normalize().CrossProd(VectorClass(0, 1, 0));
-	//VectorClass camUp = camRight.CrossProd(camLookAt);
-	VectorClass camUp = VectorClass(0,1,0);
-	CameraClass originalCamera = CameraClass(camPosition, camLookAt, camUp, f);
-	*/
 
 	VectorClass camN = (originalCamera.GetPosition() - originalCamera.GetLookAt()).normalize();
 	VectorClass camU = (camN.crossProd(originalCamera.GetUpVector())).normalize();
@@ -243,7 +223,10 @@ int main(int argc, char *argv[])
 			{
 				ColourClass debugTmpRemoveLater;
 
-				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsForBruteForce, lights, illuminations, background, pointCol, maxDepth);
+				//Working scene. For debugging.
+				//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsForBruteForce, lights, illuminationsForBruteForce, background, pointCol, maxDepth);
+
+				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
 
 				double rt = debugTmpRemoveLater.GetRed();
 				double gt = debugTmpRemoveLater.GetGreen();
@@ -258,16 +241,9 @@ int main(int argc, char *argv[])
 				double rt = debugTmpKDRemoveLater.GetRed();
 				double gt = debugTmpKDRemoveLater.GetGreen();
 				double bt = debugTmpKDRemoveLater.GetBlue();
-				//if (rt != 0.3)
-				//{
-				//	//std::cout << rt << "/" << gt << "/" << bt << " ";
-				//	std::cout << " " << i << " "<< j << " -- ";
-				//}
 				tmp = tmp + debugTmpKDRemoveLater;
 			}
-
-
-
+			
 #pragma region multisampling
 			/*//Multisampling using 4 points for a pixel
 			
