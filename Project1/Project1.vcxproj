@@ -72,6 +72,9 @@
     <ClInclude Include="ColourClass.h" />
     <ClInclude Include="AABBClass.h" />
     <ClInclude Include="CheckerboardPattern.h" />
+    <ClInclude Include="Reference.h" />
+    <ClInclude Include="ReferenceCounted.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="IncludesList.h" />
     <ClInclude Include="IntersectionInfo.h" />
     <ClInclude Include="KDNode.h" />
@@ -105,6 +108,7 @@
     <ClCompile Include="KDNode.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="MatrixClass.cpp" />
     <ClCompile Include="NoShadingModel.cpp" />
     <ClCompile Include="ObjectClass.cpp" />
@@ -114,6 +118,8 @@
     <ClCompile Include="PlaneClass.cpp" />
     <ClCompile Include="RayClass.cpp" />
     <ClCompile Include="ReadFromFile.cpp" />
+    <ClCompile Include="Reference.cpp" />
+    <ClCompile Include="ReferenceCounted.cpp" />
     <ClCompile Include="SaveToFIle.cpp" />
     <ClCompile Include="SphereClass.cpp" />
     <ClCompile Include="StraussModel.cpp" />

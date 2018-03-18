@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 		screenHeight = 48;
 		*/
 		
-		screenWidth = 320; //1400;
-		screenHeight = 240; //900;
+		screenWidth = 1400;
+		screenHeight = 900;
 		maxDepth = 5;
 		whichTR = 3;
 	}
@@ -224,9 +224,9 @@ int main(int argc, char *argv[])
 				ColourClass debugTmpRemoveLater;
 
 				//Working scene. For debugging.
-				//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsForBruteForce, lights, illuminationsForBruteForce, background, pointCol, maxDepth);
+				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsForBruteForce, lights, illuminationsForBruteForce, background, pointCol, maxDepth);
 
-				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
+				//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
 
 				double rt = debugTmpRemoveLater.GetRed();
 				double gt = debugTmpRemoveLater.GetGreen();
