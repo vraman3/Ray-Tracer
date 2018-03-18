@@ -118,8 +118,6 @@
     <ClCompile Include="PlaneClass.cpp" />
     <ClCompile Include="RayClass.cpp" />
     <ClCompile Include="ReadFromFile.cpp" />
-    <ClCompile Include="Reference.cpp" />
-    <ClCompile Include="ReferenceCounted.cpp" />
     <ClCompile Include="SaveToFIle.cpp" />
     <ClCompile Include="SphereClass.cpp" />
     <ClCompile Include="StraussModel.cpp" />

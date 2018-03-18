@@ -16,7 +16,7 @@ class ReferenceCounted
 private:
 	/* Methods */
 	ReferenceCounted(const ReferenceCounted&);
-	ReferenceCounted &operator=(const ReferenceCounted&);
+	//ReferenceCounted &operator=(const ReferenceCounted&);
 
 public:
 	/* Variables */

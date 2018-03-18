@@ -185,12 +185,6 @@
     <ClCompile Include="Matrix4x4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Reference.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ReferenceCounted.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RayTracing.rc">

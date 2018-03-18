@@ -14,7 +14,7 @@ Taken from/Based on the PBRT book by Matt Pharr and Greg Humphreys.
 template <class T> class Reference
 {
 private:
-	T * ptr;
+	T *ptr;
 
 public:
 	/* Constructors */
@@ -119,6 +119,36 @@ public:
 
 		// Return the current Reference object.
 		return *this;
+	}
+
+	/**
+		Method to interact with the object that the Reference is pointing
+		to, so we the Reference object acts almost similar as a regular
+		pointer for the given object.
+
+		@return	returns the pointer to the template object.
+	*/
+	T *operator->()
+	{
+		return ptr;
+	}
+
+	///**
+	//	'operator TypeName()' lets use use the current object as a TypeName object instead.
+	//	In this case operator bool() would let us use the current object as a bool object.
+	//	This is bad practice. Have to look into this later to implement the Safe Bool Idiom.
+	//*/
+	//operator bool() const
+	//{
+	//	return ptr != NULL;
+	//}
+
+	/**
+		
+	*/
+	bool operator<(const Reference<T> &t2) const
+	{
+		return ptr < t2.ptr;
 	}
 
 };
