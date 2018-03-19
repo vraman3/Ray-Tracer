@@ -24,7 +24,7 @@ public:
 				double t20, double t21, double t22, double t23, double t30, double t31, double t32, double t33);
 
 	/* Functions */
-	Matrix4x4 Transpose(const Matrix4x4&);
-	Matrix4x4 Mul(const Matrix4x4& m1, const Matrix4x4& m2);
-	Matrix4x4 Inverse(const Matrix4x4&);
+	Matrix4x4 Transpose();
+	Matrix4x4 Mul( Matrix4x4& m1, Matrix4x4& m2);
+	Matrix4x4 Inverse( Matrix4x4&);
 };

@@ -58,20 +58,20 @@ Matrix4x4::Matrix4x4(double t00, double t01, double t02, double t03, double t10,
 	@param	mat: The Matrix4x4 object to be transposed.
 	@return The transposed version of the give Matrix4x4 object, i.e. mat)
 */
-Matrix4x4 Matrix4x4::Transpose(const Matrix4x4& mat)
+Matrix4x4 Matrix4x4::Transpose()
 {
 	return Matrix4x4(
-		mat.m[0][0], mat.m[1][0], mat.m[2][0], mat.m[3][0],
-		mat.m[0][1], mat.m[1][1], mat.m[2][1], mat.m[3][1],
-		mat.m[0][2], mat.m[1][2], mat.m[2][2], mat.m[3][2],
-		mat.m[0][3], mat.m[1][3], mat.m[2][3], mat.m[3][3]);
+		m[0][0], m[1][0], m[2][0], m[3][0],
+		m[0][1], m[1][1], m[2][1], m[3][1],
+		m[0][2], m[1][2], m[2][2], m[3][2],
+		m[0][3], m[1][3], m[2][3], m[3][3]);
 }
 
 /**
 	Return the result of multiplication of two matrices.
 	(m1 is post-multiplied with m2) Resultant Matrix4x4 in row-major format.
 */
-Matrix4x4 Matrix4x4::Mul(const Matrix4x4& m1, const Matrix4x4& m2)
+Matrix4x4 Matrix4x4::Mul( Matrix4x4& m1,  Matrix4x4& m2)
 {
 	Matrix4x4 result;
 
@@ -98,7 +98,7 @@ Matrix4x4 Matrix4x4::Mul(const Matrix4x4& m1, const Matrix4x4& m2)
 	@param	mat: The input 4x4 Matrix.
 	@return The inverse 4x4 Matrix of the given input Matrix.
 */
-Matrix4x4 Matrix4x4::Inverse(const Matrix4x4& m)
+Matrix4x4 Matrix4x4::Inverse( Matrix4x4& m)
 {
 	int indxc[4], indxr[4];
 	int ipiv[4] = { 0, 0, 0, 0 };

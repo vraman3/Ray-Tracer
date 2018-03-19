@@ -72,6 +72,7 @@
     <ClInclude Include="ColourClass.h" />
     <ClInclude Include="AABBClass.h" />
     <ClInclude Include="CheckerboardPattern.h" />
+    <ClInclude Include="CustomMath.h" />
     <ClInclude Include="Reference.h" />
     <ClInclude Include="ReferenceCounted.h" />
     <ClInclude Include="Matrix4x4.h" />
