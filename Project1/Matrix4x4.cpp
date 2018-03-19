@@ -89,3 +89,82 @@ Matrix4x4 Matrix4x4::Mul(const Matrix4x4& m1, const Matrix4x4& m2)
 
 	return result;
 }
+
+/**
+	Calculate Inverse of a given Matrix4x4. 
+	Currently taken from PBRT Book by Matt Pharr and Greg Humphreys!
+
+
+	@param	mat: The input 4x4 Matrix.
+	@return The inverse 4x4 Matrix of the given input Matrix.
+*/
+Matrix4x4 Matrix4x4::Inverse(const Matrix4x4& m)
+{
+	int indxc[4], indxr[4];
+	int ipiv[4] = { 0, 0, 0, 0 };
+	double minv[4][4];
+	memcpy(minv, m.m, 4 * 4 * sizeof(double));
+	for (int i = 0; i < 4; i++) {
+		int irow = -1, icol = -1;
+		float big = 0.;
+		// Choose pivot
+		for (int j = 0; j < 4; j++) {
+			if (ipiv[j] != 1) {
+				for (int k = 0; k < 4; k++) {
+					if (ipiv[k] == 0) {
+						if (fabs(minv[j][k]) >= big) {
+							big = double(fabs(minv[j][k]));
+							irow = j;
+							icol = k;
+						}
+					}
+					else if (ipiv[k] > 1)
+						std::cout << "Error. Singular matrix in MatrixInvert" << std::endl;//Error("Singular matrix in MatrixInvert");
+				}
+			}
+		}
+		++ipiv[icol];
+		// Swap rows _irow_ and _icol_ for pivot
+		if (irow != icol) {
+			for (int k = 0; k < 4; ++k)
+				std::swap(minv[irow][k], minv[icol][k]);
+		}
+		indxr[i] = irow;
+		indxc[i] = icol;
+		if (minv[icol][icol] == 0.)
+			std::cout << "Error. Singular matrix in MatrixInvert" << std::endl; //Error("Singular matrix in MatrixInvert");
+
+		// Set $m[icol][icol]$ to one by scaling row _icol_ appropriately
+		double pivinv = 1.0 / minv[icol][icol];
+		minv[icol][icol] = 1.0;
+		for (int j = 0; j < 4; j++)
+			minv[icol][j] *= pivinv;
+
+		// Subtract this row from others to zero out their columns
+		for (int j = 0; j < 4; j++) {
+			if (j != icol) {
+				double save = minv[j][icol];
+				minv[j][icol] = 0;
+				for (int k = 0; k < 4; k++)
+					minv[j][k] -= minv[icol][k] * save;
+			}
+		}
+	}
+	// Swap columns to reflect permutation
+	for (int j = 3; j >= 0; j--) {
+		if (indxr[j] != indxc[j]) {
+			for (int k = 0; k < 4; k++)
+				std::swap(minv[k][indxr[j]], minv[k][indxc[j]]);
+		}
+	}
+	return Matrix4x4(minv);
+}
+
+// For debugging
+//Matrix4x4 m = Matrix4x4(1, 0, -5, 4, 1, 4, 3, 4, 8, 2, 1, 5, 7, 2, 3, 1);
+//
+//Matrix4x4 invM = m.Inverse(m);
+//std::cout << invM.m[0][0] << " " << invM.m[0][1] << " " << invM.m[0][2] << " " << invM.m[0][3] << std::endl;
+//std::cout << invM.m[1][0] << " " << invM.m[1][1] << " " << invM.m[1][2] << " " << invM.m[1][3] << std::endl;
+//std::cout << invM.m[2][0] << " " << invM.m[2][1] << " " << invM.m[2][2] << " " << invM.m[2][3] << std::endl;
+//std::cout << invM.m[3][0] << " " << invM.m[3][1] << " " << invM.m[3][2] << " " << invM.m[3][3] << std::endl;

@@ -36,3 +36,7 @@
 #include "ObjLoaderClass.h"
 #include "Tracing.h"
 #include "MatrixClass.h"
+#include "Matrix4x4.h"
+#include "Reference.h"
+#include "ReferenceCounted.h"
+#include "Transform.h"

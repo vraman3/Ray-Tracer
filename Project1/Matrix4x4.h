@@ -13,9 +13,10 @@ Header file for the Matrix Class.
 
 class Matrix4x4
 {
-	float m[4][4];
+	
 
 public:
+	double m[4][4];
 	/* Constructors */
 	Matrix4x4();
 	Matrix4x4(double mat[4][4]);
@@ -25,4 +26,5 @@ public:
 	/* Functions */
 	Matrix4x4 Transpose(const Matrix4x4&);
 	Matrix4x4 Mul(const Matrix4x4& m1, const Matrix4x4& m2);
+	Matrix4x4 Inverse(const Matrix4x4&);
 };

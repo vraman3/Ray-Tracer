@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 	int whichTR, maxDepth;
 	int screenWidth, screenHeight;
 	double worldWidth = 2 * 16 / 9, worldHeight = 2;
-
+	
 	// Get command line arguments if any
 	if (argc == 5)
 	{

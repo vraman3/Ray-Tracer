@@ -91,6 +91,7 @@
     <ClInclude Include="PlaneClass.h" />
     <ClInclude Include="MatrixClass.h" />
     <ClInclude Include="Tracing.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="TriangleClass.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="ObjectClass.h" />
@@ -124,6 +125,7 @@
     <ClCompile Include="TextureMapping.cpp" />
     <ClCompile Include="ToneReproduction.cpp" />
     <ClCompile Include="Tracing.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TriangleClass.cpp" />
     <ClCompile Include="VectorClass.cpp" />
   </ItemGroup>
