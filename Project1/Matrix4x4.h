@@ -26,5 +26,5 @@ public:
 	/* Functions */
 	Matrix4x4 Transpose();
 	Matrix4x4 Mul( Matrix4x4& m1, Matrix4x4& m2);
-	Matrix4x4 Inverse( Matrix4x4&);
+	Matrix4x4 Inverse();
 };

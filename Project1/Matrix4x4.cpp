@@ -52,11 +52,10 @@ Matrix4x4::Matrix4x4(double t00, double t01, double t02, double t03, double t10,
 }
 
 /**
-	Return the transpose of a given Matrix. Resultant Matrix4x4 will be in
+	Return the transpose of a current Matrix4x4. Resultant Matrix4x4 will be in
 	row-major format.
 
-	@param	mat: The Matrix4x4 object to be transposed.
-	@return The transposed version of the give Matrix4x4 object, i.e. mat)
+	@return The transposed version of the calling Matrix4x4 object, i.e. m)
 */
 Matrix4x4 Matrix4x4::Transpose()
 {
@@ -98,12 +97,12 @@ Matrix4x4 Matrix4x4::Mul( Matrix4x4& m1,  Matrix4x4& m2)
 	@param	mat: The input 4x4 Matrix.
 	@return The inverse 4x4 Matrix of the given input Matrix.
 */
-Matrix4x4 Matrix4x4::Inverse( Matrix4x4& m)
+Matrix4x4 Matrix4x4::Inverse()
 {
 	int indxc[4], indxr[4];
 	int ipiv[4] = { 0, 0, 0, 0 };
 	double minv[4][4];
-	memcpy(minv, m.m, 4 * 4 * sizeof(double));
+	memcpy(minv, m, 4 * 4 * sizeof(double));
 	for (int i = 0; i < 4; i++) {
 		int irow = -1, icol = -1;
 		float big = 0.;

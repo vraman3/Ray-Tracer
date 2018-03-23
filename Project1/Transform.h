@@ -29,8 +29,8 @@ public:
 	Transform(Matrix4x4 &mat);
 	Transform(Matrix4x4 &mat, Matrix4x4 matInv);
 
-	Matrix4x4 &GetMatrix() { return m; }
-	Matrix4x4 &GetInverseMatrix(){ return mInv; }
+	Matrix4x4 &GetMatrix();
+	Matrix4x4 &GetInverseMatrix();
 
 	Transform GetInverse();
 	Transform Translate(VectorClass& delta);
@@ -44,6 +44,12 @@ public:
 
 	Transform LookAt(VectorClass& pos, VectorClass& look, VectorClass& up);
 
-	VectorClass operator()(VectorClass& point, bool boolPoint);
+	VectorClass operator()(VectorClass& point, int intPoint);
+	void operator()(VectorClass& point, VectorClass* pOut, int intPoint);
+
 	VectorClass operator()(VectorClass& vec);
+	void operator()(VectorClass& vec, VectorClass* vecOut);
+
+	VectorClass operator()(VectorClass& normal, float fNormal);
+	void operator()(VectorClass& normal, VectorClass* normalOut, float fNormal);
 };

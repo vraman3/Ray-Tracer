@@ -192,9 +192,9 @@ double VectorClass::magnitude()
 	@param the second VectorClass for the dot product.
 	@return the dot product of the two VectorClasses.
 */
-double VectorClass::dotProd(VectorClass temp)
+double VectorClass::dotProd(VectorClass v2)
 {
-	return x * temp.getX() + y * temp.getY() + z * temp.getZ();
+	return x * v2.getX() + y * v2.getY() + z * v2.getZ();
 }
 
 /**
@@ -203,9 +203,11 @@ double VectorClass::dotProd(VectorClass temp)
 	@param the second VectorClass for the cross product.
 	@return the cross product of the two VectorClasses.
 */
-VectorClass VectorClass::crossProd(VectorClass temp)
+VectorClass VectorClass::crossProd(VectorClass v2)
 {
-	return VectorClass(y*temp.getZ() - z*temp.getY(), z*temp.getX() - x*temp.getZ(), x*temp.getY() - y*temp.getX());
+	return VectorClass(	y*v2.getZ() - z*v2.getY(), 
+						z*v2.getX() - x*v2.getZ(),
+						x*v2.getY() - y*v2.getX());
 }
 
 /**
