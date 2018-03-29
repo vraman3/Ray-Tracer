@@ -298,10 +298,11 @@ VectorClass Transform::operator()(VectorClass& normal, float fNormal)
 	// Since	n^T * t = 0;
 	//			(n')^T * t' = 0;
 	//			(Sn)^T * Mt = 0;
+	//			n^T * S^T * M * t = 0;
 	//			
-	//			
-	//			
-	//			
+	//			So this will hold true only if S^T * M = I
+	//			So S^T = Minv
+	//			So S = Minv^T;
 	//			
 
 
@@ -309,9 +310,30 @@ VectorClass Transform::operator()(VectorClass& normal, float fNormal)
 	double y = normal.getY();
 	double z = normal.getZ();
 
-
+	return VectorClass(mInv.m[0][0] * x + mInv.m[1][0] * y + mInv.m[2][0] * z,
+					 mInv.m[0][1] * x + mInv.m[1][1] * y + mInv.m[2][1] * z, 
+					 mInv.m[0][2] * x + mInv.m[1][2] * y + mInv.m[2][2] * z );
 }
 void Transform::operator()(VectorClass& normal, VectorClass* normalOut, float fNormal)
 {
+	double x = normal.getX();
+	double y = normal.getY();
+	double z = normal.getZ();
 
+	normalOut->setX(mInv.m[0][0] * x + mInv.m[1][0] * y + mInv.m[2][0] * z);
+	normalOut->setY(mInv.m[0][1] * x + mInv.m[1][1] * y + mInv.m[2][1] * z);
+	normalOut->setZ(mInv.m[0][2] * x + mInv.m[1][2] * y + mInv.m[2][2] * z);
+
+}
+
+RayClass Transform::operator()(RayClass& ray)
+{
+	//RayClass retRay(ray.GetRayOrigin(), ray.GetRayDirection());
+
+	return RayClass();
+}
+
+void Transform::operator()(RayClass& ray, RayClass* rayOut)
+{
+	
 }

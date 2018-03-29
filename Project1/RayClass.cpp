@@ -71,3 +71,28 @@ VectorClass RayClass::GetRayInvDirection()
 {
 	return invDirection;
 }
+
+/**
+	Set the origin of the current ray with the new given origin.
+
+	@param paramOrigin:	The new origin to be set.
+*/
+void RayClass::SetRayOrigin(VectorClass paramOrigin)
+{
+	origin = paramOrigin;
+}
+
+/**
+	Set the direction of the current ray with the new given direction.
+	The inverse is re-calculated using the new direction.
+
+	@param paramDirection:	The new direction to be set.
+*/
+void RayClass::SetRayDirection(VectorClass paramDirection)
+{
+	direction = paramDirection;
+
+	invDirection.setX(1 / direction.getX());
+	invDirection.setY(1 / direction.getY());
+	invDirection.setZ(1 / direction.getZ());
+}

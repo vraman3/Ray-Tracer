@@ -25,11 +25,15 @@ public:
 	
 	/* Constructors */
 	RayClass();
-	RayClass(VectorClass, VectorClass);
+	RayClass(VectorClass paramOrigin, VectorClass paramDirection);
 
 	/* Getters */
 	VectorClass GetRayOrigin();
 	VectorClass GetRayDirection();
 	VectorClass GetRayInvDirection();
+
+	/* Setters */
+	void SetRayOrigin(VectorClass paramOrigin);
+	void SetRayDirection(VectorClass paramDirection);
 };
 

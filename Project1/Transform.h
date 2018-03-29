@@ -11,7 +11,7 @@ Header file for the Transform class.
 
 #include "Matrix4x4.h"
 #include "VectorClass.h"
-
+#include "RayClass.h"
 
 
 
@@ -52,4 +52,7 @@ public:
 
 	VectorClass operator()(VectorClass& normal, float fNormal);
 	void operator()(VectorClass& normal, VectorClass* normalOut, float fNormal);
+
+	RayClass operator()(RayClass& ray);
+	void operator()(RayClass& ray, RayClass* rayOut);
 };
