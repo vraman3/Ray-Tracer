@@ -27,11 +27,11 @@ Matrix4x4::Matrix4x4()
 	Parameterized constructor to take a 4x4 array as input.
 	The resultant Matrix4x4 wil be row-major.
 
-	@param	mat: 4x4 array to be assigned to new Matrix4x4 object.
+	@param	matArray: 4x4 array to be assigned to new Matrix4x4 object.
 */
-Matrix4x4::Matrix4x4(double mat[4][4])
+Matrix4x4::Matrix4x4(double matArray[4][4])
 {
-	memcpy(m, mat, 16 * sizeof(double));
+	memcpy(m, matArray, 16 * sizeof(double));
 }
 
 /**
@@ -81,10 +81,10 @@ Matrix4x4 Matrix4x4::Mul( Matrix4x4& m2)
 			//								inner product of 	
 			// (i,j)th element of result =  i-th row of m1 multiplied by
 			//								j-th row of m2.
-			result.m[i][j] =	m1.m[i][0] * m2.m[0][j] +
-								m1.m[i][1] * m2.m[1][j] +
-								m1.m[i][2] * m2.m[2][j] +
-								m1.m[i][3] * m2.m[3][j];
+			result.m[i][j] =	m[i][0] * m2.m[0][j] +
+								m[i][1] * m2.m[1][j] +
+								m[i][2] * m2.m[2][j] +
+								m[i][3] * m2.m[3][j];
 		}
 
 	return result;
@@ -93,9 +93,7 @@ Matrix4x4 Matrix4x4::Mul( Matrix4x4& m2)
 /**
 	Calculate Inverse of a given Matrix4x4. 
 	Currently taken from PBRT Book by Matt Pharr and Greg Humphreys!
-
-
-	@param	mat: The input 4x4 Matrix.
+	
 	@return The inverse 4x4 Matrix of the given input Matrix.
 */
 Matrix4x4 Matrix4x4::Inverse()
