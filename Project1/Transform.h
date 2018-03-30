@@ -12,7 +12,7 @@ Header file for the Transform class.
 #include "Matrix4x4.h"
 #include "VectorClass.h"
 #include "RayClass.h"
-
+#include "AABBClass.h"
 
 
 class Transform
@@ -55,4 +55,7 @@ public:
 
 	RayClass operator()(RayClass& ray);
 	void operator()(RayClass& ray, RayClass* rayOut);
+
+	AABBClass operator()(AABBClass& box);
+	void operator()(AABBClass& box, AABBClass* boxOut);
 };

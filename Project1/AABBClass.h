@@ -29,6 +29,8 @@ class AABBClass :public ObjectClass
 		AABBClass(VectorClass min, VectorClass max);
 
 		/* Getters */
+		VectorClass getbMin();
+		VectorClass getbMax();
 		int GetLongestAxis();
 		VectorClass GetNormal(VectorClass);
 		double GetIntersection1(RayClass, double *hitt0 = NULL, double *hitt1 = NULL);
@@ -37,6 +39,6 @@ class AABBClass :public ObjectClass
 		/* Methods */
 		void calculateCenter();
 		void Expand(AABBClass);
-		
+		AABBClass Expand(VectorClass& point);
 };
 

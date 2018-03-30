@@ -30,6 +30,26 @@ AABBClass::AABBClass(VectorClass paramMin, VectorClass paramMax)
 }
 
 /**
+	Get the bMin value for current box.
+
+	@return The bMin value as a Vector.
+*/
+VectorClass AABBClass::getbMin()
+{
+	return bMin;
+}
+
+/**
+	Get the bMax value for current box.
+
+	@return The bMax value as a Vector.
+*/
+VectorClass AABBClass::getbMax()
+{
+	return bMax;
+}
+
+/**
 	Get the normal to the current bounding box.
 	Default value: VectorClass(0,0,0)
 
@@ -220,3 +240,18 @@ void AABBClass::Expand(AABBClass paramNewBox)
 	if (paramNewBox.bMax.getZ() < bMax.getZ())
 		bMax.setZ(paramNewBox.bMax.getZ());
 }
+
+	AABBClass AABBClass::Expand(VectorClass & point)
+	{
+		AABBClass returnBox = *this;
+
+		returnBox.bMin.setX( fmin(returnBox.bMin.getX(), point.getX()));
+		returnBox.bMin.setY( fmin(returnBox.bMin.getY(), point.getY()));
+		returnBox.bMin.setZ( fmin(returnBox.bMin.getZ(), point.getZ()));
+
+		returnBox.bMax.setX( fmax(returnBox.bMax.getX(), point.getX()));
+		returnBox.bMax.setY( fmax(returnBox.bMax.getY(), point.getY()));
+		returnBox.bMax.setZ( fmax(returnBox.bMax.getZ(), point.getZ()));
+
+		return returnBox;
+	}

@@ -328,12 +328,34 @@ void Transform::operator()(VectorClass& normal, VectorClass* normalOut, float fN
 
 RayClass Transform::operator()(RayClass& ray)
 {
-	//RayClass retRay(ray.GetRayOrigin(), ray.GetRayDirection());
+	// Origin is a 'Point' and direction is a 'VectorClass'. So should be
+	// transformed accordingly.
+	RayClass retRay(	(*this)(ray.GetRayOrigin(), 1	) , 
+						(*this)(ray.GetRayDirection()	)	);
 
-	return RayClass();
+	retRay.minT = ray.minT;
+	retRay.maxT = ray.maxT;
+
+	return retRay;
 }
 
 void Transform::operator()(RayClass& ray, RayClass* rayOut)
 {
-	
+	// Transform like a Point.
+	rayOut->SetRayOrigin(	 (*this)(ray.GetRayOrigin(),	1	));
+
+	// Transform like a Vector.
+	rayOut->SetRayDirection( (*this)(ray.GetRayDirection()	));
+
+	if (rayOut != &ray) {
+		rayOut->minT = ray.minT;
+		rayOut->maxT = ray.maxT;
+	}
+}
+
+AABBClass Transform::operator()(AABBClass& box)
+{
+	Transform &curr = *this;
+
+	//AABBClass retBox( curr(VectorClass()))
 }
