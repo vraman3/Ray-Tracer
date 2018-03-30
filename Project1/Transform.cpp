@@ -357,5 +357,28 @@ AABBClass Transform::operator()(AABBClass& box)
 {
 	Transform &curr = *this;
 
-	//AABBClass retBox( curr(VectorClass()))
+	
+	AABBClass retBox(curr(VectorClass(box.getbMin().getX(), box.getbMin().getY(), box.getbMin().getZ()), 1));
+
+	retBox.Expand(VectorClass(box.getbMax().getX(), box.getbMin().getY(), box.getbMin().getZ()));
+	retBox.Expand(VectorClass(box.getbMin().getX(), box.getbMax().getY(), box.getbMin().getZ()));
+	retBox.Expand(VectorClass(box.getbMin().getX(), box.getbMin().getY(), box.getbMax().getZ()));
+	retBox.Expand(VectorClass(box.getbMin().getX(), box.getbMax().getY(), box.getbMax().getZ()));
+	retBox.Expand(VectorClass(box.getbMax().getX(), box.getbMax().getY(), box.getbMin().getZ()));
+	retBox.Expand(VectorClass(box.getbMax().getX(), box.getbMin().getY(), box.getbMax().getZ()));
+	retBox.Expand(VectorClass(box.getbMax().getX(), box.getbMax().getY(), box.getbMax().getZ()));
+
+	return retBox;
+}
+
+Transform Transform::operator*(Transform & t2)
+{
+	//
+	//	(AB)^-1 = B^-1 * A^-1
+	//	(AB)inv = Binv * Ainv
+	//
+
+	Matrix4x4 newM = m.Mul(t2.m);
+	Matrix4x4 newMinv = t2.mInv.Mul(mInv);
+	return Transform();
 }

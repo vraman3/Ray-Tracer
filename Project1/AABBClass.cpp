@@ -18,6 +18,14 @@ AABBClass::AABBClass()
 /**
 	Parameterized Constructor.
 
+	@param paramPoint: The minimum and maximum value for the bounding box.
+*/
+AABBClass::AABBClass(VectorClass paramPoint): bMin(paramPoint), bMax(paramPoint)
+{}
+
+/**
+	Parameterized Constructor.
+
 	@param paramMin: The minimum value for the bounding box.
 	@param paramMax: The maximum value for the bounding box.
 */

@@ -68,9 +68,10 @@ Matrix4x4 Matrix4x4::Transpose()
 
 /**
 	Return the result of multiplication of two matrices.
-	(m1 is post-multiplied with m2) Resultant Matrix4x4 in row-major format.
+	m1 is the calling Matrix4x4, and m2 is the passed Matrix4x4 argument.
+	(m1 is post-multiplied with m2, i.e. m1*m2) Resultant Matrix4x4 in row-major format.
 */
-Matrix4x4 Matrix4x4::Mul( Matrix4x4& m1,  Matrix4x4& m2)
+Matrix4x4 Matrix4x4::Mul( Matrix4x4& m2)
 {
 	Matrix4x4 result;
 

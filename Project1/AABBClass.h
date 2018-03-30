@@ -26,6 +26,7 @@ class AABBClass :public ObjectClass
 	public:
 		/* Constructors */
 		AABBClass();
+		AABBClass(VectorClass point);
 		AABBClass(VectorClass min, VectorClass max);
 
 		/* Getters */

@@ -57,5 +57,6 @@ public:
 	void operator()(RayClass& ray, RayClass* rayOut);
 
 	AABBClass operator()(AABBClass& box);
-	void operator()(AABBClass& box, AABBClass* boxOut);
+
+	Transform operator*(Transform &t2);
 };
