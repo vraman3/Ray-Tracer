@@ -232,10 +232,10 @@ VectorClass Transform::operator()(VectorClass& point, int intPoint)
 	// The incoming Point is expressed in homogeneous column vector [x y z 1]^T.
 	// Then the Point is transformed by premultiplying that column vector by the
 	// transformation matrix.
-	double xp = m4x4.m[0][0] * x + m4x4.m[0][1] * y + m4x4.m[0][2] * z + m4x4.m[0][3];
-	double yp = m4x4.m[1][0] * x + m4x4.m[1][1] * y + m4x4.m[1][2] * z + m4x4.m[1][3];
-	double zp = m4x4.m[2][0] * x + m4x4.m[2][1] * y + m4x4.m[2][2] * z + m4x4.m[2][3];
-	double wp = m4x4.m[3][0] * x + m4x4.m[3][1] * y + m4x4.m[3][2] * z + m4x4.m[3][3];
+	double xp = m4x4.matArray[0][0] * x + m4x4.matArray[0][1] * y + m4x4.matArray[0][2] * z + m4x4.matArray[0][3];
+	double yp = m4x4.matArray[1][0] * x + m4x4.matArray[1][1] * y + m4x4.matArray[1][2] * z + m4x4.matArray[1][3];
+	double zp = m4x4.matArray[2][0] * x + m4x4.matArray[2][1] * y + m4x4.matArray[2][2] * z + m4x4.matArray[2][3];
+	double wp = m4x4.matArray[3][0] * x + m4x4.matArray[3][1] * y + m4x4.matArray[3][2] * z + m4x4.matArray[3][3];
 
 	if (wp == 0)
 		std::cout << "wp = 0" << std::endl;
@@ -253,10 +253,10 @@ void Transform::operator()(VectorClass& point, VectorClass *pOut, int intPoint)
 	double y = point.getY();
 	double z = point.getZ();
 
-	pOut->setX( m4x4.m[0][0] * x + m4x4.m[0][1] * y + m4x4.m[0][2] * z );
-	pOut->setY( m4x4.m[1][0] * x + m4x4.m[1][1] * y + m4x4.m[1][2] * z );
-	pOut->setZ( m4x4.m[2][0] * x + m4x4.m[2][1] * y + m4x4.m[2][2] * z );
-	double wp = m4x4.m[3][0] * x + m4x4.m[3][1] * y + m4x4.m[3][2] * z ;
+	pOut->setX( m4x4.matArray[0][0] * x + m4x4.matArray[0][1] * y + m4x4.matArray[0][2] * z );
+	pOut->setY( m4x4.matArray[1][0] * x + m4x4.matArray[1][1] * y + m4x4.matArray[1][2] * z );
+	pOut->setZ( m4x4.matArray[2][0] * x + m4x4.matArray[2][1] * y + m4x4.matArray[2][2] * z );
+	double wp = m4x4.matArray[3][0] * x + m4x4.matArray[3][1] * y + m4x4.matArray[3][2] * z ;
 
 	if (wp != 1.0)
 		*pOut = *pOut/wp;
@@ -268,9 +268,9 @@ VectorClass Transform::operator()(VectorClass& vec)
 	double y = vec.getY();
 	double z = vec.getZ();
 
-	double xp = m4x4.m[0][0] * x + m4x4.m[0][1] * y + m4x4.m[0][2] * z + m4x4.m[0][3];
-	double yp = m4x4.m[1][0] * x + m4x4.m[1][1] * y + m4x4.m[1][2] * z + m4x4.m[1][3];
-	double zp = m4x4.m[2][0] * x + m4x4.m[2][1] * y + m4x4.m[2][2] * z + m4x4.m[2][3];
+	double xp = m4x4.matArray[0][0] * x + m4x4.matArray[0][1] * y + m4x4.matArray[0][2] * z + m4x4.matArray[0][3];
+	double yp = m4x4.matArray[1][0] * x + m4x4.matArray[1][1] * y + m4x4.matArray[1][2] * z + m4x4.matArray[1][3];
+	double zp = m4x4.matArray[2][0] * x + m4x4.matArray[2][1] * y + m4x4.matArray[2][2] * z + m4x4.matArray[2][3];
 
 	return VectorClass(xp, yp, zp);
 }
@@ -281,9 +281,9 @@ void Transform::operator()(VectorClass& vec, VectorClass* vecOut)
 	double y = vec.getY();
 	double z = vec.getZ();
 
-	vecOut->setX( m4x4.m[0][0] * x + m4x4.m[0][1] * y + m4x4.m[0][2] * z + m4x4.m[0][3] );
-	vecOut->setY( m4x4.m[1][0] * x + m4x4.m[1][1] * y + m4x4.m[1][2] * z + m4x4.m[1][3] );
-	vecOut->setZ( m4x4.m[2][0] * x + m4x4.m[2][1] * y + m4x4.m[2][2] * z + m4x4.m[2][3] );
+	vecOut->setX( m4x4.matArray[0][0] * x + m4x4.matArray[0][1] * y + m4x4.matArray[0][2] * z + m4x4.matArray[0][3] );
+	vecOut->setY( m4x4.matArray[1][0] * x + m4x4.matArray[1][1] * y + m4x4.matArray[1][2] * z + m4x4.matArray[1][3] );
+	vecOut->setZ( m4x4.matArray[2][0] * x + m4x4.matArray[2][1] * y + m4x4.matArray[2][2] * z + m4x4.matArray[2][3] );
 
 }
 
@@ -310,9 +310,9 @@ VectorClass Transform::operator()(VectorClass& normal, float fNormal)
 	double y = normal.getY();
 	double z = normal.getZ();
 
-	return VectorClass(mInv.m[0][0] * x + mInv.m[1][0] * y + mInv.m[2][0] * z,
-					 mInv.m[0][1] * x + mInv.m[1][1] * y + mInv.m[2][1] * z, 
-					 mInv.m[0][2] * x + mInv.m[1][2] * y + mInv.m[2][2] * z );
+	return VectorClass(mInv.matArray[0][0] * x + mInv.matArray[1][0] * y + mInv.matArray[2][0] * z,
+					 mInv.matArray[0][1] * x + mInv.matArray[1][1] * y + mInv.matArray[2][1] * z, 
+					 mInv.matArray[0][2] * x + mInv.matArray[1][2] * y + mInv.matArray[2][2] * z );
 }
 void Transform::operator()(VectorClass& normal, VectorClass* normalOut, float fNormal)
 {
@@ -320,9 +320,9 @@ void Transform::operator()(VectorClass& normal, VectorClass* normalOut, float fN
 	double y = normal.getY();
 	double z = normal.getZ();
 
-	normalOut->setX(mInv.m[0][0] * x + mInv.m[1][0] * y + mInv.m[2][0] * z);
-	normalOut->setY(mInv.m[0][1] * x + mInv.m[1][1] * y + mInv.m[2][1] * z);
-	normalOut->setZ(mInv.m[0][2] * x + mInv.m[1][2] * y + mInv.m[2][2] * z);
+	normalOut->setX(mInv.matArray[0][0] * x + mInv.matArray[1][0] * y + mInv.matArray[2][0] * z);
+	normalOut->setY(mInv.matArray[0][1] * x + mInv.matArray[1][1] * y + mInv.matArray[2][1] * z);
+	normalOut->setZ(mInv.matArray[0][2] * x + mInv.matArray[1][2] * y + mInv.matArray[2][2] * z);
 
 }
 

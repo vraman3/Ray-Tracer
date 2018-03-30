@@ -17,9 +17,9 @@ Matrix4x4::Matrix4x4()
 		for (int j = 0; j < 4; ++j)
 		{
 			if (i == j)
-				m[i][j] = 1.;
+				matArray[i][j] = 1.;
 			else
-				m[i][j] = 0.;
+				matArray[i][j] = 0.;
 		}
 }
 
@@ -31,7 +31,7 @@ Matrix4x4::Matrix4x4()
 */
 Matrix4x4::Matrix4x4(double paramMatArray[4][4])
 {
-	memcpy(m, paramMatArray, 16 * sizeof(double));
+	memcpy(matArray, paramMatArray, 16 * sizeof(double));
 }
 
 /**
@@ -45,10 +45,20 @@ Matrix4x4::Matrix4x4(double paramMatArray[4][4])
 Matrix4x4::Matrix4x4(double t00, double t01, double t02, double t03, double t10, double t11, double t12, double t13,
 					double t20, double t21, double t22, double t23, double t30, double t31, double t32, double t33)
 {
-	m[0][0] = t00;	m[0][1] = t01;	m[0][2] = t02;	m[0][3] = t03;
-	m[1][0] = t10;	m[1][1] = t11;	m[1][2] = t12;	m[1][3] = t13;
-	m[2][0] = t20;	m[2][1] = t21;	m[2][2] = t22;	m[2][3] = t23;
-	m[3][0] = t30;	m[3][1] = t31;	m[3][2] = t32;	m[3][3] = t33;
+	matArray[0][0] = t00;	matArray[0][1] = t01;	matArray[0][2] = t02;	matArray[0][3] = t03;
+	matArray[1][0] = t10;	matArray[1][1] = t11;	matArray[1][2] = t12;	matArray[1][3] = t13;
+	matArray[2][0] = t20;	matArray[2][1] = t21;	matArray[2][2] = t22;	matArray[2][3] = t23;
+	matArray[3][0] = t30;	matArray[3][1] = t31;	matArray[3][2] = t32;	matArray[3][3] = t33;
+}
+
+std::ostream& operator<<(std::ostream & os,const Matrix4x4& displayMat)
+{
+	os << displayMat.matArray[0][0] << " " << displayMat.matArray[0][1] << " " << displayMat.matArray[0][2] << " " << displayMat.matArray[0][3] << std::endl;
+	os << displayMat.matArray[1][0] << " " << displayMat.matArray[1][1] << " " << displayMat.matArray[1][2] << " " << displayMat.matArray[1][3] << std::endl;
+	os << displayMat.matArray[2][0] << " " << displayMat.matArray[2][1] << " " << displayMat.matArray[2][2] << " " << displayMat.matArray[2][3] << std::endl;
+	os << displayMat.matArray[3][0] << " " << displayMat.matArray[3][1] << " " << displayMat.matArray[3][2] << " " << displayMat.matArray[3][3] << std::endl;
+
+	return os;
 }
 
 /**
@@ -60,10 +70,10 @@ Matrix4x4::Matrix4x4(double t00, double t01, double t02, double t03, double t10,
 Matrix4x4 Matrix4x4::Transpose()
 {
 	return Matrix4x4(
-		m[0][0], m[1][0], m[2][0], m[3][0],
-		m[0][1], m[1][1], m[2][1], m[3][1],
-		m[0][2], m[1][2], m[2][2], m[3][2],
-		m[0][3], m[1][3], m[2][3], m[3][3]);
+		matArray[0][0], matArray[1][0], matArray[2][0], matArray[3][0],
+		matArray[0][1], matArray[1][1], matArray[2][1], matArray[3][1],
+		matArray[0][2], matArray[1][2], matArray[2][2], matArray[3][2],
+		matArray[0][3], matArray[1][3], matArray[2][3], matArray[3][3]);
 }
 
 /**
@@ -81,10 +91,10 @@ Matrix4x4 Matrix4x4::Mul( Matrix4x4& m2)
 			//								inner product of 	
 			// (i,j)th element of result =  i-th row of m1 multiplied by
 			//								j-th row of m2.
-			result.m[i][j] =	m[i][0] * m2.m[0][j] +
-								m[i][1] * m2.m[1][j] +
-								m[i][2] * m2.m[2][j] +
-								m[i][3] * m2.m[3][j];
+			result.matArray[i][j] =	matArray[i][0] * m2.matArray[0][j] +
+								matArray[i][1] * m2.matArray[1][j] +
+								matArray[i][2] * m2.matArray[2][j] +
+								matArray[i][3] * m2.matArray[3][j];
 		}
 
 	return result;
@@ -101,7 +111,7 @@ Matrix4x4 Matrix4x4::Inverse()
 	int indxc[4], indxr[4];
 	int ipiv[4] = { 0, 0, 0, 0 };
 	double minv[4][4];
-	memcpy(minv, m, 4 * 4 * sizeof(double));
+	memcpy(minv, matArray, 4 * 4 * sizeof(double));
 	for (int i = 0; i < 4; i++) {
 		int irow = -1, icol = -1;
 		float big = 0.;

@@ -45,6 +45,12 @@ int main(int argc, char *argv[])
 		whichTR = 3;
 	}
 
+	/*Matrix4x4 mtest = Matrix4x4(1, 0, -5, 4, 1, 4, 3, 4, 8, 2, 1, 5, 7, 2, 3, 1);
+	
+	Matrix4x4 invM = mtest.Inverse();
+
+	std::cout << invM;*/
+
 #pragma region objects and their illumination models
 
 	// The objects
