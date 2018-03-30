@@ -17,9 +17,9 @@ Matrix4x4::Matrix4x4()
 		for (int j = 0; j < 4; ++j)
 		{
 			if (i == j)
-				m4x4[i][j] = 1.;
+				m[i][j] = 1.;
 			else
-				m4x4[i][j] = 0.;
+				m[i][j] = 0.;
 		}
 }
 
@@ -31,7 +31,7 @@ Matrix4x4::Matrix4x4()
 */
 Matrix4x4::Matrix4x4(double matArray[4][4])
 {
-	memcpy(m4x4, matArray, 16 * sizeof(double));
+	memcpy(m, matArray, 16 * sizeof(double));
 }
 
 /**
@@ -45,25 +45,25 @@ Matrix4x4::Matrix4x4(double matArray[4][4])
 Matrix4x4::Matrix4x4(double t00, double t01, double t02, double t03, double t10, double t11, double t12, double t13,
 					double t20, double t21, double t22, double t23, double t30, double t31, double t32, double t33)
 {
-	m4x4[0][0] = t00;	m4x4[0][1] = t01;	m4x4[0][2] = t02;	m4x4[0][3] = t03;
-	m4x4[1][0] = t10;	m4x4[1][1] = t11;	m4x4[1][2] = t12;	m4x4[1][3] = t13;
-	m4x4[2][0] = t20;	m4x4[2][1] = t21;	m4x4[2][2] = t22;	m4x4[2][3] = t23;
-	m4x4[3][0] = t30;	m4x4[3][1] = t31;	m4x4[3][2] = t32;	m4x4[3][3] = t33;
+	m[0][0] = t00;	m[0][1] = t01;	m[0][2] = t02;	m[0][3] = t03;
+	m[1][0] = t10;	m[1][1] = t11;	m[1][2] = t12;	m[1][3] = t13;
+	m[2][0] = t20;	m[2][1] = t21;	m[2][2] = t22;	m[2][3] = t23;
+	m[3][0] = t30;	m[3][1] = t31;	m[3][2] = t32;	m[3][3] = t33;
 }
 
 /**
 	Return the transpose of a current Matrix4x4. Resultant Matrix4x4 will be in
 	row-major format.
 
-	@return The transposed version of the calling Matrix4x4 object, i.e. m)
+	@return The transposed version of the calling Matrix4x4 object, i.e. m4x4)
 */
 Matrix4x4 Matrix4x4::Transpose()
 {
 	return Matrix4x4(
-		m4x4[0][0], m4x4[1][0], m4x4[2][0], m4x4[3][0],
-		m4x4[0][1], m4x4[1][1], m4x4[2][1], m4x4[3][1],
-		m4x4[0][2], m4x4[1][2], m4x4[2][2], m4x4[3][2],
-		m4x4[0][3], m4x4[1][3], m4x4[2][3], m4x4[3][3]);
+		m[0][0], m[1][0], m[2][0], m[3][0],
+		m[0][1], m[1][1], m[2][1], m[3][1],
+		m[0][2], m[1][2], m[2][2], m[3][2],
+		m[0][3], m[1][3], m[2][3], m[3][3]);
 }
 
 /**
@@ -81,10 +81,10 @@ Matrix4x4 Matrix4x4::Mul( Matrix4x4& m2)
 			//								inner product of 	
 			// (i,j)th element of result =  i-th row of m1 multiplied by
 			//								j-th row of m2.
-			result.m4x4[i][j] =	m4x4[i][0] * m2.m4x4[0][j] +
-								m4x4[i][1] * m2.m4x4[1][j] +
-								m4x4[i][2] * m2.m4x4[2][j] +
-								m4x4[i][3] * m2.m4x4[3][j];
+			result.m[i][j] =	m[i][0] * m2.m[0][j] +
+								m[i][1] * m2.m[1][j] +
+								m[i][2] * m2.m[2][j] +
+								m[i][3] * m2.m[3][j];
 		}
 
 	return result;
@@ -101,7 +101,7 @@ Matrix4x4 Matrix4x4::Inverse()
 	int indxc[4], indxr[4];
 	int ipiv[4] = { 0, 0, 0, 0 };
 	double minv[4][4];
-	memcpy(minv, m4x4, 4 * 4 * sizeof(double));
+	memcpy(minv, m, 4 * 4 * sizeof(double));
 	for (int i = 0; i < 4; i++) {
 		int irow = -1, icol = -1;
 		float big = 0.;
@@ -132,7 +132,7 @@ Matrix4x4 Matrix4x4::Inverse()
 		if (minv[icol][icol] == 0.)
 			std::cout << "Error. Singular matrix in MatrixInvert" << std::endl; //Error("Singular matrix in MatrixInvert");
 
-		// Set $m[icol][icol]$ to one by scaling row _icol_ appropriately
+		// Set $m4x4[icol][icol]$ to one by scaling row _icol_ appropriately
 		double pivinv = 1.0 / minv[icol][icol];
 		minv[icol][icol] = 1.0;
 		for (int j = 0; j < 4; j++)
@@ -159,9 +159,9 @@ Matrix4x4 Matrix4x4::Inverse()
 }
 
 //// For debugging
-//Matrix4x4 m = Matrix4x4(1, 0, -5, 4, 1, 4, 3, 4, 8, 2, 1, 5, 7, 2, 3, 1);
+//Matrix4x4 m4x4 = Matrix4x4(1, 0, -5, 4, 1, 4, 3, 4, 8, 2, 1, 5, 7, 2, 3, 1);
 //
-//Matrix4x4 invM = m.Inverse();
+//Matrix4x4 invM = m4x4.Inverse();
 //std::cout << invM.m4x4[0][0] << " " << invM.m4x4[0][1] << " " << invM.m4x4[0][2] << " " << invM.m4x4[0][3] << std::endl;
 //std::cout << invM.m4x4[1][0] << " " << invM.m4x4[1][1] << " " << invM.m4x4[1][2] << " " << invM.m4x4[1][3] << std::endl;
 //std::cout << invM.m4x4[2][0] << " " << invM.m4x4[2][1] << " " << invM.m4x4[2][2] << " " << invM.m4x4[2][3] << std::endl;

@@ -113,5 +113,4 @@ MatrixClass MatrixClass::transpose()
 VectorClass MatrixClass::toVector()
 {
 	return VectorClass(m[0][0] / m[3][0], m[1][0] / m[3][0], m[2][0] / m[3][0]);
-	//x(m[0][0] / m[3][0]), y(m[1][0] / m[3][0]), z(m[2][0] / m[3][0])
 }

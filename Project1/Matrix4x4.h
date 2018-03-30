@@ -16,7 +16,7 @@ class Matrix4x4
 	
 
 public:
-	double m4x4[4][4];
+	double m[4][4];
 	/* Constructors */
 	Matrix4x4();
 	Matrix4x4(double matArray[4][4]);

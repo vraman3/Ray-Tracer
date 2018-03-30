@@ -20,7 +20,7 @@ class Transform
 	
 private:
 	/* Variables */
-	Matrix4x4 m, mInv;
+	Matrix4x4 m4x4, mInv;
 		
 public:
 	/* Constructors */

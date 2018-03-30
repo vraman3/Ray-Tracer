@@ -22,36 +22,36 @@ Transform::Transform()
 
 /**
 	Parameterized constructor that takes in a 4x4 array and sets it to
-	the transform matrix(m) and also calculates it's inverse(mInv) and stores it.
+	the transform matrix(m4x4) and also calculates it's inverse(mInv) and stores it.
 
 	@param mat:	The 4x4 double array.
 */
 Transform::Transform(double mat[4][4])
 {
-	m = Matrix4x4(mat[0][0], mat[0][1], mat[0][2], mat[0][3],
+	m4x4 = Matrix4x4(mat[0][0], mat[0][1], mat[0][2], mat[0][3],
 		mat[1][0], mat[1][1], mat[1][2], mat[1][3],
 		mat[2][0], mat[2][1], mat[2][2], mat[2][3],
 		mat[3][0], mat[3][1], mat[3][2], mat[3][3]);
-	mInv = m.Inverse();
+	mInv = m4x4.Inverse();
 }
 
 /**
 	Parameterized constructor that takes in a Matrix4x4 and sets it to
-	the transform matrix(m) and also calculates it's inverse(mInv) and stores it.
+	the transform matrix(m4x4) and also calculates it's inverse(mInv) and stores it.
 
 	@param mat:	The Matrix4x4 object.
 */
-Transform::Transform(Matrix4x4 &mat): m(mat), mInv(m.Inverse())
+Transform::Transform(Matrix4x4 &mat): m4x4(mat), mInv(m4x4.Inverse())
 {}
 
 /**
 	Parameterized constructor that takes in a Matrix4x4 and it's inverse and 
-	sets it to the transform matrix(m) and it's inverse(mInv) respectively.
+	sets it to the transform matrix(m4x4) and it's inverse(mInv) respectively.
 
 	@param mat:	The Matrix4x4 object.
 	@param matInv: The inverse matrix of 'mat'.
 */
-Transform::Transform(Matrix4x4 &mat, Matrix4x4 matInv): m(mat), mInv(matInv)
+Transform::Transform(Matrix4x4 &mat, Matrix4x4 matInv): m4x4(mat), mInv(matInv)
 {}
 
 /**
@@ -61,7 +61,7 @@ Transform::Transform(Matrix4x4 &mat, Matrix4x4 matInv): m(mat), mInv(matInv)
 */
 Matrix4x4& Transform::GetMatrix() 
 {
-	return m;
+	return m4x4;
 }
 
 /**
@@ -79,7 +79,7 @@ Matrix4x4& Transform::GetInverseMatrix()
 */
 Transform Transform::GetInverse()
 {
-	return Transform(mInv, m);
+	return Transform(mInv, m4x4);
 }
 
 /**
@@ -232,10 +232,10 @@ VectorClass Transform::operator()(VectorClass& point, int intPoint)
 	// The incoming Point is expressed in homogeneous column vector [x y z 1]^T.
 	// Then the Point is transformed by premultiplying that column vector by the
 	// transformation matrix.
-	double xp = m.m4x4[0][0] * x + m.m4x4[0][1] * y + m.m4x4[0][2] * z + m.m4x4[0][3];
-	double yp = m.m4x4[1][0] * x + m.m4x4[1][1] * y + m.m4x4[1][2] * z + m.m4x4[1][3];
-	double zp = m.m4x4[2][0] * x + m.m4x4[2][1] * y + m.m4x4[2][2] * z + m.m4x4[2][3];
-	double wp = m.m4x4[3][0] * x + m.m4x4[3][1] * y + m.m4x4[3][2] * z + m.m4x4[3][3];
+	double xp = m4x4.m[0][0] * x + m4x4.m[0][1] * y + m4x4.m[0][2] * z + m4x4.m[0][3];
+	double yp = m4x4.m[1][0] * x + m4x4.m[1][1] * y + m4x4.m[1][2] * z + m4x4.m[1][3];
+	double zp = m4x4.m[2][0] * x + m4x4.m[2][1] * y + m4x4.m[2][2] * z + m4x4.m[2][3];
+	double wp = m4x4.m[3][0] * x + m4x4.m[3][1] * y + m4x4.m[3][2] * z + m4x4.m[3][3];
 
 	if (wp == 0)
 		std::cout << "wp = 0" << std::endl;
@@ -253,10 +253,10 @@ void Transform::operator()(VectorClass& point, VectorClass *pOut, int intPoint)
 	double y = point.getY();
 	double z = point.getZ();
 
-	pOut->setX( m.m4x4[0][0] * x + m.m4x4[0][1] * y + m.m4x4[0][2] * z );
-	pOut->setY( m.m4x4[1][0] * x + m.m4x4[1][1] * y + m.m4x4[1][2] * z );
-	pOut->setZ( m.m4x4[2][0] * x + m.m4x4[2][1] * y + m.m4x4[2][2] * z );
-	double wp = m.m4x4[3][0] * x + m.m4x4[3][1] * y + m.m4x4[3][2] * z ;
+	pOut->setX( m4x4.m[0][0] * x + m4x4.m[0][1] * y + m4x4.m[0][2] * z );
+	pOut->setY( m4x4.m[1][0] * x + m4x4.m[1][1] * y + m4x4.m[1][2] * z );
+	pOut->setZ( m4x4.m[2][0] * x + m4x4.m[2][1] * y + m4x4.m[2][2] * z );
+	double wp = m4x4.m[3][0] * x + m4x4.m[3][1] * y + m4x4.m[3][2] * z ;
 
 	if (wp != 1.0)
 		*pOut = *pOut/wp;
@@ -268,9 +268,9 @@ VectorClass Transform::operator()(VectorClass& vec)
 	double y = vec.getY();
 	double z = vec.getZ();
 
-	double xp = m.m4x4[0][0] * x + m.m4x4[0][1] * y + m.m4x4[0][2] * z + m.m4x4[0][3];
-	double yp = m.m4x4[1][0] * x + m.m4x4[1][1] * y + m.m4x4[1][2] * z + m.m4x4[1][3];
-	double zp = m.m4x4[2][0] * x + m.m4x4[2][1] * y + m.m4x4[2][2] * z + m.m4x4[2][3];
+	double xp = m4x4.m[0][0] * x + m4x4.m[0][1] * y + m4x4.m[0][2] * z + m4x4.m[0][3];
+	double yp = m4x4.m[1][0] * x + m4x4.m[1][1] * y + m4x4.m[1][2] * z + m4x4.m[1][3];
+	double zp = m4x4.m[2][0] * x + m4x4.m[2][1] * y + m4x4.m[2][2] * z + m4x4.m[2][3];
 
 	return VectorClass(xp, yp, zp);
 }
@@ -281,9 +281,9 @@ void Transform::operator()(VectorClass& vec, VectorClass* vecOut)
 	double y = vec.getY();
 	double z = vec.getZ();
 
-	vecOut->setX( m.m4x4[0][0] * x + m.m4x4[0][1] * y + m.m4x4[0][2] * z + m.m4x4[0][3] );
-	vecOut->setY( m.m4x4[1][0] * x + m.m4x4[1][1] * y + m.m4x4[1][2] * z + m.m4x4[1][3] );
-	vecOut->setZ( m.m4x4[2][0] * x + m.m4x4[2][1] * y + m.m4x4[2][2] * z + m.m4x4[2][3] );
+	vecOut->setX( m4x4.m[0][0] * x + m4x4.m[0][1] * y + m4x4.m[0][2] * z + m4x4.m[0][3] );
+	vecOut->setY( m4x4.m[1][0] * x + m4x4.m[1][1] * y + m4x4.m[1][2] * z + m4x4.m[1][3] );
+	vecOut->setZ( m4x4.m[2][0] * x + m4x4.m[2][1] * y + m4x4.m[2][2] * z + m4x4.m[2][3] );
 
 }
 
@@ -310,9 +310,9 @@ VectorClass Transform::operator()(VectorClass& normal, float fNormal)
 	double y = normal.getY();
 	double z = normal.getZ();
 
-	return VectorClass(mInv.m4x4[0][0] * x + mInv.m4x4[1][0] * y + mInv.m4x4[2][0] * z,
-					 mInv.m4x4[0][1] * x + mInv.m4x4[1][1] * y + mInv.m4x4[2][1] * z, 
-					 mInv.m4x4[0][2] * x + mInv.m4x4[1][2] * y + mInv.m4x4[2][2] * z );
+	return VectorClass(mInv.m[0][0] * x + mInv.m[1][0] * y + mInv.m[2][0] * z,
+					 mInv.m[0][1] * x + mInv.m[1][1] * y + mInv.m[2][1] * z, 
+					 mInv.m[0][2] * x + mInv.m[1][2] * y + mInv.m[2][2] * z );
 }
 void Transform::operator()(VectorClass& normal, VectorClass* normalOut, float fNormal)
 {
@@ -320,9 +320,9 @@ void Transform::operator()(VectorClass& normal, VectorClass* normalOut, float fN
 	double y = normal.getY();
 	double z = normal.getZ();
 
-	normalOut->setX(mInv.m4x4[0][0] * x + mInv.m4x4[1][0] * y + mInv.m4x4[2][0] * z);
-	normalOut->setY(mInv.m4x4[0][1] * x + mInv.m4x4[1][1] * y + mInv.m4x4[2][1] * z);
-	normalOut->setZ(mInv.m4x4[0][2] * x + mInv.m4x4[1][2] * y + mInv.m4x4[2][2] * z);
+	normalOut->setX(mInv.m[0][0] * x + mInv.m[1][0] * y + mInv.m[2][0] * z);
+	normalOut->setY(mInv.m[0][1] * x + mInv.m[1][1] * y + mInv.m[2][1] * z);
+	normalOut->setZ(mInv.m[0][2] * x + mInv.m[1][2] * y + mInv.m[2][2] * z);
 
 }
 
@@ -378,7 +378,7 @@ Transform Transform::operator*(Transform & t2)
 	//	(AB)inv = Binv * Ainv
 	//
 
-	Matrix4x4 newM = m.Mul(t2.m);
+	Matrix4x4 newM = m4x4.Mul(t2.m4x4);
 	Matrix4x4 newMinv = t2.mInv.Mul(mInv);
 	return Transform();
 }
