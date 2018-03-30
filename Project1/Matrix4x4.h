@@ -19,7 +19,7 @@ public:
 	double m[4][4];
 	/* Constructors */
 	Matrix4x4();
-	Matrix4x4(double matArray[4][4]);
+	Matrix4x4(double paramMatArray[4][4]);
 	Matrix4x4(	double t00, double t01, double t02, double t03, double t10, double t11, double t12, double t13,
 				double t20, double t21, double t22, double t23, double t30, double t31, double t32, double t33);
 

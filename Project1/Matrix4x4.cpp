@@ -27,11 +27,11 @@ Matrix4x4::Matrix4x4()
 	Parameterized constructor to take a 4x4 array as input.
 	The resultant Matrix4x4 wil be row-major.
 
-	@param	matArray: 4x4 array to be assigned to new Matrix4x4 object.
+	@param	paramMatArray: 4x4 array to be assigned to new Matrix4x4 object.
 */
-Matrix4x4::Matrix4x4(double matArray[4][4])
+Matrix4x4::Matrix4x4(double paramMatArray[4][4])
 {
-	memcpy(m, matArray, 16 * sizeof(double));
+	memcpy(m, paramMatArray, 16 * sizeof(double));
 }
 
 /**
