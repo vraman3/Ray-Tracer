@@ -509,3 +509,39 @@ Transform Transform::operator*(Transform & t2)
 	Matrix4x4 newMinv = t2.mInv.Mul(mInv);
 	return Transform();
 }
+
+/**
+	Checks if a transformation changes handedness.
+
+	@return Returns true if the current Transform changes handedness,
+			otherwise returns false.
+*/
+bool Transform::SwapsHandedness()
+{
+	//////////////////////////////////////////////////////////////////////////////
+	/*																			//
+	//	Handedness is changed by a transformation only when the determinant		//
+	//	of the transformation's upper-left 3x3 sub-matrix is negative.			//
+	//																			//
+	//		[a  b  c]	[00  01  02]											//
+	//	A = [d  e  f] = [10  11  12]											//
+	//		[g  h  i]	[20  21  22]											//
+	//																			//
+	//			|e  f|     |d  f|     |d  e|									//
+	//	|A| = a.|h  i| - b.|g  i| + c.|g  h|									//
+	//																			//
+	//	|A| =  a*(e * i - f * h) -  b*(d * i - f * g) +  c*(d * h - e * g)		//
+	//																			//
+	//	|A| = 00*(11*22 - 12*21) - 01*(10*22 - 12*20) + 02*(10*21 - 11*20)		//
+	//																			//
+	//																			*/
+	//////////////////////////////////////////////////////////////////////////////
+
+	double firstTerm	= m4x4.matArray[0][0] * (m4x4.matArray[1][1] * m4x4.matArray[2][2] - m4x4.matArray[1][2] * m4x4.matArray[2][1]);
+	double secondTerm	= m4x4.matArray[0][1] * (m4x4.matArray[1][0] * m4x4.matArray[2][2] - m4x4.matArray[1][2] * m4x4.matArray[2][0]);
+	double thirdTerm	= m4x4.matArray[0][2] * (m4x4.matArray[1][0] * m4x4.matArray[2][1] - m4x4.matArray[1][1] * m4x4.matArray[2][0]);
+
+	double determinant = firstTerm - secondTerm + thirdTerm;
+
+	return determinant < 0.0;
+}

@@ -74,4 +74,7 @@ public:
 
 	// Multiply two Transforms. Calling Transform post multiplied by t2.
 	Transform operator*(Transform &t2);
+
+	// Check Coordinate system Handedness
+	bool SwapsHandedness();
 };
