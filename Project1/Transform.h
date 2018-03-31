@@ -25,17 +25,21 @@ private:
 public:
 	/* Constructors */
 	Transform();
-	Transform(double mat[4][4]);
-	Transform(Matrix4x4 &mat);
-	Transform(Matrix4x4 &mat, Matrix4x4 matInv);
+	Transform(double paramMatArray[4][4]);
+	Transform(Matrix4x4 &paramMat);
+	Transform(Matrix4x4 &paramMat, Matrix4x4 paramMatInv);
 
+	/* Getters */
 	Matrix4x4 &GetMatrix();
 	Matrix4x4 &GetInverseMatrix();
 
 	Transform GetInverse();
+
+	/* Transformations */
 	Transform Translate(VectorClass& delta);
 	Transform Scale(double x, double y, double z);
 
+	/* Rotations */
 	Transform RotateX(double angle);
 	Transform RotateY(double angle);
 	Transform RotateZ(double angle);
@@ -44,19 +48,30 @@ public:
 
 	Transform LookAt(VectorClass& pos, VectorClass& look, VectorClass& up);
 
+	/*
+		Operator overloading, to transform points, normals, vectors and rays
+		and axis-aligned bounding boxes
+	*/
+
+	/*	Points	*/
 	VectorClass operator()(VectorClass& point, int intPoint);
 	void operator()(VectorClass& point, VectorClass* pOut, int intPoint);
 
+	/*	Vectors	*/
 	VectorClass operator()(VectorClass& vec);
 	void operator()(VectorClass& vec, VectorClass* vecOut);
 
+	/*	Normals	*/
 	VectorClass operator()(VectorClass& normal, float fNormal);
 	void operator()(VectorClass& normal, VectorClass* normalOut, float fNormal);
 
+	// Rays
 	RayClass operator()(RayClass& ray);
 	void operator()(RayClass& ray, RayClass* rayOut);
 
+	// Axis-Aligned Bounding Box
 	AABBClass operator()(AABBClass& box);
 
+	// Multiply two Transforms. Calling Transform post multiplied by t2.
 	Transform operator*(Transform &t2);
 };
