@@ -488,12 +488,22 @@ AABBClass Transform::operator()(AABBClass& box)
 	return retBox;
 }
 
+/**
+	Multiply two transformation matrices. The first matrix is the current
+	transform, which is post-multiplied with the second transform matrix (t2).
+
+	@param	t2: The second transform matrix for post multiplication with
+				the current transform matrix.
+	@return the result of the multiplication as a a new Transform.
+*/
 Transform Transform::operator*(Transform & t2)
 {
-	//
-	//	(AB)^-1 = B^-1 * A^-1
-	//	(AB)inv = Binv * Ainv
-	//
+	//////////////////////////////////////
+	//									//
+	//		(AB)^-1 = B^-1 * A^-1		//
+	//		(AB)inv = Binv * Ainv		//
+	//									//
+	//////////////////////////////////////
 
 	Matrix4x4 newM = m4x4.Mul(t2.m4x4);
 	Matrix4x4 newMinv = t2.mInv.Mul(mInv);
