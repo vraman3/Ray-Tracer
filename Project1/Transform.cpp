@@ -127,6 +127,13 @@ Transform Transform::Scale(double x, double y, double z)
 	return Transform(mS, mInvS);
 }
 
+/**
+	Transformation matrix to rotate around the x axis by
+	given angle (in Radians).
+
+	@param angle: The angle in Radians.
+	@return The Transform to rotate about the x axis by the given angle.
+*/
 Transform Transform::RotateX(double angle)
 {
 	double sin_t = sin(Radians(angle));
@@ -140,6 +147,13 @@ Transform Transform::RotateX(double angle)
 	return Transform(mRotateX, mRotateX.Transpose());
 }
 
+/**
+	Transformation matrix to rotate around the y axis by
+	given angle (in Radians).
+
+	@param angle: The angle in Radians.
+	@return The Transform to rotate about the y axis by the given angle.
+*/
 Transform Transform::RotateY(double angle)
 {
 	double sin_t = sin(Radians(angle));
@@ -153,6 +167,13 @@ Transform Transform::RotateY(double angle)
 	return Transform(mRotateY, mRotateY.Transpose());
 }
 
+/**
+	Transformation matrix to rotate around the z axis by
+	given angle (in Radians).
+
+	@param angle: The angle in Radians.
+	@return The Transform to rotate about the z axis by the given angle.
+*/
 Transform Transform::RotateZ(double angle)
 {
 	double sin_t = sin(Radians(angle));
@@ -166,11 +187,29 @@ Transform Transform::RotateZ(double angle)
 	return Transform(mRotateZ, mRotateZ.Transpose());
 }
 
+/**
+	INCOMPLETE
+	Transformation matrix to rotate around an arbitrary axis by the 
+	given angle (in Radians).
+
+	@param angle: The angle in Radians.
+	@param axis: The arbitrary axis to rotate around.
+	@return The Transform to rotate about the given axis by the given angle.
+*/
 Transform Transform::Rotate(double angle, VectorClass& axis)
 {
 	return Transform();
 }
 
+/**
+	Matrix to calculate the LookAt matrix to convert from camera space to 
+	world space.
+
+	@param pos: The position or origin of the camera.
+	@param look: The direction the camera is looking at.
+	@param up: The up vector of the camera.
+	@return The Transform to convert from camera space to world space.
+*/
 Transform Transform::LookAt(VectorClass& pos, VectorClass& look, VectorClass& up)
 {
 	double m[4][4];
@@ -222,6 +261,14 @@ Transform Transform::LookAt(VectorClass& pos, VectorClass& look, VectorClass& up
 	return Transform(camToWorld.Inverse(), camToWorld);
 }
 
+/**
+	Operator overloading.
+	Use the current transform to transform a point.
+
+	@param point: The point to be transformed.
+	@param intPoint: To designate the current VectorClass is a point.
+	@return The transformed point as a VectorClass.
+*/
 VectorClass Transform::operator()(VectorClass& point, int intPoint)
 {
 
@@ -247,6 +294,16 @@ VectorClass Transform::operator()(VectorClass& point, int intPoint)
 	return VectorClass(xp, yp, zp)/wp;
 }
 
+/**
+	Operator overloading.
+	Use the current transform to transform a point, when also given
+	the pointer to the point to store the result in.
+
+	@param point: The point to be transformed.
+	@param pOut: The pointer to the VectorClass for storing the transformed 
+				 point.
+	@param intPoint: Int to designate the current VectorClass is a Point.
+*/
 void Transform::operator()(VectorClass& point, VectorClass *pOut, int intPoint)
 {
 	double x = point.getX();
@@ -262,6 +319,13 @@ void Transform::operator()(VectorClass& point, VectorClass *pOut, int intPoint)
 		*pOut = *pOut/wp;
 }
 
+/**
+	Operator overloading.
+	Use the current transform to transform a vector.
+
+	@param vec: The vector to be transformed.
+	@return The transformed vector as a VectorClass.
+*/
 VectorClass Transform::operator()(VectorClass& vec)
 {
 	double x = vec.getX();
@@ -275,6 +339,15 @@ VectorClass Transform::operator()(VectorClass& vec)
 	return VectorClass(xp, yp, zp);
 }
 
+/**
+	Operator overloading.
+	Use the current transform to transform a vector, when also given
+	the pointer to the VectorClass to store the result in.
+
+	@param vec: The vector to be transformed.
+	@param vecOut: The pointer to the VectorClass where the transformed
+				   vector will be stored.
+*/
 void Transform::operator()(VectorClass& vec, VectorClass* vecOut)
 {
 	double x = vec.getX();
@@ -284,27 +357,36 @@ void Transform::operator()(VectorClass& vec, VectorClass* vecOut)
 	vecOut->setX( m4x4.matArray[0][0] * x + m4x4.matArray[0][1] * y + m4x4.matArray[0][2] * z + m4x4.matArray[0][3] );
 	vecOut->setY( m4x4.matArray[1][0] * x + m4x4.matArray[1][1] * y + m4x4.matArray[1][2] * z + m4x4.matArray[1][3] );
 	vecOut->setZ( m4x4.matArray[2][0] * x + m4x4.matArray[2][1] * y + m4x4.matArray[2][2] * z + m4x4.matArray[2][3] );
-
 }
 
+/**
+	Operator overloading.
+	Use the current transform to transform a normal.
+
+	@param normal: The normal to be transformed.
+	@param fNormal: The float value to indicate the current VectorClass 
+					is a normal.
+	@return The transformed normal as a VectorClass.
+*/
 VectorClass Transform::operator()(VectorClass& normal, float fNormal)
 {
-	// Normal n, tangent vector t on the surface are orthogonal by construction.
-	//
-	// DotProd(n, t) = n^T * t = 0;
-	//
-	// Transforming a point by a matrix M, the new tangent vector t' at transformed point is Mt.
-	// The transformed normal n' should be S*n for some matrix S.
-	// Since	n^T * t = 0;
-	//			(n')^T * t' = 0;
-	//			(Sn)^T * Mt = 0;
-	//			n^T * S^T * M * t = 0;
-	//			
-	//			So this will hold true only if S^T * M = I
-	//			So S^T = Minv
-	//			So S = Minv^T;
-	//			
-
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	//			Normal n, tangent vector t on the surface are orthogonal by construction.				//
+	//																									//
+	//			DotProd(n, t) = n^T * t = 0;															//
+	//																									//
+	//		Transforming a point by a matrix M, the new tangent vector t' at transformed point is Mt.	//
+	//		The transformed normal n' should be S*n for some matrix S.									//
+	//		Since	n^T * t = 0;																		//
+	//			(n')^T * t' = 0;																		//
+	//			(Sn)^T * Mt = 0;																		//
+	//			n^T * S^T * M * t = 0;																	//
+	//																									//
+	//			So this will hold true only if S^T * M = I												//
+	//			So S^T = Minv																			//
+	//			So S = Minv^T;																			//
+	//																									//
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	double x = normal.getX();
 	double y = normal.getY();
@@ -314,6 +396,18 @@ VectorClass Transform::operator()(VectorClass& normal, float fNormal)
 					 mInv.matArray[0][1] * x + mInv.matArray[1][1] * y + mInv.matArray[2][1] * z, 
 					 mInv.matArray[0][2] * x + mInv.matArray[1][2] * y + mInv.matArray[2][2] * z );
 }
+
+/**
+	Operator overloading.
+	Use the current transform to transform a normal, when given the pointer
+	to the VectorClass to store the transformed normal.
+
+	@param normal: The normal to be transformed.
+	@param normalOut: Pointer to the VectorClass where the transformed
+					  normal will be stored.
+	@param fNormal: The float value to indicate the current VectorClass
+					is a normal.
+*/
 void Transform::operator()(VectorClass& normal, VectorClass* normalOut, float fNormal)
 {
 	double x = normal.getX();
@@ -326,6 +420,13 @@ void Transform::operator()(VectorClass& normal, VectorClass* normalOut, float fN
 
 }
 
+/**
+	Operator overloading.
+	Use the current transform to transform a ray.
+
+	@param ray: The ray to be transformed.
+	@return The transformed ray as a RayClass.
+*/
 RayClass Transform::operator()(RayClass& ray)
 {
 	// Origin is a 'Point' and direction is a 'VectorClass'. So should be
@@ -339,6 +440,15 @@ RayClass Transform::operator()(RayClass& ray)
 	return retRay;
 }
 
+/**
+	Operator overloading.
+	Use the current transform to transform a ray, when given the pointer
+	to the RayClass to store the transformed ray.
+
+	@param ray: The ray to be transformed.
+	@param rayOut: Pointer to the RayClass where the transformed
+					ray will be stored.
+*/
 void Transform::operator()(RayClass& ray, RayClass* rayOut)
 {
 	// Transform like a Point.
@@ -353,20 +463,27 @@ void Transform::operator()(RayClass& ray, RayClass* rayOut)
 	}
 }
 
+/**
+	Operator overloading.
+	Use the current transform to transform an axis aligned bounding box(AABB).
+
+	@param box: The normal to be transformed.
+	@return The transformed AABB.
+*/
 AABBClass Transform::operator()(AABBClass& box)
 {
 	Transform &curr = *this;
 
-	
+	// Apply the transformation on each of the eight corners of the bounding box.
 	AABBClass retBox(curr(VectorClass(box.getbMin().getX(), box.getbMin().getY(), box.getbMin().getZ()), 1));
 
-	retBox.Expand(VectorClass(box.getbMax().getX(), box.getbMin().getY(), box.getbMin().getZ()));
-	retBox.Expand(VectorClass(box.getbMin().getX(), box.getbMax().getY(), box.getbMin().getZ()));
-	retBox.Expand(VectorClass(box.getbMin().getX(), box.getbMin().getY(), box.getbMax().getZ()));
-	retBox.Expand(VectorClass(box.getbMin().getX(), box.getbMax().getY(), box.getbMax().getZ()));
-	retBox.Expand(VectorClass(box.getbMax().getX(), box.getbMax().getY(), box.getbMin().getZ()));
-	retBox.Expand(VectorClass(box.getbMax().getX(), box.getbMin().getY(), box.getbMax().getZ()));
-	retBox.Expand(VectorClass(box.getbMax().getX(), box.getbMax().getY(), box.getbMax().getZ()));
+	retBox.Expand(curr(VectorClass(box.getbMax().getX(), box.getbMin().getY(), box.getbMin().getZ())));
+	retBox.Expand(curr(VectorClass(box.getbMin().getX(), box.getbMax().getY(), box.getbMin().getZ())));
+	retBox.Expand(curr(VectorClass(box.getbMin().getX(), box.getbMin().getY(), box.getbMax().getZ())));
+	retBox.Expand(curr(VectorClass(box.getbMin().getX(), box.getbMax().getY(), box.getbMax().getZ())));
+	retBox.Expand(curr(VectorClass(box.getbMax().getX(), box.getbMax().getY(), box.getbMin().getZ())));
+	retBox.Expand(curr(VectorClass(box.getbMax().getX(), box.getbMin().getY(), box.getbMax().getZ())));
+	retBox.Expand(curr(VectorClass(box.getbMax().getX(), box.getbMax().getY(), box.getbMax().getZ())));
 
 	return retBox;
 }
