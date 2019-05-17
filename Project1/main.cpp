@@ -104,12 +104,24 @@ int main(int argc, char *argv[])
 	
 #pragma endregion
 
-#pragma region bruteForce
-
 	std::vector<TriangleClass*> trianglesForBruteForce;
 
 	trianglesForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
 		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+
+	std::vector<TriangleClass*> openGLCoordKDtrees;
+
+	openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+
+	std::vector<ObjectClass*> openGLTraceRay;
+
+	openGLTraceRay.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+
+#pragma region bruteForce
+
+	
 	// Objects
 	std::vector<ObjectClass*> objectsForBruteForce;
 	//objectsForBruteForce.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
@@ -150,7 +162,7 @@ int main(int argc, char *argv[])
 #pragma endregion
 
 	KDNode kdtree = KDNode();
-	kdtree = *kdtree.build(trianglesForBruteForce, 10);
+	kdtree = *kdtree.build(openGLCoordKDtrees, 10);
 
 #pragma region Lights
 	std::vector<VectorClass*> lights;
@@ -232,14 +244,14 @@ int main(int argc, char *argv[])
 			*/
 
 
-			bool choice = 1;
+			bool choice = 0;
 
 			if (choice == 0)
 			{
 				ColourClass debugTmpRemoveLater;
 
 				//Working scene. For debugging.
-				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsForBruteForce, lights, illuminationsForBruteForce, background, pointCol, maxDepth);
+				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illuminationsForBruteForce, background, pointCol, maxDepth);
 
 				//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
 
