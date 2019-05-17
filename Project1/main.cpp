@@ -105,22 +105,27 @@ int main(int argc, char *argv[])
 #pragma endregion
 
 #pragma region bruteForce
+
+	std::vector<TriangleClass*> trianglesForBruteForce;
+
+	trianglesForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 	// Objects
 	std::vector<ObjectClass*> objectsForBruteForce;
-	objectsForBruteForce.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
-	objectsForBruteForce.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
+	//objectsForBruteForce.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
+	//objectsForBruteForce.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
 	objectsForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
 		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-	objectsForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+	//objectsForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
+		//VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
 
 	// Illuminations
 	// The Lighting Models for the objects (has to be in SAME order as the objects)
 	std::vector<IlluminationClass*> illuminationsForBruteForce;
-	illuminationsForBruteForce.push_back(new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8));
-	illuminationsForBruteForce.push_back(new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0));
+	//illuminationsForBruteForce.push_back(new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8));
+	//illuminationsForBruteForce.push_back(new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0));
 	illuminationsForBruteForce.push_back(new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
-	illuminationsForBruteForce.push_back(new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
+	//illuminationsForBruteForce.push_back(new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
 #pragma endregion
 
 #pragma region KDTrees Object Loading
@@ -145,7 +150,7 @@ int main(int argc, char *argv[])
 #pragma endregion
 
 	KDNode kdtree = KDNode();
-	kdtree = *kdtree.build(objects, 10);
+	kdtree = *kdtree.build(trianglesForBruteForce, 10);
 
 #pragma region Lights
 	std::vector<VectorClass*> lights;
@@ -153,10 +158,13 @@ int main(int argc, char *argv[])
 	lights.push_back(new VectorClass(5, 7.4, 9));
 #pragma endregion
 
-	ColourClass background(0.3, 0.8, 1.0);
-	ColourClass pointCol(1.0, 1.0, 1.0);
+	
 #pragma endregion
 
+
+#pragma region background,screensize,camera
+	ColourClass background(0.3, 0.8, 1.0);
+	ColourClass pointCol(1.0, 1.0, 1.0);
 
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
@@ -192,6 +200,7 @@ int main(int argc, char *argv[])
 
 	double pixelW = worldWidth / screenWidth;
 	double pixelH = worldHeight / screenHeight;
+#pragma endregion 
 
 	// For multisampling
 	//double pw2 = pixelW / 2;
@@ -223,7 +232,7 @@ int main(int argc, char *argv[])
 			*/
 
 
-			bool choice = 0;
+			bool choice = 1;
 
 			if (choice == 0)
 			{
