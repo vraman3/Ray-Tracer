@@ -188,13 +188,13 @@ int main(int argc, char *argv[])
 	ColourClass *pixels = new ColourClass[filesize];
 
 	VectorClass camPosition = VectorClass(0, 0, -4);
-	VectorClass camLookAt = VectorClass(0.01, 0, 0);
+	VectorClass camLookAt = VectorClass(0, 0, 0);
 	double f = 1.0;
 
 	// Calculate the Camera parameters
-	VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
-	VectorClass camUp = camRight.crossProd(camLookAt);
-	CameraClass originalCamera = CameraClass(camPosition, camLookAt, camUp, f);
+	//VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
+	//VectorClass camUp = camRight.crossProd(camLookAt);
+	CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
 
 
 	//VectorClass camN = ( originalCamera.GetPosition() - originalCamera.GetLookAt() ).normalize();
