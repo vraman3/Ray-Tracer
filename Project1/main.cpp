@@ -197,18 +197,18 @@ int main(int argc, char *argv[])
 	CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
 
 
-	//VectorClass camN = ( originalCamera.GetPosition() - originalCamera.GetLookAt() ).normalize();
-	//VectorClass camU = ( originalCamera.GetUpVector().crossProd(camN) ).normalize();
-	//VectorClass camV = camN.crossProd(camU);
+	VectorClass camN = ( originalCamera.GetPosition() - originalCamera.GetLookAt() ).normalize();
+	VectorClass camU = ( originalCamera.GetUpVector().crossProd(camN) ).normalize();
+	VectorClass camV = camN.crossProd(camU);
 	
-	VectorClass camN = ( originalCamera.GetLookAt() - originalCamera.GetPosition() ).normalize();
-	VectorClass camU = ( camN.crossProd(originalCamera.GetUpVector()) ).normalize();
-	VectorClass camV = camU.crossProd(camN);
+	//VectorClass camN = ( originalCamera.GetLookAt() - originalCamera.GetPosition() ).normalize();
+	//VectorClass camU = ( camN.crossProd(originalCamera.GetUpVector()) ).normalize();
+	//VectorClass camV = camU.crossProd(camN);
 
 	// Calculate center pixel of image plane
-	VectorClass center( originalCamera.GetPosition().getX() + f * camN.getX(),
-						originalCamera.GetPosition().getY() + f * camN.getY(),
-						originalCamera.GetPosition().getZ() + f * camN.getZ());
+	VectorClass center( originalCamera.GetPosition().getX() - f * camN.getX(),
+						originalCamera.GetPosition().getY() - f * camN.getY(),
+						originalCamera.GetPosition().getZ() - f * camN.getZ());
 
 	// The bottom leftmost point of the image plane
 	VectorClass startPixel;
