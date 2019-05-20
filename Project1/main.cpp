@@ -187,7 +187,7 @@ int main(int argc, char *argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
 
-	VectorClass camPosition = VectorClass(0, 0, -4);
+	VectorClass camPosition = VectorClass(0, 0, 4);
 	VectorClass camLookAt = VectorClass(0, 0, 0);
 	double f = 1.0;
 
