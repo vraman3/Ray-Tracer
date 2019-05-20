@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 		screenHeight = 48;
 		*/
 		
-		screenWidth = 1400;
-		screenHeight = 900;
+		screenWidth = 300;
+		screenHeight = 300;
 		maxDepth = 5;
 		whichTR = 3;
 	}
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 	
 #pragma endregion
 
-	std::vector<TriangleClass*> trianglesForBruteForce;
+	std::vector<ObjectClass*> trianglesForBruteForce;
 
 	trianglesForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
 		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
@@ -116,8 +116,14 @@ int main(int argc, char *argv[])
 
 	std::vector<ObjectClass*> openGLTraceRay;
 
-	openGLTraceRay.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+	openGLTraceRay.push_back(new SphereClass(0.9, VectorClass(0, 0, 0), ColourClass(1.0, 0.5, 0.5)));
+
+	std::vector<IlluminationClass*> illumOGLTraceRay;
+
+	illumOGLTraceRay.push_back(	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.0) );
+
+	//openGLTraceRay.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
+		//VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 
 #pragma region bruteForce
 
@@ -181,12 +187,9 @@ int main(int argc, char *argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
 
-	VectorClass eye(0,0,-1);
-	VectorClass centreNew(2,2,120);
-
-	VectorClass camPosition = VectorClass(2.5, 3, 0);
-	VectorClass camLookAt = VectorClass(2.5, 2, 120);
-	double f = 3.0;
+	VectorClass camPosition = VectorClass(0, 0, -4);
+	VectorClass camLookAt = VectorClass(0.01, 0, 0);
+	double f = 1.0;
 
 	// Calculate the Camera parameters
 	VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
@@ -194,10 +197,14 @@ int main(int argc, char *argv[])
 	CameraClass originalCamera = CameraClass(camPosition, camLookAt, camUp, f);
 
 
-	VectorClass camN = (originalCamera.GetPosition() - originalCamera.GetLookAt()).normalize();
-	VectorClass camU = (camN.crossProd(originalCamera.GetUpVector())).normalize();
-	VectorClass camV = camU.crossProd(camN);
+	//VectorClass camN = ( originalCamera.GetPosition() - originalCamera.GetLookAt() ).normalize();
+	//VectorClass camU = ( originalCamera.GetUpVector().crossProd(camN) ).normalize();
+	//VectorClass camV = camN.crossProd(camU);
 	
+	VectorClass camN = ( originalCamera.GetLookAt() - originalCamera.GetPosition() ).normalize();
+	VectorClass camU = ( camN.crossProd(originalCamera.GetUpVector()) ).normalize();
+	VectorClass camV = camU.crossProd(camN);
+
 	// Calculate center pixel of image plane
 	VectorClass center( originalCamera.GetPosition().getX() + f * camN.getX(),
 						originalCamera.GetPosition().getY() + f * camN.getY(),
@@ -206,9 +213,12 @@ int main(int argc, char *argv[])
 	// The bottom leftmost point of the image plane
 	VectorClass startPixel;
 
-	startPixel.setX(center.getX() - ((worldWidth * camU.getX()) + (worldHeight*camV.getX())) / 2.0);
-	startPixel.setY(center.getY() - ((worldWidth * camU.getY()) + (worldHeight*camV.getY())) / 2.0);
-	startPixel.setZ(originalCamera.GetFocalLength());
+	startPixel.setX ( center.getX() - ( ( worldWidth * camU.getX() ) 
+		+ ( worldHeight * camV.getX() ) ) / 2.0);
+	startPixel.setY ( center.getY() - ( ( worldWidth * camU.getY() ) 
+		+ ( worldHeight * camV.getY() ) ) / 2.0);
+	startPixel.setZ ( center.getZ() - ( ( worldWidth * camU.getZ() )
+		+ ( worldHeight * camV.getZ() ) ) / 2.0);
 
 	double pixelW = worldWidth / screenWidth;
 	double pixelH = worldHeight / screenHeight;
@@ -251,7 +261,7 @@ int main(int argc, char *argv[])
 				ColourClass debugTmpRemoveLater;
 
 				//Working scene. For debugging.
-				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illuminationsForBruteForce, background, pointCol, maxDepth);
+				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, maxDepth);
 
 				//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
 
