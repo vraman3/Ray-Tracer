@@ -1,6 +1,8 @@
 /**
 RayTracing, Matrix4x4.cpp
 Class to implement 4x4 Matrices
+This class is used to store 4x4 Matrices for any 4x4 matrix operations.
+For e.g. The Transform class uses this to store and apply transformations.
 
 @author: Vishwanath Raman
 @version: 1.0 March/17/2018

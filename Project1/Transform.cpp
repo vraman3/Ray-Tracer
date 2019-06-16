@@ -129,9 +129,9 @@ Transform Transform::Scale(double x, double y, double z)
 
 /**
 	Transformation matrix to rotate around the x axis by
-	given angle (in Radians).
+	given angle (in degrees).
 
-	@param angle: The angle in Radians.
+	@param angle: The angle in degrees.
 	@return The Transform to rotate about the x axis by the given angle.
 */
 Transform Transform::RotateX(double angle)
@@ -149,9 +149,9 @@ Transform Transform::RotateX(double angle)
 
 /**
 	Transformation matrix to rotate around the y axis by
-	given angle (in Radians).
+	given angle (in degrees).
 
-	@param angle: The angle in Radians.
+	@param angle: The angle in degrees.
 	@return The Transform to rotate about the y axis by the given angle.
 */
 Transform Transform::RotateY(double angle)
@@ -169,9 +169,9 @@ Transform Transform::RotateY(double angle)
 
 /**
 	Transformation matrix to rotate around the z axis by
-	given angle (in Radians).
+	given angle (in degrees).
 
-	@param angle: The angle in Radians.
+	@param angle: The angle in degrees.
 	@return The Transform to rotate about the z axis by the given angle.
 */
 Transform Transform::RotateZ(double angle)

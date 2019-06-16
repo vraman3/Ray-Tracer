@@ -109,21 +109,23 @@ int main(int argc, char *argv[])
 	trianglesForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
 		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 
-	std::vector<TriangleClass*> openGLCoordKDtrees;
-
-	openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
-
+	
+#pragma region GLTraceRay
 	std::vector<ObjectClass*> openGLTraceRay;
 
-	openGLTraceRay.push_back(new SphereClass(0.9, VectorClass(0, 0, 0), ColourClass(1.0, 0.5, 0.5)));
+	openGLTraceRay.push_back(new SphereClass(0.1, VectorClass(0, 0, 0), ColourClass(1.0, 0.5, 0.5)));
+
+	openGLTraceRay.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
+		VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0),
+		new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+
 
 	std::vector<IlluminationClass*> illumOGLTraceRay;
 
 	illumOGLTraceRay.push_back(	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.0) );
-
-	//openGLTraceRay.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		//VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+	
+	illumOGLTraceRay.push_back(new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
+# pragma endregion
 
 #pragma region bruteForce
 
@@ -167,8 +169,13 @@ int main(int argc, char *argv[])
 	// std::vector<TriangleClass*> convObjects;	
 #pragma endregion
 
+	std::vector<TriangleClass*> openGLCoordKDtrees;
+
+	openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
+		VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+
 	KDNode kdtree = KDNode();
-	kdtree = *kdtree.build(openGLCoordKDtrees, 10);
+	kdtree = *kdtree.build(bunnyObjects, 10);
 
 #pragma region Lights
 	std::vector<VectorClass*> lights;
@@ -189,23 +196,35 @@ int main(int argc, char *argv[])
 
 	VectorClass camPosition = VectorClass(0, 0, 4);
 	VectorClass camLookAt = VectorClass(0, 0, 0);
-	double f = 1.0;
+	double f = 0.8;
 
 	// Calculate the Camera parameters
 	//VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
 	//VectorClass camUp = camRight.crossProd(camLookAt);
 	CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
 
-
+	// RHS
+	//
+	// N = Eye - LookAt
+	// U = Up x N
+	// V = N x U
+	//
 	VectorClass camN = ( originalCamera.GetPosition() - originalCamera.GetLookAt() ).normalize();
 	VectorClass camU = ( originalCamera.GetUpVector().crossProd(camN) ).normalize();
 	VectorClass camV = camN.crossProd(camU);
 	
-	//VectorClass camN = ( originalCamera.GetLookAt() - originalCamera.GetPosition() ).normalize();
-	//VectorClass camU = ( camN.crossProd(originalCamera.GetUpVector()) ).normalize();
-	//VectorClass camV = camU.crossProd(camN);
+	// LHS
+	//
+	// N = LookAt - Eye
+	// U = N x Up
+	// V = U x N
+	//
+	// VectorClass camN = ( originalCamera.GetLookAt() - originalCamera.GetPosition() ).normalize();
+	// VectorClass camU = ( camN.crossProd(originalCamera.GetUpVector()) ).normalize();
+	// VectorClass camV = camU.crossProd(camN);
 
 	// Calculate center pixel of image plane
+	// Should subtract f for RHS, and add f for LHS system.
 	VectorClass center( originalCamera.GetPosition().getX() - f * camN.getX(),
 						originalCamera.GetPosition().getY() - f * camN.getY(),
 						originalCamera.GetPosition().getZ() - f * camN.getZ());
@@ -254,7 +273,7 @@ int main(int argc, char *argv[])
 			*/
 
 
-			bool choice = 0;
+			bool choice = 1;
 
 			if (choice == 0)
 			{
@@ -262,8 +281,7 @@ int main(int argc, char *argv[])
 
 				//Working scene. For debugging.
 				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, maxDepth);
-
-				//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
+								//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
 
 				double rt = debugTmpRemoveLater.GetRed();
 				double gt = debugTmpRemoveLater.GetGreen();

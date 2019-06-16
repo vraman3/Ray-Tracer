@@ -31,7 +31,7 @@ TriangleClass::TriangleClass()
 }
 
 /**
-	Parameterized Constructor.
+	Parameterized Constructor. Requires vertices in counter clockwise order (for a RHS)
 
 	@param vert1: First(a) vertex for triangle.
 	@param vert2: Second(b) vertex for triangle.
@@ -40,6 +40,7 @@ TriangleClass::TriangleClass()
 */
 TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col)
 {
+	// For a RHS vertices should be counter clockwise
 	a = vert1;
 	b = vert2;
 	c = vert3;
@@ -48,13 +49,17 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	specular = 0.08;
 	ambient = 0.3;
 
-	normal = (vert3 - vert1).crossProd(vert2 - vert1);
+	//
+	// For a RHS with counter clockwise vertices,
+	// (vert2 - vert1) x (vert3 - vert 1)
+	//
+	normal = (b - a).crossProd(c - a);
 
 	SetValuesForBoundingBox();
 }
 
 /**
-	Parameterized Constructor.
+	Parameterized Constructor. Requires vertices in counter clockwise order (for a RHS)
 
 	@param		 vert1: First(a) vertex for triangle.
 	@param		 vert2: Second(b) vertex for triangle.
@@ -64,6 +69,7 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 */
 TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, IlluminationClass *paramIllum)
 {
+	// For a RHS vertices should be counter clockwise
 	a = vert1;
 	b = vert2;
 	c = vert3;
@@ -74,7 +80,11 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	ambient = 0.3;
 	illum = paramIllum;
 
-	normal = (vert3 - vert1).crossProd(vert2 - vert1);
+	//
+	// For a RHS with counter clockwise vertices,
+	// (vert2 - vert1) x (vert3 - vert 1)
+	//
+	normal = (b - a).crossProd(c - a);
 
 	SetValuesForBoundingBox();
 }
