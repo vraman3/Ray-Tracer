@@ -57,6 +57,7 @@ class TriangleClass : public ObjectClass
 		virtual double GetIntersection(RayClass ray);
 		virtual VectorClass GetMidpoint();
 
+		bool GetIntersection(RayClass ray, double &t, double &u, double &v);
 		VectorClass operator[](const int) const;
 		
 };
