@@ -54,7 +54,7 @@ class TriangleClass : public ObjectClass
 
 		/* Virtual functions */
 		virtual ColourClass GetColour();
-		virtual double GetIntersection(RayClass);
+		virtual double GetIntersection(RayClass ray);
 		virtual VectorClass GetMidpoint();
 
 		VectorClass operator[](const int) const;
