@@ -51,7 +51,7 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 
 	//
 	// For a RHS with counter clockwise vertices,
-	// (vert2 - vert1) x (vert3 - vert 1)
+	// normal = (vert2 - vert1) x (vert3 - vert 1)
 	//
 	normal = (b - a).crossProd(c - a);
 

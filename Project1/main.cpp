@@ -106,8 +106,8 @@ int main(int argc, char *argv[])
 
 	std::vector<ObjectClass*> trianglesForBruteForce;
 
-	trianglesForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+	trianglesForBruteForce.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
+		VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 
 	
 #pragma region GLTraceRay
@@ -115,9 +115,9 @@ int main(int argc, char *argv[])
 
 	openGLTraceRay.push_back(new SphereClass(0.1, VectorClass(0, 0, 0), ColourClass(1.0, 0.5, 0.5)));
 
-	openGLTraceRay.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
-		VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0),
-		new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+	openGLTraceRay.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(10, 10, 0),
+		VectorClass(0, 10, 0), ColourClass(0.0, 1.0, 0.0),
+		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 
 
 	std::vector<IlluminationClass*> illumOGLTraceRay;
@@ -151,7 +151,7 @@ int main(int argc, char *argv[])
 #pragma region KDTrees Object Loading
 	ObjLoaderClass objFile = ObjLoaderClass();
 
-	objFile.readObjFile("bunny.obj");
+	objFile.readObjFile("cubeStraight.obj");
 
 	int noOfFaces = objFile.faces.size();
 
@@ -171,11 +171,11 @@ int main(int argc, char *argv[])
 
 	std::vector<TriangleClass*> openGLCoordKDtrees;
 
-	openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
-		VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+	openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(10, 10, 0),
+		VectorClass(0, 10, 0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 
 	KDNode kdtree = KDNode();
-	kdtree = *kdtree.build(bunnyObjects, 10);
+	kdtree = *kdtree.build(openGLCoordKDtrees, 10);
 
 #pragma region Lights
 	std::vector<VectorClass*> lights;
@@ -194,9 +194,9 @@ int main(int argc, char *argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
 
-	VectorClass camPosition = VectorClass(0, 0, 4);
+	VectorClass camPosition = VectorClass(0, 0, 6);
 	VectorClass camLookAt = VectorClass(0, 0, 0);
-	double f = 0.8;
+	double f = 1;
 
 	// Calculate the Camera parameters
 	//VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
@@ -277,7 +277,7 @@ int main(int argc, char *argv[])
 
 			if (choice == 0)
 			{
-				ColourClass debugTmpRemoveLater;
+				ColourClass debgTmpRemoveLater;
 
 				//Working scene. For debugging.
 				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, maxDepth);
