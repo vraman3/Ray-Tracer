@@ -299,8 +299,32 @@ ColourClass TriangleClass::GetColour()
 */
 double TriangleClass::GetIntersection(RayClass ray)
 {
-	VectorClass e1 = b - a;
-	VectorClass e2 = c - a;
+	// Compute the plane normal
+	VectorClass e1 = b - a;   // v0v1 = v1 - v0;
+	VectorClass e2 = c - a;   // v0v2 = v2 - v0;
+	
+	// Do not normalize since we will use length of this normal to calculate
+	// the barycentric coordinates using area of the sub triangles
+	VectorClass planeNormal = e1.crossProd(e2);
+	double denominator = planeNormal.dotProd(planeNormal);
+
+	// Finding P. Where P is a point that could be inside the triangle
+	
+	// Check if the plane is parallel to the ray
+	double planeNormal_dot_RayDir = planeNormal.dotProd(ray.GetRayDirection());
+	if (fabs(planeNormal_dot_RayDir) < EPSILONVAL)
+		return false;
+
+	// Find D from Ax + By + Cz + D = 0
+	// A,B,C lie in the plane of the triangle, can subsitute any vertex to
+	// find D, where D is distance from the origin
+	double planeConstant_D = planeNormal.dotProd(a);
+
+	// Compute t, the distance from the ray origin to the intersection point
+	//double t = 000;
+
+
+	// INCOMPLETE
 	double det, inv_det, u, v;
 	VectorClass P = ray.GetRayDirection().crossProd(e2);
 	det = e1.dotProd(P);
