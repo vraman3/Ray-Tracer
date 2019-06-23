@@ -300,12 +300,12 @@ ColourClass TriangleClass::GetColour()
 */
 double TriangleClass::GetIntersection(RayClass ray)
 {
-	int choice = 0;
+	int triangleIntersectionMethod_choice = 1;
 	// Compute the plane normal
 	VectorClass e1 = b - a;   // v0v1 = v1 - v0;
 	VectorClass e2 = c - a;   // v0v2 = v2 - v0;
 
-	if (choice == 0)
+	if (triangleIntersectionMethod_choice == 0)
 	{
 		// Do not normalize since we will use length of this normal to calculate
 		// the barycentric coordinates using area of the sub triangles
@@ -400,7 +400,7 @@ double TriangleClass::GetIntersection(RayClass ray)
 		return t;
 	}
 	
-	if (choice == 1)
+	if (triangleIntersectionMethod_choice == 1)
 	{
 		double det, inv_det, u, v;
 		VectorClass P = ray.GetRayDirection().crossProd(e2);
