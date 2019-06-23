@@ -300,133 +300,135 @@ ColourClass TriangleClass::GetColour()
 */
 double TriangleClass::GetIntersection(RayClass ray)
 {
+	int choice = 0;
 	// Compute the plane normal
 	VectorClass e1 = b - a;   // v0v1 = v1 - v0;
 	VectorClass e2 = c - a;   // v0v2 = v2 - v0;
 
-	// Do not normalize since we will use length of this normal to calculate
-	// the barycentric coordinates using area of the sub triangles
-	VectorClass planeNormal = e1.crossProd(e2);
-	double denominator = planeNormal.dotProd(planeNormal);
-
-	// Finding P. Where P is a point that could be inside the triangle
-
-	// Check if the plane is parallel to the ray
-	double planeNormal_dot_RayDir = planeNormal.dotProd(ray.GetRayDirection());
-	if (fabs(planeNormal_dot_RayDir) < EPSILONVAL)
-		return -1;
-
-	// Find D from Ax + By + Cz + D = 0
-	// A,B,C lie in the plane of the triangle, can subsitute any vertex to
-	// find D, where D is distance from the origin
-	double planeConstant_D = planeNormal.dotProd(a);
-
-
-	/*
-	*
-	*			N (A,B,C) . O + D
-	*	t = -  ____________________
-	*			N(A,B,C) . R
-	*
-	*
-	*
-	*	Since camera is aligned along negative z-axis all primary rays have
-	*	negative z-coordinates. So when the normal of a triangle faces the
-	*	camera the dot product of the plane Normal and the ray will be negative.
-	*	Hence the negative sign of the equation is cancelled out by the negative
-	*	sign of the denominator. So practically for calculations we do NOT
-	*	negate 't'.
-	*
-	*/
-
-	// Compute t, the distance from the ray origin to the intersection point
-	double t = planeNormal.dotProd(ray.GetRayOrigin()) + planeConstant_D / planeNormal_dot_RayDir;
-
-
-	// Check if the triangle is behind the ray
-	if (t < 0) {
-		return -1;
-	}
-
-	/*
-	*
-	* 		P = RayOrigin + t * RayDirection;
-	* 
-	*/
-	// Compute the intersection point P 
-	VectorClass intersectionPoint_P = ray.GetRayOrigin() + ray.GetRayDirection() * t;
-
-	// Check if intersection point P is inside or outside
-
-	VectorClass insideOutsideTestNormal; //
-
-	// Edge A
-	VectorClass edgeA		=	b - a;
-	VectorClass edgePa		=	intersectionPoint_P - a;
-	insideOutsideTestNormal =	edgeA.crossProd(edgePa);
-
-	if (planeNormal.dotProd(insideOutsideTestNormal) < 0) {
-		return -1;	// intersection point P is on the outside of edge A
-	}
-
-	// Edge 1
-	VectorClass edgeB		=	c - b;
-	VectorClass edgePb		=	intersectionPoint_P - b;
-	insideOutsideTestNormal =	edgeB.crossProd(edgePb);
-
-	double u;
-
-	if( (u = planeNormal.dotProd(insideOutsideTestNormal) ) < 0) {
-		return -1;	// intersection point P is on the outside of edge B
-	}
-
-	// Edge 2
-	VectorClass edgeC		=	a - c;
-	VectorClass edgePc		=	intersectionPoint_P -  c;
-	insideOutsideTestNormal	=	edgeC.crossProd(edgePc);
-
-	double v;
-
-	if ((v = planeNormal.dotProd(insideOutsideTestNormal)) < 0) {
-		return -1;	// intersection point P is on the outside of edge C
-	}
-
-	u /= denominator;
-	v /= denominator;
-
-	return t;
-
-
-
-	/*
-	// INCOMPLETE
-	double det, inv_det, u, v;
-	VectorClass P = ray.GetRayDirection().crossProd(e2);
-	det = e1.dotProd(P);
-
-	if (det < EPSILONVAL && det > -EPSILONVAL) return -1;
-	inv_det = 1.0 / det;
-
-	VectorClass T = (ray.GetRayOrigin() - a);
-
-	u = T.dotProd(P) * inv_det;
-
-	if (u < 0.0 || u > 1.0) return -1;
-
-	VectorClass Q = T.crossProd(e1);
-
-	v = ray.GetRayDirection().dotProd(Q) * inv_det;
-
-	if (v < 0.0 || u + v > 1.0)  return -1;
-
-	double t = e2.dotProd(Q) * inv_det;
-	//std::cout << t << " t" << std::endl;
-	if (t > EPSILONVAL)
+	if (choice == 0)
 	{
+		// Do not normalize since we will use length of this normal to calculate
+		// the barycentric coordinates using area of the sub triangles
+		VectorClass planeNormal = e1.crossProd(e2);
+		double denominator = planeNormal.dotProd(planeNormal);
+
+		// Finding P. Where P is a point that could be inside the triangle
+
+		// Check if the plane is parallel to the ray
+		double planeNormal_dot_RayDir = planeNormal.dotProd(ray.GetRayDirection());
+		if (fabs(planeNormal_dot_RayDir) < EPSILONVAL)
+			return -1;
+
+		// Find D from Ax + By + Cz + D = 0
+		// A,B,C lie in the plane of the triangle, can subsitute any vertex to
+		// find D, where D is distance from the origin
+		double planeConstant_D = planeNormal.dotProd(a);
+
+
+		/*
+		*
+		*			N (A,B,C) . O + D
+		*	t = -  ____________________
+		*			N(A,B,C) . R
+		*
+		*
+		*
+		*	Since camera is aligned along negative z-axis all primary rays have
+		*	negative z-coordinates. So when the normal of a triangle faces the
+		*	camera the dot product of the plane Normal and the ray will be negative.
+		*	Hence the negative sign of the equation is cancelled out by the negative
+		*	sign of the denominator. So practically for calculations we do NOT
+		*	negate 't'.
+		*
+		*/
+
+		// Compute t, the distance from the ray origin to the intersection point
+		double t = planeNormal.dotProd(ray.GetRayOrigin()) + planeConstant_D / planeNormal_dot_RayDir;
+
+
+		// Check if the triangle is behind the ray
+		if (t < 0) {
+			return -1;
+		}
+
+		/*
+		*
+		* 		P = RayOrigin + t * RayDirection;
+		*
+		*/
+		// Compute the intersection point P 
+		VectorClass intersectionPoint_P = ray.GetRayOrigin() + ray.GetRayDirection() * t;
+
+		// Check if intersection point P is inside or outside
+
+		VectorClass insideOutsideTestNormal; //
+
+		// Edge A
+		VectorClass edgeA = b - a;
+		VectorClass edgePa = intersectionPoint_P - a;
+		insideOutsideTestNormal = edgeA.crossProd(edgePa);
+
+		if (planeNormal.dotProd(insideOutsideTestNormal) < 0) {
+			return -1;	// intersection point P is on the outside of edge A
+		}
+
+		// Edge 1
+		VectorClass edgeB = c - b;
+		VectorClass edgePb = intersectionPoint_P - b;
+		insideOutsideTestNormal = edgeB.crossProd(edgePb);
+
+		double u;
+
+		if ((u = planeNormal.dotProd(insideOutsideTestNormal)) < 0) {
+			return -1;	// intersection point P is on the outside of edge B
+		}
+
+		// Edge 2
+		VectorClass edgeC = a - c;
+		VectorClass edgePc = intersectionPoint_P - c;
+		insideOutsideTestNormal = edgeC.crossProd(edgePc);
+
+		double v;
+
+		if ((v = planeNormal.dotProd(insideOutsideTestNormal)) < 0) {
+			return -1;	// intersection point P is on the outside of edge C
+		}
+
+		u /= denominator;
+		v /= denominator;
+
 		return t;
 	}
-	return -1;
-	*/
+	
+	if (choice == 1)
+	{
+		double det, inv_det, u, v;
+		VectorClass P = ray.GetRayDirection().crossProd(e2);
+		det = e1.dotProd(P);
+
+		if (det < EPSILONVAL && det > -EPSILONVAL) return -1;
+		inv_det = 1.0 / det;
+
+		VectorClass T = (ray.GetRayOrigin() - a);
+
+		u = T.dotProd(P) * inv_det;
+
+		if (u < 0.0 || u > 1.0) return -1;
+
+		VectorClass Q = T.crossProd(e1);
+
+		v = ray.GetRayDirection().dotProd(Q) * inv_det;
+
+		if (v < 0.0 || u + v > 1.0)  return -1;
+
+		double t = e2.dotProd(Q) * inv_det;
+		//std::cout << t << " t" << std::endl;
+		if (t > EPSILONVAL)
+		{
+			return t;
+		}
+		return -1;
+	}
 }
 
 /**

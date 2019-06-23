@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 		screenHeight = 48;
 		*/
 		
-		screenWidth = 300;
-		screenHeight = 300;
+		screenWidth = 640;
+		screenHeight = 480;
 		maxDepth = 5;
 		whichTR = 3;
 	}
@@ -113,18 +113,18 @@ int main(int argc, char *argv[])
 #pragma region GLTraceRay
 	std::vector<ObjectClass*> openGLTraceRay;
 
-	openGLTraceRay.push_back(new SphereClass(0.1, VectorClass(0, 0, 0), ColourClass(1.0, 0.5, 0.5)));
+	//openGLTraceRay.push_back(new SphereClass(0.1, VectorClass(0, 0.5, 0), ColourClass(1.0, 0.5, 0.5)));
 
-	openGLTraceRay.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(10, 10, 0),
-		VectorClass(0, 10, 0), ColourClass(0.0, 1.0, 0.0),
-		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+	openGLTraceRay.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
+		VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0)));
+	//,		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 
 
 	std::vector<IlluminationClass*> illumOGLTraceRay;
 
-	illumOGLTraceRay.push_back(	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.0) );
+	//illumOGLTraceRay.push_back(	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.0) );
 	
-	illumOGLTraceRay.push_back(new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
+	illumOGLTraceRay.push_back(new NoShadingModel(0,0)); // CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)); //
 # pragma endregion
 
 #pragma region bruteForce
@@ -171,12 +171,13 @@ int main(int argc, char *argv[])
 
 	std::vector<TriangleClass*> openGLCoordKDtrees;
 
-	openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(10, 10, 0),
-		VectorClass(0, 10, 0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+	openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(2, 2, 0),
+		VectorClass(0, 2, 0), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0))); // new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 
 	KDNode kdtree = KDNode();
 	kdtree = *kdtree.build(openGLCoordKDtrees, 10);
 
+	bool kdTreeChoice = 1;
 #pragma region Lights
 	std::vector<VectorClass*> lights;
 
@@ -194,7 +195,7 @@ int main(int argc, char *argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
 
-	VectorClass camPosition = VectorClass(0, 0, 6);
+	VectorClass camPosition = VectorClass(0, 0, 4);
 	VectorClass camLookAt = VectorClass(0, 0, 0);
 	double f = 1;
 
@@ -259,13 +260,11 @@ int main(int argc, char *argv[])
 			
 			VectorClass val = VectorClass(startPixel.getX() + camU.getX() * (j + 0.5) * pixelW + camV.getX() * (i + 0.5) * pixelH,
 										  startPixel.getY() + camU.getY() * (j + 0.5) * pixelW + camV.getY() * (i + 0.5) * pixelH,
-										  startPixel.getZ() + camU.getZ() * (j + 0.5) * pixelW + camV.getZ() * (i + 0.5) * pixelH);
+										  -f);
 
 			VectorClass direction = (val - originalCamera.GetPosition()).normalize();
 			RayClass ray(originalCamera.GetPosition(), direction);
 			
-			ColourClass debugTmpRemoveLater;
-
 			/*
 			 0 = Regular ray tracing. Brute Force.
 			 1 = Use KD trees.
@@ -273,22 +272,26 @@ int main(int argc, char *argv[])
 			*/
 
 
-			bool choice = 1;
+			
 
-			if (choice == 0)
+			if (kdTreeChoice == 0)
 			{
-				ColourClass debgTmpRemoveLater;
+				ColourClass debugTmpRemoveLater;
 
+				if (i == 153 && j == 150)
+					bool somethingTest = 0;
 				//Working scene. For debugging.
 				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, maxDepth);
 								//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
 
+				if (debugTmpRemoveLater.GetGreen() == 1)
+					bool testIfGreen = false;
 				double rt = debugTmpRemoveLater.GetRed();
 				double gt = debugTmpRemoveLater.GetGreen();
 				double bt = debugTmpRemoveLater.GetBlue();
 				tmp = tmp + debugTmpRemoveLater;
 			}
-			else if (choice == 1)
+			else if (kdTreeChoice == 1)
 			{
 				ColourClass debugTmpKDRemoveLater;
 				debugTmpKDRemoveLater = traceObject.TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
