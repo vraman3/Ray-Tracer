@@ -163,7 +163,7 @@ int main(int argc, char *argv[])
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
 			ColourClass(0.0, 1.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+			new NoShadingModel(0.0, 0.0))); // PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
 	}
 
 	// std::vector<TriangleClass*> convObjects;	
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
 		VectorClass(0, 2, 0), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0))); // new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 
 	KDNode kdtree = KDNode();
-	kdtree = *kdtree.build(openGLCoordKDtrees, 10);
+	kdtree = *kdtree.build(bunnyObjects, 10);
 
 	bool kdTreeChoice = 1;
 #pragma region Lights

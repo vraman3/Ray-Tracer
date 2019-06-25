@@ -241,25 +241,25 @@ void AABBClass::Expand(AABBClass paramNewBox)
 	if (paramNewBox.bMin.getZ() < bMin.getZ())
 		bMin.setZ(paramNewBox.bMin.getZ());
 
-	if (paramNewBox.bMax.getX() < bMax.getX())
+	if (paramNewBox.bMax.getX() > bMax.getX())
 		bMax.setX(paramNewBox.bMax.getX());
-	if (paramNewBox.bMax.getY() < bMax.getY())
+	if (paramNewBox.bMax.getY() > bMax.getY())
 		bMax.setY(paramNewBox.bMax.getY());
-	if (paramNewBox.bMax.getZ() < bMax.getZ())
+	if (paramNewBox.bMax.getZ() > bMax.getZ())
 		bMax.setZ(paramNewBox.bMax.getZ());
 }
 
-	AABBClass AABBClass::Expand(VectorClass & point)
-	{
-		AABBClass returnBox = *this;
+AABBClass AABBClass::Expand(VectorClass & point)
+{
+	AABBClass returnBox = *this;
 
-		returnBox.bMin.setX( fmin(returnBox.bMin.getX(), point.getX()));
-		returnBox.bMin.setY( fmin(returnBox.bMin.getY(), point.getY()));
-		returnBox.bMin.setZ( fmin(returnBox.bMin.getZ(), point.getZ()));
+	returnBox.bMin.setX(fmin(returnBox.bMin.getX(), point.getX()));
+	returnBox.bMin.setY(fmin(returnBox.bMin.getY(), point.getY()));
+	returnBox.bMin.setZ(fmin(returnBox.bMin.getZ(), point.getZ()));
 
-		returnBox.bMax.setX( fmax(returnBox.bMax.getX(), point.getX()));
-		returnBox.bMax.setY( fmax(returnBox.bMax.getY(), point.getY()));
-		returnBox.bMax.setZ( fmax(returnBox.bMax.getZ(), point.getZ()));
+	returnBox.bMax.setX(fmax(returnBox.bMax.getX(), point.getX()));
+	returnBox.bMax.setY(fmax(returnBox.bMax.getY(), point.getY()));
+	returnBox.bMax.setZ(fmax(returnBox.bMax.getZ(), point.getZ()));
 
-		return returnBox;
-	}
+	return returnBox;
+}

@@ -59,6 +59,8 @@ KDNode* KDNode::build(std::vector<TriangleClass*>& objs, int depth)
 	for (int i = 1; i < objectsSize; i++)
 	{
 		//std::cout << objectsSize << " testExpand ";
+		//TriangleClass temp1 = TriangleClass();
+		
 		node->aabbBox.Expand(AABBClass(objs[i]->GetMinValBBox(), objs[i]->GetMaxValBBox()));//GetBoundingBox());
 	}
 
