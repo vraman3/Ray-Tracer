@@ -171,8 +171,8 @@ int main(int argc, char *argv[])
 
 	std::vector<TriangleClass*> openGLCoordKDtrees;
 
-	openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(0.5, 0.5, 0),
-		VectorClass(0, 0.5, 0), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0))); // new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+	openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(2, 2, 0),
+		VectorClass(0, 2, 0), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0))); // new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 
 	KDNode kdtree = KDNode();
 	kdtree = *kdtree.build(openGLCoordKDtrees, 10);
