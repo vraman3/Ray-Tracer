@@ -221,3 +221,9 @@ VectorClass VectorClass::normalize()
 	double value = sqrt(x*x + y*y + z*z);
 	return VectorClass(x / value, y / value, z / value);
 }
+
+std::ostream & operator<<(std::ostream & os, VectorClass & vec)
+{
+	os << vec.getX() << " " << vec.getY() << " " << vec.getZ();
+	return os;
+}

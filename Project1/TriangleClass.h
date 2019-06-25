@@ -60,4 +60,5 @@ class TriangleClass : public ObjectClass
 		bool GetIntersectionBarycentric(RayClass ray, double &t, double &u, double &v);
 		VectorClass operator[](const int) const;
 		
+		friend std::ostream& operator<<(std::ostream& os, TriangleClass& triangle);
 };

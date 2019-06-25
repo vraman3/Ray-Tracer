@@ -108,7 +108,7 @@ VectorClass TriangleClass::operator[](const int vertexNumber) const
 	case 2: return c;
 		break;
 
-	default: return VectorClass(-1, -1, -1);
+	default: return VectorClass(-1.234567, -1.234567, -1.234567);
 		break;
 	}
 }
@@ -570,8 +570,8 @@ VectorClass TriangleClass::GetMidpoint()
 //	return area;
 //}
 
-
-
-
-
-
+std::ostream & operator<<(std::ostream & os, TriangleClass & triangle)
+{
+	os << "a: " << triangle.GetA() << " b: " << triangle.GetB() << " c: " << triangle.GetC() << std::endl;
+	return os;
+}

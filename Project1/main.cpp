@@ -166,6 +166,10 @@ int main(int argc, char *argv[])
 			new NoShadingModel(0.0, 0.0))); // PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
 	}
 
+	for (int k = 0; k < bunnyObjects.size(); k++ )
+	{
+		std::cout << k << " " << *bunnyObjects[k] << std::endl;
+	}
 	// std::vector<TriangleClass*> convObjects;	
 #pragma endregion
 
@@ -197,7 +201,7 @@ int main(int argc, char *argv[])
 
 	VectorClass camPosition = VectorClass(0, 0, 4);
 	VectorClass camLookAt = VectorClass(0, 0, 0);
-	double f = 1;
+	double f = 0.5;
 
 	// Calculate the Camera parameters
 	//VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
