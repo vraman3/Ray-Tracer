@@ -73,7 +73,7 @@ void ObjLoaderClass::readObjFile(std::string paramFilename)
 	//
 	// Store all the vertices currently in a flat array in a VectorClass.
 	//
-	for (int i = 0; i < vertices.size() / 3; i++)
+	for (int i = 0; i < vertices.size(); i += 3)
 	{
 		opVertices.push_back(VectorClass(vertices[i], vertices[i + 1], vertices[i + 2]));
 	}
