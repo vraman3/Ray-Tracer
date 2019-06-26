@@ -157,8 +157,13 @@ int main(int argc, char *argv[])
 
 	std::vector<TriangleClass*> bunnyObjects;
 
-	for (int i = 0; i < noOfFaces / 3; i++)
+	for (int i = 0; i < noOfFaces; i += 3)
 	{
+		int tempVert1 = objFile.faces[i] - 1 ;
+		int tempVert2 = objFile.faces[i + 1] - 1;
+		int tempVert3 = objFile.faces[i + 2] - 1;
+
+		std::cout << tempVert1 << " " << tempVert2 << " " << tempVert3 << std::endl;
 		bunnyObjects.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
