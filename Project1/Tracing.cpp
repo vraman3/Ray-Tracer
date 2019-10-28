@@ -98,7 +98,6 @@ ColourClass Tracing::TraceRayKD(RayClass ray, int depth, double incomingni, KDNo
 					shade += 1 - shadowObjkt;
 				else
 					shade += 1;
-				break;
 			}
 			
 			VectorClass L = ((*lights[g]) - pi).normalize();
