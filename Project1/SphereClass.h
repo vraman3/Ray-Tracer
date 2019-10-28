@@ -26,7 +26,7 @@ private:
 public:
 	/* Constructors */
 	SphereClass();
-	SphereClass(double, VectorClass, ColourClass);
+	SphereClass(double radius, VectorClass center, ColourClass color);
 
 	/* Getters */
 	VectorClass GetNormal(VectorClass);

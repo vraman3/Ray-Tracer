@@ -158,3 +158,10 @@ void ColourClass::resetColour()
 	this->green = 0.0;
 	this->blue = 0.0;
 }
+
+	std::ostream & operator<<(std::ostream & os, ColourClass & colour)
+	{
+		os << "R: " << colour.GetRed() << " G: " << colour.GetGreen() << " B: " << colour.GetBlue() << std::endl;
+
+		return os;
+	}

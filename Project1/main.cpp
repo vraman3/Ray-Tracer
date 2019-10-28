@@ -113,10 +113,10 @@ int main(int argc, char *argv[])
 #pragma region GLTraceRay
 	std::vector<ObjectClass*> openGLTraceRay;
 
-	//openGLTraceRay.push_back(new SphereClass(0.1, VectorClass(0, 0.5, 0), ColourClass(1.0, 0.5, 0.5)));
+	//openGLTraceRay.push_back(new SphereClass(0.5, VectorClass(0, 0, 0), ColourClass(1.0, 0.5, 0.5)));
 
-	openGLTraceRay.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
-		VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0)));
+	openGLTraceRay.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(0.75, 0.75, 0),
+		VectorClass(0, 0.75, 0), ColourClass(0.0, 1.0, 0.0)));
 	//,		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
 
 
@@ -151,40 +151,49 @@ int main(int argc, char *argv[])
 #pragma region KDTrees Object Loading
 	ObjLoaderClass objFile = ObjLoaderClass();
 
-	objFile.readObjFile("cubeStraight.obj");
+	objFile.readObjFile("icosphereObj.obj");
+	//objFile.readObjFile("cubeStraight.obj");
+	//objFile.readObjFile("bunnyBlender_v2.obj");
 
 	int noOfFaces = objFile.faces.size();
 
-	std::vector<TriangleClass*> bunnyObjects;
+	std::vector<TriangleClass*> parsedObject;
 
 	for (int i = 0; i < noOfFaces; i += 3)
 	{
-		int tempVert1 = objFile.faces[i] - 1 ;
-		int tempVert2 = objFile.faces[i + 1] - 1;
-		int tempVert3 = objFile.faces[i + 2] - 1;
+		//int tempVert1 = objFile.faces[i] - 1 ;
+		//int tempVert2 = objFile.faces[i + 1] - 1;
+		//int tempVert3 = objFile.faces[i + 2] - 1;
 
-		std::cout << tempVert1 << " " << tempVert2 << " " << tempVert3 << std::endl;
-		bunnyObjects.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
+		//std::cout << tempVert1 << " " << tempVert2 << " " << tempVert3 << std::endl;
+		parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
 			ColourClass(0.0, 1.0, 0.0),
-			new NoShadingModel(0.0, 0.0))); // PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+			new NoShadingModel(0, 0))); // new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0))); //    
 	}
 
-	for (int k = 0; k < bunnyObjects.size(); k++ )
-	{
-		std::cout << k << " " << *bunnyObjects[k] << std::endl;
-	}
-	// std::vector<TriangleClass*> convObjects;	
+	//for (int k = 0; k < parsedObject.size(); k++ )
+	//{
+	//	std::cout << k << " " << *parsedObject[k] << std::endl;
+	//}
+
 #pragma endregion
 
 	std::vector<TriangleClass*> openGLCoordKDtrees;
 
-	openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(2, 2, 0),
-		VectorClass(0, 2, 0), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0))); // new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+	//openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
+		//VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0)));
+
+	//openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(-1, -1, -1), VectorClass(-1, 1, -1),
+		//VectorClass(1, -1, -1), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0)));
+
+	//openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(-0.8, -0.8, 1), VectorClass(1, -1, 1),
+		//VectorClass(0.9, 1, 1), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0)));
+
 
 	KDNode kdtree = KDNode();
-	kdtree = *kdtree.build(bunnyObjects, 10);
+	kdtree = *kdtree.build(parsedObject, 3);
 
 	bool kdTreeChoice = 1;
 #pragma region Lights
@@ -204,7 +213,7 @@ int main(int argc, char *argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
 
-	VectorClass camPosition = VectorClass(0, 0, 4);
+	VectorClass camPosition = VectorClass(0, 0, 8);
 	VectorClass camLookAt = VectorClass(0, 0, 0);
 	double f = 0.5;
 
@@ -259,6 +268,11 @@ int main(int argc, char *argv[])
 
 	int position = 0, testCounter = 0;
 	int noOfSamples = 4;
+	
+	//////////////////////////////////////////////////////////
+	bool onceflag = true;
+	//////////////////////////////////////////////////////////
+
 
 	Tracing traceObject = Tracing();
 	for (int i = 0; i < screenHeight; i++)
@@ -287,8 +301,6 @@ int main(int argc, char *argv[])
 			{
 				ColourClass debugTmpRemoveLater;
 
-				if (i == 153 && j == 150)
-					bool somethingTest = 0;
 				//Working scene. For debugging.
 				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, maxDepth);
 								//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
@@ -302,12 +314,15 @@ int main(int argc, char *argv[])
 			}
 			else if (kdTreeChoice == 1)
 			{
+				if (i == 0 && j == 271)
+				//if (i == 9 && j == 280)
+					bool somethingTest = 0;
 				ColourClass debugTmpKDRemoveLater;
 				debugTmpKDRemoveLater = traceObject.TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
 				
-				double rt = debugTmpKDRemoveLater.GetRed();
-				double gt = debugTmpKDRemoveLater.GetGreen();
-				double bt = debugTmpKDRemoveLater.GetBlue();
+				double tr = debugTmpKDRemoveLater.GetRed();
+				double tg = debugTmpKDRemoveLater.GetGreen();
+				double tb = debugTmpKDRemoveLater.GetBlue();
 				tmp = tmp + debugTmpKDRemoveLater;
 			}
 			
@@ -340,11 +355,19 @@ int main(int argc, char *argv[])
 
 			tmp = tmp / (noOfSamples);*/
 #pragma endregion
-						
+			
 			pixels[position].SetRed(tmp.GetRed());
 			pixels[position].SetGreen(tmp.GetGreen());
 			pixels[position].SetBlue(tmp.GetBlue());
 			
+			
+			/*if (tmp.GetRed() == 0 && tmp.GetGreen() == 1 && tmp.GetBlue() == 0 && onceflag)
+			{
+				std::cout << pixels[position] << std::endl;
+				std::cout << i << " " << j << std::endl;
+
+				onceflag = false;
+			}*/
 			position++;
 		}
 	}
