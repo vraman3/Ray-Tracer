@@ -215,7 +215,7 @@ int main(int argc, char *argv[])
 
 	VectorClass camPosition = VectorClass(0, 0, 8);
 	VectorClass camLookAt = VectorClass(0, 0, 0);
-	double f = 0.5;
+	double f = 0.1;
 
 	// Calculate the Camera parameters
 	//VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
@@ -295,12 +295,18 @@ int main(int argc, char *argv[])
 			*/
 
 
-			
+			bool setSpecificPixel_debug = 0;
 
+			// Regular brute force
 			if (kdTreeChoice == 0)
 			{
 				ColourClass debugTmpRemoveLater;
 
+				//if (i == 0 && j == 271)
+				if (i == 90 && j == 240)
+				{
+					setSpecificPixel_debug = 0;
+				}
 				//Working scene. For debugging.
 				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, maxDepth);
 								//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
@@ -310,20 +316,42 @@ int main(int argc, char *argv[])
 				double rt = debugTmpRemoveLater.GetRed();
 				double gt = debugTmpRemoveLater.GetGreen();
 				double bt = debugTmpRemoveLater.GetBlue();
-				tmp = tmp + debugTmpRemoveLater;
+
+				if (setSpecificPixel_debug)
+				{
+					tmp = tmp + ColourClass(0, 0, 0);
+				}
+				else
+				{
+					tmp = tmp + debugTmpRemoveLater;
+				}
+				// Only this line should be here instead of above if condition tmp = tmp + debugTmpRemoveLater;
 			}
+			// Using kd-trees
 			else if (kdTreeChoice == 1)
 			{
-				if (i == 0 && j == 271)
-				//if (i == 9 && j == 280)
-					bool somethingTest = 0;
+				
+				if (i == 90 && j == 240)
+					//if (i == 9 && j == 280)
+				{
+					setSpecificPixel_debug = 0;
+				}
 				ColourClass debugTmpKDRemoveLater;
 				debugTmpKDRemoveLater = traceObject.TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
 				
-				double tr = debugTmpKDRemoveLater.GetRed();
-				double tg = debugTmpKDRemoveLater.GetGreen();
-				double tb = debugTmpKDRemoveLater.GetBlue();
-				tmp = tmp + debugTmpKDRemoveLater;
+				double ddr = debugTmpKDRemoveLater.GetRed();
+				double ddg = debugTmpKDRemoveLater.GetGreen();
+				double ddb = debugTmpKDRemoveLater.GetBlue();
+
+				if (setSpecificPixel_debug)
+				{
+					tmp = tmp + ColourClass(0,0,0);
+				}
+				else
+				{
+					tmp = tmp + debugTmpKDRemoveLater;
+				}
+				
 			}
 			
 #pragma region multisampling
