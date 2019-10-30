@@ -19,7 +19,7 @@ NoShadingModel::NoShadingModel(double paramReflectivity, double paramTransmissiv
 {}
 
 /**
-	Implementation of the getIllumination virtual function for PhongModel class.
+	Implementation of the getIllumination virtual function for NoShadingModel class.
 	Always returns the original object colour without calculations.
 
 	@param		  pi: The point of intersection of the ray and the current object.
