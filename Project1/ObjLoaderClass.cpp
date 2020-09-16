@@ -18,7 +18,10 @@
 void ObjLoaderClass::readObjFile(std::string paramFilename)
 {
 	std::string line;
-	std::ifstream myfile(paramFilename);
+
+	std::string relativePathFilename = "./models/" + paramFilename;
+
+	std::ifstream myfile(relativePathFilename);
 	std::string name;
 
 
