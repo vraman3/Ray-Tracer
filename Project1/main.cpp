@@ -400,7 +400,8 @@ int main(int argc, char *argv[])
 		}
 	}
 	SaveToFIle saveObject = SaveToFIle();
-	saveObject.savebmp("C:/Users/Vishwanath/Desktop/scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
+	//saveObject.savebmp("C:/Users/Vishwanath/Desktop/scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
+	saveObject.savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 
 	// Read and write from a bmp file
 	//////ReadFromFile *readObj = new ReadFromFile();
