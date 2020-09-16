@@ -3,10 +3,15 @@
 void ObjLoaderClass::readObjFile(std::string filename)
 {
 	std::string line;
-	std::ifstream myfile(filename);
+
+	std::string temp = "./models/" + filename;
+
+	std::cout << temp << std::endl;
+
+	std::ifstream myfile(temp);
 	std::string name;
 
-
+	
 	if (myfile.is_open())
 	{/*
 	 while (std::getline(myfile, line))
