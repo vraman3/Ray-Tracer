@@ -122,9 +122,9 @@ int main(int argc, char *argv[])
 
 	std::vector<IlluminationClass*> illumOGLTraceRay;
 
-	//illumOGLTraceRay.push_back(	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.0) );
+	illumOGLTraceRay.push_back(	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.0) );
 	
-	illumOGLTraceRay.push_back(new NoShadingModel(0,0)); // CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)); //
+	//illumOGLTraceRay.push_back(new NoShadingModel(0,0)); // CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)); //
 # pragma endregion
 
 #pragma region bruteForce
@@ -151,9 +151,9 @@ int main(int argc, char *argv[])
 #pragma region KDTrees Object Loading
 	ObjLoaderClass objFile = ObjLoaderClass();
 
-	objFile.readObjFile("icosphereObj.obj");
+	//objFile.readObjFile("icosphereObj.obj");
 	//objFile.readObjFile("cubeStraight.obj");
-	//objFile.readObjFile("bunnyBlender_v2.obj");
+	objFile.readObjFile("bunnyBlender_v2.obj");
 
 	int noOfFaces = objFile.faces.size();
 
@@ -182,6 +182,7 @@ int main(int argc, char *argv[])
 
 	std::vector<TriangleClass*> openGLCoordKDtrees;
 
+	/*
 	//openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
 		//VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0)));
 
@@ -191,11 +192,11 @@ int main(int argc, char *argv[])
 	//openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(-0.8, -0.8, 1), VectorClass(1, -1, 1),
 		//VectorClass(0.9, 1, 1), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0)));
 
+	*/
 
 	KDNode kdtree = KDNode();
 	kdtree = *kdtree.build(parsedObject, 3);
 
-	bool kdTreeChoice = 1;
 #pragma region Lights
 	std::vector<VectorClass*> lights;
 
@@ -272,7 +273,7 @@ int main(int argc, char *argv[])
 	//////////////////////////////////////////////////////////
 	bool onceflag = true;
 	//////////////////////////////////////////////////////////
-
+	bool kdTreeChoice = 1;
 
 	Tracing traceObject = Tracing();
 	for (int i = 0; i < screenHeight; i++)
@@ -297,7 +298,8 @@ int main(int argc, char *argv[])
 
 			bool setSpecificPixel_debug = 0;
 
-			// Regular brute force
+			// 0 = Regular brute force
+			// 1 = kdtrees
 			if (kdTreeChoice == 0)
 			{
 				ColourClass debugTmpRemoveLater;
