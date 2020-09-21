@@ -275,7 +275,9 @@ int main(int argc, char *argv[])
 	//////////////////////////////////////////////////////////
 	bool kdTreeChoice = 1;
 
-	
+	Render renderObject = Render();
+	renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
+		camU, camV, originalCamera);
 
 	
 	Tracing traceObject = Tracing();

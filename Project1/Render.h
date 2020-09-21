@@ -1,6 +1,8 @@
 #pragma once
+#include "VectorClass.h"
+#include "CameraClass.h"
 
-class RenderClass
+class Render
 {
 	public:
 		/* Variables */
@@ -8,6 +10,8 @@ class RenderClass
 		/* Constructors */
 
 		/* Functions */
-		void render();
+		void render(int screenHeight, int screenWidth, double pixelW, double pixelH, double f, 
+					VectorClass startPixel, VectorClass camU, VectorClass camV, CameraClass camera,
+					bool dataStructure);
 
 };
