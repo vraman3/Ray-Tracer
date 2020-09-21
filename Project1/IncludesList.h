@@ -40,3 +40,4 @@
 #include "Reference.h"
 #include "ReferenceCounted.h"
 #include "Transform.h"
+#include "Render.h"
