@@ -277,7 +277,7 @@ int main(int argc, char *argv[])
 
 	
 
-	/*
+	
 	Tracing traceObject = Tracing();
 	for (int i = 0; i < screenHeight; i++)
 	{
@@ -404,7 +404,7 @@ int main(int argc, char *argv[])
 			position++;
 		}
 	}
-	*/
+	
 	SaveToFIle saveObject = SaveToFIle();
 	//saveObject.savebmp("C:/Users/Vishwanath/Desktop/scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 	saveObject.savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
