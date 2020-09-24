@@ -3,9 +3,17 @@
 
 void Render::render(int screenHeight, int screenWidth, double pixelW, double pixelH, double f, 
 					VectorClass startPixel, VectorClass camU, VectorClass camV, CameraClass originalCamera,
-					bool kdTreeChoice)
+					std::vector<ObjectClass*> objects, std::vector<VectorClass*> lights, 
+					std::vector<IlluminationClass*> illuminations,	ColourClass background, 
+					ColourClass pointCol, ColourClass* pixels, int maxDepth)
 
 {
+	int position = 0, testCounter = 0;
+	int noOfSamples = 4;
+
+	//////////////////////////////////////////////////////////
+	bool onceflag = true;
+
 	Tracing traceObject = Tracing();
 	for (int i = 0; i < screenHeight; i++)
 	{
@@ -29,64 +37,35 @@ void Render::render(int screenHeight, int screenWidth, double pixelW, double pix
 
 			bool setSpecificPixel_debug = 0;
 
-			// 0 = Regular brute force
-			// 1 = kdtrees
-			if (kdTreeChoice == 0)
+			
+			ColourClass debugTmpRemoveLater;
+
+			//if (i == 0 && j == 271)
+			if (i == 90 && j == 240)
 			{
-				ColourClass debugTmpRemoveLater;
-
-				//if (i == 0 && j == 271)
-				if (i == 90 && j == 240)
-				{
-					setSpecificPixel_debug = 0;
-				}
-				//Working scene. For debugging.
-				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, maxDepth);
-				//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
-
-				if (debugTmpRemoveLater.GetGreen() == 1)
-					bool testIfGreen = false;
-				double rt = debugTmpRemoveLater.GetRed();
-				double gt = debugTmpRemoveLater.GetGreen();
-				double bt = debugTmpRemoveLater.GetBlue();
-
-				if (setSpecificPixel_debug)
-				{
-					tmp = tmp + ColourClass(0, 0, 0);
-				}
-				else
-				{
-					tmp = tmp + debugTmpRemoveLater;
-				}
-				// Only this line should be here instead of above if condition tmp = tmp + debugTmpRemoveLater;
+				setSpecificPixel_debug = 0;
 			}
-			// Using kd-trees
-			else if (kdTreeChoice == 1)
+			//Working scene. For debugging.
+			//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, maxDepth);
+			debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
+			//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
+
+			if (debugTmpRemoveLater.GetGreen() == 1)
+				bool testIfGreen = false;
+			double rt = debugTmpRemoveLater.GetRed();
+			double gt = debugTmpRemoveLater.GetGreen();
+			double bt = debugTmpRemoveLater.GetBlue();
+
+			if (setSpecificPixel_debug)
 			{
-
-				if (i == 90 && j == 240)
-					//if (i == 9 && j == 280)
-				{
-					setSpecificPixel_debug = 0;
-				}
-				ColourClass debugTmpKDRemoveLater;
-				debugTmpKDRemoveLater = traceObject.TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
-
-				double ddr = debugTmpKDRemoveLater.GetRed();
-				double ddg = debugTmpKDRemoveLater.GetGreen();
-				double ddb = debugTmpKDRemoveLater.GetBlue();
-
-				if (setSpecificPixel_debug)
-				{
-					tmp = tmp + ColourClass(0, 0, 0);
-				}
-				else
-				{
-					tmp = tmp + debugTmpKDRemoveLater;
-				}
-
+				tmp = tmp + ColourClass(0, 0, 0);
 			}
-
+			else
+			{
+				tmp = tmp + debugTmpRemoveLater;
+			}
+			// Only this line should be here instead of above if condition tmp = tmp + debugTmpRemoveLater;
+			
 #pragma region multisampling
 			/*//Multisampling using 4 points for a pixel
 
@@ -121,16 +100,67 @@ void Render::render(int screenHeight, int screenWidth, double pixelW, double pix
 			pixels[position].SetGreen(tmp.GetGreen());
 			pixels[position].SetBlue(tmp.GetBlue());
 
-
-			/*if (tmp.GetRed() == 0 && tmp.GetGreen() == 1 && tmp.GetBlue() == 0 && onceflag)
-			{
-				std::cout << pixels[position] << std::endl;
-				std::cout << i << " " << j << std::endl;
-
-				onceflag = false;
-			}*/
 			position++;
 		}
 	}
 }
 
+void Render::render(int screenHeight, int screenWidth, double pixelW, double pixelH, double f,
+					VectorClass startPixel, VectorClass camU, VectorClass camV, CameraClass originalCamera,
+					KDNode kdtree, std::vector<VectorClass*> lights, ColourClass background, 
+					ColourClass pointCol, ColourClass *pixels, int maxDepth)
+
+{
+	int position = 0, testCounter = 0;
+	int noOfSamples = 4;
+
+	//////////////////////////////////////////////////////////
+	bool onceflag = true;
+
+	Tracing traceObject = Tracing();
+	for (int i = 0; i < screenHeight; i++)
+	{
+		for (int j = 0; j < screenWidth; j++)
+		{
+			ColourClass tmp = ColourClass(0, 0, 0);
+
+			VectorClass val = VectorClass(startPixel.getX() + camU.getX() * (j + 0.5) * pixelW + camV.getX() * (i + 0.5) * pixelH,
+				startPixel.getY() + camU.getY() * (j + 0.5) * pixelW + camV.getY() * (i + 0.5) * pixelH,
+				-f);
+
+			VectorClass direction = (val - originalCamera.GetPosition()).normalize();
+			RayClass ray(originalCamera.GetPosition(), direction);
+
+			
+			bool setSpecificPixel_debug = 0;
+
+			
+			if (i == 90 && j == 240)
+				//if (i == 9 && j == 280)
+			{
+				setSpecificPixel_debug = 0;
+			}
+			ColourClass debugTmpKDRemoveLater;
+			debugTmpKDRemoveLater = traceObject.TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
+
+			double ddr = debugTmpKDRemoveLater.GetRed();
+			double ddg = debugTmpKDRemoveLater.GetGreen();
+			double ddb = debugTmpKDRemoveLater.GetBlue();
+
+			if (setSpecificPixel_debug)
+			{
+				tmp = tmp + ColourClass(0, 0, 0);
+			}
+			else
+			{
+				tmp = tmp + debugTmpKDRemoveLater;
+			}
+
+			pixels[position].SetRed(tmp.GetRed());
+			pixels[position].SetGreen(tmp.GetGreen());
+			pixels[position].SetBlue(tmp.GetBlue());
+
+			position++;
+		}
+	}
+}
