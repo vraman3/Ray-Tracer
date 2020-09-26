@@ -27,7 +27,8 @@ Tracing::Tracing()
 	@param pointCol: The intensity of the light.
 	@param maxDepth: The maximum allowed depth for all light bounces.
 */
-ColourClass Tracing::TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree, std::vector<VectorClass*> lights,ColourClass background, ColourClass pointCol, int maxDepth)
+ColourClass Tracing::TraceRayKD(RayClass ray, int depth, double incomingni, KDNode kdtree, std::vector<VectorClass*> lights, 
+	ColourClass background, ColourClass pointCol, int maxDepth)
 {
 	//double currentLowestVal = 1000000;
 	double omega = 0.0;

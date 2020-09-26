@@ -34,22 +34,12 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		/* From File
-		screenWidth = 64
-		screenHeight = 48;
-		*/
-		
 		screenWidth = 640;
 		screenHeight = 480;
 		maxDepth = 5;
 		whichTR = 3;
 	}
 
-	/*Matrix4x4 mtest = Matrix4x4(1, 0, -5, 4, 1, 4, 3, 4, 8, 2, 1, 5, 7, 2, 3, 1);
-	
-	Matrix4x4 invM = mtest.Inverse();
-
-	std::cout << invM;*/
 
 #pragma region objects and their illumination models
 
@@ -104,12 +94,69 @@ int main(int argc, char *argv[])
 	
 #pragma endregion
 
-	std::vector<ObjectClass*> trianglesForBruteForce;
+#pragma region cubeStraightObjects
+	std::vector<ObjectClass*> cubeStraightObjects;
 
-	trianglesForBruteForce.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
-		VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0), new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
+	std::vector<VectorClass> cubeStraightPoints;
 
+	cubeStraightPoints.push_back(VectorClass(1.0, -1.0, -1.0));
+	cubeStraightPoints.push_back(VectorClass(1.0, -1.0, 1.0));
+	cubeStraightPoints.push_back(VectorClass(-1.0, -1.0, 1.0));
+	cubeStraightPoints.push_back(VectorClass(-1.0, -1.0, -1.0));
+
+	cubeStraightPoints.push_back(VectorClass(1.0, 1.0, -0.999999));
+	cubeStraightPoints.push_back(VectorClass(0.999999, 1.0, 1.000001));
+	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, 1.0));
+	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, -1.0));
+
+	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[1], cubeStraightPoints[3], cubeStraightPoints[0],
+		ColourClass(0.0, 1.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[7], cubeStraightPoints[5], cubeStraightPoints[4],
+		ColourClass(0.0, 1.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[1], cubeStraightPoints[0],
+		ColourClass(0.0, 1.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[2], cubeStraightPoints[1],
+		ColourClass(0.0, 1.0, 0.0)));
+
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[7], cubeStraightPoints[3],
+		ColourClass(0.0, 1.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[7], cubeStraightPoints[4],
+		ColourClass(0.0, 1.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[1], cubeStraightPoints[2], cubeStraightPoints[3],
+		ColourClass(0.0, 1.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[7], cubeStraightPoints[6], cubeStraightPoints[5],
+		ColourClass(0.0, 1.0, 0.0)));
+
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[5], cubeStraightPoints[1],
+		ColourClass(0.0, 1.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[6], cubeStraightPoints[2],
+		ColourClass(0.0, 1.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[6], cubeStraightPoints[7],
+		ColourClass(0.0, 1.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[3], cubeStraightPoints[7],
+		ColourClass(0.0, 1.0, 0.0)));
+
+#pragma endregion
 	
+#pragma region cubeStraightIllum
+	std::vector<IlluminationClass*> cubeStraightIllum;
+
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+#pragma endregion
+
 #pragma region GLTraceRay
 	std::vector<ObjectClass*> openGLTraceRay;
 
@@ -165,7 +212,6 @@ int main(int argc, char *argv[])
 		//int tempVert2 = objFile.faces[i + 1] - 1;
 		//int tempVert3 = objFile.faces[i + 2] - 1;
 
-		//std::cout << tempVert1 << " " << tempVert2 << " " << tempVert3 << std::endl;
 		parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
@@ -173,26 +219,9 @@ int main(int argc, char *argv[])
 			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0))); // new NoShadingModel(0, 0))); // 
 	}
 
-	//for (int k = 0; k < parsedObject.size(); k++ )
-	//{
-	//	std::cout << k << " " << *parsedObject[k] << std::endl;
-	//}
-
 #pragma endregion
 
 	std::vector<TriangleClass*> openGLCoordKDtrees;
-
-	/*
-	//openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(1, 1, 0),
-		//VectorClass(0, 1, 0), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0)));
-
-	//openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(-1, -1, -1), VectorClass(-1, 1, -1),
-		//VectorClass(1, -1, -1), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0)));
-
-	//openGLCoordKDtrees.push_back(new TriangleClass(VectorClass(-0.8, -0.8, 1), VectorClass(1, -1, 1),
-		//VectorClass(0.9, 1, 1), ColourClass(0.0, 1.0, 0.0), new NoShadingModel(0, 0)));
-
-	*/
 
 	KDNode kdtree = KDNode();
 	kdtree = *kdtree.build(parsedObject, 3);
@@ -262,18 +291,6 @@ int main(int argc, char *argv[])
 	double pixelW = worldWidth / screenWidth;
 	double pixelH = worldHeight / screenHeight;
 #pragma endregion 
-
-	// For multisampling
-	//double pw2 = pixelW / 2;
-	//double ph2 = pixelH / 2;
-
-	int position = 0, testCounter = 0;
-	int noOfSamples = 4;
-	
-	//////////////////////////////////////////////////////////
-	bool onceflag = true;
-	//////////////////////////////////////////////////////////
-	bool kdTreeChoice = 1;
 
 	Render renderObject = Render();
 	
