@@ -8,6 +8,8 @@
 */
 
 #include "IncludesList.h"
+#include <chrono>
+
 //typedef techsoft::matrix<double> Matrix;
 
 int main(int argc, char *argv[])
@@ -197,7 +199,7 @@ int main(int argc, char *argv[])
 
 #pragma region KDTrees Object Loading
 	ObjLoaderClass objFile = ObjLoaderClass();
-
+	
 	//objFile.readObjFile("icosphereObj.obj");
 	objFile.readObjFile("cubeStraight.obj");
 	//objFile.readObjFile("bunnyBlender_v2.obj");
@@ -223,9 +225,13 @@ int main(int argc, char *argv[])
 
 	std::vector<TriangleClass*> openGLCoordKDtrees;
 
+	auto start = std::chrono::high_resolution_clock::now();
+
 	KDNode kdtree = KDNode();
 	kdtree = *kdtree.build(parsedObject, 3);
 
+	auto finish = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> kdBuild_time = finish - start;
 #pragma region Lights
 	std::vector<VectorClass*> lights;
 
@@ -235,13 +241,14 @@ int main(int argc, char *argv[])
 	
 #pragma endregion
 
-
+	
 #pragma region background,screensize,camera
 	ColourClass background(0.3, 0.8, 1.0);
 	ColourClass pointCol(1.0, 1.0, 1.0);
 
 	int filesize = screenWidth * screenHeight;
 	ColourClass *pixels = new ColourClass[filesize];
+	ColourClass* debugPixels = new ColourClass[filesize];
 
 	VectorClass camPosition = VectorClass(0, 0, 8);
 	VectorClass camLookAt = VectorClass(0, 0, 0);
@@ -297,141 +304,31 @@ int main(int argc, char *argv[])
 	//renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
 	//	camU, camV, originalCamera, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, pixels, maxDepth);
 
+	start = std::chrono::high_resolution_clock::now();
+
 	renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
 		camU, camV, originalCamera, kdtree, lights, background, pointCol, pixels, maxDepth);
+	
+	finish = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> kdRender_time = finish - start;
 
-	
-//	Tracing traceObject = Tracing();
-//	for (int i = 0; i < screenHeight; i++)
-//	{
-//		for (int j = 0; j < screenWidth; j++)
-//		{
-//			ColourClass tmp = ColourClass(0, 0, 0);
-//			
-//			VectorClass val = VectorClass(startPixel.getX() + camU.getX() * (j + 0.5) * pixelW + camV.getX() * (i + 0.5) * pixelH,
-//										  startPixel.getY() + camU.getY() * (j + 0.5) * pixelW + camV.getY() * (i + 0.5) * pixelH,
-//										  -f);
-//
-//			VectorClass direction = (val - originalCamera.GetPosition()).normalize();
-//			RayClass ray(originalCamera.GetPosition(), direction);
-//			
-//			/*
-//			 0 = Regular ray tracing. Brute Force.
-//			 1 = Use KD trees.
-//			 2 = Use any other integer to skip following conditions.
-//			*/
-//
-//
-//			bool setSpecificPixel_debug = 0;
-//
-//			// 0 = Regular brute force
-//			// 1 = kdtrees
-//			if (kdTreeChoice == 0)
-//			{
-//				ColourClass debugTmpRemoveLater;
-//
-//				//if (i == 0 && j == 271)
-//				if (i == 90 && j == 240)
-//				{
-//					setSpecificPixel_debug = 0;
-//				}
-//				//Working scene. For debugging.
-//				debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, maxDepth);
-//								//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
-//
-//				if (debugTmpRemoveLater.GetGreen() == 1)
-//					bool testIfGreen = false;
-//				double rt = debugTmpRemoveLater.GetRed();
-//				double gt = debugTmpRemoveLater.GetGreen();
-//				double bt = debugTmpRemoveLater.GetBlue();
-//
-//				if (setSpecificPixel_debug)
-//				{
-//					tmp = tmp + ColourClass(0, 0, 0);
-//				}
-//				else
-//				{
-//					tmp = tmp + debugTmpRemoveLater;
-//				}
-//				// Only this line should be here instead of above if condition tmp = tmp + debugTmpRemoveLater;
-//			}
-//			// Using kd-trees
-//			else if (kdTreeChoice == 1)
-//			{
-//				
-//				if (i == 90 && j == 240)
-//					//if (i == 9 && j == 280)
-//				{
-//					setSpecificPixel_debug = 0;
-//				}
-//				ColourClass debugTmpKDRemoveLater;
-//				debugTmpKDRemoveLater = traceObject.TraceRayKD(ray, 0, 1.0, kdtree, lights, background, pointCol, maxDepth);;
-//				
-//				double ddr = debugTmpKDRemoveLater.GetRed();
-//				double ddg = debugTmpKDRemoveLater.GetGreen();
-//				double ddb = debugTmpKDRemoveLater.GetBlue();
-//
-//				if (setSpecificPixel_debug)
-//				{
-//					tmp = tmp + ColourClass(0,0,0);
-//				}
-//				else
-//				{
-//					tmp = tmp + debugTmpKDRemoveLater;
-//				}
-//				
-//			}
-//			
-//#pragma region multisampling
-//			/*//Multisampling using 4 points for a pixel
-//			
-//			VectorClass val1 = VectorClass(val.getX() - pw2, val.getY() + ph2, val.getZ());
-//			VectorClass val2 = VectorClass(val.getX() + pw2, val.getY() + ph2, val.getZ());
-//			VectorClass val3 = VectorClass(val.getX() + pw2, val.getY() - ph2, val.getZ());
-//			VectorClass val4 = VectorClass(val.getX() - pw2, val.getY() - ph2, val.getZ());
-//
-//			VectorClass direction1 = (val1 - originalCamera.GetPosition()).normalize();
-//			VectorClass direction2 = (val2 - originalCamera.GetPosition()).normalize();
-//			VectorClass direction3 = (val3 - originalCamera.GetPosition()).normalize();
-//			VectorClass direction4 = (val4 - originalCamera.GetPosition()).normalize();
-//
-//			RayClass ray1(originalCamera.GetPosition(), direction1);
-//			RayClass ray2(originalCamera.GetPosition(), direction2);
-//			RayClass ray3(originalCamera.GetPosition(), direction3);
-//			RayClass ray4(originalCamera.GetPosition(), direction4);
-//
-//			ColourClass debugTmpRemoveLater1 = TraceRay(ray1, 0, 1.0, objects, objectCount, lights, lightsCount, illuminations, background, pointCol, position);
-//			tmp = tmp + debugTmpRemoveLater1;
-//			ColourClass debugTmpRemoveLater2 = TraceRay(ray2, 0, 1.0, objects, objectCount, lights, lightsCount, illuminations, background, pointCol, position);
-//			tmp = tmp + debugTmpRemoveLater2;
-//			ColourClass debugTmpRemoveLater3 = TraceRay(ray3, 0, 1.0, objects, objectCount, lights, lightsCount, illuminations, background, pointCol, position);
-//			tmp = tmp + debugTmpRemoveLater3;
-//			ColourClass debugTmpRemoveLater4 = TraceRay(ray4, 0, 1.0, objects, objectCount, lights, lightsCount, illuminations, background, pointCol, position);
-//			tmp = tmp + debugTmpRemoveLater4;
-//
-//			tmp = tmp / (noOfSamples);*/
-//#pragma endregion
-//			
-//			pixels[position].SetRed(tmp.GetRed());
-//			pixels[position].SetGreen(tmp.GetGreen());
-//			pixels[position].SetBlue(tmp.GetBlue());
-//			
-//			
-//			/*if (tmp.GetRed() == 0 && tmp.GetGreen() == 1 && tmp.GetBlue() == 0 && onceflag)
-//			{
-//				std::cout << pixels[position] << std::endl;
-//				std::cout << i << " " << j << std::endl;
-//
-//				onceflag = false;
-//			}*/
-//			position++;
-//		}
-//	}
-	
 	SaveToFIle saveObject = SaveToFIle();
-	//saveObject.savebmp("C:/Users/Vishwanath/Desktop/scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 	saveObject.savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
 
+	start = std::chrono::high_resolution_clock::now();
+
+	renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
+		camU, camV, originalCamera, cubeStraightObjects, lights, cubeStraightIllum, background, pointCol, debugPixels, maxDepth);
+
+	finish = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> bruteRender_time = finish - start;
+
+	SaveToFIle saveObjectDebug = SaveToFIle();
+	saveObjectDebug.savebmp("scene_Vishwanath_brute.bmp", screenWidth, screenHeight, 72, debugPixels, whichTR);
+	
+	std::cout << "kd tree build: " << kdBuild_time.count() << "seconds" << std::endl;
+	std::cout << "kd tree render: " << kdRender_time.count() << "seconds" << std::endl;
+	std::cout << "brute force render: " << bruteRender_time.count() << "seconds" << std::endl;
 	// Read and write from a bmp file
 	//////ReadFromFile *readObj = new ReadFromFile();
 	//////int start = 0, testCounter1 = 0;
