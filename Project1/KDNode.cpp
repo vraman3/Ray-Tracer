@@ -190,7 +190,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 	//
 	// Prepare to traverse k-d tree for ray
 	//
-#define MAX_TODO 5000
+	#define MAX_TODO 5000
 	KDToDo todo[MAX_TODO];
 	int todoPos = 0;
 

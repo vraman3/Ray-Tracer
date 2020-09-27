@@ -96,67 +96,71 @@ int main(int argc, char *argv[])
 	
 #pragma endregion
 
-#pragma region cubeStraightObjects
-	std::vector<ObjectClass*> cubeStraightObjects;
+#pragma region cubeStraightObjectsAndIlluminations
 
-	std::vector<VectorClass> cubeStraightPoints;
-
-	cubeStraightPoints.push_back(VectorClass(1.0, -1.0, -1.0));
-	cubeStraightPoints.push_back(VectorClass(1.0, -1.0, 1.0));
-	cubeStraightPoints.push_back(VectorClass(-1.0, -1.0, 1.0));
-	cubeStraightPoints.push_back(VectorClass(-1.0, -1.0, -1.0));
-
-	cubeStraightPoints.push_back(VectorClass(1.0, 1.0, -0.999999));
-	cubeStraightPoints.push_back(VectorClass(0.999999, 1.0, 1.000001));
-	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, 1.0));
-	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, -1.0));
-
-	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[1], cubeStraightPoints[3], cubeStraightPoints[0],
-		ColourClass(0.0, 1.0, 0.0)));
-	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[7], cubeStraightPoints[5], cubeStraightPoints[4],
-		ColourClass(0.0, 1.0, 0.0)));
-	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[1], cubeStraightPoints[0],
-		ColourClass(0.0, 1.0, 0.0)));
-	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[2], cubeStraightPoints[1],
-		ColourClass(0.0, 1.0, 0.0)));
-
-	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[7], cubeStraightPoints[3],
-		ColourClass(0.0, 1.0, 0.0)));
-	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[7], cubeStraightPoints[4],
-		ColourClass(0.0, 1.0, 0.0)));
-	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[1], cubeStraightPoints[2], cubeStraightPoints[3],
-		ColourClass(0.0, 1.0, 0.0)));
-	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[7], cubeStraightPoints[6], cubeStraightPoints[5],
-		ColourClass(0.0, 1.0, 0.0)));
-
-	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[5], cubeStraightPoints[1],
-		ColourClass(0.0, 1.0, 0.0)));
-	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[6], cubeStraightPoints[2],
-		ColourClass(0.0, 1.0, 0.0)));
-	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[6], cubeStraightPoints[7],
-		ColourClass(0.0, 1.0, 0.0)));
-	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[3], cubeStraightPoints[7],
-		ColourClass(0.0, 1.0, 0.0)));
-
-#pragma endregion
+//#pragma region cubeStraightObjects
+//	std::vector<ObjectClass*> cubeStraightObjects;
+//
+//	std::vector<VectorClass> cubeStraightPoints;
+//
+//	cubeStraightPoints.push_back(VectorClass(1.0, -1.0, -1.0));
+//	cubeStraightPoints.push_back(VectorClass(1.0, -1.0, 1.0));
+//	cubeStraightPoints.push_back(VectorClass(-1.0, -1.0, 1.0));
+//	cubeStraightPoints.push_back(VectorClass(-1.0, -1.0, -1.0));
+//
+//	cubeStraightPoints.push_back(VectorClass(1.0, 1.0, -0.999999));
+//	cubeStraightPoints.push_back(VectorClass(0.999999, 1.0, 1.000001));
+//	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, 1.0));
+//	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, -1.0));
+//
+//	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[1], cubeStraightPoints[3], cubeStraightPoints[0],
+//		ColourClass(0.0, 1.0, 0.0)));
+//	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[7], cubeStraightPoints[5], cubeStraightPoints[4],
+//		ColourClass(0.0, 1.0, 0.0)));
+//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[1], cubeStraightPoints[0],
+//		ColourClass(0.0, 1.0, 0.0)));
+//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[2], cubeStraightPoints[1],
+//		ColourClass(0.0, 1.0, 0.0)));
+//
+//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[7], cubeStraightPoints[3],
+//		ColourClass(0.0, 1.0, 0.0)));
+//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[7], cubeStraightPoints[4],
+//		ColourClass(0.0, 1.0, 0.0)));
+//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[1], cubeStraightPoints[2], cubeStraightPoints[3],
+//		ColourClass(0.0, 1.0, 0.0)));
+//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[7], cubeStraightPoints[6], cubeStraightPoints[5],
+//		ColourClass(0.0, 1.0, 0.0)));
+//
+//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[5], cubeStraightPoints[1],
+//		ColourClass(0.0, 1.0, 0.0)));
+//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[6], cubeStraightPoints[2],
+//		ColourClass(0.0, 1.0, 0.0)));
+//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[6], cubeStraightPoints[7],
+//		ColourClass(0.0, 1.0, 0.0)));
+//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[3], cubeStraightPoints[7],
+//		ColourClass(0.0, 1.0, 0.0)));
+//
+//#pragma endregion
 	
-#pragma region cubeStraightIllum
-	std::vector<IlluminationClass*> cubeStraightIllum;
+//#pragma region cubeStraightIllum
+//	std::vector<IlluminationClass*> cubeStraightIllum;
+//
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+//#pragma endregion
 
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
 #pragma endregion
 
 #pragma region GLTraceRay
@@ -197,12 +201,13 @@ int main(int argc, char *argv[])
 	//illuminationsForBruteForce.push_back(new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
 #pragma endregion
 
-#pragma region KDTrees Object Loading
+#pragma region KdTreeAndBruteForceObjectLoading
+#pragma region KDTreesObjectLoading
 	ObjLoaderClass objFile = ObjLoaderClass();
 	
 	//objFile.readObjFile("icosphereObj.obj");
-	objFile.readObjFile("cubeStraight.obj");
-	//objFile.readObjFile("bunnyBlender_v2.obj");
+	//objFile.readObjFile("cubeStraight.obj");
+	objFile.readObjFile("bunnyBlender_v2.obj");
 
 	int noOfFaces = objFile.faces.size();
 
@@ -210,10 +215,6 @@ int main(int argc, char *argv[])
 
 	for (int i = 0; i < noOfFaces; i += 3)
 	{
-		//int tempVert1 = objFile.faces[i] - 1 ;
-		//int tempVert2 = objFile.faces[i + 1] - 1;
-		//int tempVert3 = objFile.faces[i + 2] - 1;
-
 		parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
@@ -222,7 +223,26 @@ int main(int argc, char *argv[])
 	}
 
 #pragma endregion
+#pragma region BruteForceObjectLoading
+	std::vector<ObjectClass*> parsedObjectBrute;
 
+	for (int i = 0; i < noOfFaces; i += 3)
+	{
+		parsedObjectBrute.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
+			objFile.opVertices[objFile.faces[i + 1] - 1],
+			objFile.opVertices[objFile.faces[i + 2] - 1],
+			ColourClass(0.0, 1.0, 0.0))); // new NoShadingModel(0, 0))); // 
+	}
+	// Refactor the above part as well as the illumination usage to remove the array
+
+	std::vector<IlluminationClass*> parsedObjectIlluminations;
+
+	for (int i = 0; i < noOfFaces; i += 3)
+	{
+		parsedObjectIlluminations.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)); // new NoShadingModel(0, 0))); // 
+	}
+#pragma endregion
+#pragma endregion
 	std::vector<TriangleClass*> openGLCoordKDtrees;
 
 	auto start = std::chrono::high_resolution_clock::now();
@@ -238,7 +258,6 @@ int main(int argc, char *argv[])
 	lights.push_back(new VectorClass(5, 7.4, 9));
 #pragma endregion
 
-	
 #pragma endregion
 
 	
@@ -318,7 +337,7 @@ int main(int argc, char *argv[])
 	start = std::chrono::high_resolution_clock::now();
 
 	renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-		camU, camV, originalCamera, cubeStraightObjects, lights, cubeStraightIllum, background, pointCol, debugPixels, maxDepth);
+		camU, camV, originalCamera, parsedObjectBrute, lights, parsedObjectIlluminations, background, pointCol, debugPixels, maxDepth);
 
 	finish = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> bruteRender_time = finish - start;
