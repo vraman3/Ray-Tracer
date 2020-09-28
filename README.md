@@ -2,7 +2,9 @@
 Ray Tracer
 
 @author: Vishwanath Raman
+
 @version: 1.0 started on Oct 19 2017
+
 @last-update: 1.0 - 28th September 2020
 
 Hello! Thank you for checking out my Ray Tracer.
@@ -21,11 +23,11 @@ Things to do:
      - [ ] Clean up all the stray/unused branches.
      - [ ] Add the features written in readme to a trackable system in github.
 3. - [ ] Debug k-d trees implementation.
-- [x] Implemented Oct-trees. 
-- [x] Debug.
-- [x] Runs.
-- [x] Extend to k-d trees
-  - [ ] Current running time for kdtrees and the brute force method is the same. Need to debug the kdtree implementation.
+     - [x] Implemented Oct-trees. 
+     - [x] Debug.
+     - [x] Runs.
+     - [x] Extend to k-d trees
+       - [ ] Current running time for kdtrees and the brute force method is the same. Need to debug the kdtree implementation.
 4. - [ ] Refactor main.cpp to be more modular, mainly including:
    - [x] Modularizing the camera controls.
    - [x] Separating the TraceRay functions to another class/file.
@@ -38,7 +40,7 @@ Things to do:
 6. - [ ] Add a way to see the output.
    - [ ] See the current output of the ray tracer.
    - [ ] See outputs for techniques already implemented and working.
-6. - [ ] Improve the ReadME.
+7. - [ ] Improve the ReadME.
    - [ ] Make interactive with sections.
    - [ ] Add info about major techniques.
    - [ ] Index.
