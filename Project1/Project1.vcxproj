@@ -72,11 +72,18 @@
     <ClInclude Include="ColourClass.h" />
     <ClInclude Include="AABBClass.h" />
     <ClInclude Include="CheckerboardPattern.h" />
+    <ClInclude Include="CustomMath.h" />
+    <ClInclude Include="Reference.h" />
+    <ClInclude Include="ReferenceCounted.h" />
+    <ClInclude Include="Matrix4x4.h" />
+    <ClInclude Include="IncludesList.h" />
     <ClInclude Include="IntersectionInfo.h" />
     <ClInclude Include="KDNode.h" />
     <ClInclude Include="ObjLoaderClass.h" />
     <ClInclude Include="ReadFromFile.h" />
+    <ClInclude Include="Render.h" />
     <ClInclude Include="SaveToFIle.h" />
+    <ClInclude Include="SimpleDiffuseModel.h" />
     <ClInclude Include="TextureMapping.h" />
     <ClInclude Include="ToneReproduction.h" />
     <ClInclude Include="NoShadingModel.h" />
@@ -86,6 +93,8 @@
     <ClInclude Include="IlluminationClass.h" />
     <ClInclude Include="PlaneClass.h" />
     <ClInclude Include="MatrixClass.h" />
+    <ClInclude Include="Tracing.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="TriangleClass.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="ObjectClass.h" />
@@ -103,6 +112,7 @@
     <ClCompile Include="KDNode.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="MatrixClass.cpp" />
     <ClCompile Include="NoShadingModel.cpp" />
     <ClCompile Include="ObjectClass.cpp" />
@@ -112,11 +122,15 @@
     <ClCompile Include="PlaneClass.cpp" />
     <ClCompile Include="RayClass.cpp" />
     <ClCompile Include="ReadFromFile.cpp" />
+    <ClCompile Include="Render.cpp" />
     <ClCompile Include="SaveToFIle.cpp" />
+    <ClCompile Include="SimpleDiffuseModel.cpp" />
     <ClCompile Include="SphereClass.cpp" />
     <ClCompile Include="StraussModel.cpp" />
     <ClCompile Include="TextureMapping.cpp" />
     <ClCompile Include="ToneReproduction.cpp" />
+    <ClCompile Include="Tracing.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TriangleClass.cpp" />
     <ClCompile Include="VectorClass.cpp" />
   </ItemGroup>

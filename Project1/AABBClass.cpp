@@ -18,6 +18,14 @@ AABBClass::AABBClass()
 /**
 	Parameterized Constructor.
 
+	@param paramPoint: The minimum and maximum value for the bounding box.
+*/
+AABBClass::AABBClass(VectorClass paramPoint): bMin(paramPoint), bMax(paramPoint)
+{}
+
+/**
+	Parameterized Constructor.
+
 	@param paramMin: The minimum value for the bounding box.
 	@param paramMax: The maximum value for the bounding box.
 */
@@ -27,6 +35,26 @@ AABBClass::AABBClass(VectorClass paramMin, VectorClass paramMax)
 	bMax = paramMax;
 
 	calculateCenter();
+}
+
+/**
+	Get the bMin value for current box.
+
+	@return The bMin value as a Vector.
+*/
+VectorClass AABBClass::getbMin()
+{
+	return bMin;
+}
+
+/**
+	Get the bMax value for current box.
+
+	@return The bMax value as a Vector.
+*/
+VectorClass AABBClass::getbMax()
+{
+	return bMax;
 }
 
 /**
@@ -213,10 +241,25 @@ void AABBClass::Expand(AABBClass paramNewBox)
 	if (paramNewBox.bMin.getZ() < bMin.getZ())
 		bMin.setZ(paramNewBox.bMin.getZ());
 
-	if (paramNewBox.bMax.getX() < bMax.getX())
+	if (paramNewBox.bMax.getX() > bMax.getX())
 		bMax.setX(paramNewBox.bMax.getX());
-	if (paramNewBox.bMax.getY() < bMax.getY())
+	if (paramNewBox.bMax.getY() > bMax.getY())
 		bMax.setY(paramNewBox.bMax.getY());
-	if (paramNewBox.bMax.getZ() < bMax.getZ())
+	if (paramNewBox.bMax.getZ() > bMax.getZ())
 		bMax.setZ(paramNewBox.bMax.getZ());
+}
+
+AABBClass AABBClass::Expand(VectorClass & point)
+{
+	AABBClass returnBox = *this;
+
+	returnBox.bMin.setX(fmin(returnBox.bMin.getX(), point.getX()));
+	returnBox.bMin.setY(fmin(returnBox.bMin.getY(), point.getY()));
+	returnBox.bMin.setZ(fmin(returnBox.bMin.getZ(), point.getZ()));
+
+	returnBox.bMax.setX(fmax(returnBox.bMax.getX(), point.getX()));
+	returnBox.bMax.setY(fmax(returnBox.bMax.getY(), point.getY()));
+	returnBox.bMax.setZ(fmax(returnBox.bMax.getZ(), point.getZ()));
+
+	return returnBox;
 }

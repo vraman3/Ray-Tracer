@@ -42,16 +42,24 @@ CheckerboardPattern::CheckerboardPattern(int paramWidth, int paramHeight, double
 */
 ColourClass CheckerboardPattern::getIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
 {
+	double kaAmbient = 0.3;
+	double kdDiffuse = 0.4;
+	double ksSpecular = 0.08;
+	double keHardness = 12.5;
+
 	double x = pi.getX();
 	double y = pi.getY();
 	double z = pi.getZ();
 	double size = 1.0;
 
 
-	PhongModel *p = new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0);
+
 
 	int patternChoice = 0;
+	
+	PhongModel *p = new PhongModel(0.4, 0.08, 0.3, 12.5, 0.0, 0.0);
 
+#pragma region UsingPhongEarlier
 	switch (patternChoice)
 	{
 		//1 Smooth Colour. Merges cos and sin phases		No
@@ -82,7 +90,6 @@ ColourClass CheckerboardPattern::getIllumination(VectorClass pi, RayClass ray, V
 			return p->getIllumination(pi, ray, normal, lightRay, viewerRay, ColourClass(1.0, 1.0, 0.0), pointCol, maxDepth);
 		break;
 	}
-
 	/*if (((int)floor(x / size) + (int)floor(y / size) + (int)floor(z / size)) % 2 == 0)
 	return p->getIllumination(pi, ray, N, lightRay, viewerRay, ColourClass(1.0, 0.0, 0.0) + sin(5*x), pointCol, maxDepth);
 	else
@@ -99,5 +106,7 @@ ColourClass CheckerboardPattern::getIllumination(VectorClass pi, RayClass ray, V
 	return p->getIllumination(pi, ray, N, lightRay, viewerRay, ColourClass(1.0, 0.0, 0.0), pointCol, maxDepth);
 	else
 	return p->getIllumination(pi, ray, N, lightRay, viewerRay, ColourClass(1.0, 1.0, 0.0), pointCol, maxDepth);*/
+#pragma endregion
+	
 
 }

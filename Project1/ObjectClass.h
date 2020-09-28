@@ -13,7 +13,7 @@
 #include "ColourClass.h"
 #include "RayClass.h"
 
-#define EPSILONVAL 0.00001
+#define EPSILONVAL 0.00000001
 
 class ObjectClass
 {

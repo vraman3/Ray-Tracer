@@ -1,6 +1,13 @@
+/**
+	RayTracing, PlaneClass.h
+	Header file to implement PlaneClass.
+
+	@author: Vishwanath Raman
+	@version: 1.0 Oct/21/2017
+
+*/
 #pragma once
 
-//Author: Vishwanath Raman
 #include <iostream>
 
 #include "VectorClass.h"
@@ -13,15 +20,21 @@
 class PlaneClass : public ObjectClass
 {
 	private:
+		/* Variables */
 		VectorClass A, B, C, edge1, edge2, normal;
 		double		diffuse, specular, ambient;
 		int count;
 		ColourClass colour;
+
+		/* Getters */
 		double GetArea(VectorClass, VectorClass, VectorClass);
 
 	public:
+		/* Constructors */
 		PlaneClass();
 		PlaneClass(VectorClass, VectorClass, VectorClass, ColourClass);
+
+		/* Getters */
 		VectorClass GetNormal(VectorClass);
 
 		double GetDiffuse();

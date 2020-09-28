@@ -10,6 +10,7 @@
 #pragma once
 
 #include <math.h>
+#include <iostream>
 //#include "MatrixClass.h"
 
 class VectorClass
@@ -47,5 +48,6 @@ public:
 	VectorClass crossProd(VectorClass );
 	VectorClass normalize();
 
+	friend std::ostream& operator<<(std::ostream& os, VectorClass& vec);
 };
 

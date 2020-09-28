@@ -54,9 +54,11 @@ class TriangleClass : public ObjectClass
 
 		/* Virtual functions */
 		virtual ColourClass GetColour();
-		virtual double GetIntersection(RayClass);
+		virtual double GetIntersection(RayClass ray);
 		virtual VectorClass GetMidpoint();
 
+		bool GetIntersectionBarycentric(RayClass ray, double &t, double &u, double &v);
 		VectorClass operator[](const int) const;
 		
+		friend std::ostream& operator<<(std::ostream& os, TriangleClass& triangle);
 };

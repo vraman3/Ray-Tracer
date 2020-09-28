@@ -8,6 +8,8 @@
 */
 #pragma once
 
+#include <iostream>
+
 class ColourClass
 {
 private:
@@ -36,6 +38,7 @@ public:
 	ColourClass operator*(const ColourClass&) const;
 	ColourClass operator+(const ColourClass&) const;
 	ColourClass operator-(const ColourClass&) const;
+	friend std::ostream& operator<<(std::ostream& os, ColourClass& color);
 
 	/* Methods */
 	void resetColour();

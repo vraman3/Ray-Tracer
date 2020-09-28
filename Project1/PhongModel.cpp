@@ -42,7 +42,7 @@ PhongModel::PhongModel(double paramDiffuse, double paramSpecular, double paramAm
 */
 ColourClass PhongModel::getIllumination(VectorClass pi, RayClass ray, VectorClass normal, VectorClass lightRay, VectorClass viewerRay, ColourClass objColour, ColourClass pointCol, int maxDepth)
 {
-	ColourClass currentColour = ColourClass(0.0, 0.0, 0.0);
+	ColourClass currentColour = objColour; // ColourClass(0.0, 0.0, 0.0);
 
 	if (ray.GetRayDirection().dotProd(normal) < 0)
 	{
