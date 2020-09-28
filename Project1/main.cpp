@@ -206,8 +206,8 @@ int main(int argc, char *argv[])
 	ObjLoaderClass objFile = ObjLoaderClass();
 	
 	//objFile.readObjFile("icosphereObj.obj");
-	//objFile.readObjFile("cubeStraight.obj");
-	objFile.readObjFile("bunnyBlender_v2.obj");
+	objFile.readObjFile("cubeStraight.obj");
+	//objFile.readObjFile("bunnyBlender_v2.obj");
 
 	int noOfFaces = objFile.faces.size();
 
