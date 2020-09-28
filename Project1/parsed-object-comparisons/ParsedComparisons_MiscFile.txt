@@ -14,3 +14,9 @@ Using parsedObjectBrute, parsedObjectIlluminations
 
 kd tree render: 20.1695 seconds
 brute force render: 16.4812 seconds
+
+Using bunnyBlender_v2
+
+kd tree build: 1.72275 seconds
+kd tree render: 2217 seconds
+brute force render: 2203 seconds
