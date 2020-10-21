@@ -172,9 +172,7 @@ bool KDNode::isLeaf()
 */
 intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 {
-	//
-	// Compute initial parametric range of ray inside k-d tree extent
-	//
+	/// Compute initial parametric range of ray inside k-d tree extent
 	double tmin, tmax;
 
 	// Not comparing parametric range yet.
@@ -183,13 +181,9 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 		isect.flag = false;
 		return isect;
 	}
-	//
-	// End of computing initial parametric range
-	//
+	/// End of computing initial parametric range
 
-	//
-	// Prepare to traverse k-d tree for ray
-	//
+	/// Prepare to traverse k-d tree for ray
 	#define MAX_TODO 5000
 	KDToDo todo[MAX_TODO];
 	int todoPos = 0;
@@ -197,13 +191,9 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 	// Add pointer to object that has the least intersection
 
 
-	//
-	// End of preparing to traverse k-d tree for ray
-	//
+	/// End of preparing to traverse k-d tree for ray
 
-	//
-	// Traverse k-D Tree nodes in order for ray
-	//
+	/// Traverse k-D Tree nodes in order for ray
 	//bool hit = false;
 
 
@@ -213,33 +203,23 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 	// while loop for traversing all required nodes in k-d tree
 	while (nodeT != NULL)
 	{
-		//
-		// Bail out if we found a hit closer than the current node
-		//
+		//// Bail out if we found a hit closer than the current node
 		if (ray.maxT < tmin) break;
-		//
-		// End of bail out if we find a closer hit
-		//
+		/// End of bail out if we find a closer hit
+		
 		//std::cout << "Is nodeT NULL?";
 		if (!nodeT->isLeaf())
 		{
-			//
-			// Process k-d tree interior node
-			//
+			/// Process k-d tree interior node
 
-			//
-			// Compute the parametric distance along ray to split
-			// plane
+
+			/// Compute the parametric distance along ray to split plane
 
 			int axis = nodeT->splitAxis;
 			double tplane = (nodeT->splitPos - ray.GetRayOrigin()[axis]) * ray.GetRayInvDirection()[axis];
-			//
-			// End of computing parametric distance along ray
-			//
+			/// End of computing parametric distance along ray
 
-			//
-			// Get node children pointers for ray
-			//
+			/// Get node children pointers for ray
 			KDNode *firstChild, *secondChild;
 
 			int belowFirst = (ray.GetRayOrigin()[axis] < nodeT->splitPos)
@@ -256,13 +236,9 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 				firstChild = nodeT->right;
 				secondChild = nodeT->left;
 			}
-			//
-			// End of node children pointers for ray
-			//
+			/// End of node children pointers for ray
 
-			//
-			// Advance to next child node, possibly enqueue other child
-			//
+			/// Advance to next child node, possibly enqueue other child
 
 			/*if (tplane > tmax || tplane <= 0)
 			nodeT = firstChild;
@@ -270,32 +246,23 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 			nodeT = secondChild;
 			else*/
 			{
-				//
-				// Enqueue secondChild in todo list
-				//
+				/// Enqueue secondChild in todo list
 				todo[todoPos].node = secondChild;
 				todo[todoPos].tminTD = tplane;
 				todo[todoPos].tmaxTD = tmax;
 				++todoPos;
-				//
-				// End of enqueueing secondChild in todo list
-				//
+				/// End of enqueueing secondChild in todo list
 
 				nodeT = firstChild;
 				tmax = tplane;
 			}
-			//
-			// End of advance to next child node, possibly enqueue other child
-			//
+			/// End of advance to next child node, possibly enqueue other child
 		}
-		//
 		// End of process kd-tree interior node
 		//		( and the if block )
 		else
 		{
-			//
-			// Check for intersections inside leaf node
-			//
+			/// Check for intersections inside leaf node
 
 			// In this program, it will be only triangles as primitives yet.
 			int noOfPrimitives = nodeT->objects.size();
@@ -304,9 +271,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 			{
 				TriangleClass *prim = nodeT->objects[i];
 
-				//
-				// Check one primitive inside leaf node
-				//
+				/// Check one primitive inside leaf node
 				double ans = prim->GetIntersection(ray);
 				if (ans != -1)
 				{
@@ -332,17 +297,11 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 						isect.flag = true;
 					}
 				}
-				//
-				// End of checking one primitive inside leaf node
-				//
+				/// End of checking one primitive inside leaf node
 			}
-			//
-			// End of checking for intersection inside leaf node
-			//
+			/// End of checking for intersection inside leaf node
 
-			//
-			// Grab next node to process from todo list
-			//
+			/// Grab next node to process from todo list
 			if (todoPos > 0)
 			{
 				--todoPos;
@@ -352,14 +311,20 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 			}
 			else
 				break;
-			//
-			// End of grabbing next node to process from todo list
-			//
+			/// End of grabbing next node to process from todo list
 		}
 	}
 	return isect;
 
-	//
-	// End of traversing kd-tree in order for ray
-	//
+	/// End of traversing kd-tree in order for ray
+}
+
+/**
+	Display the kd-tree
+*/
+void KDNode::display()
+{
+
+
+	//if()
 }

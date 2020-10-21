@@ -28,6 +28,7 @@ class KDNode
 		KDNode* right;
 		int splitAxis;
 		double splitPos;
+		std::string nodeIdentifier;
 
 		std::vector<TriangleClass*> objects;
 
@@ -38,6 +39,7 @@ class KDNode
 		bool isLeaf();
 		intersectionInfo Traverse(RayClass, intersectionInfo);
 		KDNode* build(std::vector<TriangleClass*>&, int);
+		void display();
 
 		/* Store info about min td and max td*/
 		struct KDToDo
