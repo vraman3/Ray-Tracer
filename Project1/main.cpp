@@ -42,60 +42,6 @@ int main(int argc, char *argv[])
 		whichTR = 3;
 	}
 
-
-#pragma region objects and their illumination models
-
-	// The objects
-	std::vector<TriangleClass*> objects;
-
-	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
-
-	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
-
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
-										VectorClass(5.5, 0.4, 22.0),
-										VectorClass(0.2, 0.4, 22.0),
-										ColourClass(0.0, 1.0, 0.0),
-					  new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-
-	objects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
-										VectorClass(5.5, 0.4, 9.3),
-										VectorClass(5.5, 0.4, 22.0),
-										ColourClass(0.0, 1.0, 0.0),
-					  new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-
-	std::vector<ObjectClass*> objectsTraceRay;
-
-	//objects.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
-
-	//objects.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
-
-	objectsTraceRay.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
-										VectorClass(5.5, 0.4, 22.0),
-										VectorClass(0.2, 0.4, 22.0),
-										ColourClass(0.0, 1.0, 0.0),
-					  new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-
-	objectsTraceRay.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
-										VectorClass(5.5, 0.4, 9.3),
-										VectorClass(5.5, 0.4, 22.0),
-										ColourClass(0.0, 1.0, 0.0),
-					  new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-
-	// The illuminations
-	// The Lighting Models for the objects (has to be in SAME order as the objects)
-	std::vector<IlluminationClass*> illuminations;
-
-	//illuminations.push_back(	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8) );
-
-	//illuminations.push_back(	new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0) );
-
-	illuminations.push_back(	new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0) );
-
-	illuminations.push_back(	new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0) );
-	
-#pragma endregion
-
 #pragma region cubeStraightObjectsAndIlluminations
 
 //#pragma region cubeStraightObjects
@@ -161,44 +107,6 @@ int main(int argc, char *argv[])
 //	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
 //#pragma endregion
 
-#pragma endregion
-
-#pragma region GLTraceRay
-	std::vector<ObjectClass*> openGLTraceRay;
-
-	//openGLTraceRay.push_back(new SphereClass(0.5, VectorClass(0, 0, 0), ColourClass(1.0, 0.5, 0.5)));
-
-	openGLTraceRay.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(0.75, 0.75, 0),
-		VectorClass(0, 0.75, 0), ColourClass(0.0, 1.0, 0.0)));
-	//,		new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)));
-
-
-	std::vector<IlluminationClass*> illumOGLTraceRay;
-
-	illumOGLTraceRay.push_back(	new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.0) );
-	
-	//illumOGLTraceRay.push_back(new NoShadingModel(0,0)); // CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0)); //
-# pragma endregion
-
-#pragma region bruteForce
-
-	
-	// Objects
-	std::vector<ObjectClass*> objectsForBruteForce;
-	//objectsForBruteForce.push_back(new SphereClass(0.9, VectorClass(2, 2.0, 12.0), ColourClass(1.0, 1.0, 1.0)));
-	//objectsForBruteForce.push_back(new SphereClass(0.8, VectorClass(3, 1.3, 13.9), ColourClass(1.0, 1.0, 1.0)));
-	objectsForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 22.0),
-		VectorClass(0.2, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-	//objectsForBruteForce.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300), VectorClass(5.5, 0.4, 9.3),
-		//VectorClass(5.5, 0.4, 22.0), ColourClass(0.0, 1.0, 0.0), new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
-
-	// Illuminations
-	// The Lighting Models for the objects (has to be in SAME order as the objects)
-	std::vector<IlluminationClass*> illuminationsForBruteForce;
-	//illuminationsForBruteForce.push_back(new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.8));
-	//illuminationsForBruteForce.push_back(new PhongModel(0.3, 0.6, 0.3, 12.5, 0.5, 0.0));
-	illuminationsForBruteForce.push_back(new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
-	//illuminationsForBruteForce.push_back(new CheckerboardPattern(screenWidth, screenHeight, 0.0, 0.0));
 #pragma endregion
 
 #pragma region KdTreeAndBruteForceObjectLoading
@@ -323,6 +231,7 @@ int main(int argc, char *argv[])
 	//renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
 	//	camU, camV, originalCamera, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, pixels, maxDepth);
 
+	/*
 	start = std::chrono::high_resolution_clock::now();
 
 	renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
@@ -330,6 +239,7 @@ int main(int argc, char *argv[])
 	
 	finish = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> kdRender_time = finish - start;
+	*/
 
 	SaveToFIle saveObject = SaveToFIle();
 	saveObject.savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
