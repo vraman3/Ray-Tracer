@@ -44,68 +44,58 @@ int main(int argc, char *argv[])
 
 #pragma region cubeStraightObjectsAndIlluminations
 
-//#pragma region cubeStraightObjects
-//	std::vector<ObjectClass*> cubeStraightObjects;
-//
-//	std::vector<VectorClass> cubeStraightPoints;
-//
-//	cubeStraightPoints.push_back(VectorClass(1.0, -1.0, -1.0));
-//	cubeStraightPoints.push_back(VectorClass(1.0, -1.0, 1.0));
-//	cubeStraightPoints.push_back(VectorClass(-1.0, -1.0, 1.0));
-//	cubeStraightPoints.push_back(VectorClass(-1.0, -1.0, -1.0));
-//
-//	cubeStraightPoints.push_back(VectorClass(1.0, 1.0, -0.999999));
-//	cubeStraightPoints.push_back(VectorClass(0.999999, 1.0, 1.000001));
-//	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, 1.0));
-//	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, -1.0));
-//
-//	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[1], cubeStraightPoints[3], cubeStraightPoints[0],
-//		ColourClass(0.0, 1.0, 0.0)));
-//	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[7], cubeStraightPoints[5], cubeStraightPoints[4],
-//		ColourClass(0.0, 1.0, 0.0)));
-//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[1], cubeStraightPoints[0],
-//		ColourClass(0.0, 1.0, 0.0)));
-//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[2], cubeStraightPoints[1],
-//		ColourClass(0.0, 1.0, 0.0)));
-//
-//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[7], cubeStraightPoints[3],
-//		ColourClass(0.0, 1.0, 0.0)));
-//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[7], cubeStraightPoints[4],
-//		ColourClass(0.0, 1.0, 0.0)));
-//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[1], cubeStraightPoints[2], cubeStraightPoints[3],
-//		ColourClass(0.0, 1.0, 0.0)));
-//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[7], cubeStraightPoints[6], cubeStraightPoints[5],
-//		ColourClass(0.0, 1.0, 0.0)));
-//
-//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[5], cubeStraightPoints[1],
-//		ColourClass(0.0, 1.0, 0.0)));
-//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[6], cubeStraightPoints[2],
-//		ColourClass(0.0, 1.0, 0.0)));
-//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[6], cubeStraightPoints[7],
-//		ColourClass(0.0, 1.0, 0.0)));
-//	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[3], cubeStraightPoints[7],
-//		ColourClass(0.0, 1.0, 0.0)));
-//
-//#pragma endregion
+#pragma region cubeStraightObjects
+	std::vector<ObjectClass*> cubeStraightObjects;
+
+	std::vector<VectorClass> cubeStraightPoints;
+
+	cubeStraightPoints.push_back(VectorClass(1.0, -1.0, -1.0));
+	cubeStraightPoints.push_back(VectorClass(1.0, -1.0, 1.0));
+	cubeStraightPoints.push_back(VectorClass(-1.0, -1.0, 1.0));
+	cubeStraightPoints.push_back(VectorClass(-1.0, -1.0, -1.0));
+
+	cubeStraightPoints.push_back(VectorClass(1.0, 1.0, -0.999999));
+	cubeStraightPoints.push_back(VectorClass(0.999999, 1.0, 1.000001));
+	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, 1.0));
+	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, -1.0));
+
+	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[1], cubeStraightPoints[3], cubeStraightPoints[0],
+		ColourClass(1.0, 0.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[7], cubeStraightPoints[5], cubeStraightPoints[4],
+		ColourClass(0.0, 1.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[1], cubeStraightPoints[0],
+		ColourClass(0.0, 117.0, 220.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[2], cubeStraightPoints[1],
+		ColourClass(165.0, 42.0, 42.0)));
 	
-//#pragma region cubeStraightIllum
-//	std::vector<IlluminationClass*> cubeStraightIllum;
-//
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//	cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
-//#pragma endregion
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[7], cubeStraightPoints[3],
+		ColourClass(128.0, 128.0, 128.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[7], cubeStraightPoints[4],
+		ColourClass(255.0, 165.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[1], cubeStraightPoints[2], cubeStraightPoints[3],
+		ColourClass(255.0, 255.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[7], cubeStraightPoints[6], cubeStraightPoints[5],
+		ColourClass(194.0, 0.0, 136.0)));
+	
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[5], cubeStraightPoints[1],
+		ColourClass(255.0, 168.0, 187.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[6], cubeStraightPoints[2],
+		ColourClass(157.0, 204.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[6], cubeStraightPoints[7],
+		ColourClass(153.0, 0.0, 0.0)));
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[3], cubeStraightPoints[7],
+		ColourClass(143.0, 124.0, 0.0)));
+
+#pragma endregion
+	
+#pragma region cubeStraightIllum
+	std::vector<IlluminationClass*> cubeStraightIllum;
+
+	for (int i = 0; i < cubeStraightObjects.size(); i++)
+	{
+		cubeStraightIllum.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0));
+	}
+#pragma endregion
 
 #pragma endregion
 
@@ -247,7 +237,7 @@ int main(int argc, char *argv[])
 	start = std::chrono::high_resolution_clock::now();
 
 	renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-		camU, camV, originalCamera, parsedObjectBrute, lights, parsedObjectIlluminations, background, pointCol, debugPixels, maxDepth);
+		camU, camV, originalCamera, cubeStraightObjects, lights, cubeStraightIllum, background, pointCol, debugPixels, maxDepth);
 
 	finish = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> bruteRender_time = finish - start;
@@ -255,8 +245,8 @@ int main(int argc, char *argv[])
 	SaveToFIle saveObjectDebug = SaveToFIle();
 	saveObjectDebug.savebmp("scene_Vishwanath_brute.bmp", screenWidth, screenHeight, 72, debugPixels, whichTR);
 	
-	std::cout << "kd tree build: " << kdBuild_time.count() << "seconds" << std::endl;
-	std::cout << "kd tree render: " << kdRender_time.count() << "seconds" << std::endl;
+	//std::cout << "kd tree build: " << kdBuild_time.count() << "seconds" << std::endl;
+	//std::cout << "kd tree render: " << kdRender_time.count() << "seconds" << std::endl;
 	std::cout << "brute force render: " << bruteRender_time.count() << "seconds" << std::endl;
 	// Read and write from a bmp file
 	//////ReadFromFile *readObj = new ReadFromFile();
