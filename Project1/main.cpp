@@ -99,6 +99,24 @@ int main(int argc, char *argv[])
 
 #pragma endregion
 
+#pragma region CustomRaytracerObjects
+	std::vector<ObjectClass*> customObjects;
+
+	customObjects.push_back(new SphereClass(0.9, VectorClass(0, 0, -1), ColourClass(0.0, 1.0, 0.0)));
+
+	customObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
+		VectorClass(5.5, 0.4, 22.0),
+		VectorClass(0.2, 0.4, 22.0),
+		ColourClass(0.0, 1.0, 0.0),
+		new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+
+	std::vector<IlluminationClass*> customObjectsIllum;
+
+	customObjectsIllum.push_back(new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.2));
+
+	customObjectsIllum.push_back(new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0));
+#pragma endregion
+
 #pragma region KdTreeAndBruteForceObjectLoading
 #pragma region KDTreesObjectLoading
 	ObjLoaderClass objFile = ObjLoaderClass();
@@ -168,7 +186,7 @@ int main(int argc, char *argv[])
 	ColourClass* debugPixels = new ColourClass[filesize];
 
 	VectorClass camPosition = VectorClass(0, 0, 8);
-	VectorClass camLookAt = VectorClass(0, 0, 0);
+	VectorClass camLookAt = VectorClass(0, 0, 2);
 	double f = 0.1;
 
 	// Calculate the Camera parameters
@@ -237,7 +255,7 @@ int main(int argc, char *argv[])
 	start = std::chrono::high_resolution_clock::now();
 
 	renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-		camU, camV, originalCamera, cubeStraightObjects, lights, cubeStraightIllum, background, pointCol, debugPixels, maxDepth);
+		camU, camV, originalCamera, customObjects, lights, customObjectsIllum, background, pointCol, debugPixels, maxDepth);
 
 	finish = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> bruteRender_time = finish - start;
