@@ -12,7 +12,7 @@
 
 //typedef techsoft::matrix<double> Matrix;
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 #pragma region start
 	//  Choose Tone Reproduction Operator
@@ -59,15 +59,15 @@ int main(int argc, char *argv[])
 	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, 1.0));
 	cubeStraightPoints.push_back(VectorClass(-1.0, 1.0, -1.0));
 
-	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[1], cubeStraightPoints[3], cubeStraightPoints[0],
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[1], cubeStraightPoints[3], cubeStraightPoints[0],
 		ColourClass(1.0, 0.0, 0.0)));
-	cubeStraightObjects.push_back(new TriangleClass( cubeStraightPoints[7], cubeStraightPoints[5], cubeStraightPoints[4],
+	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[7], cubeStraightPoints[5], cubeStraightPoints[4],
 		ColourClass(0.0, 1.0, 0.0)));
 	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[1], cubeStraightPoints[0],
 		ColourClass(0.0, 117.0, 220.0)));
 	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[2], cubeStraightPoints[1],
 		ColourClass(165.0, 42.0, 42.0)));
-	
+
 	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[2], cubeStraightPoints[7], cubeStraightPoints[3],
 		ColourClass(128.0, 128.0, 128.0)));
 	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[0], cubeStraightPoints[7], cubeStraightPoints[4],
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
 		ColourClass(255.0, 255.0, 0.0)));
 	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[7], cubeStraightPoints[6], cubeStraightPoints[5],
 		ColourClass(194.0, 0.0, 136.0)));
-	
+
 	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[4], cubeStraightPoints[5], cubeStraightPoints[1],
 		ColourClass(255.0, 168.0, 187.0)));
 	cubeStraightObjects.push_back(new TriangleClass(cubeStraightPoints[5], cubeStraightPoints[6], cubeStraightPoints[2],
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 		ColourClass(143.0, 124.0, 0.0)));
 
 #pragma endregion
-	
+
 #pragma region cubeStraightIllum
 	std::vector<IlluminationClass*> cubeStraightIllum;
 
@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
 #pragma region CustomRaytracerObjects
 	std::vector<ObjectClass*> customObjects;
 
-	customObjects.push_back(new SphereClass(0.9, VectorClass(0, 0, -1), ColourClass(0.0, 1.0, 0.0)));
+	//customObjects.push_back(new SphereClass(0.9, VectorClass(0, 0, -1), ColourClass(0.0, 1.0, 0.0)));
 
 	customObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
 		VectorClass(5.5, 0.4, 22.0),
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
 
 	std::vector<IlluminationClass*> customObjectsIllum;
 
-	customObjectsIllum.push_back(new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.2));
+	//customObjectsIllum.push_back(new PhongModel(0.3, 0.6, 0.1, 12.5, 0.0, 0.2));
 
 	customObjectsIllum.push_back(new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0));
 #pragma endregion
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
 #pragma region KdTreeAndBruteForceObjectLoading
 #pragma region KDTreesObjectLoading
 	ObjLoaderClass objFile = ObjLoaderClass();
-	
+
 	//objFile.readObjFile("icosphereObj.obj");
 	objFile.readObjFile("cubeStraight.obj");
 	//objFile.readObjFile("bunnyBlender_v2.obj");
@@ -176,13 +176,13 @@ int main(int argc, char *argv[])
 
 #pragma endregion
 
-	
+
 #pragma region background,screensize,camera
 	ColourClass background(0.3, 0.8, 1.0);
 	ColourClass pointCol(1.0, 1.0, 1.0);
 
 	int filesize = screenWidth * screenHeight;
-	ColourClass *pixels = new ColourClass[filesize];
+	ColourClass* pixels = new ColourClass[filesize];
 	ColourClass* debugPixels = new ColourClass[filesize];
 
 	VectorClass camPosition = VectorClass(0, 0, 8);
@@ -200,10 +200,10 @@ int main(int argc, char *argv[])
 	// U = Up x N
 	// V = N x U
 	//
-	VectorClass camN = ( originalCamera.GetPosition() - originalCamera.GetLookAt() ).normalize();
-	VectorClass camU = ( originalCamera.GetUpVector().crossProd(camN) ).normalize();
+	VectorClass camN = (originalCamera.GetPosition() - originalCamera.GetLookAt()).normalize();
+	VectorClass camU = (originalCamera.GetUpVector().crossProd(camN)).normalize();
 	VectorClass camV = camN.crossProd(camU);
-	
+
 	// LHS
 	//
 	// N = LookAt - Eye
@@ -216,76 +216,60 @@ int main(int argc, char *argv[])
 
 	// Calculate center pixel of image plane
 	// Should subtract f for RHS, and add f for LHS system.
-	VectorClass center( originalCamera.GetPosition().getX() - f * camN.getX(),
-						originalCamera.GetPosition().getY() - f * camN.getY(),
-						originalCamera.GetPosition().getZ() - f * camN.getZ());
+	VectorClass center(originalCamera.GetPosition().getX() - f * camN.getX(),
+		originalCamera.GetPosition().getY() - f * camN.getY(),
+		originalCamera.GetPosition().getZ() - f * camN.getZ());
 
 	// The bottom leftmost point of the image plane
 	VectorClass startPixel;
 
-	startPixel.setX ( center.getX() - ( ( worldWidth * camU.getX() ) 
-		+ ( worldHeight * camV.getX() ) ) / 2.0);
-	startPixel.setY ( center.getY() - ( ( worldWidth * camU.getY() ) 
-		+ ( worldHeight * camV.getY() ) ) / 2.0);
-	startPixel.setZ ( center.getZ() - ( ( worldWidth * camU.getZ() )
-		+ ( worldHeight * camV.getZ() ) ) / 2.0);
+	startPixel.setX(center.getX() - ((worldWidth * camU.getX())
+		+ (worldHeight * camV.getX())) / 2.0);
+	startPixel.setY(center.getY() - ((worldWidth * camU.getY())
+		+ (worldHeight * camV.getY())) / 2.0);
+	startPixel.setZ(center.getZ() - ((worldWidth * camU.getZ())
+		+ (worldHeight * camV.getZ())) / 2.0);
 
 	double pixelW = worldWidth / screenWidth;
 	double pixelH = worldHeight / screenHeight;
 #pragma endregion 
 
 	Render renderObject = Render();
+
+	int choice = 1;
+	//kd-tree
+	if (choice)
+	{
+		start = std::chrono::high_resolution_clock::now();
+
+		renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
+			camU, camV, originalCamera, customObjects, lights, customObjectsIllum, background, pointCol, debugPixels, maxDepth);
+
+		finish = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> bruteRender_time = finish - start;
+
+		SaveToFIle saveObjectDebug = SaveToFIle();
+		saveObjectDebug.savebmp("scene_Vishwanath_brute.bmp", screenWidth, screenHeight, 72, debugPixels, whichTR);
+
+		std::cout << "brute force render: " << bruteRender_time.count() << "seconds" << std::endl;
+
+		
+	}
+	else {
+		start = std::chrono::high_resolution_clock::now();
+
+		renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
+			camU, camV, originalCamera, kdtree, lights, background, pointCol, pixels, maxDepth);
+
+		finish = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> kdRender_time = finish - start;
+
+		SaveToFIle saveObject = SaveToFIle();
+		saveObject.savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
+
+		std::cout << "kd tree build: " << kdBuild_time.count() << "seconds" << std::endl;
+		std::cout << "kd tree render: " << kdRender_time.count() << "seconds" << std::endl;
+	}
 	
-	//renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-	//	camU, camV, originalCamera, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, pixels, maxDepth);
-
-	/*
-	start = std::chrono::high_resolution_clock::now();
-
-	renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-		camU, camV, originalCamera, kdtree, lights, background, pointCol, pixels, maxDepth);
-	
-	finish = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> kdRender_time = finish - start;
-	*/
-
-	SaveToFIle saveObject = SaveToFIle();
-	saveObject.savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
-
-	start = std::chrono::high_resolution_clock::now();
-
-	renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-		camU, camV, originalCamera, customObjects, lights, customObjectsIllum, background, pointCol, debugPixels, maxDepth);
-
-	finish = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> bruteRender_time = finish - start;
-
-	SaveToFIle saveObjectDebug = SaveToFIle();
-	saveObjectDebug.savebmp("scene_Vishwanath_brute.bmp", screenWidth, screenHeight, 72, debugPixels, whichTR);
-	
-	//std::cout << "kd tree build: " << kdBuild_time.count() << "seconds" << std::endl;
-	//std::cout << "kd tree render: " << kdRender_time.count() << "seconds" << std::endl;
-	std::cout << "brute force render: " << bruteRender_time.count() << "seconds" << std::endl;
-	// Read and write from a bmp file
-	//////ReadFromFile *readObj = new ReadFromFile();
-	//////int start = 0, testCounter1 = 0;
-	//////
-	//////ColourClass *testwrite;
-	//////testwrite = readObj->ReadBMP("Texturemaps/24-640x480.bmp");
-	//////for (int i = 0; i < 512; i++)
-	//////{
-	//////	for (int j = 0; j < 384; j++)
-	//////	{
-	//////		if (testCounter1 < 20)
-	//////		{
-	//////			//std::cout << testwrite[start].GetRed() << " " << testwrite[start].GetGreen() << " " << testwrite[start].GetBlue() << std::endl;
-	//////			testCounter1++;
-	//////		}
-	//////		start++;
-	//////	}
-	//////}
-	////////std::cout << readObj->GetWidth() << std::endl;
-	//////savebmp("testwrite.bmp", readObj->GetWidth(), readObj->GetHeight(), 72, testwrite);
-	//delete testwrite;
 	return 0;
 }
