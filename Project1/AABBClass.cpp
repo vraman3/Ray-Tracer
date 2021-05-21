@@ -190,11 +190,14 @@ double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
 {
 	double t0 = ray.minT, t1 = ray.maxT;
 
+	// Update the interval for the ith bounding box slab (One along each axis)
 	for (int i = 0; i < 3; i++)
 	{
-		double tNear = (bMin[i] - ray.GetRayOrigin()[i]) * ray.GetRayInvDirection()[i];
-		double tFar = (bMax[i] - ray.GetRayOrigin()[i]) * ray.GetRayInvDirection()[i];
+		double rayInvDir = ray.GetRayInvDirection()[i];
+		double tNear = (bMin[i] - ray.GetRayOrigin()[i]) * rayInvDir;
+		double tFar = (bMax[i] - ray.GetRayOrigin()[i]) * rayInvDir;
 
+		// Update parametric interval from slab intersection 
 		if (tNear > tFar)
 		{
 			double temp = tNear;
@@ -202,10 +205,12 @@ double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
 			tFar = temp;
 		}
 
+		// Possible NaN being avoided. REVISE
 		t0 = tNear > t0 ? tNear : t0;
 		t1 = tFar  < t1 ? tFar : t1;
 		if (t0 > t1)
 		{
+			//UPDATE RETURN TYPE TO BOOLEAN TRUE/FALSE
 			return -1;
 		}
 	}
