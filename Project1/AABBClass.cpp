@@ -211,7 +211,8 @@ double AABBClass::GetIntersection(RayClass ray, double *hitt0, double *hitt1)
 	}
 	if (hitt0) *hitt0 = t0;
 	if (hitt1) *hitt1 = t1;
-	//std::cout << " bbox ";
+	
+	// CAN CHANGE RETURN TYPE TO BOOL RATHER THAN DOUBLE/t0
 	return t0;
 }
 
