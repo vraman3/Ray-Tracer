@@ -184,7 +184,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 	/// End of computing initial parametric range
 
 	/// Prepare to traverse k-d tree for ray
-	#define MAX_TODO 5000
+	#define MAX_TODO 64
 	KDToDo todo[MAX_TODO];
 	int todoPos = 0;
 
@@ -195,10 +195,8 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 
 	/// Traverse k-D Tree nodes in order for ray
 	//bool hit = false;
-
-
-	isect.flag = false;																// Initialize isect flag to false for no intersection
-	KDNode *nodeT = this;														// ARE YOU SURE?
+	isect.flag = false;		// Initialize isect flag to false for no intersection
+	KDNode *nodeT = this;	// ARE YOU SURE?
 
 	// while loop for traversing all required nodes in k-d tree
 	while (nodeT != NULL)
@@ -222,9 +220,9 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 			/// Get node children pointers for ray
 			KDNode *firstChild, *secondChild;
 
-			int belowFirst = (ray.GetRayOrigin()[axis] < nodeT->splitPos)
-				|| ((ray.GetRayOrigin()[axis] == nodeT->splitPos) &&
-				(ray.GetRayDirection()[axis] >= 0));
+			int belowFirst = (ray.GetRayOrigin()[axis] <= nodeT->splitPos);
+				//|| ((ray.GetRayOrigin()[axis] == nodeT->splitPos) &&
+				//(ray.GetRayDirection()[axis] >= 0));
 
 			if (belowFirst)
 			{
