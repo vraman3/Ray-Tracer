@@ -322,7 +322,14 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 */
 void KDNode::display()
 {
+	KDNode* currentNode = this;
+	int nodeCounter = 0;
 
+	//std::vector<TriangleClass*> currObject = currentNode->objects;
 
-	//if()
+	for (int currObjIter = 0; currObjIter < currentNode->objects.size(); currObjIter++)
+	{
+		//std::cout << nodeCounter << ":(" <<currentNode->objects[currObjIter].get
+	}
+	
 }

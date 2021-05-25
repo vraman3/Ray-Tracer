@@ -236,7 +236,8 @@ int main(int argc, char* argv[])
 
 	Render renderObject = Render();
 
-	int choice = 1;
+	// Temp remove later, 1=brute force; 0 = kdtree
+	int choice = 0;
 	//kd-tree
 	if (choice)
 	{
