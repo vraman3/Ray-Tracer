@@ -39,7 +39,7 @@ class KDNode
 		bool isLeaf();
 		intersectionInfo Traverse(RayClass, intersectionInfo);
 		KDNode* build(std::vector<TriangleClass*>&, int);
-		void display();
+		void createTextFile();
 
 		/* Store info about min td and max td*/
 		struct KDToDo

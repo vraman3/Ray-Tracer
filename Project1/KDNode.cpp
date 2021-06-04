@@ -320,7 +320,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 /**
 	Display the kd-tree
 */
-void KDNode::display()
+void KDNode::createTextFile()
 {
 	KDNode* currentNode = this;
 	int nodeCounter = 0;
