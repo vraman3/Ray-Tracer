@@ -318,18 +318,11 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 }
 
 /**
-	Display the kd-tree
+	Create a text file with the node details of the built kdtree
 */
 void KDNode::createTextFile()
 {
-	KDNode* currentNode = this;
-	int nodeCounter = 0;
-
-	//std::vector<TriangleClass*> currObject = currentNode->objects;
-
-	for (int currObjIter = 0; currObjIter < currentNode->objects.size(); currObjIter++)
-	{
-		//std::cout << nodeCounter << ":(" <<currentNode->objects[currObjIter].get
-	}
-	
+	// Create this function in and use it from the SaveToFIle class.
+	// If it is possible to do the visual representation in C++ 
+	// (say, using Qt) then do it here later
 }
