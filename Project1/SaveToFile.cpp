@@ -170,5 +170,8 @@ void SaveToFIle::savetxtkdtree(KDNode kdtree)
 
 	fprintf(f, "Test string kdtree");
 
+	// For now traverse through the kdtree here, but eventually move it to the KDNode class.
+
+
 	fclose(f);
 }
