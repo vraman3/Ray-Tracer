@@ -180,6 +180,27 @@ int main(int argc, char* argv[])
 
 #pragma endregion
 
+	// Check for debugging parsedObject vs parsedObjectBrute
+
+	if (parsedObject.size() == parsedObjectBrute.size())
+	{
+		std::cout << "Parsed Object comparison" << std::endl;
+
+		for (int i = 0; i < parsedObject.size(); i++)
+		{
+			std::cout << parsedObject[i]->GetA() << std::endl;
+			std::cout << static_cast<TriangleClass*>(parsedObjectBrute[i])->GetA() << std::endl;
+			std::cout << " " << std::endl;
+
+			std::cout << parsedObject[i]->GetB() << std::endl;
+			std::cout << static_cast<TriangleClass*>(parsedObjectBrute[i])->GetB() << std::endl;
+			std::cout << " " << std::endl;
+
+			std::cout << parsedObject[i]->GetC() << std::endl;
+			std::cout << static_cast<TriangleClass*>(parsedObjectBrute[i])->GetC() << std::endl;
+			std::cout << " " << std::endl;
+		}
+	}
 
 #pragma region background,screensize,camera
 	ColourClass background(0.3, 0.8, 1.0);
