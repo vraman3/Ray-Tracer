@@ -10,12 +10,13 @@ Code:http://sourceforge.net/projects/rasterrain/
 
 #include "ColourClass.h"
 #include "ToneReproduction.h"
+#include "KDNode.h"
 
 class SaveToFIle
 {
 public:
 	SaveToFIle();
 	void savebmp(const char*, int, int, int, ColourClass*, int);
-
+	void savetxtkdtree(KDNode kdtree);
 };
 

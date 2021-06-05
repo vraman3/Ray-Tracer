@@ -156,3 +156,19 @@ void SaveToFIle::savebmp(const char* filename, int w, int h, int dpi, ColourClas
 
 	fclose(f);
 }
+
+void SaveToFIle::savetxtkdtree(KDNode kdtree)
+{
+	FILE* f;
+
+	f = fopen("kdtree_txt.txt", "w");
+	if (f == NULL)
+	{
+		std::cout << "Error opening file" << std::endl;
+		exit(1);
+	}
+
+	fprintf(f, "Test string kdtree");
+
+	fclose(f);
+}

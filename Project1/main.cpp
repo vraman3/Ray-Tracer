@@ -168,6 +168,10 @@ int main(int argc, char* argv[])
 
 	auto finish = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> kdBuild_time = finish - start;
+
+	SaveToFIle kdtreeTxtFile = SaveToFIle();
+	kdtreeTxtFile.savetxtkdtree(kdtree);
+
 #pragma region Lights
 	std::vector<VectorClass*> lights;
 
