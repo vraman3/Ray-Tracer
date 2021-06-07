@@ -228,7 +228,7 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 				closest = objNo;
 				currentLowestVal = omega;
 			}
-			std::cout << omega << " om " << closest << std::endl;
+			//std::cout << omega << " om " << closest << std::endl;
 		}
 		
 	}

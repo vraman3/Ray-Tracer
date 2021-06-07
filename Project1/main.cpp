@@ -262,14 +262,14 @@ int main(int argc, char* argv[])
 	Render renderObject = Render();
 
 	// Temp remove later, 1=brute force; 0 = kdtree
-	int choice = 0;
-	//kd-tree
+	int choice = 1;
+	//brute-force
 	if (choice)
 	{
 		start = std::chrono::high_resolution_clock::now();
 
 		renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-			camU, camV, originalCamera, customObjects, lights, customObjectsIllum, background, pointCol, debugPixels, maxDepth);
+			camU, camV, originalCamera, parsedObjectBrute, lights, parsedObjectIlluminations, background, pointCol, debugPixels, maxDepth);
 
 		finish = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> bruteRender_time = finish - start;
@@ -281,7 +281,7 @@ int main(int argc, char* argv[])
 
 		
 	}
-	else {
+	else { //kdtree
 		start = std::chrono::high_resolution_clock::now();
 
 		renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
