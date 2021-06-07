@@ -157,6 +157,9 @@ void SaveToFIle::savebmp(const char* filename, int w, int h, int dpi, ColourClas
 	fclose(f);
 }
 
+/*
+* Not necessary for now. Keep function in case it may be necessary later
+*/
 void SaveToFIle::savetxtkdtree(KDNode kdtree)
 {
 	FILE* f;
