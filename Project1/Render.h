@@ -16,8 +16,7 @@ class Render
 		/* Functions */
 		void render(int screenHeight, int screenWidth, double pixelW, double pixelH, double f, 
 					VectorClass startPixel, VectorClass camU, VectorClass camV, CameraClass camera,
-					std::vector<ObjectClass*> objects, std::vector<VectorClass*> lights, 
-					std::vector<IlluminationClass*> illuminations, ColourClass background, 
+					std::vector<TriangleClass*> objects, std::vector<VectorClass*> lights, ColourClass background, 
 					ColourClass pointCol, ColourClass* pixels, int maxDepth);
 
 		void render(int screenHeight, int screenWidth, double pixelW, double pixelH, double f,

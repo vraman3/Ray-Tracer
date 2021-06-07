@@ -3,8 +3,7 @@
 
 void Render::render(int screenHeight, int screenWidth, double pixelW, double pixelH, double f, 
 					VectorClass startPixel, VectorClass camU, VectorClass camV, CameraClass originalCamera,
-					std::vector<ObjectClass*> objects, std::vector<VectorClass*> lights, 
-					std::vector<IlluminationClass*> illuminations,	ColourClass background, 
+					std::vector<TriangleClass*> objects, std::vector<VectorClass*> lights, ColourClass background, 
 					ColourClass pointCol, ColourClass* pixels, int maxDepth)
 
 {
@@ -47,7 +46,7 @@ void Render::render(int screenHeight, int screenWidth, double pixelW, double pix
 			}
 			//Working scene. For debugging.
 			//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, openGLTraceRay, lights, illumOGLTraceRay, background, pointCol, maxDepth);
-			debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objects, lights, illuminations, background, pointCol, maxDepth);
+			debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objects, lights, background, pointCol, maxDepth);
 			//debugTmpRemoveLater = traceObject.TraceRay(ray, 0, 1.0, objectsTraceRay, lights, illuminations, background, pointCol, maxDepth);
 
 			if (debugTmpRemoveLater.GetGreen() == 1)

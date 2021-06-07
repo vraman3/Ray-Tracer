@@ -139,25 +139,7 @@ int main(int argc, char* argv[])
 	}
 
 #pragma endregion
-#pragma region BruteForceObjectLoading
-	std::vector<ObjectClass*> parsedObjectBrute;
 
-	for (int i = 0; i < noOfFaces; i += 3)
-	{
-		parsedObjectBrute.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
-			objFile.opVertices[objFile.faces[i + 1] - 1],
-			objFile.opVertices[objFile.faces[i + 2] - 1],
-			ColourClass(0.0, 1.0, 0.0))); // new NoShadingModel(0, 0))); // 
-	}
-	// Refactor the above part as well as the illumination usage to remove the array
-
-	std::vector<IlluminationClass*> parsedObjectIlluminations;
-
-	for (int i = 0; i < noOfFaces; i += 3)
-	{
-		parsedObjectIlluminations.push_back(new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)); // new NoShadingModel(0, 0))); // 
-	}
-#pragma endregion
 #pragma endregion
 	std::vector<TriangleClass*> openGLCoordKDtrees;
 
@@ -180,27 +162,6 @@ int main(int argc, char* argv[])
 
 #pragma endregion
 
-	// Check for debugging parsedObject vs parsedObjectBrute
-
-	if (parsedObject.size() == parsedObjectBrute.size())
-	{
-		std::cout << "Parsed Object comparison" << std::endl;
-
-		for (int i = 0; i < parsedObject.size(); i++)
-		{
-			std::cout << parsedObject[i]->GetA() << std::endl;
-			std::cout << static_cast<TriangleClass*>(parsedObjectBrute[i])->GetA() << std::endl;
-			std::cout << " " << std::endl;
-
-			std::cout << parsedObject[i]->GetB() << std::endl;
-			std::cout << static_cast<TriangleClass*>(parsedObjectBrute[i])->GetB() << std::endl;
-			std::cout << " " << std::endl;
-
-			std::cout << parsedObject[i]->GetC() << std::endl;
-			std::cout << static_cast<TriangleClass*>(parsedObjectBrute[i])->GetC() << std::endl;
-			std::cout << " " << std::endl;
-		}
-	}
 
 #pragma region background,screensize,camera
 	ColourClass background(0.3, 0.8, 1.0);
@@ -269,7 +230,7 @@ int main(int argc, char* argv[])
 		start = std::chrono::high_resolution_clock::now();
 
 		renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-			camU, camV, originalCamera, parsedObjectBrute, lights, parsedObjectIlluminations, background, pointCol, debugPixels, maxDepth);
+			camU, camV, originalCamera, parsedObject, lights, background, pointCol, debugPixels, maxDepth);
 
 		finish = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> bruteRender_time = finish - start;
