@@ -130,14 +130,23 @@ int main(int argc, char* argv[])
 	std::vector<TriangleClass*> parsedObject;
 
 	int objectCount = 0;
-	for (int i = 0; i < noOfFaces; i += 3)
-	{
-		parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
-			objFile.opVertices[objFile.faces[i + 1] - 1],
-			objFile.opVertices[objFile.faces[i + 2] - 1],
-			ColourClass(0.0, 1.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount)); // new NoShadingModel(0, 0))); // 
-	}
+
+
+	// To test each triangle individually
+	parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[33] - 1],
+				objFile.opVertices[objFile.faces[34] - 1],
+				objFile.opVertices[objFile.faces[35] - 1],
+				ColourClass(0.0, 1.0, 0.0),
+				new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount));
+	
+	//for (int i = 0; i < noOfFaces; i += 3)
+	//{
+	//	parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
+	//		objFile.opVertices[objFile.faces[i + 1] - 1],
+	//		objFile.opVertices[objFile.faces[i + 2] - 1],
+	//		ColourClass(0.0, 1.0, 0.0),
+	//		new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount)); // new NoShadingModel(0, 0))); // 
+	//}
 
 #pragma endregion
 
@@ -247,10 +256,10 @@ int main(int argc, char* argv[])
 		start = std::chrono::high_resolution_clock::now();
 
 		renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-			camU, camV, originalCamera, kdtree, lights, background, pointCol, pixels, maxDepth);
+		camU, camV, originalCamera, kdtree, lights, background, pointCol, pixels, maxDepth);
 
 		finish = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double> kdRender_time = finish - start;
+ 		std::chrono::duration<double> kdRender_time = finish - start;
 
 		SaveToFIle saveObject = SaveToFIle();
 		saveObject.savebmp("scene_Vishwanath.bmp", screenWidth, screenHeight, 72, pixels, whichTR);
