@@ -240,11 +240,11 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 
 			/// Advance to next child node, possibly enqueue other child
 
-			/*if (tplane > tmax || tplane <= 0)
+			if (tplane > tmax || tplane <= 0)
 			nodeT = firstChild;
 			else if (tplane < tmin)
 			nodeT = secondChild;
-			else*/
+			else
 			{
 				/// Enqueue secondChild in todo list
 				todo[todoPos].node = secondChild;
@@ -274,7 +274,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 				/// Check one primitive inside leaf node
 				double ans = prim->GetIntersection(ray);
 				++intersectCounterDebug;
-				std::cout << "intersect triangle: " << prim->GetId() << std::endl;
+				//std::cout << "intersect triangle: " << prim->GetId() << std::endl;
 				if (ans != -1)
 				{
 					// Valid intersection exists between object and ray
@@ -316,7 +316,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 			/// End of grabbing next node to process from todo list
 		}
 	}
-	std::cout << std::endl;
+	//std::cout << std::endl;
 	return isect;
 
 	/// End of traversing kd-tree in order for ray
@@ -330,4 +330,12 @@ void KDNode::createTextFile()
 	// Create this function in and use it from the SaveToFIle class.
 	// If it is possible to do the visual representation in C++ 
 	// (say, using Qt) then do it here later
+}
+
+/**
+	Display the kdtree in command prompt format
+*/
+void KDNode::displayKdtree()
+{
+	// to be done
 }
