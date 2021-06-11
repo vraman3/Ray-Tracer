@@ -18,6 +18,7 @@ Class file for direction vector class
 */
 TriangleClass::TriangleClass()
 {
+	id = -1;
 	a = VectorClass(1.0, 1.0, 1.0);
 	b = VectorClass(1.0, 1.0, 1.0);
 	c = VectorClass(1.0, 1.0, 1.0);
@@ -27,7 +28,6 @@ TriangleClass::TriangleClass()
 	ambient = 0.3;
 	minValBbox = VectorClass(1.0, 1.0, 1.0);
 	maxValBbox = VectorClass(1.0, 1.0, 1.0);
-	testcount = 0;
 }
 
 /**
@@ -38,8 +38,10 @@ TriangleClass::TriangleClass()
 	@param vert3: Third(c) vertex for triangle.
 	@param   col: Colour for current triangle.	
 */
-TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col)
+TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, int id)
 {
+	id = -1;
+
 	// For a RHS vertices should be counter clockwise
 	a = vert1;
 	b = vert2;
@@ -54,7 +56,7 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	// normal = (vert2 - vert1) x (vert3 - vert 1)
 	//
 	normal = (b - a).crossProd(c - a);
-
+	
 	SetValuesForBoundingBox();
 }
 
@@ -67,7 +69,7 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	@param		   col: Colour for current triangle.
 	@param  paramIllum: Illumination model for current triangle.
 */
-TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, IlluminationClass *paramIllum)
+TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, IlluminationClass *paramIllum, int id)
 {
 	// For a RHS vertices should be counter clockwise
 	a = vert1;
@@ -85,7 +87,6 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	// (vert2 - vert1) x (vert3 - vert 1)
 	//
 	normal = (b - a).crossProd(c - a);
-
 	SetValuesForBoundingBox();
 }
 
@@ -111,6 +112,16 @@ VectorClass TriangleClass::operator[](const int vertexNumber) const
 	default: return VectorClass(-1.234567, -1.234567, -1.234567);
 		break;
 	}
+}
+
+/**
+	Getter for the unique id of the current triangle.
+
+	@return the unique id of the current triangle as an integer.
+*/
+int TriangleClass::GetId()
+{
+	return id;
 }
 
 /**
@@ -223,6 +234,16 @@ double TriangleClass::GetSpecular()
 double TriangleClass::GetAmbient()
 {
 	return ambient;
+}
+
+/**
+	Setter for the unique id of the current triangle.
+
+	@param idParam: The unique id to be set for the current triangle, as an integer.
+*/
+void TriangleClass::SetId(int idParam)
+{
+	id = idParam;
 }
 
 /**

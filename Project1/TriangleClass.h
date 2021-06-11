@@ -23,7 +23,7 @@ class TriangleClass : public ObjectClass
 		double		diffuse, specular, ambient;
 		ColourClass colour;
 		VectorClass minValBbox, maxValBbox;
-		int testcount;
+		int id;
 
 		//double GetArea(VectorClass, VectorClass, VectorClass);
 		
@@ -33,10 +33,11 @@ class TriangleClass : public ObjectClass
 
 		/* Constructors */
 		TriangleClass();
-		TriangleClass(VectorClass, VectorClass, VectorClass, ColourClass);
-		TriangleClass(VectorClass, VectorClass, VectorClass, ColourClass, IlluminationClass*);
+		TriangleClass(VectorClass, VectorClass, VectorClass, ColourClass, int id = -1);
+		TriangleClass(VectorClass, VectorClass, VectorClass, ColourClass, IlluminationClass*, int id = -1);
 				
 		/* Getters */
+		int GetId();
 		VectorClass GetA();
 		VectorClass GetB();
 		VectorClass GetC();
@@ -48,6 +49,7 @@ class TriangleClass : public ObjectClass
 		double GetAmbient();
 
 		/* Setters */
+		void SetId(int id);
 		void SetMinValBBox(VectorClass);
 		void SetMaxValBBox(VectorClass);
 		void SetValuesForBoundingBox();
