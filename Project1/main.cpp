@@ -129,13 +129,14 @@ int main(int argc, char* argv[])
 
 	std::vector<TriangleClass*> parsedObject;
 
+	int objectCount = 0;
 	for (int i = 0; i < noOfFaces; i += 3)
 	{
 		parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
 			ColourClass(0.0, 1.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0))); // new NoShadingModel(0, 0))); // 
+			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount)); // new NoShadingModel(0, 0))); // 
 	}
 
 #pragma endregion

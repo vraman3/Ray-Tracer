@@ -38,9 +38,9 @@ TriangleClass::TriangleClass()
 	@param vert3: Third(c) vertex for triangle.
 	@param   col: Colour for current triangle.	
 */
-TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, int id)
+TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, int idparam)
 {
-	id = -1;
+	id = idparam;
 
 	// For a RHS vertices should be counter clockwise
 	a = vert1;
@@ -69,8 +69,9 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	@param		   col: Colour for current triangle.
 	@param  paramIllum: Illumination model for current triangle.
 */
-TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, IlluminationClass *paramIllum, int id)
+TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass vert3, ColourClass col, IlluminationClass *paramIllum, int idparam)
 {
+	id = idparam;
 	// For a RHS vertices should be counter clockwise
 	a = vert1;
 	b = vert2;

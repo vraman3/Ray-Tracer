@@ -274,7 +274,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 				/// Check one primitive inside leaf node
 				double ans = prim->GetIntersection(ray);
 				++intersectCounterDebug;
-				//std::cout << "intersect: " << ++intersectCounterDebug << std::endl;
+				std::cout << "intersect triangle: " << prim->GetId() << std::endl;
 				if (ans != -1)
 				{
 					// Valid intersection exists between object and ray
@@ -316,7 +316,7 @@ intersectionInfo KDNode::Traverse(RayClass ray, intersectionInfo isect)
 			/// End of grabbing next node to process from todo list
 		}
 	}
-	std::cout << "intersec count: " << intersectCounterDebug << std::endl;
+	std::cout << std::endl;
 	return isect;
 
 	/// End of traversing kd-tree in order for ray
