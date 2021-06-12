@@ -133,12 +133,18 @@ int main(int argc, char* argv[])
 
 
 	// To test each triangle individually
-	parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[33] - 1],
-				objFile.opVertices[objFile.faces[34] - 1],
-				objFile.opVertices[objFile.faces[35] - 1],
+	/*parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[0] - 1],
+				objFile.opVertices[objFile.faces[1] - 1],
+				objFile.opVertices[objFile.faces[2] - 1],
 				ColourClass(0.0, 1.0, 0.0),
-				new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount));
+				new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount));*/
 	
+	parsedObject.push_back(new TriangleClass(VectorClass(-1,-1,1),
+		VectorClass(1, 1, -1),
+		VectorClass(1, -1, 1),
+		ColourClass(0.0, 1.0, 0.0),
+		new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount));
+
 	//for (int i = 0; i < noOfFaces; i += 3)
 	//{
 	//	parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
