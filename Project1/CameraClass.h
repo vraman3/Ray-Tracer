@@ -22,7 +22,7 @@ private:
 public:
 	/* Constructors */
 	CameraClass();
-	CameraClass(VectorClass, VectorClass, VectorClass, double);
+	CameraClass(VectorClass camPosition, VectorClass lookat, VectorClass upVector, double focallength);
 
 	/* Getters */
 	double GetFocalLength();

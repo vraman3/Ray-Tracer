@@ -239,9 +239,10 @@ int main(int argc, char* argv[])
 	Render renderObject = Render();
 
 	// Temp remove later, 1=brute force; 0 = kdtree
-	int choice = 0;
-	//brute-force
-	if (choice)
+	int choiceBrute = 0;
+	int choicekdtree = 0;
+	
+	if (choiceBrute) //brute-force
 	{
 		start = std::chrono::high_resolution_clock::now();
 
@@ -258,7 +259,8 @@ int main(int argc, char* argv[])
 
 		
 	}
-	else { //kdtree
+	if(choicekdtree) //kdtree
+	{
 		start = std::chrono::high_resolution_clock::now();
 
 		renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
