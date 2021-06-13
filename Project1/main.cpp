@@ -238,9 +238,9 @@ int main(int argc, char* argv[])
 
 	Render renderObject = Render();
 
-	// Temp remove later, 1=brute force; 0 = kdtree
-	int choiceBrute = 0;
-	int choicekdtree = 0;
+	// Temp remove later, 1 to enable either method.
+	int choiceBrute = 1;
+	int choicekdtree = 1;
 	
 	if (choiceBrute) //brute-force
 	{
