@@ -50,6 +50,12 @@ void SaveToFIle::savebmp(const char* filename, int w, int h, int dpi, ColourClas
 
 	f = fopen(filename, "wb");
 
+	if (!f)
+	{
+		fprintf(stderr, "Error opening %s: %s", filename, strerror(errno));
+		return;
+	}
+
 	fwrite(bmpfileheader, 1, 14, f);
 	fwrite(bmpinfoheader, 1, 40, f);
 
