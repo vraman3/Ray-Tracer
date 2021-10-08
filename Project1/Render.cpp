@@ -163,3 +163,8 @@ void Render::render(int screenHeight, int screenWidth, double pixelW, double pix
 		}
 	}
 }
+
+void Render::debugRender()
+{
+
+}

@@ -23,7 +23,9 @@ int main(int argc, char* argv[])
 	//  0 - No Tone Reproduction (By Default)
 	int whichTR, maxDepth;
 	int screenWidth, screenHeight;
-	double worldWidth = 2 * 16 / 9, worldHeight = 2;
+	double aspectRatio = 16.0 / 9.0;
+	double worldHeight = 2.0;
+	double worldWidth = aspectRatio * worldHeight;
 
 	// Get command line arguments if any
 	if (argc == 5)
@@ -185,7 +187,8 @@ int main(int argc, char* argv[])
 
 	int filesize = screenWidth * screenHeight;
 	ColourClass* pixels = new ColourClass[filesize];
-	ColourClass* debugPixels = new ColourClass[filesize];
+	ColourClass* pixelsBruteForce = new ColourClass[filesize];
+	ColourClass* pixels_debug = new ColourClass[filesize];
 
 	VectorClass camPosition = VectorClass(0, 0, 8);
 	VectorClass camLookAt = VectorClass(0, 0, 2);
@@ -239,21 +242,73 @@ int main(int argc, char* argv[])
 	Render renderObject = Render();
 
 	// Temp remove later, 1 to enable either method.
-	int choiceBrute = 1;
-	int choicekdtree = 1;
+	int choiceBrute = 0;
+	int choicekdtree = 0;
+	int choiceDebug = 1;
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// For debugRender				TEMPORARY DEBUGGING
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+
+	if (choiceDebug)
+	{
+		int position_debug = 0;
+
+		double focalLength_debug = 1.0;
+		VectorClass origin_debug = VectorClass(0.0, 0.0, 0.0);
+		VectorClass horizontal_debug = VectorClass(worldWidth, 0, 0);
+		VectorClass vertical_debug = VectorClass(0, worldHeight, 0);
+		auto lowerLeftCorner_debug = origin_debug - horizontal_debug / 2 - vertical_debug / 2 - VectorClass(0, 0, focalLength_debug);
+
+		start = std::chrono::high_resolution_clock::now();
+
+		for (int j = screenHeight - 1; j >= 0; --j)
+		{
+			for (int i = 0; i < screenWidth; ++i)
+			{
+				auto u = (double)i / ((double)screenWidth - 1);
+				auto v = (double)j / ((double)screenHeight - 1);
+
+				VectorClass direction_debug = lowerLeftCorner_debug + (horizontal_debug * u) + (vertical_debug * v) - origin_debug;
+				RayClass ray_debug = RayClass(origin_debug, direction_debug);
+
+				double t_debug = 0.5 * (ray_debug.GetRayDirection().normalize().getY() + 1.0);
+
+				ColourClass pixelColour_debug = ColourClass(1.0, 1.0, 1.0) * (1.0 - t_debug) + ColourClass(0.5, 0.7, 1.0) * t_debug;
+
+				pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());
+				pixels_debug[position_debug].SetGreen(pixelColour_debug.GetGreen());
+				pixels_debug[position_debug].SetBlue(pixelColour_debug.GetBlue());
+
+				position_debug++;
+			}
+		}
+
+		finish = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> renderTime_debug = finish - start;
+
+		SaveToFIle saveObject_debug = SaveToFIle();
+		saveObject_debug.savebmp("scene_debug.bmp", screenWidth, screenHeight, 72, pixels_debug, whichTR);
+
+		std::cout << "debug render: " << renderTime_debug.count() << "seconds" << std::endl;
+
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	if (choiceBrute) //brute-force
 	{
 		start = std::chrono::high_resolution_clock::now();
 
 		renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-			camU, camV, originalCamera, parsedObject, lights, background, pointCol, debugPixels, maxDepth);
+			camU, camV, originalCamera, parsedObject, lights, background, pointCol, pixelsBruteForce, maxDepth);
 
 		finish = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> bruteRender_time = finish - start;
 
-		SaveToFIle saveObjectDebug = SaveToFIle();
-		saveObjectDebug.savebmp("scene_Vishwanath_brute.bmp", screenWidth, screenHeight, 72, debugPixels, whichTR);
+		SaveToFIle saveObjectBruteForce = SaveToFIle();
+		saveObjectBruteForce.savebmp("scene_Vishwanath_brute.bmp", screenWidth, screenHeight, 72, pixelsBruteForce, whichTR);
 
 		std::cout << "brute force render: " << bruteRender_time.count() << "seconds" << std::endl;
 

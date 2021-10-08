@@ -14,6 +14,8 @@ class Render
 		/* Constructors */
 
 		/* Functions */
+		void debugRender();
+
 		void render(int screenHeight, int screenWidth, double pixelW, double pixelH, double f, 
 					VectorClass startPixel, VectorClass camU, VectorClass camV, CameraClass camera,
 					std::vector<TriangleClass*> objects, std::vector<VectorClass*> lights, ColourClass background, 
