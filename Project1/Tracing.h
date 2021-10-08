@@ -22,6 +22,8 @@ public:
 	Tracing();
 
 	/* Methods */
+	ColourClass TraceRay_debug(RayClass ray);
+
 	ColourClass TraceRay(RayClass, int, double, std::vector<TriangleClass*>, std::vector<VectorClass*>, ColourClass, ColourClass, int);
 
 	ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorClass*>,

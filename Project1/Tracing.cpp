@@ -9,6 +9,10 @@
 
 #include "Tracing.h"
 
+// Temp include
+#include "SphereClass.h"
+//
+
 /**
 	Default constructor.
 */
@@ -364,4 +368,37 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 		}
 		return tmp;
 	}
+}
+
+/**
+	A debug function for TraceRay. Currently using object arrays
+
+	@param ray: The ray to be traced.
+	@param depth: The current depth of the tracing. For multiple light bounces.
+	@param incomingni: The refractive index of the medium outside the objects.
+	@param objects: A vector array of all the Objects in the current scene.
+	@param lights: All the light sources for the current scene.
+	@param background: The background colour.
+	@param pointCol: The intensity of the light.
+	@param maxDepth: The maximum allowed depth for all light bounces.
+*/
+ColourClass Tracing::TraceRay_debug(RayClass ray_debug)
+{
+	SphereClass sphere_debug = SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0));
+
+	auto t_debug = (sphere_debug.GetIntersection(ray_debug));
+
+	if (t_debug > EPSILONVAL)
+	{
+		// Create normal to Sphere at current intersection point of given ray and Sphere
+		VectorClass normal_debug = (ray_debug.GetRayOrigin() + (ray_debug.GetRayDirection() * t_debug) - sphere_debug.GetCenter()).normalize();
+
+		return ColourClass(normal_debug.getX() + 1, normal_debug.getY() + 1, normal_debug.getZ() + 1) * 0.5;
+
+	}
+	
+	//double t_debug = 0.5 * (ray_debug.GetRayDirection().normalize().getY() + 1.0);
+
+	//ColourClass pixelColour_debug = ColourClass(1.0, 1.0, 1.0) * (1.0 - t_debug) + ColourClass(0.5, 0.7, 1.0) * t_debug;
+	return ColourClass(1.0, 1.0, 1.0) * (1.0 - t_debug) + ColourClass(0.5, 0.7, 1.0) * t_debug;
 }

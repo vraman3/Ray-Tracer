@@ -264,6 +264,7 @@ int main(int argc, char* argv[])
 
 		start = std::chrono::high_resolution_clock::now();
 
+		Tracing traceObject_debug = Tracing();
 		for (int j = screenHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < screenWidth; ++i)
@@ -274,10 +275,10 @@ int main(int argc, char* argv[])
 				VectorClass direction_debug = lowerLeftCorner_debug + (horizontal_debug * u) + (vertical_debug * v) - origin_debug;
 				RayClass ray_debug = RayClass(origin_debug, direction_debug);
 
-				double t_debug = 0.5 * (ray_debug.GetRayDirection().normalize().getY() + 1.0);
+				// Trace across any objects
+				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(ray_debug);
 
-				ColourClass pixelColour_debug = ColourClass(1.0, 1.0, 1.0) * (1.0 - t_debug) + ColourClass(0.5, 0.7, 1.0) * t_debug;
-
+				// Store the colour value
 				pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());
 				pixels_debug[position_debug].SetGreen(pixelColour_debug.GetGreen());
 				pixels_debug[position_debug].SetBlue(pixelColour_debug.GetBlue());
