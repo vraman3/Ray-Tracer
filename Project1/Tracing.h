@@ -22,7 +22,7 @@ public:
 	Tracing();
 
 	/* Methods */
-	ColourClass TraceRay_debug(RayClass ray);
+	ColourClass TraceRay_debug(RayClass ray, std::vector<ObjectClass*> objects);
 
 	ColourClass TraceRay(RayClass, int, double, std::vector<TriangleClass*>, std::vector<VectorClass*>, ColourClass, ColourClass, int);
 

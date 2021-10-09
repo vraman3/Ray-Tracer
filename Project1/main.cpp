@@ -264,6 +264,14 @@ int main(int argc, char* argv[])
 
 		start = std::chrono::high_resolution_clock::now();
 
+		std::vector<ObjectClass*> objects_debug;
+
+		objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0)));
+		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0)));
+
+		/*SphereClass sphere_debug = SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0));
+		SphereClass sphere_debug = SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0));*/
+
 		Tracing traceObject_debug = Tracing();
 		for (int j = screenHeight - 1; j >= 0; --j)
 		{
@@ -276,7 +284,7 @@ int main(int argc, char* argv[])
 				RayClass ray_debug = RayClass(origin_debug, direction_debug);
 
 				// Trace across any objects
-				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(ray_debug);
+				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(ray_debug, objects_debug);
 
 				// Store the colour value
 				pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());

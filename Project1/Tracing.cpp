@@ -382,16 +382,38 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 	@param pointCol: The intensity of the light.
 	@param maxDepth: The maximum allowed depth for all light bounces.
 */
-ColourClass Tracing::TraceRay_debug(RayClass ray_debug)
+ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*> objects_debug)
 {
-	SphereClass sphere_debug = SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0));
+	double currentLowestVal = 1000000;
+	double t_debug = 0.0;
+	int closest = -1;
+	ColourClass tmp = ColourClass(0, 0, 0);
 
-	auto t_debug = (sphere_debug.GetIntersection(ray_debug));
+	int omegaCounter = 0;
+	int objectsSize = objects_debug.size();
+
+	for (int objNo = 0; objNo < objects_debug.size(); objNo++)
+	{
+		t_debug = objects_debug[objNo]->GetIntersection(ray_debug);
+
+		if (t_debug == -1)	{continue;}
+		else
+		{
+			if (t_debug < currentLowestVal)
+			{
+				closest = objNo;
+				currentLowestVal = t_debug;
+			}
+		}
+
+	}
+
+	//auto t_debug = (sphere_debug.GetIntersection(ray_debug));
 
 	if (t_debug > EPSILONVAL)
 	{
 		// Create normal to Sphere at current intersection point of given ray and Sphere
-		VectorClass normal_debug = (ray_debug.GetRayOrigin() + (ray_debug.GetRayDirection() * t_debug) - sphere_debug.GetCenter()).normalize();
+		VectorClass normal_debug = (ray_debug.GetRayOrigin() + (ray_debug.GetRayDirection() * t_debug) - dynamic_cast<SphereClass*>(objects_debug[closest])->GetCenter()).normalize();
 
 		return ColourClass(normal_debug.getX() + 1, normal_debug.getY() + 1, normal_debug.getZ() + 1) * 0.5;
 
