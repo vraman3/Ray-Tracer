@@ -273,7 +273,13 @@ int main(int argc, char* argv[])
 		SphereClass sphere_debug = SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0));*/
 
 		Tracing traceObject_debug = Tracing();
-		for (int j = screenHeight - 1; j >= 0; --j)
+		
+		// This is how the book does it, but it reverts image here...why?
+		/*for (int j = screenHeight - 1; j >= 0; --j)
+		{
+			for (int i = 0; i < screenWidth; ++i)
+			{*/
+		for (int j = 0 ; j < screenHeight; ++j)
 		{
 			for (int i = 0; i < screenWidth; ++i)
 			{
