@@ -289,9 +289,17 @@ int main(int argc, char* argv[])
 				VectorClass direction_debug = lowerLeftCorner_debug + (horizontal_debug * u) + (vertical_debug * v) - origin_debug;
 				RayClass ray_debug = RayClass(origin_debug, direction_debug);
 
+				if (i == 0 && j == 145)
+				{
+					int tempDebug = 1;
+				}
 				// Trace across any objects
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(ray_debug, objects_debug);
 
+				if (i == 316 && j == 170)
+				{
+					pixelColour_debug = ColourClass(0.0, 0.0, 0.0);
+				}
 				// Store the colour value
 				pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());
 				pixels_debug[position_debug].SetGreen(pixelColour_debug.GetGreen());
@@ -305,7 +313,7 @@ int main(int argc, char* argv[])
 		std::chrono::duration<double> renderTime_debug = finish - start;
 
 		SaveToFIle saveObject_debug = SaveToFIle();
-		saveObject_debug.savebmp("scene_debug.bmp", screenWidth, screenHeight, 72, pixels_debug, whichTR);
+		saveObject_debug.savebmp("scene_d.bmp", screenWidth, screenHeight, 72, pixels_debug, whichTR);
 
 		std::cout << "debug render: " << renderTime_debug.count() << "seconds" << std::endl;
 

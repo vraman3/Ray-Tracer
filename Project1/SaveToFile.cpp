@@ -160,7 +160,7 @@ void SaveToFIle::savebmp(const char* filename, int w, int h, int dpi, ColourClas
 		fwrite(color, 1, 3, f);
 	}
 
-	//std::cout << "about to close" << std::endl;
+	std::cout << "Closing file" << std::endl;
 	fclose(f);
 }
 

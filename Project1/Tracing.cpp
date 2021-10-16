@@ -384,7 +384,7 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 */
 ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*> objects_debug)
 {
-	double currentLowestVal = 1000000;
+	double currentLowestVal_debug = 1000000;
 	double t_debug = 0.0;
 	int closest = -1;
 	ColourClass tmp = ColourClass(0, 0, 0);
@@ -399,10 +399,10 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*
 		if (t_debug == -1)	{continue;}
 		else
 		{
-			if (t_debug < currentLowestVal)
+			if (t_debug < currentLowestVal_debug)
 			{
 				closest = objNo;
-				currentLowestVal = t_debug;
+				currentLowestVal_debug = t_debug;
 			}
 		}
 
@@ -410,17 +410,17 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*
 
 	//auto t_debug = (sphere_debug.GetIntersection(ray_debug));
 
-	if (t_debug > EPSILONVAL)
+	if (currentLowestVal_debug > EPSILONVAL)
 	{
 		// Create normal to Sphere at current intersection point of given ray and Sphere
-		VectorClass normal_debug = (ray_debug.GetRayOrigin() + (ray_debug.GetRayDirection() * t_debug) - dynamic_cast<SphereClass*>(objects_debug[closest])->GetCenter()).normalize();
+		VectorClass normal_debug = (ray_debug.GetRayOrigin() + (ray_debug.GetRayDirection() * currentLowestVal_debug) - dynamic_cast<SphereClass*>(objects_debug[closest])->GetCenter()).normalize();
 
 		return ColourClass(normal_debug.getX() + 1, normal_debug.getY() + 1, normal_debug.getZ() + 1) * 0.5;
 
 	}
 	
-	t_debug = 0.5 * (ray_debug.GetRayDirection().normalize().getY() + 1.0);
+	currentLowestVal_debug = 0.5 * (ray_debug.GetRayDirection().normalize().getY() + 1.0);
 
 	//ColourClass pixelColour_debug = ColourClass(1.0, 1.0, 1.0) * (1.0 - t_debug) + ColourClass(0.5, 0.7, 1.0) * t_debug;
-	return ColourClass(1.0, 1.0, 1.0) * (1.0 - t_debug) + ColourClass(0.5, 0.7, 1.0) * t_debug;
+	return ColourClass(1.0, 1.0, 1.0) * (1.0 - currentLowestVal_debug) + ColourClass(0.5, 0.7, 1.0) * currentLowestVal_debug;
 }
