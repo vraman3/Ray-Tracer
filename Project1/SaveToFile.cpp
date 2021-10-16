@@ -52,7 +52,7 @@ void SaveToFIle::savebmp(const char* filename, int w, int h, int dpi, ColourClas
 
 	if (!f)
 	{
-		fprintf(stderr, "Error opening %s: %s", filename, strerror(errno));
+		fprintf(stderr, "Error opening %s: %s /n", filename, strerror(errno));
 		return;
 	}
 
@@ -160,6 +160,7 @@ void SaveToFIle::savebmp(const char* filename, int w, int h, int dpi, ColourClas
 		fwrite(color, 1, 3, f);
 	}
 
+	//std::cout << "about to close" << std::endl;
 	fclose(f);
 }
 
