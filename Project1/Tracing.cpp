@@ -409,8 +409,8 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*
 	}
 
 	//auto t_debug = (sphere_debug.GetIntersection(ray_debug));
-
-	if (currentLowestVal_debug > EPSILONVAL)
+	
+	if (currentLowestVal_debug > EPSILONVAL && currentLowestVal_debug != 1000000)
 	{
 		// Create normal to Sphere at current intersection point of given ray and Sphere
 		VectorClass normal_debug = (ray_debug.GetRayOrigin() + (ray_debug.GetRayDirection() * currentLowestVal_debug) - dynamic_cast<SphereClass*>(objects_debug[closest])->GetCenter()).normalize();

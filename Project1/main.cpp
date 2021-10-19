@@ -313,7 +313,7 @@ int main(int argc, char* argv[])
 		std::chrono::duration<double> renderTime_debug = finish - start;
 
 		SaveToFIle saveObject_debug = SaveToFIle();
-		saveObject_debug.savebmp("scene_d.bmp", screenWidth, screenHeight, 72, pixels_debug, whichTR);
+		saveObject_debug.savebmp("scene_debug.bmp", screenWidth, screenHeight, 72, pixels_debug, whichTR);
 
 		std::cout << "debug render: " << renderTime_debug.count() << "seconds" << std::endl;
 
