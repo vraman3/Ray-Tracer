@@ -44,6 +44,7 @@ public:
 
 	/* Methods */
 	double magnitude();
+	double magnitude_squared();
 	double dotProd(VectorClass );
 	VectorClass crossProd(VectorClass );
 	VectorClass normalize();

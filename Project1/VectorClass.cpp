@@ -181,8 +181,20 @@ void VectorClass::setZ(double val)
 */
 double VectorClass::magnitude()
 {
-	double temp = x*x + y*y + z*z;
-	return sqrt(temp);
+	double mag = x*x + y*y + z*z;
+	return sqrt(mag);
+
+}
+
+/**
+	Get the square of the magnitude of the VectorClass.
+
+	@return the square of the magnitude of the VectorClass.
+*/
+double VectorClass::magnitude_squared()
+{
+	double magnitude_sq = x * x + y * y + z * z;
+	return magnitude_sq;
 
 }
 

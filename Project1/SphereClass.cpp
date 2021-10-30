@@ -94,29 +94,7 @@ ColourClass SphereClass::GetColour(){ return colour; }
 */
 double SphereClass::GetIntersection(RayClass ray)
 {
-	//double A = ray.GetRayDirection().dotProd(ray.GetRayDirection()); // Since dx2 + dy2 + dz2 = 1 if D is normalized
-	//
-	//double B = 2.0 * (ray.GetRayDirection().dotProd(ray.GetRayOrigin() - this->center));
-
-	//double C = (ray.GetRayOrigin() - this->center).dotProd((ray.GetRayOrigin() - this->center)) - this->radius * this->radius;
-
-	//if (B * B >= 4 * A * C)
-	//{
-	//	double root = sqrt(B*B - 4 * A*C);
-
-	//	double W1 = (-B - root) / 2 * A;
-	//	double W2 = (-B + root) / 2 * A;
-
-	//	if (W1 < 0.00001 && W2 < 0.00001)
-	//		return -1;
-
-	//	if (W1 < W2)
-	//		return W1;
-	//	else
-	//		return W2;		
-	//}
-	//else
-	//	return -1;
+	/*
 
 	double A = ray.GetRayDirection().dotProd(ray.GetRayDirection()); // Since dx2 + dy2 + dz2 = 1 if D is normalized
 
@@ -146,6 +124,47 @@ double SphereClass::GetIntersection(RayClass ray)
 		}
 
 		W = (-B + root) / denom;
+
+		if (W > EPSILONVAL)
+		{
+			return W;
+		}
+	}
+
+	return -1;
+	*/
+
+	VectorClass centerToRayOriginVec = ray.GetRayOrigin() - this->center;
+
+	// Since dx2 + dy2 + dz2 = 1 if D is normalized so A = ray.direction DOT ray.direction
+	// Vector dotted with itself is equal to squared length of that vector
+
+	double a = ray.GetRayDirection().magnitude_squared();
+
+	double half_b = ray.GetRayDirection().dotProd(centerToRayOriginVec);
+
+	double c = centerToRayOriginVec.magnitude_squared() - this->radius * this->radius;
+
+	double discriminant = (half_b * half_b) - (a * c);
+
+	double W;
+
+	if (discriminant < 0.0)
+	{
+		return -1;
+	}
+	else
+	{
+		double root = sqrt(discriminant);
+
+		W = (-half_b - root) / a;
+
+		if (W > EPSILONVAL)
+		{
+			return W;
+		}
+
+		W = (-half_b + root) / a;
 
 		if (W > EPSILONVAL)
 		{

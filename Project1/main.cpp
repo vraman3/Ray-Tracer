@@ -296,10 +296,10 @@ int main(int argc, char* argv[])
 				// Trace across any objects
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(ray_debug, objects_debug);
 
-				if (i == 316 && j == 170)
+				/*if (i == 316 && j == 170)
 				{
 					pixelColour_debug = ColourClass(0.0, 0.0, 0.0);
-				}
+				}*/
 				// Store the colour value
 				pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());
 				pixels_debug[position_debug].SetGreen(pixelColour_debug.GetGreen());
