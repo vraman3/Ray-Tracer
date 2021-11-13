@@ -72,6 +72,17 @@ double ObjectClass::GetIntersection(RayClass paramRay)
 }
 
 /**
+	Get the intersection of the current object with a ray for given tmin and tmax values
+
+	@return the distance of the intersection of the current object and given ray,
+	along the ray.
+*/
+double ObjectClass::GetIntersection(RayClass paramRay, double tmin, double tmax)
+{
+	return 0.0;
+}
+
+/**
 	Get the midpoint of the current object.
 
 	@return the midpoint of the current object as VectorClass.

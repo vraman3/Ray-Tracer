@@ -29,6 +29,7 @@ public:
 	virtual VectorClass GetNormal(VectorClass pi);
 	virtual ColourClass GetColour();
 	virtual double GetIntersection(RayClass ray);
+	virtual double GetIntersection(RayClass ray, double tmin, double tmax);
 
 	virtual VectorClass GetMidpoint();
 };

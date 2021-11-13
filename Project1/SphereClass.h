@@ -36,6 +36,7 @@ public:
 	double GetAmbient();
 	virtual ColourClass GetColour();
 	virtual double GetIntersection(RayClass);
+	virtual double GetIntersection(RayClass ray, double tmin, double tmax);
 
 	/* Setters */
 	void SetDiffuse(double paramDiffuse);

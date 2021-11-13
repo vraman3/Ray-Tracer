@@ -176,6 +176,17 @@ double SphereClass::GetIntersection(RayClass ray)
 }
 
 /**
+	Get the intersection point of the current sphere with a given ray
+	if they intersect between the given tmin and tmax values
+
+	@return the intersection point between the sphere and the ray, if it exists.
+*/
+double SphereClass::GetIntersection(RayClass ray, double tmin, double tmax)
+{
+
+}
+
+/**
 	Set the diffuse coefficient of the sphere.
 
 	@param paramDiffuse: The diffuse coefficient to be set.
