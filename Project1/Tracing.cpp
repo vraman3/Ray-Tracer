@@ -412,7 +412,8 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*
 	if (currentLowestVal_debug != infinity && currentLowestVal_debug > epsilonval_small)
 	{
 		// Create normal to Sphere at current intersection point of given ray and Sphere
-		VectorClass normal_debug = (ray_debug.GetRayOrigin() + (ray_debug.GetRayDirection() * currentLowestVal_debug) - dynamic_cast<SphereClass*>(objects_debug[closest])->GetCenter()).normalize();
+		VectorClass normal_debug = (ray_debug.GetRayOrigin() + (ray_debug.GetRayDirection() * currentLowestVal_debug)
+									- dynamic_cast<SphereClass*>(objects_debug[closest])->GetCenter()).normalize();
 
 		return ColourClass(normal_debug.getX() + 1, normal_debug.getY() + 1, normal_debug.getZ() + 1) * 0.5;
 

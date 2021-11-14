@@ -22,6 +22,9 @@ struct intersection_record
 
 	// The intersection value
 	double t;
+
+	// The intersection point
+	VectorClass point;
 };
 
 class ObjectClass
