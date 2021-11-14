@@ -338,7 +338,7 @@ double TriangleClass::GetIntersection(RayClass ray)
 
 		// Check if the plane is parallel to the ray
 		double planeNormal_dot_RayDir = planeNormal.dotProd(ray.GetRayDirection());
-		if (fabs(planeNormal_dot_RayDir) < EPSILONVAL)
+		if (fabs(planeNormal_dot_RayDir) < epsilonval_small)
 			return -1;
 
 		// Find D from Ax + By + Cz + D = 0
@@ -428,7 +428,7 @@ double TriangleClass::GetIntersection(RayClass ray)
 		VectorClass P = ray.GetRayDirection().crossProd(e2);
 		det = e1.dotProd(P);
 
-		if (det < EPSILONVAL && det > -EPSILONVAL) return -1;
+		if (det < epsilonval_small && det > -epsilonval_small) return -1;
 
 
 		inv_det = 1.0 / det;
@@ -447,7 +447,7 @@ double TriangleClass::GetIntersection(RayClass ray)
 
 		double t = e2.dotProd(Q) * inv_det;
 		//std::cout << t << " t" << std::endl;
-		if (t > EPSILONVAL)
+		if (t > epsilonval_small)
 		{
 			return t;
 		}
@@ -478,7 +478,7 @@ bool TriangleClass::GetIntersectionBarycentric(RayClass ray, double &t, double &
 
 	// Check if the plane is parallel to the ray
 	double planeNormal_dot_RayDir = planeNormal.dotProd(ray.GetRayDirection());
-	if (fabs(planeNormal_dot_RayDir) < EPSILONVAL)
+	if (fabs(planeNormal_dot_RayDir) < epsilonval_small)
 		return false;
 
 	// Find D from Ax + By + Cz + D = 0
