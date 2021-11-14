@@ -159,14 +159,14 @@ double SphereClass::GetIntersection(RayClass ray)
 
 		W = (-half_b - root) / a;
 
-		if (W > EPSILONVAL)
+		if (W > epsilonval_small)
 		{
 			return W;
 		}
 
 		W = (-half_b + root) / a;
 
-		if (W > EPSILONVAL)
+		if (W > epsilonval_small)
 		{
 			return W;
 		}
@@ -183,7 +183,38 @@ double SphereClass::GetIntersection(RayClass ray)
 */
 double SphereClass::GetIntersection(RayClass ray, double tmin, double tmax)
 {
+	VectorClass centerToRayOriginVec = ray.GetRayOrigin() - this->center;
 
+	// Since dx2 + dy2 + dz2 = 1 if D is normalized so A = ray.direction DOT ray.direction
+	// Vector dotted with itself is equal to squared length of that vector
+
+	double a = ray.GetRayDirection().magnitude_squared();
+
+	double half_b = ray.GetRayDirection().dotProd(centerToRayOriginVec);
+
+	double c = centerToRayOriginVec.magnitude_squared() - this->radius * this->radius;
+
+	double discriminant = (half_b * half_b) - (a * c);
+
+	if (discriminant < 0.0)
+	{
+		return -1;
+	}
+
+	double discriminant_sqrt = sqrt(discriminant);
+
+	// find the root lying between tmin and tmax
+
+	double root = (-half_b - discriminant_sqrt) / a;
+
+	if (root < tmin || tmax < root)
+	{
+		root = (-half_b + discriminant_sqrt) / a;
+		if (root < tmin || tmax < root)
+			return -1;
+	}
+
+	return root;
 }
 
 /**

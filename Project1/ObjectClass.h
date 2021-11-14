@@ -13,7 +13,8 @@
 #include "ColourClass.h"
 #include "RayClass.h"
 
-#define EPSILONVAL 0.00000001
+const double epsilonval_small = 0.00000001;
+const double infinity = std::numeric_limits<double>::infinity();
 
 class ObjectClass
 {
