@@ -31,9 +31,11 @@ public:
 	VectorClass GetRayOrigin();
 	VectorClass GetRayDirection();
 	VectorClass GetRayInvDirection();
-
+	
 	/* Setters */
 	void SetRayOrigin(VectorClass paramOrigin);
 	void SetRayDirection(VectorClass paramDirection);
+
+	VectorClass at(double t);
 };
 

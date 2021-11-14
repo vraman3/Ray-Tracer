@@ -16,6 +16,14 @@
 const double epsilonval_small = 0.00000001;
 const double infinity = std::numeric_limits<double>::infinity();
 
+struct intersection_record
+{
+	VectorClass normal;
+
+	// The intersection value
+	double t;
+};
+
 class ObjectClass
 {
 public:

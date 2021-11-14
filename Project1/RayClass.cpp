@@ -96,3 +96,8 @@ void RayClass::SetRayDirection(VectorClass paramDirection)
 	invDirection.setY(1 / direction.getY());
 	invDirection.setZ(1 / direction.getZ());
 }
+
+VectorClass RayClass::at(double t)
+{
+	return this->origin + this->direction * t;
+}
