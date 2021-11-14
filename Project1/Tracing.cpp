@@ -384,6 +384,7 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 */
 ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*> objects_debug)
 {
+	intersection_record interRecord_debug;
 	double currentLowestVal_debug = infinity;
 	double t_debug = 0.0;
 	int closest = -1;
@@ -394,7 +395,7 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*
 
 	for (int objNo = 0; objNo < objects_debug.size(); objNo++)
 	{
-		t_debug = objects_debug[objNo]->GetIntersection(ray_debug, 0, currentLowestVal_debug);
+		t_debug = objects_debug[objNo]->GetIntersection(ray_debug, 0, currentLowestVal_debug, interRecord_debug);
 
 		if (t_debug == -1)	{continue;}
 		else

@@ -181,7 +181,7 @@ double SphereClass::GetIntersection(RayClass ray)
 
 	@return the intersection point between the sphere and the ray, if it exists.
 */
-double SphereClass::GetIntersection(RayClass ray, double tmin, double tmax)
+double SphereClass::GetIntersection(RayClass ray, double tmin, double tmax, intersection_record interRecord)
 {
 	VectorClass centerToRayOriginVec = ray.GetRayOrigin() - this->center;
 
@@ -213,6 +213,10 @@ double SphereClass::GetIntersection(RayClass ray, double tmin, double tmax)
 		if (root < tmin || tmax < root)
 			return -1;
 	}
+
+	interRecord.t = root;
+	interRecord.point = ray.at(root);
+	interRecord.normal = (interRecord.point - this->center) / radius;
 
 	return root;
 }
