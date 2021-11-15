@@ -36,7 +36,7 @@ public:
 	double GetAmbient();
 	virtual ColourClass GetColour();
 	virtual double GetIntersection(RayClass);
-	virtual double GetIntersection(RayClass ray, double tmin, double tmax, intersection_record intersectionRecord);
+	virtual double GetIntersection(RayClass ray, double tmin, double tmax, intersection_record &intersectionRecord);
 
 	/* Setters */
 	void SetDiffuse(double paramDiffuse);

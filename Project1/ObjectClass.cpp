@@ -77,7 +77,7 @@ double ObjectClass::GetIntersection(RayClass paramRay)
 	@return the distance of the intersection of the current object and given ray,
 	along the ray.
 */
-double ObjectClass::GetIntersection(RayClass paramRay, double tmin, double tmax)
+double ObjectClass::GetIntersection(RayClass paramRay, double tmin, double tmax, intersection_record &interRecord)
 {
 	return 0.0;
 }

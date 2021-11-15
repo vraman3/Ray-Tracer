@@ -28,6 +28,17 @@ ColourClass::ColourClass(double paramRed, double paramGreen, double paramBlue)
 }
 
 /**
+	Parameterized Constructor converting a VectorClass to ColourClass.
+	Check if this is efficient
+*/
+ColourClass::ColourClass(VectorClass paramVector)
+{
+	red = paramVector.getX();
+	green = paramVector.getY();
+	blue = paramVector.getZ();
+}
+
+/**
 	Get the red hue value for current pixel.
 
 	@return the value of the red hue value.

@@ -9,6 +9,7 @@
 #pragma once
 
 #include <iostream>
+#include "VectorClass.h"
 
 class ColourClass
 {
@@ -18,7 +19,8 @@ private:
 public:
 	/* Constructors */
 	ColourClass();
-	ColourClass(double, double, double);
+	ColourClass(double red, double green, double blue);
+	ColourClass(VectorClass vector);
 
 	/* Getters */
 	double GetRed();
@@ -26,9 +28,9 @@ public:
 	double GetBlue();
 
 	/* Setters */
-	void SetRed(double);
-	void SetGreen(double);
-	void SetBlue(double);
+	void SetRed(double red);
+	void SetGreen(double green);
+	void SetBlue(double blue);
 
 	/* Opeator Overloading*/
 	ColourClass operator*(const double) const;
