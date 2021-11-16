@@ -216,7 +216,10 @@ double SphereClass::GetIntersection(RayClass ray, double tmin, double tmax, inte
 
 	interRecord.t = root;
 	interRecord.point = ray.at(root);
-	interRecord.normal = (interRecord.point - this->center) / radius;
+	VectorClass outwardNormal = (interRecord.point - this->center) / radius;
+	
+	// Check how the normal is. Always out of the surface, or always opposite to ray?
+	interRecord.setFaceNormal(ray, outwardNormal);
 
 	return root;
 }

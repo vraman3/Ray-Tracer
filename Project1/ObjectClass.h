@@ -25,6 +25,28 @@ struct intersection_record
 
 	// The intersection point
 	VectorClass point;
+
+	bool frontFace;
+
+	// Check how the normal is. Always out of the surface, or always opposite to ray?
+	/*
+	*	
+	*/
+	void setFaceNormal(RayClass& ray, VectorClass outwardNormal)
+	{
+		if (ray.GetRayDirection().dotProd(outwardNormal) > 0.0)
+		{
+			// ray is inside the sphere
+			normal = outwardNormal * (-1);
+			frontFace = false;
+		}
+		else
+		{
+			// ray is outside the sphere
+			normal = outwardNormal;
+			frontFace = true;
+		}
+	}
 };
 
 class ObjectClass
