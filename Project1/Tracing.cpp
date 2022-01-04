@@ -191,7 +191,7 @@ ColourClass Tracing::TraceRayKD(RayClass ray, int depth, double incomingni, KDNo
 }
 
 /**
-	Trace a ray across all objects store in a k-d tree.
+	Brute force ray tracing. Trace a ray for all objects.
 
 	@param ray: The ray to be traced.
 	@param depth: The current depth of the tracing. For multiple light bounces.
