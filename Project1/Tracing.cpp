@@ -207,7 +207,7 @@ ColourClass Tracing::TraceRayKD(RayClass ray, int depth, double incomingni, KDNo
 ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::vector<TriangleClass*> objects, std::vector<VectorClass*> lights,
 	ColourClass background, ColourClass pointCol, int maxDepth)
 {
-	double currentLowestVal = 1000000;
+	double currentLowestVal = infinity;
 	double omega = 0.0;
 	int closest = -1;
 	ColourClass tmp = ColourClass(0, 0, 0);
@@ -243,7 +243,7 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 		//std::cout << depth << std::endl;
 		return background;
 	}
-	else
+	else if(currentLowestVal != infinity && currentLowestVal > epsilonval_small)
 	{
 		bool noShadow = true;
 		VectorClass pi = ray.GetRayOrigin() + ray.GetRayDirection() * currentLowestVal;
@@ -268,7 +268,7 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 				//$// double objkt = illuminations[shadowObj]->getTransmissivitykt();
 
 				//std::cout << shadowOmega << " ";
-				if (shadowOmega > 0.00001)
+				if (shadowOmega > epsilonval_small)
 					//if (false)					// Use this to disable shadows. Comment the "if" condition above.
 				{
 					//if (shadowOmega <= shadowRayDirection.magnitude())
