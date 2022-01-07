@@ -242,10 +242,9 @@ int main(int argc, char* argv[])
 	Render renderObject = Render();
 
 	// Temp remove later, 1 to enable either method.
-	int choiceBrute = 0;
+	int choiceBrute = 1;
 	int choicekdtree = 0;
-	int choiceDebug = 1;
-
+	int choiceDebug = 0;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// For debugRender				TEMPORARY DEBUGGING
@@ -337,6 +336,8 @@ int main(int argc, char* argv[])
 
 		
 	}
+
+
 	if(choicekdtree) //kdtree
 	{
 		start = std::chrono::high_resolution_clock::now();
