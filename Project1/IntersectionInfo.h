@@ -10,6 +10,7 @@
 
 #include "TriangleClass.h"
 
+//
 struct intersectionInfo
 {
 	TriangleClass *tri;
