@@ -12,6 +12,7 @@
 
 #include "ColourClass.h"
 #include "RayClass.h"
+#include "IntersectionInfo.h"
 
 const double epsilonval_small = 0.00000001;
 const double infinity = std::numeric_limits<double>::infinity();

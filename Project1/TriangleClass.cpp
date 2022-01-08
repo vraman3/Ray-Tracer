@@ -318,12 +318,57 @@ ColourClass TriangleClass::GetColour()
 	Only returns intersection point
 
 	@param	ray: The ray (RayClass) to be intersected with.
+	@return the intersection as a double.
+*/
+double TriangleClass::GetIntersection(RayClass ray)
+{
+	// Compute the plane normal
+	VectorClass e1 = b - a;   // v0v1 = v1 - v0;
+	VectorClass e2 = c - a;   // v0v2 = v2 - v0;
+
+
+	double det, inv_det, u, v;
+	VectorClass P = ray.GetRayDirection().crossProd(e2);
+	det = e1.dotProd(P);
+
+	if (det < epsilonval_small && det > -epsilonval_small) return -1;
+
+
+	inv_det = 1.0 / det;
+
+	VectorClass T = (ray.GetRayOrigin() - a);
+
+	u = T.dotProd(P) * inv_det;
+
+	if (u < 0.0 || u > 1.0) return -1;
+
+	VectorClass Q = T.crossProd(e1);
+
+	v = ray.GetRayDirection().dotProd(Q) * inv_det;
+
+	if (v < 0.0 || u + v > 1.0)  return -1;
+
+	double t = e2.dotProd(Q) * inv_det;
+	//std::cout << t << " t" << std::endl;
+	if (t > epsilonval_small)
+	{
+		return t;
+	}
+	return -1;
+
+}
+
+/**
+	Calculate the intersection of the current triangle with a ray.
+	Only returns intersection point and stores info in an intersectionInfo struct.
+
+	@param	ray: The ray (RayClass) to be intersected with.
 	@param  tmin: Not currently used. Kept for common virtual function definition.
 	@param  tmin: Not currently used. Kept for common virtual function definition.
 	@param	interRecord: variable to store the intersection information as a struct.
 	@return the intersection as a double.
 */
-double TriangleClass::GetIntersection(RayClass ray, double tmin, double tmax, intersection_record interRecord)
+double TriangleClass::GetIntersection(RayClass ray, double tmin, double tmax, intersection_record &interRecord)
 {
 	int moellerTrumbore_Flag = 1;
 	// Compute the plane normal

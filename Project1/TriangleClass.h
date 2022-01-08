@@ -57,7 +57,7 @@ class TriangleClass : public ObjectClass
 		/* Virtual functions */
 		virtual ColourClass GetColour();
 		virtual double GetIntersection(RayClass ray);
-		virtual double GetIntersection(RayClass ray, double tmin, double tmax, intersection_record interRecord);
+		virtual double GetIntersection(RayClass ray, double tmin, double tmax, intersection_record &interRecord);
 		virtual VectorClass GetMidpoint();
 
 		bool GetIntersectionBarycentric(RayClass ray, double &t, double &u, double &v);

@@ -207,6 +207,7 @@ ColourClass Tracing::TraceRayKD(RayClass ray, int depth, double incomingni, KDNo
 ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::vector<TriangleClass*> objects, std::vector<VectorClass*> lights,
 	ColourClass background, ColourClass pointCol, int maxDepth)
 {
+	intersectionInfo interRecord;
 	double currentLowestVal = infinity;
 	double omega = 0.0;
 	int closest = -1;
@@ -217,7 +218,7 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 	//std::cout << "objsize" << objectsSize << std::endl;
 	for (int objNo = 0; objNo < objectsSize ; objNo++)
 	{
-		omega = objects[objNo]->GetIntersection(ray);
+		omega = objects[objNo]->GetIntersection(ray, 0.0, currentLowestVal, interRecord);
 		
 		if (omega == -1)
 		{
