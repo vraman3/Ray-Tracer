@@ -106,11 +106,13 @@ int main(int argc, char* argv[])
 
 	//customObjects.push_back(new SphereClass(0.9, VectorClass(0, 0, -1), ColourClass(0.0, 1.0, 0.0)));
 
-	customObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
+	customObjects.push_back(new TriangleClass(VectorClass(0, 0, 0), VectorClass(0, 0, 0), VectorClass(0, 0, 0), 
+		ColourClass(0, 1, 0)));
+	/*customObjects.push_back(new TriangleClass(VectorClass(0.2, 0.4, 9.300),
 		VectorClass(5.5, 0.4, 22.0),
 		VectorClass(0.2, 0.4, 22.0),
 		ColourClass(0.0, 1.0, 0.0),
-		new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));
+		new PhongModel(0.3, 0.6, 0.3, 12.5, 0.0, 0.0)));*/
 
 	std::vector<IlluminationClass*> customObjectsIllum;
 
