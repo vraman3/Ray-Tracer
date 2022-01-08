@@ -318,9 +318,12 @@ ColourClass TriangleClass::GetColour()
 	Only returns intersection point
 
 	@param	ray: The ray (RayClass) to be intersected with.
+	@param  tmin: Not currently used. Kept for common virtual function definition.
+	@param  tmin: Not currently used. Kept for common virtual function definition.
+	@param	interRecord: variable to store the intersection information as a struct.
 	@return the intersection as a double.
 */
-double TriangleClass::GetIntersection(RayClass ray)
+double TriangleClass::GetIntersection(RayClass ray, double tmin, double tmax, intersection_record interRecord)
 {
 	int moellerTrumbore_Flag = 1;
 	// Compute the plane normal
@@ -419,6 +422,10 @@ double TriangleClass::GetIntersection(RayClass ray)
 		u /= denominator;
 		v /= denominator;
 
+		interRecord.t = t;
+		interRecord.point = intersectionPoint_P;
+		interRecord.normal = this->normal;
+
 		return t;
 	}
 	
@@ -449,6 +456,9 @@ double TriangleClass::GetIntersection(RayClass ray)
 		//std::cout << t << " t" << std::endl;
 		if (t > epsilonval_small)
 		{
+			interRecord.t = t;
+			interRecord.normal = this->normal;
+
 			return t;
 		}
 		return -1;
