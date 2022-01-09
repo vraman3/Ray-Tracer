@@ -266,8 +266,8 @@ int main(int argc, char* argv[])
 		auto lowerLeftCorner_debug = origin_debug - horizontal_debug / 2 - vertical_debug / 2 - VectorClass(0, 0, focalLength_debug);
 
 		// After camera abstraction
-		double aspectRatio = 16.0 / 9.0;
-		int imageWidth = 400;
+		//double aspectRatio = 16.0 / 9.0;
+		int imageWidth = 640;
 		int imageHeight = static_cast<int>(imageWidth / aspectRatio);
 
 
