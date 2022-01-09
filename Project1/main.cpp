@@ -257,11 +257,19 @@ int main(int argc, char* argv[])
 	{
 		int position_debug = 0;
 
+		
+		// before camera abstraction
 		double focalLength_debug = 1.0;
 		VectorClass origin_debug = VectorClass(0.0, 0.0, 0.0);
 		VectorClass horizontal_debug = VectorClass(worldWidth, 0, 0);
 		VectorClass vertical_debug = VectorClass(0, worldHeight, 0);
 		auto lowerLeftCorner_debug = origin_debug - horizontal_debug / 2 - vertical_debug / 2 - VectorClass(0, 0, focalLength_debug);
+
+		// After camera abstraction
+		double aspectRatio = 16.0 / 9.0;
+		int imageWidth = 400;
+		int imageHeight = static_cast<int>(imageWidth / aspectRatio);
+
 
 		start = std::chrono::high_resolution_clock::now();
 
@@ -275,25 +283,24 @@ int main(int argc, char* argv[])
 
 		Tracing traceObject_debug = Tracing();
 		
+		CameraClass cam_debug = CameraClass(1);
 		// This is how the book does it, but it reverts image here...why?
 		/*for (int j = screenHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < screenWidth; ++i)
 			{*/
-		for (int j = 0 ; j < screenHeight; ++j)
+
+		for (int j = 0 ; j < imageHeight; ++j)
 		{
-			for (int i = 0; i < screenWidth; ++i)
+			for (int i = 0; i < imageWidth; ++i)
 			{
-				auto u = (double)i / ((double)screenWidth - 1);
-				auto v = (double)j / ((double)screenHeight - 1);
+				auto u = (double)i / ((double)imageWidth - 1);
+				auto v = (double)j / ((double)imageHeight - 1);
 
 				VectorClass direction_debug = lowerLeftCorner_debug + (horizontal_debug * u) + (vertical_debug * v) - origin_debug;
 				RayClass ray_debug = RayClass(origin_debug, direction_debug);
+				//RayClass ray_debug = cam_debug.getRay(u, v);
 
-				if (i == 0 && j == 145)
-				{
-					int tempDebug = 1;
-				}
 				// Trace across any objects
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(ray_debug, objects_debug);
 
