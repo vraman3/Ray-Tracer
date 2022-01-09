@@ -277,20 +277,32 @@ int main(int argc, char* argv[])
 
 		std::vector<ObjectClass*> objects_debug;
 
+		ColourClass material_ground = ColourClass(0.8, 0.8, 0.0);
+		ColourClass material_center = ColourClass(0.1, 0.2, 0.5);
+		ColourClass material_left = ColourClass(0.0, 0.0, 0.0);
+		ColourClass material_right = ColourClass(0.8, 0.6, 0.2);
+
+		objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), material_ground));
+		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), material_center));
+		objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), material_left));
+		//objects_debug.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
+		objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), material_right));
+
 		/*objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0)));
 		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0)));*/
 
-		auto R = cos(3.1415926535897932385 / 4);
+		/*auto R = cos(3.1415926535897932385 / 4);
 
 		objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(0.0, 0.0, 1.0)));
-		objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1.0, 0.0, 0.0)));
+		objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1.0, 0.0, 0.0)));*/
 
 		/*SphereClass sphere_debug = SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0));
 		SphereClass sphere_debug = SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0));*/
 
 		Tracing traceObject_debug = Tracing();
 		
-		CameraClass cam_debug = CameraClass(1, 90.0, aspectRatio);
+		CameraClass cam_debug = CameraClass(1, VectorClass(-2, -2, 1), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
+			20.0, aspectRatio);
 		// This is how the book does it, but it reverts image here...why?
 		/*for (int j = screenHeight - 1; j >= 0; --j)
 		{
