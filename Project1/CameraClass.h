@@ -10,6 +10,7 @@
 
 #include "VectorClass.h"
 #include "MatrixClass.h"
+#include "RayClass.h"
 
 class CameraClass
 {
@@ -19,9 +20,15 @@ private:
 	VectorClass lookAt;
 	VectorClass up;
 
+	VectorClass origin;
+	VectorClass lowerLeftCorner;
+	VectorClass horizontal;
+	VectorClass vertical;
+
 public:
 	/* Constructors */
 	CameraClass();
+	CameraClass(int parameterDebug);
 	CameraClass(VectorClass camPosition, VectorClass lookat, VectorClass upVector, double focallength);
 
 	/* Getters */
@@ -34,6 +41,7 @@ public:
 	void   SetFocalLength(double);
 
 	/* Methods */
+	RayClass getRay(double u, double v);
 	MatrixClass viewPort(int x, int y, int w, int h, int depth);
 	MatrixClass calcLookAt(VectorClass eye, VectorClass centre, VectorClass up);
 };

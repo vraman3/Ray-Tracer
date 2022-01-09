@@ -23,6 +23,27 @@ CameraClass::CameraClass()
 /**
 	Parameterized Constructor
 
+	@param	parameterDebug: Integer parameter just to signify that this constructor is for the
+							debug class.
+*/
+CameraClass::CameraClass(int parameterDebug)
+{
+	double aspectRatio = 16.0 / 9.0;
+	double viewportHeight = 2.0;
+	double viewportWidth = aspectRatio * viewportHeight;
+	double focalLength = 1.0;
+
+	origin = VectorClass(0.0, 0.0, 0.0);
+	horizontal = VectorClass(viewportWidth, 0.0, 0.0);
+	vertical = VectorClass(0.0, viewportHeight, 0.0);
+
+	lowerLeftCorner = origin - horizontal / 2 - vertical / 2
+		- VectorClass(0.0, 0.0, focalLength);
+}
+
+/**
+	Parameterized Constructor
+
 	@param	  paramPosition: Coordinates for position of the camera.
 	@param		paramLookAt: The lookat vector of the Camera.
 	@param			paramUp: The up vector of the camera.
@@ -34,6 +55,20 @@ CameraClass::CameraClass(VectorClass paramPosition, VectorClass paramLookAt, Vec
 	position = paramPosition;
 	lookAt = paramLookAt;
 	up = paramUp;
+}
+
+/**
+	Parameterized Constructor
+
+	@param		paramPosition: Coordinates for position of the camera.
+	@return		This function returns a ray with the camera origin and calculates the direction
+				using the passed u and v parameters
+*/
+RayClass CameraClass::getRay(double u, double v)
+{
+	VectorClass direction = lowerLeftCorner + horizontal * u + vertical * v - origin;
+
+	return RayClass(origin, direction);
 }
 
 /**

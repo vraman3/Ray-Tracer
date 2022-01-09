@@ -244,9 +244,9 @@ int main(int argc, char* argv[])
 	Render renderObject = Render();
 
 	// Temp remove later, 1 to enable either method.
-	int choiceBrute = 1;
+	int choiceBrute = 0;
 	int choicekdtree = 0;
-	int choiceDebug = 0;
+	int choiceDebug = 1;
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// For debugRender				TEMPORARY DEBUGGING
