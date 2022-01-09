@@ -26,10 +26,15 @@ CameraClass::CameraClass()
 	@param	parameterDebug: Integer parameter just to signify that this constructor is for the
 							debug class.
 */
-CameraClass::CameraClass(int parameterDebug)
+CameraClass::CameraClass(int parameterDebug, double vfov, double aspectRatio)
 {
-	double aspectRatio = 16.0 / 9.0;
-	double viewportHeight = 2.0;
+	//double aspectRatio = 16.0 / 9.0;
+	// degrees_to_radians = degrees  * pi / 180.0;
+	// pi = 3.1415926535897932385
+	auto theta = vfov * 3.1415926535897932385 / 180.0;
+	auto h = tan(theta / 2);
+
+	double viewportHeight = 2.0 * h;
 	double viewportWidth = aspectRatio * viewportHeight;
 	double focalLength = 1.0;
 

@@ -28,7 +28,7 @@ private:
 public:
 	/* Constructors */
 	CameraClass();
-	CameraClass(int parameterDebug);
+	CameraClass(int parameterDebug, double vfov, double aspectRatio);
 	CameraClass(VectorClass camPosition, VectorClass lookat, VectorClass upVector, double focallength);
 
 	/* Getters */
