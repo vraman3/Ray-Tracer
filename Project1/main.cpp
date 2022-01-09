@@ -190,7 +190,7 @@ int main(int argc, char* argv[])
 	int filesize = screenWidth * screenHeight;
 	ColourClass* pixels = new ColourClass[filesize];
 	ColourClass* pixelsBruteForce = new ColourClass[filesize];
-	ColourClass* pixels_debug = new ColourClass[filesize];
+	//ColourClass* pixels_debug = new ColourClass[filesize];
 
 	VectorClass camPosition = VectorClass(0, 0, 8);
 	VectorClass camLookAt = VectorClass(0, 0, 2);
@@ -267,9 +267,11 @@ int main(int argc, char* argv[])
 
 		// After camera abstraction
 		//double aspectRatio = 16.0 / 9.0;
-		int imageWidth = 640;
+		int imageWidth = 1920;
 		int imageHeight = static_cast<int>(imageWidth / aspectRatio);
 
+		int filesize_debug = imageWidth * imageHeight;
+		ColourClass* pixels_debug = new ColourClass[filesize_debug];
 
 		start = std::chrono::high_resolution_clock::now();
 
@@ -308,6 +310,7 @@ int main(int argc, char* argv[])
 				{
 					pixelColour_debug = ColourClass(0.0, 0.0, 0.0);
 				}*/
+				int breakpoint = 1;
 				// Store the colour value
 				pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());
 				pixels_debug[position_debug].SetGreen(pixelColour_debug.GetGreen());
@@ -321,7 +324,7 @@ int main(int argc, char* argv[])
 		std::chrono::duration<double> renderTime_debug = finish - start;
 
 		SaveToFIle saveObject_debug = SaveToFIle();
-		saveObject_debug.savebmp("scene_debug.bmp", screenWidth, screenHeight, 72, pixels_debug, whichTR);
+		saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
 
 		std::cout << "debug render: " << renderTime_debug.count() << "seconds" << std::endl;
 
