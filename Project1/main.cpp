@@ -267,7 +267,7 @@ int main(int argc, char* argv[])
 
 		// After camera abstraction
 		//double aspectRatio = 16.0 / 9.0;
-		int imageWidth = 1920;
+		int imageWidth = 640;
 		int imageHeight = static_cast<int>(imageWidth / aspectRatio);
 
 		int filesize_debug = imageWidth * imageHeight;
@@ -277,15 +277,20 @@ int main(int argc, char* argv[])
 
 		std::vector<ObjectClass*> objects_debug;
 
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0)));
-		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0)));
+		/*objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0)));
+		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0)));*/
+
+		auto R = cos(3.1415926535897932385 / 4);
+
+		objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(0.0, 0.0, 1.0)));
+		objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1.0, 0.0, 0.0)));
 
 		/*SphereClass sphere_debug = SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0));
 		SphereClass sphere_debug = SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0));*/
 
 		Tracing traceObject_debug = Tracing();
 		
-		CameraClass cam_debug = CameraClass(1);
+		CameraClass cam_debug = CameraClass(1, 90.0, aspectRatio);
 		// This is how the book does it, but it reverts image here...why?
 		/*for (int j = screenHeight - 1; j >= 0; --j)
 		{
