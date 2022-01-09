@@ -26,7 +26,7 @@ CameraClass::CameraClass()
 	@param	parameterDebug: Integer parameter just to signify that this constructor is for the
 							debug class.
 */
-CameraClass::CameraClass(int parameterDebug, double vfov, double aspectRatio)
+CameraClass::CameraClass(int parameterDebug, VectorClass paramPosition, VectorClass paramLookat, VectorClass paramUp, double vfov, double aspectRatio)
 {
 	//double aspectRatio = 16.0 / 9.0;
 	// degrees_to_radians = degrees  * pi / 180.0;
@@ -38,12 +38,15 @@ CameraClass::CameraClass(int parameterDebug, double vfov, double aspectRatio)
 	double viewportWidth = aspectRatio * viewportHeight;
 	double focalLength = 1.0;
 
-	origin = VectorClass(0.0, 0.0, 0.0);
-	horizontal = VectorClass(viewportWidth, 0.0, 0.0);
-	vertical = VectorClass(0.0, viewportHeight, 0.0);
+	VectorClass w = (paramPosition - paramLookat).normalize();
+	VectorClass u = (paramUp.crossProd(w)).normalize();
+	VectorClass v = w.crossProd(u);
 
-	lowerLeftCorner = origin - horizontal / 2 - vertical / 2
-		- VectorClass(0.0, 0.0, focalLength);
+	origin = paramPosition;//VectorClass(0.0, 0.0, 0.0);
+	horizontal = u * viewportWidth;
+	vertical = v * viewportHeight;
+
+	lowerLeftCorner = origin - horizontal / 2 - vertical / 2 - w;
 }
 
 /**
@@ -69,9 +72,9 @@ CameraClass::CameraClass(VectorClass paramPosition, VectorClass paramLookAt, Vec
 	@return		This function returns a ray with the camera origin and calculates the direction
 				using the passed u and v parameters
 */
-RayClass CameraClass::getRay(double u, double v)
+RayClass CameraClass::getRay(double s, double t)
 {
-	VectorClass direction = lowerLeftCorner + horizontal * u + vertical * v - origin;
+	VectorClass direction = lowerLeftCorner + horizontal * s + vertical * t - origin;
 
 	return RayClass(origin, direction);
 }
