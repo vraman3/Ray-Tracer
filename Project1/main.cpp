@@ -304,15 +304,15 @@ int main(int argc, char* argv[])
 		CameraClass cam_debug = CameraClass(1, VectorClass(-2, -2, 1), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
 			90.0, aspectRatio);
 		// This is how the book does it, but it reverts image here...why?
-		/*for (int j = screenHeight - 1; j >= 0; --j)
-		{
-			for (int i = 0; i < screenWidth; ++i)
-			{*/
-
-		for (int j = 0 ; j < imageHeight; ++j)
+		for (int j = imageHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < imageWidth; ++i)
 			{
+
+		/*for (int j = 0 ; j < imageHeight; ++j)
+		{
+			for (int i = 0; i < imageWidth; ++i)
+			{*/
 				auto u = (double)i / ((double)imageWidth - 1);
 				auto v = (double)j / ((double)imageHeight - 1);
 
