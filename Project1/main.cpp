@@ -282,7 +282,7 @@ int main(int argc, char* argv[])
 		ColourClass material_left = ColourClass(0.0, 0.0, 0.0);
 		ColourClass material_right = ColourClass(0.8, 0.6, 0.2);
 
-		objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), material_ground));
+		//objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), material_ground));
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), material_center));
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), material_left));
 		//objects_debug.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
@@ -302,7 +302,7 @@ int main(int argc, char* argv[])
 		Tracing traceObject_debug = Tracing();
 		
 		CameraClass cam_debug = CameraClass(1, VectorClass(-2, -2, 1), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
-			20.0, aspectRatio);
+			90.0, aspectRatio);
 		// This is how the book does it, but it reverts image here...why?
 		/*for (int j = screenHeight - 1; j >= 0; --j)
 		{
@@ -316,9 +316,9 @@ int main(int argc, char* argv[])
 				auto u = (double)i / ((double)imageWidth - 1);
 				auto v = (double)j / ((double)imageHeight - 1);
 
-				VectorClass direction_debug = lowerLeftCorner_debug + (horizontal_debug * u) + (vertical_debug * v) - origin_debug;
-				RayClass ray_debug = RayClass(origin_debug, direction_debug);
-				//RayClass ray_debug = cam_debug.getRay(u, v);
+				/*VectorClass direction_debug = lowerLeftCorner_debug + (horizontal_debug * u) + (vertical_debug * v) - origin_debug;
+				RayClass ray_debug = RayClass(origin_debug, direction_debug);*/
+				RayClass ray_debug = cam_debug.getRay(u, v);
 
 				// Trace across any objects
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(ray_debug, objects_debug);

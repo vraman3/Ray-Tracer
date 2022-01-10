@@ -410,25 +410,22 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*
 	}
 
 	//auto t_debug = (sphere_debug.GetIntersection(ray_debug));
-	
+	if (closest == -1)
+	{
+		return ColourClass(0., 0.8, 1.0);
+	}
+
 	if (currentLowestVal_debug != infinity && currentLowestVal_debug > epsilonval_small)
 	{
 		// Check if this is inefficient. Basically converting a ColourClass to VectorClass
 		// Another option is to set a alias for Colour and Vector so C++ auto converts
-		return (ColourClass(interRecord_debug.normal) + ColourClass(1.0, 1.0, 1.0)) * 0.5;
+		//return (ColourClass(interRecord_debug.normal) + ColourClass(1.0, 1.0, 1.0)) * 0.5;
 
-
-		/* Old without normal information
-		// Create normal to Sphere at current intersection point of given ray and Sphere
-		VectorClass normal_debug = (ray_debug.GetRayOrigin() + (ray_debug.GetRayDirection() * currentLowestVal_debug)
-									- dynamic_cast<SphereClass*>(objects_debug[closest])->GetCenter()).normalize();
-
-		return ColourClass(normal_debug.getX() + 1, normal_debug.getY() + 1, normal_debug.getZ() + 1) * 0.5; */
-
+		return objects_debug[closest]->GetColour();
 	}
 	
-	currentLowestVal_debug = 0.5 * (ray_debug.GetRayDirection().normalize().getY() + 1.0);
+	//currentLowestVal_debug = 0.5 * (ray_debug.GetRayDirection().normalize().getY() + 1.0);
 
 	//ColourClass pixelColour_debug = ColourClass(1.0, 1.0, 1.0) * (1.0 - t_debug) + ColourClass(0.5, 0.7, 1.0) * t_debug;
-	return ColourClass(1.0, 1.0, 1.0) * (1.0 - currentLowestVal_debug) + ColourClass(0.5, 0.7, 1.0) * currentLowestVal_debug;
+	//return ColourClass(1.0, 1.0, 1.0) * (1.0 - currentLowestVal_debug) + ColourClass(0.5, 0.7, 1.0) * currentLowestVal_debug;
 }
