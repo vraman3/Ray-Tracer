@@ -277,13 +277,12 @@ int main(int argc, char* argv[])
 
 		std::vector<ObjectClass*> objects_debug;
 
-		/*objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0)));
-		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0)));*/
+		objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0)));
+		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0)));
 
-		auto R = cos(3.1415926535897932385 / 4);
-
-		objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(0.0, 0.0, 1.0)));
-		objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1.0, 0.0, 0.0)));
+		//auto R = cos(3.1415926535897932385 / 4);
+		//objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(0.0, 0.0, 1.0)));
+		//objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1.0, 0.0, 0.0)));
 
 		/*SphereClass sphere_debug = SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0));
 		SphereClass sphere_debug = SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0));*/
@@ -304,9 +303,9 @@ int main(int argc, char* argv[])
 				auto u = (double)i / ((double)imageWidth - 1);
 				auto v = (double)j / ((double)imageHeight - 1);
 
-				VectorClass direction_debug = lowerLeftCorner_debug + (horizontal_debug * u) + (vertical_debug * v) - origin_debug;
-				RayClass ray_debug = RayClass(origin_debug, direction_debug);
-				//RayClass ray_debug = cam_debug.getRay(u, v);
+				/*VectorClass direction_debug = lowerLeftCorner_debug + (horizontal_debug * u) + (vertical_debug * v) - origin_debug;
+				RayClass ray_debug = RayClass(origin_debug, direction_debug);*/
+				RayClass ray_debug = cam_debug.getRay(u, v);
 
 				// Trace across any objects
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(ray_debug, objects_debug);
