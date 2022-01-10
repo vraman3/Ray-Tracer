@@ -246,8 +246,15 @@ int main(int argc, char* argv[])
 	// Temp remove later, 1 to enable either method.
 	int choiceBrute = 0;
 	int choicekdtree = 0;
-	int choiceDebug = 1;
+	int choiceDebug = 0;
 
+	int imgW = 256;
+	int imgH = 256;
+
+	SaveToFIle saveObject_debug = SaveToFIle();
+	saveObject_debug.saveppm("scene_debug_ppm.ppm", imgW, imgH);
+
+	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// For debugRender				TEMPORARY DEBUGGING
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

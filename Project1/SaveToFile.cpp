@@ -3,6 +3,15 @@
 SaveToFIle::SaveToFIle()
 {}
 
+void SaveToFIle::saveppm(const char* filename, int imageWidth, int imageHeight)
+{
+	std::ofstream myfile;
+
+	myfile.open(filename);
+	myfile << "Writing to this file" << std::endl;
+	myfile.close();
+}
+
 void SaveToFIle::savebmp(const char* filename, int w, int h, int dpi, ColourClass* data, int whichTR = 0)
 {
 	FILE *f;
