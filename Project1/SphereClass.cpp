@@ -218,7 +218,8 @@ double SphereClass::GetIntersection(RayClass ray, double tmin, double tmax, inte
 	interRecord.point = ray.at(root);
 	VectorClass outwardNormal = (interRecord.point - this->center) / radius;
 	
-	// Check how the normal is. Always out of the surface, or always opposite to ray?
+	// Check how the normal is. If the ray is hitting from the inside then bool frontFace
+	// will be set to false; if ray is hitting from outside then frontFace will be true.
 	interRecord.setFaceNormal(ray, outwardNormal);
 
 	return root;
