@@ -360,8 +360,8 @@ int main(int argc, char* argv[])
 		start = std::chrono::high_resolution_clock::now();
 		
 		SaveToFIle saveObject_debug = SaveToFIle();
-		saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
-		//saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
+		//saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
+		saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
 		finish = std::chrono::high_resolution_clock::now();
 
 		std::chrono::duration<double> savefileTime_debug = finish - start;
