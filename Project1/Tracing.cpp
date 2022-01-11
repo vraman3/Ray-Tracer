@@ -383,7 +383,8 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 	@param pointCol: The intensity of the light.
 	@param maxDepth: The maximum allowed depth for all light bounces.
 */
-ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*> objects_debug)
+ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomingni, std::vector<ObjectClass*> objects_debug, std::vector<VectorClass*> lights,
+	ColourClass background, ColourClass pointCol, int maxDepth)
 {
 	intersection_record interRecord_debug;
 	double currentLowestVal_debug = infinity;
@@ -409,13 +410,140 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*
 		}
 	}
 
-	//auto t_debug = (sphere_debug.GetIntersection(ray_debug));
-	//if (closest == -1)
-	//{
-	//	// This is the background colour.
-	//	return ColourClass(0.3, 0.8, 1.0);
-	//}
+	if (closest == -1)
+	{
+		//if (depth != 0)
+		//std::cout << depth << std::endl;
+		return background;
+	}
+	else if (currentLowestVal_debug != infinity && currentLowestVal_debug > epsilonval_small)
+	{
+		bool noShadow = true;
+		VectorClass pi = ray_debug.GetRayOrigin() + ray_debug.GetRayDirection() * currentLowestVal_debug;
+		VectorClass N = (objects_debug[closest]->GetNormal(pi)).normalize();
 
+		VectorClass V = (ray_debug.GetRayOrigin() - pi).normalize();
+		double shade = 1.0;
+		int lightsSize = (int)lights.size();
+		for (int g = 0; g < lightsSize; g++)
+		{
+			double shadowOmega = 0.0;
+			VectorClass shadowRayDirection = (*lights[g] - pi).normalize();
+
+			RayClass shadowRay(pi, shadowRayDirection);
+
+			noShadow = true;
+			for (int shadowObj = 0; shadowObj < objectsSize; shadowObj++)
+			{
+				shadowOmega = objects_debug[shadowObj]->GetIntersection(shadowRay);
+				double objkt = objects_debug[shadowObj]->illum->getTransmissivitykt();
+
+				//$// double objkt = illuminations[shadowObj]->getTransmissivitykt();
+
+				//std::cout << shadowOmega << " ";
+				if (shadowOmega > epsilonval_small)
+					//if (false)					// Use this to disable shadows. Comment the "if" condition above.
+				{
+					//if (shadowOmega <= shadowRayDirection.magnitude())
+					//{
+					noShadow = false;
+					//break;.......
+					if (objkt > 0.0)
+						shade += 1 - objkt;
+					else
+						shade += 1;
+					break;
+					//}
+				}
+			}
+			//if (noShadow)
+			//{
+			VectorClass L = ((*lights[g]) - pi).normalize();
+
+			tmp = tmp + objects_debug[closest]->illum->getIllumination(pi, ray_debug, N, L, V, (*objects_debug[closest]).GetColour(), pointCol, maxDepth) / shade;
+
+			//}
+		}
+
+		if (depth < maxDepth)
+		{
+			double reflectKr = objects_debug[closest]->illum->getReflectivitykr();
+			double transmiKt = objects_debug[closest]->illum->getTransmissivitykt();
+
+			if (reflectKr > 0.0)
+			{
+				VectorClass refRayDirection = objects_debug[closest]->illum->Reflect(ray_debug.GetRayDirection(), N);
+
+				RayClass refRay = RayClass(pi, refRayDirection);
+
+				tmp = tmp + TraceRay(refRay, depth + 1, incomingni, objects_debug, lights, background, pointCol, maxDepth) * reflectKr;
+			}
+
+			if (transmiKt > 0.0)
+			{
+				VectorClass I = ray_debug.GetRayDirection().normalize() * (-1);
+				//VectorClass I = pi - VectorClass(2.5, 4, 0);
+				double outgoingnt = objects_debug[closest]->illum->getNormal();
+
+				VectorClass transRayDirection;
+				double niToBePassed;
+
+				//
+				//	FIXED.... FORGOT TO MULTIPLY DIRECTION(I) BY (-1)
+				if (incomingni == outgoingnt)
+				{
+					transRayDirection = I * (-1);
+					niToBePassed = outgoingnt;
+
+					//std::cout << "nobending " << depth << std::endl;
+				}
+				/*if (true)*/else
+				{
+					bool flag = true;
+					double dotNI = N.dotProd(I);
+					double nr = incomingni / outgoingnt;
+
+					if (dotNI < 0)
+					{
+						N = N * (-1);
+						dotNI = -dotNI;
+						nr = incomingni;
+						flag = false;
+					}
+
+					double rootTerm = 1 - (nr * nr) * (1 - (dotNI) * (dotNI));
+
+					if (rootTerm >= 0)
+					{
+						//std::cout << "Bending" << std::endl;
+						double nrdotNI = nr * (dotNI);
+
+						double tempTerm = nrdotNI - sqrt(rootTerm);
+
+						transRayDirection = N * tempTerm - I * nr;
+
+						if (flag)
+							niToBePassed = 1.0;
+						else
+							niToBePassed = outgoingnt;
+					}
+					else
+					{
+						//std::cout << "TotalIntReflection" << std::endl;
+						transRayDirection = objects_debug[closest]->illum->Reflect(I * (-1), N);
+						niToBePassed = incomingni;
+					}
+				}
+
+				RayClass transRay = RayClass(pi, transRayDirection);
+				tmp = tmp + TraceRay(transRay, depth + 1, niToBePassed, objects_debug, lights, background, pointCol, maxDepth) * transmiKt;
+			}
+		}
+		return tmp;
+	}
+
+	/*
+	// The original gradient background ending for TraceRay_debug(). Similar to rt1w book.
 	if (currentLowestVal_debug != infinity && currentLowestVal_debug > epsilonval_small)
 	{
 		//return (ColourClass(interRecord_debug.normal) + ColourClass(1.0, 1.0, 1.0)) * 0.5;
@@ -424,6 +552,7 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*
 
 	currentLowestVal_debug = 0.5 * (ray_debug.GetRayDirection().normalize().getY() + 1.0);
 
-	//ColourClass pixelColour_debug = ColourClass(1.0, 1.0, 1.0) * (1.0 - t_debug) + ColourClass(0.5, 0.7, 1.0) * t_debug;
 	return ColourClass(1.0, 1.0, 1.0) * (1.0 - currentLowestVal_debug) + ColourClass(0.5, 0.7, 1.0) * currentLowestVal_debug;
+	// end of original ending.
+	*/
 }
