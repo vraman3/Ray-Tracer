@@ -299,8 +299,8 @@ int main(int argc, char* argv[])
 
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0),
 			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0), 
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+		/*objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0), 
+			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));*/
 
 		/*auto R = cos(3.1415926535897932385 / 4);
 

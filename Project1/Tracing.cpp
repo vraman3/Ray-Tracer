@@ -416,7 +416,7 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 		//std::cout << depth << std::endl;
 		return background;
 	}
-	else if (currentLowestVal_debug != infinity && currentLowestVal_debug > epsilonval_small)
+	else if (currentLowestVal_debug != infinity && currentLowestVal_debug > 0.0)
 	{
 		bool noShadow = true;
 		VectorClass pi = ray_debug.GetRayOrigin() + ray_debug.GetRayDirection() * currentLowestVal_debug;
@@ -465,80 +465,80 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 			//}
 		}
 
-		if (depth < maxDepth)
-		{
-			double reflectKr = objects_debug[closest]->illum->getReflectivitykr();
-			double transmiKt = objects_debug[closest]->illum->getTransmissivitykt();
+		//if (depth < maxDepth)
+		//{
+		//	double reflectKr = objects_debug[closest]->illum->getReflectivitykr();
+		//	double transmiKt = objects_debug[closest]->illum->getTransmissivitykt();
 
-			if (reflectKr > 0.0)
-			{
-				VectorClass refRayDirection = objects_debug[closest]->illum->Reflect(ray_debug.GetRayDirection(), N);
+		//	if (reflectKr > 0.0)
+		//	{
+		//		VectorClass refRayDirection = objects_debug[closest]->illum->Reflect(ray_debug.GetRayDirection(), N);
 
-				RayClass refRay = RayClass(pi, refRayDirection);
+		//		RayClass refRay = RayClass(pi, refRayDirection);
 
-				tmp = tmp + TraceRay_debug(refRay, depth + 1, incomingni, objects_debug, lights, background, pointCol, maxDepth) * reflectKr;
-			}
+		//		tmp = tmp + TraceRay_debug(refRay, depth + 1, incomingni, objects_debug, lights, background, pointCol, maxDepth) * reflectKr;
+		//	}
 
-			if (transmiKt > 0.0)
-			{
-				VectorClass I = ray_debug.GetRayDirection().normalize() * (-1);
-				//VectorClass I = pi - VectorClass(2.5, 4, 0);
-				double outgoingnt = objects_debug[closest]->illum->getNormal();
+		//	if (transmiKt > 0.0)
+		//	{
+		//		VectorClass I = ray_debug.GetRayDirection().normalize() * (-1);
+		//		//VectorClass I = pi - VectorClass(2.5, 4, 0);
+		//		double outgoingnt = objects_debug[closest]->illum->getNormal();
 
-				VectorClass transRayDirection;
-				double niToBePassed;
+		//		VectorClass transRayDirection;
+		//		double niToBePassed;
 
-				//
-				//	FIXED.... FORGOT TO MULTIPLY DIRECTION(I) BY (-1)
-				if (incomingni == outgoingnt)
-				{
-					transRayDirection = I * (-1);
-					niToBePassed = outgoingnt;
+		//		//
+		//		//	FIXED.... FORGOT TO MULTIPLY DIRECTION(I) BY (-1)
+		//		if (incomingni == outgoingnt)
+		//		{
+		//			transRayDirection = I * (-1);
+		//			niToBePassed = outgoingnt;
 
-					//std::cout << "nobending " << depth << std::endl;
-				}
-				/*if (true)*/else
-				{
-					bool flag = true;
-					double dotNI = N.dotProd(I);
-					double nr = incomingni / outgoingnt;
+		//			//std::cout << "nobending " << depth << std::endl;
+		//		}
+		//		/*if (true)*/else
+		//		{
+		//			bool flag = true;
+		//			double dotNI = N.dotProd(I);
+		//			double nr = incomingni / outgoingnt;
 
-					if (dotNI < 0)
-					{
-						N = N * (-1);
-						dotNI = -dotNI;
-						nr = incomingni;
-						flag = false;
-					}
+		//			if (dotNI < 0)
+		//			{
+		//				N = N * (-1);
+		//				dotNI = -dotNI;
+		//				nr = incomingni;
+		//				flag = false;
+		//			}
 
-					double rootTerm = 1 - (nr * nr) * (1 - (dotNI) * (dotNI));
+		//			double rootTerm = 1 - (nr * nr) * (1 - (dotNI) * (dotNI));
 
-					if (rootTerm >= 0)
-					{
-						//std::cout << "Bending" << std::endl;
-						double nrdotNI = nr * (dotNI);
+		//			if (rootTerm >= 0)
+		//			{
+		//				//std::cout << "Bending" << std::endl;
+		//				double nrdotNI = nr * (dotNI);
 
-						double tempTerm = nrdotNI - sqrt(rootTerm);
+		//				double tempTerm = nrdotNI - sqrt(rootTerm);
 
-						transRayDirection = N * tempTerm - I * nr;
+		//				transRayDirection = N * tempTerm - I * nr;
 
-						if (flag)
-							niToBePassed = 1.0;
-						else
-							niToBePassed = outgoingnt;
-					}
-					else
-					{
-						//std::cout << "TotalIntReflection" << std::endl;
-						transRayDirection = objects_debug[closest]->illum->Reflect(I * (-1), N);
-						niToBePassed = incomingni;
-					}
-				}
+		//				if (flag)
+		//					niToBePassed = 1.0;
+		//				else
+		//					niToBePassed = outgoingnt;
+		//			}
+		//			else
+		//			{
+		//				//std::cout << "TotalIntReflection" << std::endl;
+		//				transRayDirection = objects_debug[closest]->illum->Reflect(I * (-1), N);
+		//				niToBePassed = incomingni;
+		//			}
+		//		}
 
-				RayClass transRay = RayClass(pi, transRayDirection);
-				tmp = tmp + TraceRay_debug(transRay, depth + 1, niToBePassed, objects_debug, lights, background, pointCol, maxDepth) * transmiKt;
-			}
-		}
+		//		RayClass transRay = RayClass(pi, transRayDirection);
+		//		tmp = tmp + TraceRay_debug(transRay, depth + 1, niToBePassed, objects_debug, lights, background, pointCol, maxDepth) * transmiKt;
+		//	}
+		//}
 		return tmp;
 	}
 
