@@ -3,26 +3,38 @@
 SaveToFIle::SaveToFIle()
 {}
 
-void SaveToFIle::saveppm(const char* filename, int imageWidth, int imageHeight)
+void SaveToFIle::saveppm(const char* filename, int imageWidth, int imageHeight, ColourClass* pixels)
 {
+	int noOfPixels = imageWidth * imageHeight;
+
 	std::ofstream myfile;
 
 	myfile.open(filename);
 	myfile << "P3\n" << imageWidth << " " << imageHeight << "\n255\n";
 	
 
-	for (int j = imageHeight - 1; j >= 0; --j) {
-		for (int i = 0; i < imageWidth; ++i) {
-			auto r = double(i) / (imageWidth - 1);
-			auto g = double(j) / (imageHeight - 1);
-			auto b = 0.25;
+	//for (int j = imageHeight - 1; j >= 0; --j) {
+	//	for (int i = 0; i < imageWidth; ++i) {
+	//		auto r = double(i) / (imageWidth - 1.0);
+	//		auto g = double(j) / (imageHeight - 1.0);
+	//		auto b = 0.25;
 
-			int ir = static_cast<int>(255.999 * r);
-			int ig = static_cast<int>(255.999 * g);
-			int ib = static_cast<int>(255.999 * b);
+	//		int ir = static_cast<int>(255.999 * r);
+	//		int ig = static_cast<int>(255.999 * g);
+	//		int ib = static_cast<int>(255.999 * b);
+
+	for(int i = 0; i<noOfPixels; i++)
+	{
+		auto r = pixels[i].GetRed();
+		auto g = pixels[i].GetGreen();
+		auto b = pixels[i].GetBlue();
+
+		int ir = static_cast<int>(255.999 * r);
+		int ig = static_cast<int>(255.999 * g);
+		int ib = static_cast<int>(255.999 * b);
+
 
 			myfile << ir << ' ' << ig << ' ' << ib << '\n';
-		}
 	}
 
 	myfile.close();

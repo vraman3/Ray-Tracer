@@ -17,7 +17,7 @@ class SaveToFIle
 public:
 	SaveToFIle();
 	void savebmp(const char*, int, int, int, ColourClass*, int);
-	void saveppm(const char*, int imageWidth, int imageHeight);
+	void saveppm(const char*, int imageWidth, int imageHeight, ColourClass* pixels);
 	void savetxtkdtree(KDNode kdtree);
 };
 

@@ -246,13 +246,8 @@ int main(int argc, char* argv[])
 	// Temp remove later, 1 to enable either method.
 	int choiceBrute = 0;
 	int choicekdtree = 0;
-	int choiceDebug = 0;
+	int choiceDebug = 1;
 
-	int imgW = 256;
-	int imgH = 256;
-
-	SaveToFIle saveObject_debug = SaveToFIle();
-	saveObject_debug.saveppm("scene_debug_ppm.ppm", imgW, imgH);
 
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -347,10 +342,18 @@ int main(int argc, char* argv[])
 		finish = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> renderTime_debug = finish - start;
 
+		// Save the output
+		start = std::chrono::high_resolution_clock::now();
+		
 		SaveToFIle saveObject_debug = SaveToFIle();
-		saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
+		saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
+		//saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
+		finish = std::chrono::high_resolution_clock::now();
 
-		std::cout << "debug render: " << renderTime_debug.count() << "seconds" << std::endl;
+		std::chrono::duration<double> savefileTime_debug = finish - start;
+
+		std::cout << "render time: " << renderTime_debug.count() << "seconds" << std::endl;
+		std::cout << "file write time: " << savefileTime_debug.count() << "seconds" << std::endl;
 
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
