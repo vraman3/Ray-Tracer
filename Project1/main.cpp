@@ -131,7 +131,8 @@ int main(int argc, char* argv[])
 
 	int noOfFaces = objFile.faces.size();
 
-	std::vector<TriangleClass*> parsedObject;
+	std::vector<TriangleClass*> parsedTriangle;
+	std::vector<ObjectClass*> parsedObject;
 
 	int objectCount = 0;
 
@@ -143,11 +144,17 @@ int main(int argc, char* argv[])
 				ColourClass(0.0, 1.0, 0.0),
 				new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount));*/
 	
-	parsedObject.push_back(new TriangleClass(VectorClass(-1,-1,1),
+	parsedTriangle.push_back(new TriangleClass(VectorClass(-1,-1,1),
 		VectorClass(1, 1, -1),
 		VectorClass(1, -1, 1),
 		ColourClass(0.0, 1.0, 0.0),
 		new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount));
+	
+	parsedObject.push_back(new TriangleClass(VectorClass(-1, -1, 1),
+		VectorClass(1, 1, -1),
+		VectorClass(1, -1, 1),
+		ColourClass(0.0, 1.0, 0.0),
+		new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 
 	//for (int i = 0; i < noOfFaces; i += 3)
 	//{
@@ -166,7 +173,7 @@ int main(int argc, char* argv[])
 	auto start = std::chrono::high_resolution_clock::now();
 
 	KDNode kdtree = KDNode();
-	kdtree = *kdtree.build(parsedObject, 3);
+	kdtree = *kdtree.build(parsedTriangle, 3);
 
 	auto finish = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> kdBuild_time = finish - start;
@@ -363,7 +370,7 @@ int main(int argc, char* argv[])
 		start = std::chrono::high_resolution_clock::now();
 
 		renderObject.render(screenHeight, screenWidth, pixelW, pixelH, f, startPixel,
-			camU, camV, originalCamera, parsedObject, lights, background, pointCol, pixelsBruteForce, maxDepth);
+			camU, camV, originalCamera, parsedTriangle, lights, background, pointCol, pixelsBruteForce, maxDepth);
 
 		finish = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> bruteRender_time = finish - start;
