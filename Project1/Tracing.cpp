@@ -418,8 +418,8 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, std::vector<ObjectClass*
 
 	if (currentLowestVal_debug != infinity && currentLowestVal_debug > epsilonval_small)
 	{
-		return (ColourClass(interRecord_debug.normal) + ColourClass(1.0, 1.0, 1.0)) * 0.5;
-		//return objects_debug[closest]->GetColour();
+		//return (ColourClass(interRecord_debug.normal) + ColourClass(1.0, 1.0, 1.0)) * 0.5;
+		return objects_debug[closest]->GetColour();
 	}
 
 	currentLowestVal_debug = 0.5 * (ray_debug.GetRayDirection().normalize().getY() + 1.0);

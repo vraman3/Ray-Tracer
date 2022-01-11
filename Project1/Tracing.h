@@ -22,9 +22,11 @@ public:
 	Tracing();
 
 	/* Methods */
-	ColourClass TraceRay_debug(RayClass ray, std::vector<ObjectClass*> objects);
+	ColourClass TraceRay_debug(RayClass ray, int depth, double incomingni, std::vector<ObjectClass*> objects, std::vector<VectorClass*> lights,
+		ColourClass background, ColourClass pointCol, int maxDepth);
 
-	ColourClass TraceRay(RayClass, int, double, std::vector<TriangleClass*>, std::vector<VectorClass*>, ColourClass, ColourClass, int);
+	ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<TriangleClass*> objects, std::vector<VectorClass*> lights,
+		ColourClass background, ColourClass pointCol, int maxDepth);
 
 	ColourClass TraceRayKD(RayClass, int, double, KDNode kdtree, std::vector<VectorClass*>,
 						   ColourClass, ColourClass, int);

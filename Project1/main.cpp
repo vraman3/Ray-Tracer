@@ -331,6 +331,7 @@ int main(int argc, char* argv[])
 
 				// Trace across any objects
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(ray_debug, objects_debug);
+				//ray, 0, 1.0, objects, lights, background, pointCol, maxDepth
 
 				/*if (i == 316 && j == 170)
 				{
