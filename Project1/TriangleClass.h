@@ -28,7 +28,7 @@ class TriangleClass : public ObjectClass
 		
 
 	public:
-		IlluminationClass *illum;
+		//IlluminationClass *illum;
 
 		/* Constructors */
 		TriangleClass();

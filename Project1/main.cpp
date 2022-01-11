@@ -297,8 +297,10 @@ int main(int argc, char* argv[])
 		////objects_debug.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
 		//objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), material_right));
 
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0)));
-		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0)));
+		objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0),
+			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0), 
+			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 
 		/*auto R = cos(3.1415926535897932385 / 4);
 
@@ -329,15 +331,18 @@ int main(int argc, char* argv[])
 				RayClass ray_debug = RayClass(origin_debug, direction_debug);*/
 				RayClass ray_debug = cam_debug.getRay(u, v);
 
+				//std::cout << "i:" << i << " j:" << j << std::endl;
+				
+				if (i == 314 && j == 225)
+				{
+					int breakPointVal = 1;
+				}
 				// Trace across any objects
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(
-					ray_debug, 0, 1.0, objects_debug, lights, background, pointCol, maxDepth);
+					ray_debug, 0, 1.0, objects_debug, lights, background, pointCol, 2);
 				//ray_debug, 0, 1.0, objects_debug, lights, background, pointCol, maxDepth
 
-				/*if (i == 316 && j == 170)
-				{
-					pixelColour_debug = ColourClass(0.0, 0.0, 0.0);
-				}*/
+
 				int breakpoint = 1;
 				// Store the colour value
 				pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());

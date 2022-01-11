@@ -555,4 +555,5 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 	return ColourClass(1.0, 1.0, 1.0) * (1.0 - currentLowestVal_debug) + ColourClass(0.5, 0.7, 1.0) * currentLowestVal_debug;
 	// end of original ending.
 	*/
+	return tmp;
 }

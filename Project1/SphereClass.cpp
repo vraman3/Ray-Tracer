@@ -40,6 +40,24 @@ SphereClass::SphereClass(double paramRadius, VectorClass paramCenter, ColourClas
 }
 
 /**
+	Parameterized Constructor with IlluminationClass. Merge later.
+
+	@param paramRadius: Radius of the sphere.
+	@param paramCenter: Position of the center of the sphere.
+	@param paramColour: Colour of the sphere.
+	@param paramIllum: Illumination model of the sphere.
+*/
+SphereClass::SphereClass(double paramRadius, VectorClass paramCenter, ColourClass paramColour, IlluminationClass *paramIllum)
+{
+	illum = paramIllum;
+	radius = paramRadius;
+	center = paramCenter;
+	colour = paramColour;
+	diffuse = 0.3;
+	specular = 0.6;
+	ambient = 0.1;
+}
+/**
 	Get the normal at a point on the sphere.
 
 	@param point: The point at which to calculate the normal.
