@@ -12,7 +12,6 @@
 #include "RayClass.h"
 #include "ColourClass.h"
 #include "ObjectClass.h"
-#include "IlluminationClass.h"
 
 class TriangleClass : public ObjectClass
 {

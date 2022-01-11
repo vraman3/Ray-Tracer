@@ -476,7 +476,7 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 
 				RayClass refRay = RayClass(pi, refRayDirection);
 
-				tmp = tmp + TraceRay(refRay, depth + 1, incomingni, objects_debug, lights, background, pointCol, maxDepth) * reflectKr;
+				tmp = tmp + TraceRay_debug(refRay, depth + 1, incomingni, objects_debug, lights, background, pointCol, maxDepth) * reflectKr;
 			}
 
 			if (transmiKt > 0.0)
@@ -536,7 +536,7 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 				}
 
 				RayClass transRay = RayClass(pi, transRayDirection);
-				tmp = tmp + TraceRay(transRay, depth + 1, niToBePassed, objects_debug, lights, background, pointCol, maxDepth) * transmiKt;
+				tmp = tmp + TraceRay_debug(transRay, depth + 1, niToBePassed, objects_debug, lights, background, pointCol, maxDepth) * transmiKt;
 			}
 		}
 		return tmp;

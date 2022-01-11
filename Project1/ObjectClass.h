@@ -12,6 +12,7 @@
 
 #include "ColourClass.h"
 #include "RayClass.h"
+#include "IlluminationClass.h"
 //#include "IntersectionInfo.h"
 
 const double epsilonval_small = 0.00000001;
@@ -53,6 +54,8 @@ struct intersection_record
 class ObjectClass
 {
 public:
+	IlluminationClass* illum;
+
 	/* Constructors*/
 	ObjectClass(){}
 
