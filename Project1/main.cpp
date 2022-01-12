@@ -319,20 +319,11 @@ int main(int argc, char* argv[])
 		{
 			for (int i = 0; i < imageWidth; ++i)
 			{
-
-		/*for (int j = 0 ; j < imageHeight; ++j)
-		{
-			for (int i = 0; i < imageWidth; ++i)
-			{*/
 				auto u = (double)i / ((double)imageWidth - 1);
 				auto v = (double)j / ((double)imageHeight - 1);
 
-				/*VectorClass direction_debug = lowerLeftCorner_debug + (horizontal_debug * u) + (vertical_debug * v) - origin_debug;
-				RayClass ray_debug = RayClass(origin_debug, direction_debug);*/
 				RayClass ray_debug = cam_debug.getRay(u, v);
 
-				//std::cout << "i:" << i << " j:" << j << std::endl;
-				
 				if (i == 314 && j == 225)
 				{
 					int breakPointVal = 1;
@@ -340,7 +331,6 @@ int main(int argc, char* argv[])
 				// Trace across any objects
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(
 					ray_debug, 0, 1.0, objects_debug, lights, background, pointCol, 2);
-				//ray_debug, 0, 1.0, objects_debug, lights, background, pointCol, maxDepth
 
 
 				int breakpoint = 1;
@@ -361,7 +351,9 @@ int main(int argc, char* argv[])
 		
 		SaveToFIle saveObject_debug = SaveToFIle();
 		//saveObject_debug.saveRawObjectRGBData("scene_debug-ppm.txt", imageWidth, imageHeight, pixels_debug);
+
 		//saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
+
 		saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
 		finish = std::chrono::high_resolution_clock::now();
 

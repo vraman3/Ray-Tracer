@@ -49,10 +49,6 @@ void SaveToFIle::saveppm(const char* filename, int imageWidth, int imageHeight, 
 		auto r = pixels[i].GetRed();
 		auto g = pixels[i].GetGreen();
 		auto b = pixels[i].GetBlue();
-
-		/*int ir = static_cast<int>(255.999 * r);
-		int ig = static_cast<int>(255.999 * g);
-		int ib = static_cast<int>(255.999 * b);*/
 		
 		int ir = (int)floor((r * 255));
 		int ig = (int)floor((g * 255));
@@ -205,16 +201,12 @@ void SaveToFIle::savebmp(const char* filename, int w, int h, int dpi, ColourClas
 	int testCounter1 = 0;
 
 	// Displaying the RGB value by scaling it to 0 to 255
-	//for (int i = 0; i < noOfPixels; i++)
+	//for (int i = 0; i < noOfPixels; i++) // Original
 	for (int i = noOfPixels - 1; i >= 0; i--)
 	{
 		double red = (display[i].GetRed() * 255);
 		double green = (display[i].GetGreen() * 255);
 		double blue = (display[i].GetBlue() * 255);
-
-		/*	double red = (data[i].GetRed() * 255);
-		double green = (data[i].GetGreen() * 255);
-		double blue = (data[i].GetBlue() * 255);*/
 
 		unsigned char color[3] = { (int)floor(blue), (int)floor(green), (int)floor(red) };
 
