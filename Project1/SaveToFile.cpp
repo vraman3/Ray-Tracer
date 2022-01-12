@@ -44,60 +44,22 @@ void SaveToFIle::saveppm(const char* filename, int imageWidth, int imageHeight, 
 
 
 	// 2nd try
-	//for(int i = 0; i < noOfPixels; i++)
-	//{
-	//	auto r = pixels[i].GetRed();
-	//	auto g = pixels[i].GetGreen();
-	//	auto b = pixels[i].GetBlue();
-
-	//	/*int ir = static_cast<int>(255.999 * r);
-	//	int ig = static_cast<int>(255.999 * g);
-	//	int ib = static_cast<int>(255.999 * b);*/
-	//	
-	//	int ir = (int)floor((r * 255));
-	//	int ig = (int)floor((g * 255));
-	//	int ib = (int)floor((b * 255));
-
-	//	myfile << ir << ' ' << ig << ' ' << ib << '\n';
-	//}
-
-	int max = -10000;
-	for (int i = 0; i < noOfPixels; i++)
+	for(int i = 0; i < noOfPixels; i++)
 	{
-		auto red = pixels[i].GetRed();
-		auto green = pixels[i].GetGreen();
-		auto blue = pixels[i].GetBlue();
+		auto r = pixels[i].GetRed();
+		auto g = pixels[i].GetGreen();
+		auto b = pixels[i].GetBlue();
 
-		max = red;
+		/*int ir = static_cast<int>(255.999 * r);
+		int ig = static_cast<int>(255.999 * g);
+		int ib = static_cast<int>(255.999 * b);*/
+		
+		int ir = (int)floor((r * 255));
+		int ig = (int)floor((g * 255));
+		int ib = (int)floor((b * 255));
 
-		if (green > max)
-			max = green;
-		if (blue > max)
-			max = blue;
-
-
-		if (max > 1.0)
-		{
-			pixels[i].SetRed(red / max);
-			pixels[i].SetGreen(green / max);
-			pixels[i].SetBlue(blue / max);
-		}
+		myfile << ir << ' ' << ig << ' ' << ib << '\n';
 	}
-
-	// Displaying the RGB value by scaling it to 0 to 255
-	for (int i = 0; i < noOfPixels; i++)
-	{
-		double red = (pixels[i].GetRed() * 255);
-		double green = (pixels[i].GetGreen() * 255);
-		double blue = (pixels[i].GetBlue() * 255);
-
-		// original savebmp ending
-		//unsigned char color[3] = { (int)floor(blue), (int)floor(green), (int)floor(red) };
-		//fwrite(color, 1, 3, f);
-
-		myfile << (int)floor(red) << ' ' << (int)floor(green) << ' ' << (int)floor(blue) << '\n';
-	}
-
 	myfile.close();
 }
 
@@ -243,7 +205,8 @@ void SaveToFIle::savebmp(const char* filename, int w, int h, int dpi, ColourClas
 	int testCounter1 = 0;
 
 	// Displaying the RGB value by scaling it to 0 to 255
-	for (int i = 0; i < noOfPixels; i++)
+	//for (int i = 0; i < noOfPixels; i++)
+	for (int i = noOfPixels - 1; i >= 0; i--)
 	{
 		double red = (display[i].GetRed() * 255);
 		double green = (display[i].GetGreen() * 255);
