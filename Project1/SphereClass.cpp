@@ -22,22 +22,6 @@ SphereClass::SphereClass()
 	ambient = 0.1;
 }
 
-/**
-	Parameterized Constructor.
-
-	@param paramRadius: Radius of the sphere.
-	@param paramCenter: Position of the center of the sphere.
-	@param paramColour: Colour of the sphere.
-*/
-SphereClass::SphereClass(double paramRadius, VectorClass paramCenter, ColourClass paramColour)
-{
-	radius = paramRadius;
-	center = paramCenter;
-	colour = paramColour;
-	diffuse = 0.3;
-	specular = 0.6;
-	ambient = 0.1;
-}
 
 /**
 	Parameterized Constructor with IlluminationClass. Merge later.
