@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 		screenWidth = 640;
 		screenHeight = static_cast<int>(screenWidth / aspectRatio);
 		maxDepth = 5;
-		whichTR = 3;
+		whichTR = 0;
 	}
 
 #pragma region cubeStraightObjectsAndIlluminations
@@ -360,8 +360,9 @@ int main(int argc, char* argv[])
 		start = std::chrono::high_resolution_clock::now();
 		
 		SaveToFIle saveObject_debug = SaveToFIle();
-		//saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
-		saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
+		//saveObject_debug.saveRawObjectRGBData("scene_debug-ppm.txt", imageWidth, imageHeight, pixels_debug);
+		saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
+		//saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
 		finish = std::chrono::high_resolution_clock::now();
 
 		std::chrono::duration<double> savefileTime_debug = finish - start;

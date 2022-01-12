@@ -3,6 +3,25 @@
 SaveToFIle::SaveToFIle()
 {}
 
+void SaveToFIle::saveRawObjectRGBData(const char* filename, int imageWidth, int imageHeight, ColourClass* pixels)
+{
+	int noOfPixels = imageWidth * imageHeight;
+
+	std::ofstream myfile;
+
+	myfile.open(filename);
+
+	for (int i = 0; i < noOfPixels; i++)
+	{
+		auto r = pixels[i].GetRed();
+		auto g = pixels[i].GetGreen();
+		auto b = pixels[i].GetBlue();
+
+		myfile << r << ' ' << g << ' ' << b << "\n";
+	}
+
+}
+
 void SaveToFIle::saveppm(const char* filename, int imageWidth, int imageHeight, ColourClass* pixels)
 {
 	int noOfPixels = imageWidth * imageHeight;
@@ -12,7 +31,7 @@ void SaveToFIle::saveppm(const char* filename, int imageWidth, int imageHeight, 
 	myfile.open(filename);
 	myfile << "P3\n" << imageWidth << " " << imageHeight << "\n255\n";
 	
-
+	// 1st try, original, same as rt1w
 	//for (int j = imageHeight - 1; j >= 0; --j) {
 	//	for (int i = 0; i < imageWidth; ++i) {
 	//		auto r = double(i) / (imageWidth - 1.0);
@@ -23,18 +42,60 @@ void SaveToFIle::saveppm(const char* filename, int imageWidth, int imageHeight, 
 	//		int ig = static_cast<int>(255.999 * g);
 	//		int ib = static_cast<int>(255.999 * b);
 
-	for(int i = 0; i<noOfPixels; i++)
+
+	// 2nd try
+	//for(int i = 0; i < noOfPixels; i++)
+	//{
+	//	auto r = pixels[i].GetRed();
+	//	auto g = pixels[i].GetGreen();
+	//	auto b = pixels[i].GetBlue();
+
+	//	/*int ir = static_cast<int>(255.999 * r);
+	//	int ig = static_cast<int>(255.999 * g);
+	//	int ib = static_cast<int>(255.999 * b);*/
+	//	
+	//	int ir = (int)floor((r * 255));
+	//	int ig = (int)floor((g * 255));
+	//	int ib = (int)floor((b * 255));
+
+	//	myfile << ir << ' ' << ig << ' ' << ib << '\n';
+	//}
+
+	int max = -10000;
+	for (int i = 0; i < noOfPixels; i++)
 	{
-		auto r = pixels[i].GetRed();
-		auto g = pixels[i].GetGreen();
-		auto b = pixels[i].GetBlue();
+		auto red = pixels[i].GetRed();
+		auto green = pixels[i].GetGreen();
+		auto blue = pixels[i].GetBlue();
 
-		int ir = static_cast<int>(255.999 * r);
-		int ig = static_cast<int>(255.999 * g);
-		int ib = static_cast<int>(255.999 * b);
+		max = red;
+
+		if (green > max)
+			max = green;
+		if (blue > max)
+			max = blue;
 
 
-			myfile << ir << ' ' << ig << ' ' << ib << '\n';
+		if (max > 1.0)
+		{
+			pixels[i].SetRed(red / max);
+			pixels[i].SetGreen(green / max);
+			pixels[i].SetBlue(blue / max);
+		}
+	}
+
+	// Displaying the RGB value by scaling it to 0 to 255
+	for (int i = 0; i < noOfPixels; i++)
+	{
+		double red = (pixels[i].GetRed() * 255);
+		double green = (pixels[i].GetGreen() * 255);
+		double blue = (pixels[i].GetBlue() * 255);
+
+		// original savebmp ending
+		//unsigned char color[3] = { (int)floor(blue), (int)floor(green), (int)floor(red) };
+		//fwrite(color, 1, 3, f);
+
+		myfile << (int)floor(red) << ' ' << (int)floor(green) << ' ' << (int)floor(blue) << '\n';
 	}
 
 	myfile.close();
