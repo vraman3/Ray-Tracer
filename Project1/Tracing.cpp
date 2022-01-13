@@ -293,80 +293,80 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 			//}
 		}
 
-		if (depth < maxDepth)
-		{
-			double reflectKr = objects[closest]->illum->getReflectivitykr();
-			double transmiKt = objects[closest]->illum->getTransmissivitykt();
+		//if (depth < maxDepth)
+		//{
+		//	double reflectKr = objects[closest]->illum->getReflectivitykr();
+		//	double transmiKt = objects[closest]->illum->getTransmissivitykt();
 
-			if (reflectKr > 0.0)
-			{
-				VectorClass refRayDirection = objects[closest]->illum->Reflect(ray.GetRayDirection(), N);
+		//	if (reflectKr > 0.0)
+		//	{
+		//		VectorClass refRayDirection = objects[closest]->illum->Reflect(ray.GetRayDirection(), N);
 
-				RayClass refRay = RayClass(pi, refRayDirection);
+		//		RayClass refRay = RayClass(pi, refRayDirection);
 
-				tmp = tmp + TraceRay(refRay, depth + 1, incomingni, objects, lights, background, pointCol, maxDepth) * reflectKr;
-			}
+		//		tmp = tmp + TraceRay(refRay, depth + 1, incomingni, objects, lights, background, pointCol, maxDepth) * reflectKr;
+		//	}
 
-			if (transmiKt > 0.0) 
-			{
-				VectorClass I = ray.GetRayDirection().normalize()*(-1);
-				//VectorClass I = pi - VectorClass(2.5, 4, 0);
-				double outgoingnt = objects[closest]->illum->getNormal();
+		//	if (transmiKt > 0.0) 
+		//	{
+		//		VectorClass I = ray.GetRayDirection().normalize()*(-1);
+		//		//VectorClass I = pi - VectorClass(2.5, 4, 0);
+		//		double outgoingnt = objects[closest]->illum->getNormal();
 
-				VectorClass transRayDirection;
-				double niToBePassed;
+		//		VectorClass transRayDirection;
+		//		double niToBePassed;
 
-				//
-				//	FIXED.... FORGOT TO MULTIPLY DIRECTION(I) BY (-1)
-				if (incomingni == outgoingnt)
-				{
-					transRayDirection = I*(-1);
-					niToBePassed = outgoingnt;
+		//		//
+		//		//	FIXED.... FORGOT TO MULTIPLY DIRECTION(I) BY (-1)
+		//		if (incomingni == outgoingnt)
+		//		{
+		//			transRayDirection = I*(-1);
+		//			niToBePassed = outgoingnt;
 
-					//std::cout << "nobending " << depth << std::endl;
-				}
-				/*if (true)*/else
-				{
-					bool flag = true;
-					double dotNI = N.dotProd(I);
-					double nr = incomingni / outgoingnt;
+		//			//std::cout << "nobending " << depth << std::endl;
+		//		}
+		//		/*if (true)*/else
+		//		{
+		//			bool flag = true;
+		//			double dotNI = N.dotProd(I);
+		//			double nr = incomingni / outgoingnt;
 
-					if (dotNI < 0)
-					{
-						N = N * (-1);
-						dotNI = -dotNI;
-						nr = incomingni;
-						flag = false;
-					}
+		//			if (dotNI < 0)
+		//			{
+		//				N = N * (-1);
+		//				dotNI = -dotNI;
+		//				nr = incomingni;
+		//				flag = false;
+		//			}
 
-					double rootTerm = 1 - (nr*nr)*(1 - (dotNI)*(dotNI));
+		//			double rootTerm = 1 - (nr*nr)*(1 - (dotNI)*(dotNI));
 
-					if (rootTerm >= 0)
-					{
-						//std::cout << "Bending" << std::endl;
-						double nrdotNI = nr*(dotNI);
+		//			if (rootTerm >= 0)
+		//			{
+		//				//std::cout << "Bending" << std::endl;
+		//				double nrdotNI = nr*(dotNI);
 
-						double tempTerm = nrdotNI - sqrt(rootTerm);
+		//				double tempTerm = nrdotNI - sqrt(rootTerm);
 
-						transRayDirection = N * tempTerm - I * nr;
+		//				transRayDirection = N * tempTerm - I * nr;
 
-						if (flag)
-							niToBePassed = 1.0;
-						else
-							niToBePassed = outgoingnt;
-					}
-					else
-					{
-						//std::cout << "TotalIntReflection" << std::endl;
-						transRayDirection = objects[closest]->illum->Reflect(I*(-1), N);
-						niToBePassed = incomingni;
-					}
-				}
+		//				if (flag)
+		//					niToBePassed = 1.0;
+		//				else
+		//					niToBePassed = outgoingnt;
+		//			}
+		//			else
+		//			{
+		//				//std::cout << "TotalIntReflection" << std::endl;
+		//				transRayDirection = objects[closest]->illum->Reflect(I*(-1), N);
+		//				niToBePassed = incomingni;
+		//			}
+		//		}
 
-				RayClass transRay = RayClass(pi, transRayDirection);
-				tmp = tmp + TraceRay(transRay, depth + 1, niToBePassed, objects, lights, background, pointCol, maxDepth) * transmiKt;
-			}
-		}
+		//		RayClass transRay = RayClass(pi, transRayDirection);
+		//		tmp = tmp + TraceRay(transRay, depth + 1, niToBePassed, objects, lights, background, pointCol, maxDepth) * transmiKt;
+		//	}
+		//}
 		return tmp;
 	}
 }
