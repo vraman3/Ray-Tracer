@@ -359,9 +359,9 @@ int main(int argc, char* argv[])
 		SaveToFIle saveObject_debug = SaveToFIle();
 		//saveObject_debug.saveRawObjectRGBData("scene_debug-ppm.txt", imageWidth, imageHeight, pixels_debug);
 
-		//saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
+		saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
 
-		saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
+		//saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
 		finish = std::chrono::high_resolution_clock::now();
 
 		std::chrono::duration<double> savefileTime_debug = finish - start;
