@@ -34,7 +34,7 @@ class StraussModel : public IlluminationClass
 		double debugcounter;
 
 		/* Constructors */
-		StraussModel(double, double, double, double, double);
+		StraussModel(double smoothness, double metalness, double transparency, double paramReflectivity, double paramTransmissivity);
 
 		/* Methods */
 		ColourClass getIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);

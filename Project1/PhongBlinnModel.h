@@ -28,7 +28,7 @@ class PhongBlinnModel : public IlluminationClass
 
 	public:
 		/* Constructors */
-		PhongBlinnModel(double, double, double, double, double, double);
+		PhongBlinnModel(double paramDiffuse, double paramSpecular, double paramAmbient, double paramSpecHardness, double paramReflectivity, double paramTransmissivity);
 
 		/* Methods */
 		ColourClass getIllumination(VectorClass, RayClass, VectorClass, VectorClass, VectorClass, ColourClass, ColourClass, int);

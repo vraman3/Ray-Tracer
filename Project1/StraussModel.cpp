@@ -13,11 +13,11 @@
 	Parameterized constructor.
 
 */
-StraussModel::StraussModel(double paramS, double paramM, double paramT, double paramReflectivity, double paramTransmissivity) : IlluminationClass(paramReflectivity, paramTransmissivity)
+StraussModel::StraussModel(double paramSmoothness, double paramMetalness, double paramTransparency, double paramReflectivity, double paramTransmissivity) : IlluminationClass(paramReflectivity, paramTransmissivity)
 {
-	smoothness = paramS;
-	metalness = paramM;
-	transparency = paramT;
+	smoothness = paramSmoothness;
+	metalness = paramMetalness;
+	transparency = paramTransparency;
 	kf = 1.12;
 	ks = 1.01;
 	debugcounter = 0;
