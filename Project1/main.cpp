@@ -293,14 +293,14 @@ int main(int argc, char* argv[])
 		ColourClass material_right = ColourClass(0.8, 0.6, 0.2);
 
 		objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), 
-			material_ground, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+			material_ground, new PhongBlinnModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), 
-			material_center, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+			material_center, new PhongBlinnModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), 
-			material_left, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+			material_left, new PhongBlinnModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 		//objects_debug.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), 
-			material_right, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+			material_right, new PhongBlinnModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 
 		/*objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0),
 			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
