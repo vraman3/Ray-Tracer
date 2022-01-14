@@ -5,42 +5,38 @@ Ray Tracer
 
 @version: 1.0 started on Oct 19 2017
 
-@last-update: 1.0 - 28th September 2020
+@last-update: 1.0 - 14th January 2022
 
 Hello! Thank you for checking out my Ray Tracer.
-This project was started in Visual Studio 2013 and has recently been ported to Visual Studio 2019.
-Future projects will have additional support.
+The goal of this project is to implement a fully fledged renderer capable of rendering simple scenes. I wish to eventually focus on fluid simulation at the beginning, and see where I can go from there!
 
 What is going on now?
-Quite a few things that need to be done. This project was started before I had an idea of proper commenting and coding practices, let alone architecture of the whole project.
-Currently there is an issue with my kdtree; it takes the same time, or even longer, as the brute force method of cycling through the objects. This is the main thing that needs to be fixed before I move on.
-Following that, I need to work on increasing the readability of the code before moving onto anything else.
-The output is seen in the scene_Vishwanath.bmp file. Currently run on the bunnyBlender_v2.obj.
+Quite a ~~few~~ LOT of things that need to be done. This project was started before I had an idea of proper commenting and coding practices, let alone architecture of the whole project.
+So I thought I had an issue with my kdtree as it took the same time or longer than the brute force method. However upon inspection there were many minor issues that caused a whole range of issues. Ever since I started this project I struggled with camera. I thought it was my ineptitude causing the problems but after spending quite a bit of time I found out that the camera system, like dielectrics, is a pain to debug. So my list of tasks to make the raytracer usable became even longer.
 
+I was finally able to figure out the issues with the camera system but it led to another issue which was a complete surprise to me. The creation of the image file. Who would've thought it would cause such issues? I implemented an alternative .ppm image writer to the original .bmp, but even the .ppm had issues. Debug debug debug.
+
+So the following list has been revised (and extended) compared to the earlier one.
 Things to do:
-1. - [ ] Comment all files with a consistent industry standard.
-2. - [ ] Add issue/feature/bug tracking in github.
-     - [ ] Clean up all the stray/unused branches.
-     - [ ] Add the features written in readme to a trackable system in github.
-3. - [ ] Debug k-d trees implementation.
-     - [x] Implemented Oct-trees. 
-     - [x] Debug.
-     - [x] Runs.
-     - [x] Extend to k-d trees
-       - [ ] Current running time for kdtrees and the brute force method is the same. Need to debug the kdtree implementation.
-4. - [ ] Refactor main.cpp to be more modular, mainly including:
+1. Write regular blog posts detailing the progress of the raytracer, rather than writing a story in this Readme.md file everytime. 
+2. [ ] Comment all files with a consistent industry standard.
+3. [ ] Spend time to automatically send issues finished to a tracking system. This will involve religiously using the issue/milestone/bug features inbuilt in github.
+4. [ ] Implement a clean no-artifact simple scene with no shading/illumination model
+   - [ ] for Spheres
+   - [ ] for Triangles
+   - [ ] for Planes
+   - [ ] for parsedObjects
+6. [ ] Refactor main.cpp to be more modular, mainly including:
    - [x] Modularizing the camera controls.
-   - [x] Separating the TraceRay functions to another class/file.
-   - [x] Separated the rendering into a separate class. This includes looping over the pixels.
    - [ ] There is a lot of calculation logic in main that needs to be removed.
      - [ ] Refactor or remove the creation of all the different objects for debugging.
-5. - [ ] Refactor the way illumination is used.
-     - [ ] Remove the need to add a separate illumination array for the brute force method.
+7. - [ ] Refactor the way illumination is used.
+     - [x] Remove the need to add a separate illumination array for the brute force method.
      - [ ] Check the overhead of having all or more elements to a single object.
-6. - [ ] Add a way to see the output.
+8. - [ ] Add a way to see the output.
    - [ ] See the current output of the ray tracer.
    - [ ] See outputs for techniques already implemented and working.
-7. - [ ] Improve the ReadME.
+9. - [ ] Improve the ReadME.
    - [ ] Make interactive with sections.
    - [ ] Add info about major techniques.
    - [ ] Index.
