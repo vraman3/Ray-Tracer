@@ -397,7 +397,8 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 
 	for (int objNo = 0; objNo < objects_debug.size(); objNo++)
 	{
-		t_debug = objects_debug[objNo]->GetIntersection(ray_debug, 0, currentLowestVal_debug, interRecord_debug);
+		double zeroWithAcneOffset = 0.0001;
+		t_debug = objects_debug[objNo]->GetIntersection(ray_debug, zeroWithAcneOffset, currentLowestVal_debug, interRecord_debug);
 
 		if (t_debug == -1)	{continue;}
 		else
