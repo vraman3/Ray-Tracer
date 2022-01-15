@@ -292,20 +292,20 @@ int main(int argc, char* argv[])
 		ColourClass material_left = ColourClass(0.0, 0.0, 0.0);
 		ColourClass material_right = ColourClass(0.8, 0.6, 0.2);
 
-		objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), 
-			material_ground, new NoShadingModel(0.1, 0.0)));
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), 
-			material_center, new NoShadingModel(0.1, 0.0)));
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), 
-			material_left, new NoShadingModel(0.1, 0.0)));
-		//objects_debug.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), 
-			material_right, new NoShadingModel(0.1, 0.0)));
+		//objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), 
+		//	material_ground, new NoShadingModel(0.1, 0.0)));
+		//objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), 
+		//	material_center, new NoShadingModel(0.1, 0.0)));
+		//objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), 
+		//	material_left, new NoShadingModel(0.1, 0.0)));
+		////objects_debug.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
+		//objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), 
+		//	material_right, new NoShadingModel(0.1, 0.0)));
 
-		/*objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0),
+		objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0),
 			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0), 
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));*/
+			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 
 		/*auto R = cos(3.1415926535897932385 / 4);
 
@@ -320,7 +320,7 @@ int main(int argc, char* argv[])
 		Tracing traceObject_debug = Tracing();
 		
 		CameraClass cam_debug = CameraClass(1, VectorClass(0, 0, 1), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
-			90.0, aspectRatio);
+			70.0, aspectRatio);
 		// This is how the book does it, but it reverts image here...why?
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
@@ -359,9 +359,9 @@ int main(int argc, char* argv[])
 		SaveToFIle saveObject_debug = SaveToFIle();
 		//saveObject_debug.saveRawObjectRGBData("scene_debug-ppm.txt", imageWidth, imageHeight, pixels_debug);
 
-		saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
+		//saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
 
-		//saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
+		saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
 		finish = std::chrono::high_resolution_clock::now();
 
 		std::chrono::duration<double> savefileTime_debug = finish - start;

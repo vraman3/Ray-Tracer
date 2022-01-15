@@ -218,8 +218,9 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 	//std::cout << "objsize" << objectsSize << std::endl;
 	for (int objNo = 0; objNo < objectsSize ; objNo++)
 	{
-		omega = objects[objNo]->GetIntersection(ray, 0.0, currentLowestVal, interRecord);
-		
+		//omega = objects[objNo]->GetIntersection(ray, 0.0, currentLowestVal, interRecord);
+		omega = objects[objNo]->GetIntersection(ray);
+
 		if (omega == -1)
 		{
 			continue;
@@ -244,7 +245,7 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 		//std::cout << depth << std::endl;
 		return background;
 	}
-	else if(currentLowestVal != infinity && currentLowestVal > epsilonval_small)
+	else if(false)//currentLowestVal != infinity && currentLowestVal > epsilonval_small)
 	{
 		bool noShadow = true;
 		VectorClass pi = ray.GetRayOrigin() + ray.GetRayDirection() * currentLowestVal;
@@ -369,6 +370,8 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 		//}
 		return tmp;
 	}
+
+	return background;
 }
 
 /**
