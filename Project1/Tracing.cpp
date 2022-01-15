@@ -416,7 +416,7 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 		//std::cout << depth << std::endl;
 		return background;
 	}
-	else if (currentLowestVal_debug != infinity && currentLowestVal_debug > 0.0)
+	else if(false) // currentLowestVal_debug != infinity && currentLowestVal_debug > 0.0)
 	{
 		bool noShadow = true;
 		VectorClass pi = ray_debug.GetRayOrigin() + ray_debug.GetRayDirection() * currentLowestVal_debug;
