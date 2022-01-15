@@ -319,8 +319,8 @@ int main(int argc, char* argv[])
 
 		Tracing traceObject_debug = Tracing();
 		
-		CameraClass cam_debug = CameraClass(1, VectorClass(0, 0, 1), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
-			70.0, aspectRatio);
+		CameraClass cam_debug = CameraClass(1, VectorClass(4, 3, 7), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
+			90.0, aspectRatio);
 		// This is how the book does it, but it reverts image here...why?
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
@@ -337,7 +337,7 @@ int main(int argc, char* argv[])
 				}
 				// Trace across any objects
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(
-					ray_debug, 0, 1.0, objects_debug, lights, background, pointCol, 3);
+					ray_debug, 0, 1.0, parsedObject, lights, background, pointCol, 3);
 
 
 				int breakpoint = 1;
