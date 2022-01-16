@@ -163,7 +163,7 @@ int main(int argc, char* argv[])
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
 			ColourClass(0.0, 1.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.6), ++objectCount)); // new NoShadingModel(0, 0))); // 
+			new NoShadingModel(0, 0))); //new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.6), ++objectCount)); //  
 	}
 
 #pragma endregion
@@ -319,7 +319,7 @@ int main(int argc, char* argv[])
 
 		Tracing traceObject_debug = Tracing();
 		
-		CameraClass cam_debug = CameraClass(1, VectorClass(4, 3, 7), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
+		CameraClass cam_debug = CameraClass(1, VectorClass(2, 2, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
 			90.0, aspectRatio);
 		// This is how the book does it, but it reverts image here...why?
 		for (int j = imageHeight - 1; j >= 0; --j)
@@ -339,7 +339,7 @@ int main(int argc, char* argv[])
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(
 					ray_debug, 0, 1.0, parsedObject, lights, background, pointCol, 3);
 
-				if (pixelColour_debug == ColourClass(0.0, 1.0, 0.0))
+				if (!(pixelColour_debug == background))
 				{
 					int breakPointVal2 = 1;
 				}
