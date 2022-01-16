@@ -162,8 +162,8 @@ int main(int argc, char* argv[])
 		parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
-			ColourClass(0.0, 1.0, 0.0),
-			new NoShadingModel(0, 0))); //new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.6), ++objectCount)); //  
+			ColourClass(0.0, 0.5, 0.0),
+			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.0, 0.0), ++objectCount)); // new NoShadingModel(0, 0))); // 
 	}
 
 #pragma endregion
@@ -312,8 +312,8 @@ int main(int argc, char* argv[])
 		objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(0.0, 0.0, 1.0)));
 		objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1.0, 0.0, 0.0)));*/
 
-		parsedObject.push_back(new SphereClass(0.5, VectorClass(0, 0, -1.5), ColourClass(1.0, 0.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+		parsedObject.push_back(new SphereClass(0.5, VectorClass(0, 1, 0.5), ColourClass(1.0, 0.0, 0.0),
+			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.0, 0.0)));
 		/*SphereClass sphere_debug = SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0));
 		SphereClass sphere_debug = SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0));*/
 
@@ -342,6 +342,7 @@ int main(int argc, char* argv[])
 				if (!(pixelColour_debug == background))
 				{
 					int breakPointVal2 = 1;
+					//std::cout << pixelColour_debug;
 				}
 				int breakpoint = 1;
 				// Store the colour value

@@ -76,7 +76,7 @@ TriangleClass::TriangleClass(VectorClass vert1, VectorClass vert2, VectorClass v
 	a = vert1;
 	b = vert2;
 	c = vert3;
-	
+
 	colour = col;
 	diffuse = 0.4;
 	specular = 0.08;
