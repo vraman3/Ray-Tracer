@@ -40,6 +40,7 @@ public:
 	ColourClass operator*(const ColourClass&) const;
 	ColourClass operator+(const ColourClass&) const;
 	ColourClass operator-(const ColourClass&) const;
+	bool operator==(const ColourClass&) const;
 	friend std::ostream& operator<<(std::ostream& os, ColourClass& color);
 
 	/* Methods */

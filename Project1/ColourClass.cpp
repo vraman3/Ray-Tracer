@@ -160,6 +160,23 @@ ColourClass ColourClass::operator-(const ColourClass& b) const
 	return ColourClass(this->red - b.red, this->green - b.green, this->blue - b.blue);
 }
 
+/*
+* Operator overloading to compare two ColourClass values
+*/
+bool ColourClass::operator==(const ColourClass& b) const
+{
+	return (this->red == b.red && this->green == b.green && this->blue == b.blue);
+}
+/*
+* Operator overloading for displaying ColourClass value to screen
+*/
+std::ostream& operator<<(std::ostream& os, ColourClass& colour)
+{
+	os << "R: " << colour.GetRed() << " G: " << colour.GetGreen() << " B: " << colour.GetBlue() << std::endl;
+
+	return os;
+}
+
 /**
 	Reset the colour of the current pixel to Black (R,G,B = 0,0,0)
 */
@@ -169,10 +186,3 @@ void ColourClass::resetColour()
 	this->green = 0.0;
 	this->blue = 0.0;
 }
-
-	std::ostream & operator<<(std::ostream & os, ColourClass & colour)
-	{
-		os << "R: " << colour.GetRed() << " G: " << colour.GetGreen() << " B: " << colour.GetBlue() << std::endl;
-
-		return os;
-	}

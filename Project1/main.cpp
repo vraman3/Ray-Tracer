@@ -339,7 +339,10 @@ int main(int argc, char* argv[])
 				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(
 					ray_debug, 0, 1.0, parsedObject, lights, background, pointCol, 3);
 
-
+				if (pixelColour_debug == ColourClass(0.0, 1.0, 0.0))
+				{
+					int breakPointVal2 = 1;
+				}
 				int breakpoint = 1;
 				// Store the colour value
 				pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());
