@@ -162,7 +162,7 @@ int main(int argc, char* argv[])
 		parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
 			objFile.opVertices[objFile.faces[i + 1] - 1],
 			objFile.opVertices[objFile.faces[i + 2] - 1],
-			ColourClass(0.0, 0.5, 0.0),
+			ColourClass(0.0, 0.8, 0.0),
 			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.0, 0.0), ++objectCount)); // new NoShadingModel(0, 0))); // 
 	}
 
@@ -292,8 +292,8 @@ int main(int argc, char* argv[])
 		ColourClass material_left = ColourClass(0.0, 0.0, 0.0);
 		ColourClass material_right = ColourClass(0.8, 0.6, 0.2);
 
-		objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), 
-			material_ground, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+		/*objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), 
+			material_ground, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));*/
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), 
 			material_center, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), 
@@ -312,15 +312,18 @@ int main(int argc, char* argv[])
 		objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(0.0, 0.0, 1.0)));
 		objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1.0, 0.0, 0.0)));*/
 
-		parsedObject.push_back(new SphereClass(0.5, VectorClass(0, 1, 1.0), ColourClass(0.8, 0.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.01, 0.0)));
-		parsedObject.push_back(new SphereClass(0.5, VectorClass(0, 1, 1.5), ColourClass(0.8, 0.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.01, 0.5)));
+		/*parsedObject.push_back(new SphereClass(0.5, VectorClass(0, 1, 1.0), ColourClass(0.8, 0.0, 0.0),
+			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.01, 0.0)));*/
+		/*parsedObject.push_back(new SphereClass(0.5, VectorClass(0, 0, -1.0), ColourClass(0.8, 0.0, 0.0),
+			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 1.2)));*/
+		parsedObject.push_back(new SphereClass(0.5, VectorClass(0.0, 1.0, 0.0),
+			material_center, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 		/*SphereClass sphere_debug = SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0));
 		SphereClass sphere_debug = SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0));*/
 
 		Tracing traceObject_debug = Tracing();
 		
+		// Camera position VectorClass(2, 2, 3)
 		CameraClass cam_debug = CameraClass(1, VectorClass(2, 2, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
 			90.0, aspectRatio);
 		// This is how the book does it, but it reverts image here...why?

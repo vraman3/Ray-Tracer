@@ -471,14 +471,14 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 			double reflectKr = objects_debug[closest]->illum->getReflectivitykr();
 			double transmiKt = objects_debug[closest]->illum->getTransmissivitykt();
 
-			/*if (reflectKr > 0.0)
+			if (reflectKr > 0.0)
 			{
 				VectorClass refRayDirection = objects_debug[closest]->illum->Reflect(ray_debug.GetRayDirection(), N);
 
 				RayClass refRay = RayClass(pi, refRayDirection);
 
 				tmp = tmp + TraceRay_debug(refRay, depth + 1, incomingni, objects_debug, lights, background, pointCol, maxDepth) * reflectKr;
-			}*/
+			}
 
 			if (transmiKt > 0.0)
 			{
