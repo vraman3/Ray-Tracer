@@ -126,8 +126,8 @@ int main(int argc, char* argv[])
 	ObjLoaderClass objFile = ObjLoaderClass();
 
 	//objFile.readObjFile("icosphereObj.obj");
-	objFile.readObjFile("cubeStraight.obj");
-	///objFile.readObjFile("bunnyBlender_v2.obj");
+	//objFile.readObjFile("cubeStraight.obj");
+	objFile.readObjFile("bunnyBlender_v2.obj");
 
 	int noOfFaces = objFile.faces.size();
 
@@ -316,15 +316,15 @@ int main(int argc, char* argv[])
 			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.01, 0.0)));*/
 		/*parsedObject.push_back(new SphereClass(0.5, VectorClass(0, 0, -1.0), ColourClass(0.8, 0.0, 0.0),
 			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 1.2)));*/
-		parsedObject.push_back(new SphereClass(0.5, VectorClass(0.0, 1.0, 0.0),
-			material_center, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+		/*parsedObject.push_back(new SphereClass(0.5, VectorClass(0.0, 1.0, 0.0),
+			material_center, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));*/
 		/*SphereClass sphere_debug = SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0));
 		SphereClass sphere_debug = SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0));*/
 
 		Tracing traceObject_debug = Tracing();
 		
 		// Camera position VectorClass(2, 2, 3)
-		CameraClass cam_debug = CameraClass(1, VectorClass(2, 2, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
+		CameraClass cam_debug = CameraClass(1, VectorClass(0, 0, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
 			90.0, aspectRatio);
 		// This is how the book does it, but it reverts image here...why?
 		for (int j = imageHeight - 1; j >= 0; --j)
