@@ -126,8 +126,8 @@ int main(int argc, char* argv[])
 	ObjLoaderClass objFile = ObjLoaderClass();
 
 	//objFile.readObjFile("icosphereObj.obj");
-	//objFile.readObjFile("cubeStraight.obj");
-	objFile.readObjFile("bunnyBlender_v2.obj");
+	objFile.readObjFile("cubeStraight.obj");
+	//objFile.readObjFile("bunnyBlender_v2.obj");
 
 	int noOfFaces = objFile.faces.size();
 
@@ -324,7 +324,7 @@ int main(int argc, char* argv[])
 		Tracing traceObject_debug = Tracing();
 		
 		// Camera position VectorClass(2, 2, 3)
-		CameraClass cam_debug = CameraClass(1, VectorClass(0, 0, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
+		CameraClass cam_debug = CameraClass(1, VectorClass(2, 2, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
 			90.0, aspectRatio);
 		// This is how the book does it, but it reverts image here...why?
 		for (int j = imageHeight - 1; j >= 0; --j)
