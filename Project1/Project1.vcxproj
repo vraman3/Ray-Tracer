@@ -19,13 +19,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -190,25 +190,6 @@
     <Text Include="parsed-object-comparisons\ParsedComparisons_MiscFile.txt" />
     <Text Include="scene_debug-bmp.txt" />
     <Text Include="scene_debug-ppm.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="models\bunny.obj" />
-    <Object Include="models\bunnyBlender.obj" />
-    <Object Include="models\bunnyBlender_v2.obj" />
-    <Object Include="models\cubeStraight.obj" />
-    <Object Include="models\icosphereObj.obj" />
-    <Object Include="models\newBunny.obj" />
-    <Object Include="models\planeTestMaya.obj" />
-    <Object Include="models\planeTestMayaPerpcular.obj" />
-    <Object Include="models\planeTestMayaPerpcularCut.obj" />
-    <Object Include="models\planeTestMayaPerpcularCutVertsMerged.obj" />
-    <Object Include="models\sphereObj.obj" />
-    <Object Include="models\teapot.obj" />
-    <Object Include="models\unityBunny.obj" />
-    <Object Include="models\unityBunnyS15.obj" />
-    <Object Include="models\unityCube.obj" />
-    <Object Include="models\unityCubeS0-5.obj" />
-    <Object Include="models\unityCubeT.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
