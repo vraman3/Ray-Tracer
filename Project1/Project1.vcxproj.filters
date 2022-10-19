@@ -212,4 +212,151 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="scene_Vishwanath.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="scene_Vishwanath_brute.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="scene_debug.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="scene_anti-aliased.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="scene_anti-aliased02.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="scene_anti-aliased02_sampled4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="scene_Vishwanath - bunny_FullyBlack.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="scene_Vishwanath - bunny_FullyBlack.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="scene_Vishwanath - planeTestPerpCutSeparateVerts.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Readthisfile.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Read.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Texturemaps\24-320x240.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Texturemaps\24-640x480.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Texturemaps\world_map_dual_monitor-wallpaper-320x240.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Texturemaps\world_map_dual_monitor-wallpaper-640x480.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Texturemaps\world_map_dual_monitor-wallpaper-1440x900.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Texturemaps\world_map_dual_monitor-wallpaper-1600x900.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\no specular.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliased - Copy (2).bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliased - Copy.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliased Multiple spheres.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliased.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliased_check2.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliased_diffuse01.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliased_tri01.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliasedblinn.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliasedblinn12.5.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliasedphong.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliasedtest.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliasedTESTTransmission.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliasedtestwrongIll.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\scene_anti-aliasedTransmission...LOL.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test\specular.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="parsed-object-comparisons\bunnyBlender_v2_obj_blender.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="parsed-object-comparisons\bunnyBlender_v2_obj_raytracer.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="parsed-object-comparisons\bunnyBlender_v2_obj_raytracer_bruteforce_2203sec.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="parsed-object-comparisons\bunnyBlender_v2_obj_raytracer_kdTree_2217sec.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="scene_debug.ppm" />
+    <None Include="Main BAckupbefore changing shadows.cp" />
+    <None Include="newBunny.mtl" />
+    <None Include="parsed-object-comparisons\bunnyBlender_v2.blend" />
+    <None Include="parsed-object-comparisons\firstTriangle_of_CubeStraightobj.blend" />
+    <None Include="parsed-object-comparisons\firstTriangle_of_CubeStraightobj.blend1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="scene_debug-bmp.txt" />
+    <Text Include="scene_debug-ppm.txt" />
+    <Text Include="outputNormal.txt" />
+    <Text Include="outputKDTREE.txt" />
+    <Text Include="parsed-object-comparisons\ParsedComparisons_MiscFile.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="models\bunny.obj" />
+    <Object Include="models\bunnyBlender.obj" />
+    <Object Include="models\bunnyBlender_v2.obj" />
+    <Object Include="models\cubeStraight.obj" />
+    <Object Include="models\icosphereObj.obj" />
+    <Object Include="models\newBunny.obj" />
+    <Object Include="models\planeTestMaya.obj" />
+    <Object Include="models\planeTestMayaPerpcular.obj" />
+    <Object Include="models\planeTestMayaPerpcularCut.obj" />
+    <Object Include="models\planeTestMayaPerpcularCutVertsMerged.obj" />
+    <Object Include="models\sphereObj.obj" />
+    <Object Include="models\teapot.obj" />
+    <Object Include="models\unityBunny.obj" />
+    <Object Include="models\unityBunnyS15.obj" />
+    <Object Include="models\unityCube.obj" />
+    <Object Include="models\unityCubeS0-5.obj" />
+    <Object Include="models\unityCubeT.obj" />
+  </ItemGroup>
 </Project>

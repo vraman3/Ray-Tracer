@@ -137,6 +137,79 @@
   <ItemGroup>
     <ResourceCompile Include="RayTracing.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="parsed-object-comparisons\bunnyBlender_v2_obj_blender.png" />
+    <Image Include="parsed-object-comparisons\bunnyBlender_v2_obj_raytracer.bmp" />
+    <Image Include="parsed-object-comparisons\bunnyBlender_v2_obj_raytracer_bruteforce_2203sec.bmp" />
+    <Image Include="parsed-object-comparisons\bunnyBlender_v2_obj_raytracer_kdTree_2217sec.bmp" />
+    <Image Include="Read.bmp" />
+    <Image Include="Readthisfile.bmp" />
+    <Image Include="scene_anti-aliased.bmp" />
+    <Image Include="scene_anti-aliased02.bmp" />
+    <Image Include="scene_anti-aliased02_sampled4.bmp" />
+    <Image Include="scene_debug.bmp" />
+    <Image Include="scene_Vishwanath - bunny_FullyBlack.bmp" />
+    <Image Include="scene_Vishwanath - bunny_FullyBlack.jpg" />
+    <Image Include="scene_Vishwanath - planeTestPerpCutSeparateVerts.bmp" />
+    <Image Include="scene_Vishwanath.bmp" />
+    <Image Include="scene_Vishwanath_brute.bmp" />
+    <Image Include="test\no specular.bmp" />
+    <Image Include="test\scene_anti-aliased - Copy (2).bmp" />
+    <Image Include="test\scene_anti-aliased - Copy.bmp" />
+    <Image Include="test\scene_anti-aliased Multiple spheres.bmp" />
+    <Image Include="test\scene_anti-aliased.jpg" />
+    <Image Include="test\scene_anti-aliasedblinn.jpg" />
+    <Image Include="test\scene_anti-aliasedblinn12.5.jpg" />
+    <Image Include="test\scene_anti-aliasedphong.jpg" />
+    <Image Include="test\scene_anti-aliasedtest.bmp" />
+    <Image Include="test\scene_anti-aliasedTESTTransmission.bmp" />
+    <Image Include="test\scene_anti-aliasedtestwrongIll.jpg" />
+    <Image Include="test\scene_anti-aliasedTransmission...LOL.bmp" />
+    <Image Include="test\scene_anti-aliased_check2.jpg" />
+    <Image Include="test\scene_anti-aliased_diffuse01.jpg" />
+    <Image Include="test\scene_anti-aliased_tri01.jpg" />
+    <Image Include="test\specular.bmp" />
+    <Image Include="Texturemaps\24-320x240.bmp" />
+    <Image Include="Texturemaps\24-640x480.bmp" />
+    <Image Include="Texturemaps\world_map_dual_monitor-wallpaper-1440x900.jpg" />
+    <Image Include="Texturemaps\world_map_dual_monitor-wallpaper-1600x900.jpg" />
+    <Image Include="Texturemaps\world_map_dual_monitor-wallpaper-320x240.jpg" />
+    <Image Include="Texturemaps\world_map_dual_monitor-wallpaper-640x480.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Main BAckupbefore changing shadows.cp" />
+    <None Include="newBunny.mtl" />
+    <None Include="parsed-object-comparisons\bunnyBlender_v2.blend" />
+    <None Include="parsed-object-comparisons\firstTriangle_of_CubeStraightobj.blend" />
+    <None Include="parsed-object-comparisons\firstTriangle_of_CubeStraightobj.blend1" />
+    <None Include="scene_debug.ppm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="outputKDTREE.txt" />
+    <Text Include="outputNormal.txt" />
+    <Text Include="parsed-object-comparisons\ParsedComparisons_MiscFile.txt" />
+    <Text Include="scene_debug-bmp.txt" />
+    <Text Include="scene_debug-ppm.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="models\bunny.obj" />
+    <Object Include="models\bunnyBlender.obj" />
+    <Object Include="models\bunnyBlender_v2.obj" />
+    <Object Include="models\cubeStraight.obj" />
+    <Object Include="models\icosphereObj.obj" />
+    <Object Include="models\newBunny.obj" />
+    <Object Include="models\planeTestMaya.obj" />
+    <Object Include="models\planeTestMayaPerpcular.obj" />
+    <Object Include="models\planeTestMayaPerpcularCut.obj" />
+    <Object Include="models\planeTestMayaPerpcularCutVertsMerged.obj" />
+    <Object Include="models\sphereObj.obj" />
+    <Object Include="models\teapot.obj" />
+    <Object Include="models\unityBunny.obj" />
+    <Object Include="models\unityBunnyS15.obj" />
+    <Object Include="models\unityCube.obj" />
+    <Object Include="models\unityCubeS0-5.obj" />
+    <Object Include="models\unityCubeT.obj" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
