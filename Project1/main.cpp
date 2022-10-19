@@ -38,6 +38,7 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
+		//
 		screenWidth = 640;
 		screenHeight = static_cast<int>(screenWidth / aspectRatio);
 		maxDepth = 5;
