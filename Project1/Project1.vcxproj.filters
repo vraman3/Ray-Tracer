@@ -341,8 +341,6 @@
     <Text Include="parsed-object-comparisons\ParsedComparisons_MiscFile.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Object Include="models\bunny.obj" />
-    <Object Include="models\bunnyBlender.obj" />
     <Object Include="models\bunnyBlender_v2.obj" />
     <Object Include="models\cubeStraight.obj" />
     <Object Include="models\icosphereObj.obj" />
@@ -358,5 +356,7 @@
     <Object Include="models\unityCube.obj" />
     <Object Include="models\unityCubeS0-5.obj" />
     <Object Include="models\unityCubeT.obj" />
+    <Object Include="models\bunny.obj" />
+    <Object Include="models\bunnyBlender.obj" />
   </ItemGroup>
 </Project>
