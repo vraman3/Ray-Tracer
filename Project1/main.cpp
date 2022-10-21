@@ -257,8 +257,8 @@ int main(int argc, char* argv[])
 
 		// After camera abstraction
 		//double aspectRatio = 16.0 / 9.0;
-		int imageWidth = 640;
-		int imageHeight = static_cast<int>(imageWidth / aspectRatio);
+		int imageWidth = 200;//640;
+			int imageHeight = 100;//static_cast<int>(imageWidth / aspectRatio);
 
 		int filesize_debug = imageWidth * imageHeight;
 		ColourClass* pixels_debug = new ColourClass[filesize_debug];
@@ -282,40 +282,46 @@ int main(int argc, char* argv[])
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), 
 			material_right, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 
-		090089
+		
 		Tracing traceObject_debug = Tracing();
 		
 		// Camera position VectorClass(2, 2, 3)
 		CameraClass cam_debug = CameraClass(1, VectorClass(2, 2, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
 			90.0, aspectRatio);
+
 		// This is how the book does it, but it reverts image here...why?
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < imageWidth; ++i)
 			{
-				auto u = (double)i / ((double)imageWidth - 1);
-				auto v = (double)j / ((double)imageHeight - 1);
+				auto r = (float)i / ((float)imageWidth);
+				auto g = (float)j / ((float)imageHeight);
+				double b = 0.2;
 
-				RayClass ray_debug = cam_debug.getRay(u, v);
+				int ir = int(255.99 * r);
+				int ig = int(255.99 * g);
+				int ib = 0.2;
 
-				if (i == 314 && j == 225)
-				{
-					int breakPointVal = 1;
-				}
+				//RayClass ray_debug = cam_debug.getRay(u, v);
+
+				pixels_debug[position_debug].SetRed(ir);
+				pixels_debug[position_debug].SetGreen(ig);
+				pixels_debug[position_debug].SetBlue(ib);
+				// 
 				// Trace across any objects
-				ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(
-					ray_debug, 0, 1.0, parsedObject, lights, background, pointCol, 3);
+				/*ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(
+					ray_debug, 0, 1.0, parsedObject, lights, background, pointCol, 3);*/
 
-				if (!(pixelColour_debug == background))
-				{
-					int breakPointVal2 = 1;
-					//std::cout << pixelColour_debug;
-				}
-				int breakpoint = 1;
-				// Store the colour value
-				pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());
-				pixels_debug[position_debug].SetGreen(pixelColour_debug.GetGreen());
-				pixels_debug[position_debug].SetBlue(pixelColour_debug.GetBlue());
+				//if (!(pixelColour_debug == background))
+				//{
+				//	int breakPointVal2 = 1;
+				//	//std::cout << pixelColour_debug;
+				//}
+				//int breakpoint = 1;
+				//// Store the colour value
+				//pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());
+				//pixels_debug[position_debug].SetGreen(pixelColour_debug.GetGreen());
+				//pixels_debug[position_debug].SetBlue(pixelColour_debug.GetBlue());
 
 				position_debug++;
 			}
@@ -325,20 +331,20 @@ int main(int argc, char* argv[])
 		std::chrono::duration<double> renderTime_debug = finish - start;
 
 		// Save the output
-		start = std::chrono::high_resolution_clock::now();
-		
+		//start = std::chrono::high_resolution_clock::now();
+		//
 		SaveToFIle saveObject_debug = SaveToFIle();
 		//saveObject_debug.saveRawObjectRGBData("scene_debug-ppm.txt", imageWidth, imageHeight, pixels_debug);
 
-		//saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
+		saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
 
-		saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
+		/*saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
 		finish = std::chrono::high_resolution_clock::now();
 
 		std::chrono::duration<double> savefileTime_debug = finish - start;
 
 		std::cout << "render time: " << renderTime_debug.count() << "seconds" << std::endl;
-		std::cout << "file write time: " << savefileTime_debug.count() << "seconds" << std::endl;
+		std::cout << "file write time: " << savefileTime_debug.count() << "seconds" << std::endl;*/
 
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
