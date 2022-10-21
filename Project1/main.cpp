@@ -294,8 +294,8 @@ int main(int argc, char* argv[])
 		{
 			for (int i = 0; i < imageWidth; ++i)
 			{
-				auto r = (float)i / ((float)imageWidth);
-				auto g = (float)j / ((float)imageHeight);
+				auto r = (double)i / ((double)imageWidth);
+				auto g = (double)j / ((double)imageHeight);
 				double b = 0.2;
 
 				int ir = int(255.99 * r);

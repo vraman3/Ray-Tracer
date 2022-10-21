@@ -31,36 +31,37 @@ void SaveToFIle::saveppm(const char* filename, int imageWidth, int imageHeight, 
 	myfile.open(filename);
 	myfile << "P3\n" << imageWidth << " " << imageHeight << "\n255\n";
 	
-	// 1st try, original, same as rt1w
-	for (int j = imageHeight - 1; j >= 0; j--) 
-	{
-		for (int i = 0; i < imageWidth; i++) 
-		{
-			auto r = (float)i / ((float)imageWidth);
-			auto g = (float)j / ((float)imageHeight);
-			double b = 0.2;
+	//// 1st try, original, same as rt1w
+	//for (int j = imageHeight - 1; j >= 0; j--) 
+	//{
+	//	for (int i = 0; i < imageWidth; i++) 
+	//	{
+	//		auto r = (double)i / ((double)imageWidth);
+	//		auto g = (double)j / ((double)imageHeight);
+	//		double b = 0.2;
 
-			int ir = int(255.99 * r);
-			int ig = int(255.99 * g);
-			int ib = 0.2;
+	//		int ir = int(255.99 * r);
+	//		int ig = int(255.99 * g);
+	//		int ib = 0.2;
 
-			myfile << ir << ' ' << ig << ' ' << ib << '\n';
-		}
-	}
+	//		myfile << ir << ' ' << ig << ' ' << ib << '\n';
+	//	}
+	//}
 	
 	//// 2nd try
-	//for(int i = 0; i < noOfPixels; i++)
-	//{
-	//	auto r = pixels[i].GetRed();
-	//	auto g = pixels[i].GetGreen();
-	//	auto b = pixels[i].GetBlue();
-	//	
-	//	int ir = (int)floor((r * 255));
-	//	int ig = (int)floor((g * 255));
-	//	int ib = (int)floor((b * 255));
+	for(int i = 0; i < noOfPixels; i++)
+	{
 
-	//	myfile << ir << ' ' << ig << ' ' << ib << '\n';
-	//}
+		//auto r = pixels[i].GetRed();
+		//auto g = pixels[i].GetGreen();
+		//auto b = pixels[i].GetBlue();
+		//
+		//int ir = (int)floor((r * 255));
+		//int ig = (int)floor((g * 255));
+		//int ib = (int)floor((b * 255));
+
+		myfile << pixels[i].GetRed() << ' ' << pixels[i].GetGreen() << ' ' << pixels[i].GetBlue() << '\n';
+	}
 	myfile.close();
 }
 
