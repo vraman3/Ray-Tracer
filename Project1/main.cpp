@@ -139,25 +139,6 @@ int main(int argc, char* argv[])
 	int objectCount = 0;
 
 
-	// To test each triangle individually
-	//parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[0] - 1],
-	//			objFile.opVertices[objFile.faces[1] - 1],
-	//			objFile.opVertices[objFile.faces[2] - 1],
-	//			ColourClass(0.0, 1.0, 0.0),
-	//			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount));
-	
-	//singleTriangle.push_back(new TriangleClass(VectorClass(-1,-1,1),
-	//	VectorClass(1, 1, -1),
-	//	VectorClass(1, -1, 1),
-	//	ColourClass(0.0, 1.0, 0.0),
-	//	new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0), ++objectCount));
-	
-	//singleObject.push_back(new TriangleClass(VectorClass(-1, -1, 1),
-	//	VectorClass(1, 1, -1),
-	//	VectorClass(1, -1, 1),
-	//	ColourClass(0.0, 1.0, 0.0),
-	//	new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-
 	for (int i = 0; i < noOfFaces; i += 3)
 	{
 		parsedObject.push_back(new TriangleClass(objFile.opVertices[objFile.faces[i] - 1],
@@ -206,8 +187,6 @@ int main(int argc, char* argv[])
 	double f = 0.1;
 
 	// Calculate the Camera parameters
-	//VectorClass camRight = camLookAt.normalize().crossProd(VectorClass(0, 1, 0));
-	//VectorClass camUp = camRight.crossProd(camLookAt);
 	CameraClass originalCamera = CameraClass(camPosition, camLookAt, VectorClass(0, 1, 0), f);
 
 	// RHS
@@ -303,25 +282,7 @@ int main(int argc, char* argv[])
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), 
 			material_right, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 
-		/*objects_debug.push_back(new SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-		objects_debug.push_back(new SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0), 
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));*/
-
-		/*auto R = cos(3.1415926535897932385 / 4);
-
-		objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(0.0, 0.0, 1.0)));
-		objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1.0, 0.0, 0.0)));*/
-
-		/*parsedObject.push_back(new SphereClass(0.5, VectorClass(0, 1, 1.0), ColourClass(0.8, 0.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.01, 0.0)));*/
-		/*parsedObject.push_back(new SphereClass(0.5, VectorClass(0, 0, -1.0), ColourClass(0.8, 0.0, 0.0),
-			new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 1.2)));*/
-		/*parsedObject.push_back(new SphereClass(0.5, VectorClass(0.0, 1.0, 0.0),
-			material_center, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));*/
-		/*SphereClass sphere_debug = SphereClass(0.5, VectorClass(0, 0, -1), ColourClass(1.0, 0.0, 0.0));
-		SphereClass sphere_debug = SphereClass(100, VectorClass(0, -100.5, -1), ColourClass(0.0, 1.0, 0.0));*/
-
+		090089
 		Tracing traceObject_debug = Tracing();
 		
 		// Camera position VectorClass(2, 2, 3)
