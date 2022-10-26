@@ -294,13 +294,15 @@ int main(int argc, char* argv[])
 		{
 			for (int i = 0; i < imageWidth; ++i)
 			{
-				auto r = (double)i / ((double)imageWidth);
-				auto g = (double)j / ((double)imageHeight);
-				double b = 0.2;
-
-				int ir = int(255.99 * r);
-				int ig = int(255.99 * g);
-				int ib = 0.2;
+				//auto r = (double)i / ((double)imageWidth);
+				//auto g = (double)j / ((double)imageHeight);
+				//double b = 0.2;
+				VectorClass pixelColour = VectorClass((double)i / ((double)imageWidth),
+					(double)j / ((double)imageHeight),
+					0.2);
+				int ir = int(255.99 * pixelColour[0]);
+				int ig = int(255.99 * pixelColour[1]);
+				int ib = int(255.99 * pixelColour[2]);
 
 				//RayClass ray_debug = cam_debug.getRay(u, v);
 
