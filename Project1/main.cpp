@@ -294,9 +294,6 @@ int main(int argc, char* argv[])
 		{
 			for (int i = 0; i < imageWidth; ++i)
 			{
-				//auto r = (double)i / ((double)imageWidth);
-				//auto g = (double)j / ((double)imageHeight);
-				//double b = 0.2;
 				VectorClass pixelColour = VectorClass((double)i / ((double)imageWidth),
 					(double)j / ((double)imageHeight),
 					0.2);
@@ -304,26 +301,10 @@ int main(int argc, char* argv[])
 				int ig = int(255.99 * pixelColour[1]);
 				int ib = int(255.99 * pixelColour[2]);
 
-				//RayClass ray_debug = cam_debug.getRay(u, v);
 
 				pixels_debug[position_debug].SetRed(ir);
 				pixels_debug[position_debug].SetGreen(ig);
 				pixels_debug[position_debug].SetBlue(ib);
-				// 
-				// Trace across any objects
-				/*ColourClass pixelColour_debug = traceObject_debug.TraceRay_debug(
-					ray_debug, 0, 1.0, parsedObject, lights, background, pointCol, 3);*/
-
-				//if (!(pixelColour_debug == background))
-				//{
-				//	int breakPointVal2 = 1;
-				//	//std::cout << pixelColour_debug;
-				//}
-				//int breakpoint = 1;
-				//// Store the colour value
-				//pixels_debug[position_debug].SetRed(pixelColour_debug.GetRed());
-				//pixels_debug[position_debug].SetGreen(pixelColour_debug.GetGreen());
-				//pixels_debug[position_debug].SetBlue(pixelColour_debug.GetBlue());
 
 				position_debug++;
 			}
