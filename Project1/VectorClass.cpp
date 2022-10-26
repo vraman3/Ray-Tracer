@@ -230,6 +230,7 @@ VectorClass VectorClass::crossProd(VectorClass v2)
 */
 VectorClass VectorClass::normalize()
 {
+	//Check running time for this (division by value) versus multiplying by the inverse of the value
 	double value = sqrt(x*x + y*y + z*z);
 	return VectorClass(x / value, y / value, z / value);
 }

@@ -254,6 +254,10 @@ int main(int argc, char* argv[])
 		//VectorClass horizontal_debug = VectorClass(worldWidth, 0, 0);
 		//VectorClass vertical_debug = VectorClass(0, worldHeight, 0);
 		//auto lowerLeftCorner_debug = origin_debug - horizontal_debug / 2 - vertical_debug / 2 - VectorClass(0, 0, focalLength_debug);
+		VectorClass lowerLeftCorner_d(-2.0, -1.0, -1.0);
+		VectorClass horizontal_d(4.0, 0.0, 0.0);
+		VectorClass vertical_d(0.0, 2.0, 0.0);
+		VectorClass origin_d(0.0, 0.0, 0.0);
 
 		// After camera abstraction
 		//double aspectRatio = 16.0 / 9.0;
