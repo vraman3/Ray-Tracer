@@ -247,13 +247,13 @@ int main(int argc, char* argv[])
 	{
 		int position_debug = 0;
 
-		
-		// before camera abstraction
-		double focalLength_debug = 1.0;
-		VectorClass origin_debug = VectorClass(0.0, 0.0, 0.0);
-		VectorClass horizontal_debug = VectorClass(worldWidth, 0, 0);
-		VectorClass vertical_debug = VectorClass(0, worldHeight, 0);
-		auto lowerLeftCorner_debug = origin_debug - horizontal_debug / 2 - vertical_debug / 2 - VectorClass(0, 0, focalLength_debug);
+		//
+		//// before camera abstraction
+		//double focalLength_debug = 1.0;
+		//VectorClass origin_debug = VectorClass(0.0, 0.0, 0.0);
+		//VectorClass horizontal_debug = VectorClass(worldWidth, 0, 0);
+		//VectorClass vertical_debug = VectorClass(0, worldHeight, 0);
+		//auto lowerLeftCorner_debug = origin_debug - horizontal_debug / 2 - vertical_debug / 2 - VectorClass(0, 0, focalLength_debug);
 
 		// After camera abstraction
 		//double aspectRatio = 16.0 / 9.0;
@@ -263,31 +263,31 @@ int main(int argc, char* argv[])
 		int filesize_debug = imageWidth * imageHeight;
 		ColourClass* pixels_debug = new ColourClass[filesize_debug];
 
-		start = std::chrono::high_resolution_clock::now();
-
-		std::vector<ObjectClass*> objects_debug;
-
-		ColourClass material_ground = ColourClass(0.8, 0.8, 0.0);
-		ColourClass material_center = ColourClass(0.1, 0.2, 0.5);
-		ColourClass material_left = ColourClass(0.0, 0.0, 0.0);
-		ColourClass material_right = ColourClass(0.8, 0.6, 0.2);
-
-		/*objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), 
-			material_ground, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));*/
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), 
-			material_center, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), 
-			material_left, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-		//objects_debug.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), 
-			material_right, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+		//start = std::chrono::high_resolution_clock::now();
 
 		
-		Tracing traceObject_debug = Tracing();
-		
-		// Camera position VectorClass(2, 2, 3)
-		CameraClass cam_debug = CameraClass(1, VectorClass(2, 2, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
-			90.0, aspectRatio);
+		//ColourClass material_ground = ColourClass(0.8, 0.8, 0.0);
+		//ColourClass material_center = ColourClass(0.1, 0.2, 0.5);
+		//ColourClass material_left = ColourClass(0.0, 0.0, 0.0);
+		//ColourClass material_right = ColourClass(0.8, 0.6, 0.2);
+
+		//std::vector<ObjectClass*> objects_debug;
+		////objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), 
+		////	material_ground, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+		//objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), 
+		//	material_center, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+		//objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), 
+		//	material_left, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+		////objects_debug.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
+		//objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), 
+		//	material_right, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
+
+		//
+		//Tracing traceObject_debug = Tracing();
+		//
+		//// Camera position VectorClass(2, 2, 3)
+		//CameraClass cam_debug = CameraClass(1, VectorClass(2, 2, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
+		//	90.0, aspectRatio);
 
 		// This is how the book does it, but it reverts image here...why?
 		for (int j = imageHeight - 1; j >= 0; --j)
