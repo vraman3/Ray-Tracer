@@ -27,7 +27,8 @@ public:
 	/* Constructors */
 	SphereClass();
 	SphereClass(double radius, VectorClass center, ColourClass color, IlluminationClass *illum);
-
+	SphereClass(double radius, VectorClass center);
+	
 	/* Getters */
 	VectorClass GetNormal(VectorClass);
 	VectorClass GetCenter();
@@ -37,6 +38,9 @@ public:
 	virtual ColourClass GetColour();
 	virtual double GetIntersection(RayClass);
 	virtual double GetIntersection(RayClass ray, double tmin, double tmax, intersection_record &intersectionRecord);
+
+	// Debug
+	virtual bool GetIntersection_d(RayClass);
 
 	/* Setters */
 	void SetDiffuse(double paramDiffuse);

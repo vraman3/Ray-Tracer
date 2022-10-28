@@ -41,6 +41,13 @@ SphereClass::SphereClass(double paramRadius, VectorClass paramCenter, ColourClas
 	specular = 0.6;
 	ambient = 0.1;
 }
+
+SphereClass::SphereClass(double paramRadius, VectorClass paramCenter)
+{
+	radius = paramRadius;
+	center = paramCenter;
+}
+
 /**
 	Get the normal at a point on the sphere.
 
@@ -140,7 +147,6 @@ double SphereClass::GetIntersection(RayClass ray)
 
 	// Since dx2 + dy2 + dz2 = 1 if D is normalized so A = ray.direction DOT ray.direction
 	// Vector dotted with itself is equal to squared length of that vector
-
 	double a = ray.GetRayDirection().magnitude_squared();
 
 	double half_b = ray.GetRayDirection().dotProd(centerToRayOriginVec);
@@ -175,6 +181,70 @@ double SphereClass::GetIntersection(RayClass ray)
 	}
 
 	return -1;
+}
+
+/**
+	Get the intersection point of the current sphere with a given ray
+	if they intersect.
+
+	@return the intersection point between the sphere and the ray, if it exists.
+*/
+bool SphereClass::GetIntersection_d(RayClass ray)
+{
+	/*
+
+	double A = ray.GetRayDirection().dotProd(ray.GetRayDirection()); // Since dx2 + dy2 + dz2 = 1 if D is normalized
+
+	VectorClass temp = ray.GetRayOrigin() - this->center;
+	double B = 2.0 * (ray.GetRayDirection().dotProd(temp));
+
+	double C = (temp).dotProd(temp) - this->radius * this->radius;
+
+	double check = B*B - 4 * A*C;
+
+	double W;
+
+	if (check < 0.0)
+	{
+		return -1;
+	}
+	else
+	{
+		double root = sqrt(check);
+		double denom = 2.0 * A;
+
+		W = (-B - root) / denom;
+
+		if (W > EPSILONVAL)
+		{
+			return W;
+		}
+
+		W = (-B + root) / denom;
+
+		if (W > EPSILONVAL)
+		{
+			return W;
+		}
+	}
+
+	return -1;
+	*/
+
+	VectorClass centerToRayOriginVec = ray.GetRayOrigin() - this->center;
+
+	// Since dx2 + dy2 + dz2 = 1 if D is normalized so A = ray.direction DOT ray.direction
+	// Vector dotted with itself is equal to squared length of that vector
+	double a = ray.GetRayDirection().magnitude_squared();
+
+	double b = ray.GetRayDirection().dotProd(centerToRayOriginVec) * 2.0;
+
+	double c = centerToRayOriginVec.magnitude_squared() - this->radius * this->radius;
+
+	double discriminant = (b * b) - (a * c) * 4;
+
+	return discriminant > 0;
+
 }
 
 /**
