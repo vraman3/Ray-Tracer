@@ -105,7 +105,7 @@ VectorClass RayClass::at(double t)
 VectorClass RayClass::colour()
 {
 	// Sphere intersection
-	
+
 
 	// Original lerp
 	VectorClass unitDirection = this->direction.normalize();

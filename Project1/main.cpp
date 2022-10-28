@@ -310,7 +310,16 @@ int main(int argc, char* argv[])
 				double v = double(j) / double(imageHeight);
 
 				RayClass ray_d(origin_d, lowerLeftCorner_d + horizontal_d * u + vertical_d * v);
-				VectorClass pixelColour = ray_d.colour();
+
+				VectorClass pixelColour;
+				if (SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection_d(ray_d))
+				{
+					pixelColour = VectorClass(1.0, 0.0, 0.0);
+				}
+				else
+				{
+					pixelColour = ray_d.colour();
+				}
 
 				int ir = int(255.99 * pixelColour[0]);
 				int ig = int(255.99 * pixelColour[1]);
