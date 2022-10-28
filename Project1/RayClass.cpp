@@ -101,3 +101,11 @@ VectorClass RayClass::at(double t)
 {
 	return this->origin + this->direction * t;
 }
+
+VectorClass RayClass::colour()
+{
+	VectorClass unitDirection = this->direction.normalize();
+	double t = 0.5 * (unitDirection.getY()) + 1.0;
+	VectorClass returnVal = VectorClass(1.0, 1.0, 1.0) * (1.0 - t) + VectorClass(0.5, 0.7, 1.0) * t;
+	return returnVal;
+}

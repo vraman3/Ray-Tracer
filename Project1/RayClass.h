@@ -37,5 +37,7 @@ public:
 	void SetRayDirection(VectorClass paramDirection);
 
 	VectorClass at(double t);
+
+	VectorClass colour();
 };
 

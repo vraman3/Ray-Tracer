@@ -273,6 +273,7 @@ int main(int argc, char* argv[])
 		VectorClass vertical_d(0.0, 2.0, 0.0);
 		VectorClass origin_d(0.0, 0.0, 0.0);
 
+		/*
 		//start = std::chrono::high_resolution_clock::now();
 
 		
@@ -299,14 +300,18 @@ int main(int argc, char* argv[])
 		//CameraClass cam_debug = CameraClass(1, VectorClass(2, 2, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
 		//	90.0, aspectRatio);
 
-		
+		*/
+
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < imageWidth; ++i)
 			{
-				VectorClass pixelColour = VectorClass((double)i / ((double)imageWidth),
-					(double)j / ((double)imageHeight),
-					0.2);
+				double u = double(i) / double(imageWidth);
+				double v = double(j) / double(imageHeight);
+
+				RayClass ray_d(origin_d, lowerLeftCorner_d + horizontal_d * u + vertical_d * v);
+				VectorClass pixelColour = ray_d.colour();
+
 				int ir = int(255.99 * pixelColour[0]);
 				int ig = int(255.99 * pixelColour[1]);
 				int ib = int(255.99 * pixelColour[2]);
