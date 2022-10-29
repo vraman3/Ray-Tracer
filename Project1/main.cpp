@@ -333,15 +333,15 @@ int main(int argc, char* argv[])
 				{
 					pixelColour = ray_d.colour();
 				}
-				*/
+				
 				int ir = int(255.99 * pixelColour[0]);
 				int ig = int(255.99 * pixelColour[1]);
 				int ib = int(255.99 * pixelColour[2]);
+				*/
 
-
-				pixels_debug[position_debug].SetRed(ir);
-				pixels_debug[position_debug].SetGreen(ig);
-				pixels_debug[position_debug].SetBlue(ib);
+				pixels_debug[position_debug].SetRed(pixelColour.GetRed());
+				pixels_debug[position_debug].SetGreen(pixelColour.GetGreen());
+				pixels_debug[position_debug].SetBlue(pixelColour.GetBlue());
 
 				position_debug++;
 			}
