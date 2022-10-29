@@ -559,27 +559,34 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 	return tmp;
 }
 
+bool Tracing::TraceRay_2debug_helper(RayClass ray_d, std::vector<ObjectClass*> objects_d, double tMin_d, double tMax_d, intersection_record& rec_d)
+{
+	intersection_record tempRecord_d;
+	bool hitAnything = false;
+	double closestSoFar = tMax_d;
+
+	for (int i = 0; i < objects_d.size(); i++)
+	{
+		if (objects_d[i]->GetIntersection(ray_d, tMin_d, closestSoFar, tempRecord_d))
+		{
+			hitAnything = true;
+			closestSoFar = tempRecord_d.t;
+			rec_d = tempRecord_d;
+		}
+	}
+
+	return hitAnything;
+}
+
 ColourClass Tracing::TraceRay_2debug(RayClass ray_d, std::vector<ObjectClass*> objects_d)
 {
 	intersection_record interRecord_d;
 	
 	
 	// Here!
-	intersection_record tempRecord_d;
-	bool hitAnything = false;
-	double closestSoFar = DBL_MAX;
+	
 
-	for (int i = 0; i < objects_d.size(); i++)
-	{
-		if (objects_d[i]->GetIntersection(ray_d, 0.0, closestSoFar, tempRecord_d))
-		{
-			hitAnything = true;
-			closestSoFar = tempRecord_d.t;
-			interRecord_d = tempRecord_d;
-		}
-	}
-
-	if (hitAnything)
+	if (this->TraceRay_2debug_helper(ray_d, objects_d, 0.0, DBL_MAX, interRecord_d))
 	{
 		return VectorClass(interRecord_d.normal.getX() + 1,
 			interRecord_d.normal.getY() + 1,
