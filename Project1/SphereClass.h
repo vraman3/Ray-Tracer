@@ -40,7 +40,7 @@ public:
 	virtual double GetIntersection(RayClass ray, double tmin, double tmax, intersection_record &intersectionRecord);
 
 	// Debug
-	virtual bool GetIntersection_d(RayClass);
+	virtual double GetIntersection_d(RayClass);
 
 	/* Setters */
 	void SetDiffuse(double paramDiffuse);

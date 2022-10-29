@@ -189,48 +189,8 @@ double SphereClass::GetIntersection(RayClass ray)
 
 	@return the intersection point between the sphere and the ray, if it exists.
 */
-bool SphereClass::GetIntersection_d(RayClass ray)
+double SphereClass::GetIntersection_d(RayClass ray)
 {
-	/*
-
-	double A = ray.GetRayDirection().dotProd(ray.GetRayDirection()); // Since dx2 + dy2 + dz2 = 1 if D is normalized
-
-	VectorClass temp = ray.GetRayOrigin() - this->center;
-	double B = 2.0 * (ray.GetRayDirection().dotProd(temp));
-
-	double C = (temp).dotProd(temp) - this->radius * this->radius;
-
-	double check = B*B - 4 * A*C;
-
-	double W;
-
-	if (check < 0.0)
-	{
-		return -1;
-	}
-	else
-	{
-		double root = sqrt(check);
-		double denom = 2.0 * A;
-
-		W = (-B - root) / denom;
-
-		if (W > EPSILONVAL)
-		{
-			return W;
-		}
-
-		W = (-B + root) / denom;
-
-		if (W > EPSILONVAL)
-		{
-			return W;
-		}
-	}
-
-	return -1;
-	*/
-
 	VectorClass centerToRayOriginVec = ray.GetRayOrigin() - this->center;
 
 	// Since dx2 + dy2 + dz2 = 1 if D is normalized so A = ray.direction DOT ray.direction
@@ -243,7 +203,15 @@ bool SphereClass::GetIntersection_d(RayClass ray)
 
 	double discriminant = (b * b) - (a * c) * 4;
 
-	return discriminant > 0;
+	if (discriminant < 0)
+	{
+		return -1.0;
+	}
+	else
+	{
+		double sqDet = sqrt(discriminant);
+		return (-b - sqDet) / (a * 2.0);
+	}
 
 }
 

@@ -312,9 +312,15 @@ int main(int argc, char* argv[])
 				RayClass ray_d(origin_d, lowerLeftCorner_d + horizontal_d * u + vertical_d * v);
 
 				VectorClass pixelColour;
-				if (SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection_d(ray_d))
+				
+				double tForSphere = SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection_d(ray_d);
+
+				if (tForSphere > 0.0)
 				{
-					pixelColour = VectorClass(1.0, 0.0, 0.0);
+					VectorClass normalSphere = (ray_d.at(tForSphere) - VectorClass(0.0, 0.0, -1)).normalize();
+					pixelColour = VectorClass(normalSphere.getX() + 1.0,
+						normalSphere.getY() + 1.0,
+						normalSphere.getZ() + 1.0) * 0.5;
 				}
 				else
 				{
