@@ -313,7 +313,7 @@ int main(int argc, char* argv[])
 
 				VectorClass pixelColour;
 				
-				double tForSphere = SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection_d(ray_d);
+				double tForSphere = SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection(ray_d);
 
 				if (tForSphere > 0.0)
 				{
