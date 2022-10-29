@@ -558,3 +558,11 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 	*/
 	return tmp;
 }
+
+ColourClass Tracing::TraceRay_2debug(RayClass ray, std::vector<ObjectClass*> objects)
+{
+
+
+	// temp default. please remove
+	return ColourClass(0.0, 0.0, 0.0);
+}

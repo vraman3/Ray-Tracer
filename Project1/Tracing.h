@@ -25,6 +25,8 @@ public:
 	ColourClass TraceRay_debug(RayClass ray, int depth, double incomingni, std::vector<ObjectClass*> objects, std::vector<VectorClass*> lights,
 		ColourClass background, ColourClass pointCol, int maxDepth);
 
+	ColourClass TraceRay_2debug(RayClass ray, std::vector<ObjectClass*> objects);
+
 	ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<TriangleClass*> objects, std::vector<VectorClass*> lights,
 		ColourClass background, ColourClass pointCol, int maxDepth);
 
