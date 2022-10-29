@@ -561,6 +561,10 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 
 ColourClass Tracing::TraceRay_2debug(RayClass ray, std::vector<ObjectClass*> objects)
 {
+	intersection_record interRecord_d;
+	bool hitAnything = false;
+	
+	// Here!
 
 
 	// temp default. please remove

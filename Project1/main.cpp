@@ -306,7 +306,7 @@ int main(int argc, char* argv[])
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0)));
 		objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0)));
 		
-
+		Tracing traceObject_d = Tracing();
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < imageWidth; ++i)
@@ -316,8 +316,10 @@ int main(int argc, char* argv[])
 
 				RayClass ray_d(origin_d, lowerLeftCorner_d + horizontal_d * u + vertical_d * v);
 
-				VectorClass pixelColour;
+				ColourClass pixelColour;
 				
+				pixelColour = traceObject_d.TraceRay_2debug(ray_d, objects_debug);
+				/* // This is what the Tracing class will replace.
 				double tForSphere = SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection(ray_d);
 
 				if (tForSphere > 0.0)
@@ -331,7 +333,7 @@ int main(int argc, char* argv[])
 				{
 					pixelColour = ray_d.colour();
 				}
-
+				*/
 				int ir = int(255.99 * pixelColour[0]);
 				int ig = int(255.99 * pixelColour[1]);
 				int ib = int(255.99 * pixelColour[2]);
