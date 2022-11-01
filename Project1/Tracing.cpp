@@ -574,7 +574,7 @@ bool Tracing::TraceRay_2debug_helper(RayClass ray_d, std::vector<ObjectClass*> o
 
 	for (int i = 0; i < objects_d.size(); i++)
 	{
-		if (objects_d[i]->GetIntersection(ray_d, tMin_d, closestSoFar, tempRecord_d))
+		if (objects_d[i]->GetIntersection_d(ray_d, tMin_d, closestSoFar, tempRecord_d))
 		{
 			hitAnything = true;
 			closestSoFar = tempRecord_d.t;
