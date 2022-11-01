@@ -266,11 +266,11 @@ double SphereClass::GetIntersection(RayClass ray, double tmin, double tmax, inte
 }
 
 
-/**
-	Get the intersection point of the current sphere with a given ray
-	if they intersect between the given tmin and tmax values
-
-	@return the intersection point between the sphere and the ray, if it exists.
+/*
+*
+* 
+*		FOR DEBUG ONLY. PLEASE CLEAN.
+* 
 */
 double SphereClass::GetIntersection_d(RayClass ray, double tmin, double tmax, intersection_record &interRecord)
 {
@@ -281,12 +281,39 @@ double SphereClass::GetIntersection_d(RayClass ray, double tmin, double tmax, in
 
 	double a = ray.GetRayDirection().magnitude_squared();
 
-	double half_b = ray.GetRayDirection().dotProd(centerToRayOriginVec);
+	double b = ray.GetRayDirection().dotProd(centerToRayOriginVec);
 
 	double c = centerToRayOriginVec.magnitude_squared() - this->radius * this->radius;
 
-	double discriminant = (half_b * half_b) - (a * c);
+	double discriminant = (b * b) - (a * c);
 
+	if (discriminant > 0)
+	{
+		double discriminant_sqrt = sqrt(discriminant);
+
+		double root = (-b - discriminant_sqrt) / a;
+
+		if (root < tmax && root >tmin)
+		{
+			interRecord.t = root;
+			interRecord.point = ray.at(root);
+			interRecord.normal = (interRecord.point - this->center) / radius;
+			return true;
+		}
+
+		root = (-b + discriminant_sqrt) / a;
+
+		if (root < tmax && root >tmin)
+		{
+			interRecord.t = root;
+			interRecord.point = ray.at(root);
+			interRecord.normal = (interRecord.point - this->center) / radius;
+			return true;
+		}
+	}
+
+	return false;
+	/*
 	if (discriminant < 0.0)
 	{
 		return -1;
@@ -296,11 +323,11 @@ double SphereClass::GetIntersection_d(RayClass ray, double tmin, double tmax, in
 
 	// find the root lying between tmin and tmax
 
-	double root = (-half_b - discriminant_sqrt) / a;
+	double root = (-b - discriminant_sqrt) / a;
 
 	if (root < tmin || tmax < root)
 	{
-		root = (-half_b + discriminant_sqrt) / a;
+		root = (-b + discriminant_sqrt) / a;
 		if (root < tmin || tmax < root)
 			return -1;
 	}
@@ -313,7 +340,7 @@ double SphereClass::GetIntersection_d(RayClass ray, double tmin, double tmax, in
 	// will be set to false; if ray is hitting from outside then frontFace will be true.
 	interRecord.setFaceNormal(ray, outwardNormal);
 
-	return root;
+	return root;*/
 }
 
 /**
