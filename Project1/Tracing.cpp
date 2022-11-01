@@ -579,8 +579,6 @@ bool Tracing::TraceRay_2debug_helper(RayClass ray_d, std::vector<ObjectClass*> o
 			hitAnything = true;
 			closestSoFar = tempRecord_d.t;
 			rec_d = tempRecord_d;
-			VectorClass temp1 = ray_d.at(closestSoFar) - dynamic_cast<SphereClass*>(objects_d[i])->GetCenter();
-			rec_d.normal = temp1.normalize();
 		}
 	}
 
