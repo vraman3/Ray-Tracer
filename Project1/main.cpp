@@ -304,7 +304,7 @@ int main(int argc, char* argv[])
 
 		std::vector<ObjectClass*> objects_debug;
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0)));
-		objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0)));
+		//objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0)));
 		
 		Tracing traceObject_d = Tracing();
 		for (int j = imageHeight - 1; j >= 0; --j)
