@@ -318,8 +318,9 @@ int main(int argc, char* argv[])
 
 				
 				ColourClass pixelColour;
-				///*pixelColour = traceObject_d.TraceRay_2debug(ray_d, objects_debug);*/
+				pixelColour = traceObject_d.TraceRay_2debug(ray_d, objects_debug);
 				
+				/*
 				// This is what the Tracing class will replace.
 				double tForSphere = SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection(ray_d);
 
@@ -339,10 +340,14 @@ int main(int argc, char* argv[])
 				int ig = int(255.99 * pixelColour.GetGreen());
 				int ib = int(255.99 * pixelColour.GetBlue());
 				
-
 				pixels_debug[position_debug].SetRed(ir);//pixelColour.GetRed());
 				pixels_debug[position_debug].SetGreen(ig);//pixelColour.GetGreen());
-				pixels_debug[position_debug].SetBlue(ib);//pixelColour.GetBlue());
+				pixels_debug[position_debug].SetBlue(ib);
+
+				*/
+				pixels_debug[position_debug].SetRed(pixelColour.GetRed());
+				pixels_debug[position_debug].SetGreen(pixelColour.GetGreen());
+				pixels_debug[position_debug].SetBlue(pixelColour.GetBlue());
 
 				position_debug++;
 			}

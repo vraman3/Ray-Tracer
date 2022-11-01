@@ -559,6 +559,13 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 	return tmp;
 }
 
+/*
+*
+* 
+* 
+* 
+* 
+*/
 bool Tracing::TraceRay_2debug_helper(RayClass ray_d, std::vector<ObjectClass*> objects_d, double tMin_d, double tMax_d, intersection_record& rec_d)
 {
 	intersection_record tempRecord_d;
@@ -572,12 +579,21 @@ bool Tracing::TraceRay_2debug_helper(RayClass ray_d, std::vector<ObjectClass*> o
 			hitAnything = true;
 			closestSoFar = tempRecord_d.t;
 			rec_d = tempRecord_d;
+			VectorClass temp1 = ray_d.at(closestSoFar) - dynamic_cast<SphereClass*>(objects_d[i])->GetCenter();
+			rec_d.normal = temp1.normalize();
 		}
 	}
 
 	return hitAnything;
 }
 
+/*
+* 
+* 
+* 
+* 
+* 
+*/
 ColourClass Tracing::TraceRay_2debug(RayClass ray_d, std::vector<ObjectClass*> objects_d)
 {
 	intersection_record interRecord_d;
