@@ -38,7 +38,6 @@ public:
 	virtual ColourClass GetColour();
 	virtual double GetIntersection(RayClass);
 	virtual double GetIntersection(RayClass ray, double tmin, double tmax, intersection_record &intersectionRecord);
-	virtual double GetIntersection_d(RayClass ray, double tmin, double tmax, intersection_record &intersectionRecord);
 
 	// Debug
 	virtual double GetIntersection_d(RayClass);

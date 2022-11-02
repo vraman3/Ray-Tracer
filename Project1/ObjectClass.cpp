@@ -82,16 +82,6 @@ double ObjectClass::GetIntersection(RayClass paramRay, double tmin, double tmax,
 	return 0.0;
 }
 
-/*
-* 
-*		DEBUG PLEASE CLEAN
-* 
-*/
-double ObjectClass::GetIntersection_d(RayClass paramRay, double tmin, double tmax, intersection_record &interRecord)
-{
-	return 0.0;
-}
-
 /**
 	Get the midpoint of the current object.
 

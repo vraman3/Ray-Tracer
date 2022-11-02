@@ -215,6 +215,10 @@ double SphereClass::GetIntersection_d(RayClass ray)
 
 }
 
+
+
+
+
 /**
 	Get the intersection point of the current sphere with a given ray
 	if they intersect between the given tmin and tmax values
@@ -222,59 +226,6 @@ double SphereClass::GetIntersection_d(RayClass ray)
 	@return the intersection point between the sphere and the ray, if it exists.
 */
 double SphereClass::GetIntersection(RayClass ray, double tmin, double tmax, intersection_record &interRecord)
-{
-	VectorClass centerToRayOriginVec = ray.GetRayOrigin() - this->center;
-
-	// Since dx2 + dy2 + dz2 = 1 if D is normalized so A = ray.direction DOT ray.direction
-	// Vector dotted with itself is equal to squared length of that vector
-
-	double a = ray.GetRayDirection().magnitude_squared();
-
-	double half_b = ray.GetRayDirection().dotProd(centerToRayOriginVec);
-
-	double c = centerToRayOriginVec.magnitude_squared() - this->radius * this->radius;
-
-	double discriminant = (half_b * half_b) - (a * c);
-
-	if (discriminant < 0.0)
-	{
-		return -1;
-	}
-
-	double discriminant_sqrt = sqrt(discriminant);
-
-	// find the root lying between tmin and tmax
-
-	double root = (-half_b - discriminant_sqrt) / a;
-
-	if (root < tmin || tmax < root)
-	{
-		root = (-half_b + discriminant_sqrt) / a;
-		if (root < tmin || tmax < root)
-			return -1;
-	}
-
-	interRecord.t = root;
-	interRecord.point = ray.at(root);
-	interRecord.normal = (interRecord.point - this->center) / radius;
-
-	//VectorClass outwardNormal = (interRecord.point - this->center) / radius;
-	
-	//// Check how the normal is. If the ray is hitting from the inside then bool frontFace
-	//// will be set to false; if ray is hitting from outside then frontFace will be true.
-	//interRecord.setFaceNormal(ray, outwardNormal);
-
-	return root;
-}
-
-
-/*
-*
-* 
-*		FOR DEBUG ONLY. PLEASE CLEAN.
-* 
-*/
-double SphereClass::GetIntersection_d(RayClass ray, double tmin, double tmax, intersection_record &interRecord)
 {
 	VectorClass centerToRayOriginVec = ray.GetRayOrigin() - this->center;
 
