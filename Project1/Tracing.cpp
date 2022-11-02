@@ -602,20 +602,17 @@ ColourClass Tracing::TraceRay_2debug(RayClass ray_d, std::vector<ObjectClass*> o
 
 	if (this->TraceRay_2debug_helper(ray_d, objects_d, 0.0, DBL_MAX, interRecord_d))
 	{
-		int debugstopper = 1;
-		return ColourClass(1.0, 0.0, 0.0);
-		//return VectorClass(interRecord_d.normal.getX() + 1,
-		//	interRecord_d.normal.getY() + 1,
-		//	interRecord_d.normal.getZ() + 1) * 0.5;
+		return VectorClass(interRecord_d.normal.getX() + 1,
+			interRecord_d.normal.getY() + 1,
+			interRecord_d.normal.getZ() + 1) * 0.5;
 	}
 	else
 	{
-		return ColourClass(0.0, 0.0, 1.0);
-		//// Original lerp
-		//VectorClass unitDirection = ray_d.GetRayDirection().normalize();
-		//double t = 0.5 * (unitDirection.getY()) + 1.0;
-		//VectorClass returnVal = VectorClass(1.0, 1.0, 1.0) * (1.0 - t) + VectorClass(0.5, 0.7, 1.0) * t;
-		//return returnVal;
+		// Original lerp
+		VectorClass unitDirection = ray_d.GetRayDirection().normalize();
+		double t = 0.5 * (unitDirection.getY()) + 1.0;
+		VectorClass returnVal = VectorClass(1.0, 1.0, 1.0) * (1.0 - t) + VectorClass(0.5, 0.7, 1.0) * t;
+		return returnVal;
 	}
 
 	// temp default. please remove
