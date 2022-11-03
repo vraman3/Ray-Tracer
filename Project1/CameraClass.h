@@ -30,6 +30,7 @@ public:
 	CameraClass();
 	CameraClass(int parameterDebug, VectorClass position, VectorClass lookat, VectorClass up, double vfov, double aspectRatio);
 	CameraClass(VectorClass camPosition, VectorClass lookat, VectorClass upVector, double focallength);
+	CameraClass(double vfov, double aspectRatio);
 
 	/* Getters */
 	double GetFocalLength();

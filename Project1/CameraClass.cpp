@@ -48,6 +48,28 @@ CameraClass::CameraClass(int parameterDebug, VectorClass paramPosition, VectorCl
 
 	lowerLeftCorner = origin - horizontal / 2 - vertical / 2 - w;
 }
+/*
+*
+* 
+*	DEBUG PLEASE CLEAN
+* 
+* 	
+*/
+CameraClass::CameraClass(double vfov, double aspectRatio)
+{
+	//double aspectRatio = 16.0 / 9.0;
+	// degrees_to_radians = degrees  * pi / 180.0;
+	// pi = 3.1415926535897932385
+	auto theta = vfov * 3.1415926535897932385 / 180.0;
+	auto half_height = tan(theta / 2);
+
+	double half_width = aspectRatio * half_height;
+
+	lowerLeftCorner = VectorClass(-half_width, -half_height, 1.0);
+	horizontal = VectorClass(2 * half_width, 0.0, 0.0);
+	vertical = VectorClass(0.0, 2 * half_height, 0.0);
+	origin = VectorClass(0.0, 0.0, 0.0);
+}
 
 /**
 	Parameterized Constructor
