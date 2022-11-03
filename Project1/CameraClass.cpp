@@ -69,6 +69,8 @@ CameraClass::CameraClass(double vfov, double aspectRatio)
 	horizontal = VectorClass(2 * half_width, 0.0, 0.0);
 	vertical = VectorClass(0.0, 2 * half_height, 0.0);
 	origin = VectorClass(0.0, 0.0, 0.0);
+
+	focalLength = -1;
 }
 
 /**
