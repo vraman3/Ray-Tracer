@@ -36,7 +36,7 @@ CameraClass::CameraClass(int parameterDebug, VectorClass paramPosition, VectorCl
 
 	double viewportHeight = 2.0 * h;
 	double viewportWidth = aspectRatio * viewportHeight;
-	double focalLength = 1.0;
+	focalLength = 1.0;
 
 	VectorClass w = (paramPosition - paramLookat).normalize();
 	VectorClass u = (paramUp.crossProd(w)).normalize();
