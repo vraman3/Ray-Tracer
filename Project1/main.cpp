@@ -315,7 +315,8 @@ int main(int argc, char* argv[])
 		
 		Tracing traceObject_d = Tracing();
 		//CameraClass cam(0,0);
-		CameraClass cam(90, double(imageWidth) / double(imageHeight));
+		CameraClass cam(90, double(imageWidth) / double(imageHeight), VectorClass(-2, 2, 1), VectorClass(0, 0, -1), VectorClass(0, 1, 0));
+
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < imageWidth; ++i)
