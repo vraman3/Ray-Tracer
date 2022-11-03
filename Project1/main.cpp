@@ -304,17 +304,18 @@ int main(int argc, char* argv[])
 
 		std::vector<ObjectClass*> objects_debug;
 
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0)));
-		//objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0)));
+		//objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0)));
+		////objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0)));
 
-		//double R = cos(3.1415926535897932385 / 4);
-		//objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1)));
-		//objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1)));
+		double R = cos(3.1415926535897932385 / 4);
+		objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1)));
+		objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1)));
 
 		
 		
 		Tracing traceObject_d = Tracing();
-		CameraClass cam(0,0);// (90, double(imageWidth) / double(imageHeight));
+		//CameraClass cam(0,0);
+		CameraClass cam(90, double(imageWidth) / double(imageHeight));
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < imageWidth; ++i)
@@ -322,8 +323,8 @@ int main(int argc, char* argv[])
 				double u = double(i) / double(imageWidth);
 				double v = double(j) / double(imageHeight);
 
-				VectorClass tempDirection = lowerLeftCorner_d + horizontal_d * u + vertical_d * v;
-				RayClass ray_d1(origin_d, tempDirection);
+				//VectorClass tempDirection = lowerLeftCorner_d + horizontal_d * u + vertical_d * v;
+				//RayClass ray_d(origin_d, tempDirection);
 				RayClass ray_d = cam.getRay(u, v);
 				
 				ColourClass pixelColour;
