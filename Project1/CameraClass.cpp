@@ -96,9 +96,9 @@ CameraClass::CameraClass(VectorClass paramPosition, VectorClass paramLookAt, Vec
 	@return		This function returns a ray with the camera origin and calculates the direction
 				using the passed u and v parameters
 */
-RayClass CameraClass::getRay(double s, double t)
+RayClass CameraClass::getRay(double u, double v)
 {
-	VectorClass direction = lowerLeftCorner + horizontal * s + vertical * t - origin;
+	VectorClass direction = lowerLeftCorner + horizontal * u + vertical * v - origin;
 
 	return RayClass(origin, direction);
 }
