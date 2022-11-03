@@ -30,9 +30,11 @@ struct intersection_record
 
 	bool frontFace;
 
-	// Check how the normal is. Always out of the surface, or always opposite to ray?
+	//this variable is to help record which exact object was hit in the brute force method.
+	int objectNo = -1;
+
 	/*
-	*	
+	*	Check how the normal is. Always out of the surface, or always opposite to ray?
 	*/
 	void setFaceNormal(RayClass& ray, VectorClass outwardNormal)
 	{

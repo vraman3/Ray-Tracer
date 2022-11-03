@@ -602,7 +602,7 @@ ColourClass Tracing::TraceRay_2debug(RayClass ray_d, std::vector<ObjectClass*> o
 
 	if (this->TraceRay_2debug_helper(ray_d, objects_d, 0.0, DBL_MAX, interRecord_d))
 	{
-		return ColourClass(1, 0, 0);
+		return 
 		//return VectorClass(interRecord_d.normal.getX() + 1,
 		//	interRecord_d.normal.getY() + 1,
 		//	interRecord_d.normal.getZ() + 1) * 0.5;
