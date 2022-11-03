@@ -307,6 +307,7 @@ int main(int argc, char* argv[])
 		//objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0)));
 		
 		Tracing traceObject_d = Tracing();
+		CameraClass cam;
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < imageWidth; ++i)
@@ -314,7 +315,7 @@ int main(int argc, char* argv[])
 				double u = double(i) / double(imageWidth);
 				double v = double(j) / double(imageHeight);
 
-				RayClass ray_d(origin_d, lowerLeftCorner_d + horizontal_d * u + vertical_d * v);
+				RayClass ray_d = cam.getRay(u, v);
 
 				
 				ColourClass pixelColour;
