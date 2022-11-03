@@ -322,8 +322,8 @@ int main(int argc, char* argv[])
 				double u = double(i) / double(imageWidth);
 				double v = double(j) / double(imageHeight);
 
-				RayClass ray_d(origin_d, lowerLeftCorner_d + horizontal_d * u + vertical_d * v);// = cam.getRay(u, v);
-
+				//RayClass ray_d(origin_d, lowerLeftCorner_d + horizontal_d * u + vertical_d * v);
+				RayClass ray_d = cam.getRay(u, v);
 				
 				ColourClass pixelColour;
 				pixelColour = traceObject_d.TraceRay_2debug(ray_d, objects_debug);
