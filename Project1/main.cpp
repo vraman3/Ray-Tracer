@@ -314,7 +314,7 @@ int main(int argc, char* argv[])
 		
 		
 		Tracing traceObject_d = Tracing();
-		CameraClass cam;// (90, double(imageWidth) / double(imageHeight));
+		CameraClass cam(0,0);// (90, double(imageWidth) / double(imageHeight));
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < imageWidth; ++i)
@@ -322,7 +322,8 @@ int main(int argc, char* argv[])
 				double u = double(i) / double(imageWidth);
 				double v = double(j) / double(imageHeight);
 
-				//RayClass ray_d(origin_d, lowerLeftCorner_d + horizontal_d * u + vertical_d * v);
+				VectorClass tempDirection = lowerLeftCorner_d + horizontal_d * u + vertical_d * v;
+				RayClass ray_d1(origin_d, tempDirection);
 				RayClass ray_d = cam.getRay(u, v);
 				
 				ColourClass pixelColour;
