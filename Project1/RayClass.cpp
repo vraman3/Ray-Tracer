@@ -18,10 +18,7 @@ RayClass::RayClass()
 	maxT = DBL_MAX;
 
 	origin = VectorClass(0, 0, 0);
-	direction = VectorClass(1, 0, 0);
-	invDirection.setX(1 / direction.getX());
-	invDirection.setY(1 / direction.getY());
-	invDirection.setZ(1 / direction.getZ());
+	this->SetRayDirection(VectorClass(1, 0, 0));
 }
 
 /**
@@ -36,10 +33,8 @@ RayClass::RayClass(VectorClass paramOrigin, VectorClass paramDirection)
 	maxT = DBL_MAX;
 
 	origin = paramOrigin;
-	direction = paramDirection;
-	invDirection.setX(1 / direction.getX());
-	invDirection.setY(1 / direction.getY());
-	invDirection.setZ(1 / direction.getZ());
+	
+	this->SetRayDirection(paramDirection);
 }
 
 /**
@@ -92,9 +87,10 @@ void RayClass::SetRayDirection(VectorClass paramDirection)
 {
 	direction = paramDirection;
 
-	invDirection.setX(1 / direction.getX());
-	invDirection.setY(1 / direction.getY());
-	invDirection.setZ(1 / direction.getZ());
+	// What to do for a zero component?
+	//invDirection.setX(1 / direction.getX());
+	//invDirection.setY(1 / direction.getY());
+	//invDirection.setZ(1 / direction.getZ());
 }
 
 VectorClass RayClass::at(double t)
