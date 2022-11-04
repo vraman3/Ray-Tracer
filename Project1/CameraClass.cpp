@@ -65,18 +65,18 @@ CameraClass::CameraClass(double vfov, double aspectRatio, VectorClass origin, Ve
 
 	double half_width = aspectRatio * half_height;
 
-	VectorClass w = (origin - lookat).normalize();
+	/*VectorClass w = (origin - lookat).normalize();
 	VectorClass u = vup.crossProd(w);
 	VectorClass v = w.crossProd(u);
 
 	lowerLeftCorner = origin - u * half_width - v * half_height - w;
 	horizontal = u * 2 * half_width;
-	vertical = v * 2 * half_height;
+	vertical = v * 2 * half_height;*/
 
-	//lowerLeftCorner = VectorClass(-2.0, -1.0, -1.0);
-	//horizontal = VectorClass(4.0, 0.0, 0.0);
-	//vertical = VectorClass(0.0, 2.0, 0.0);
-	//origin = VectorClass(0.0, 0.0, 0.0);
+	lowerLeftCorner = VectorClass(-2.0, -1.0, -1.0);
+	horizontal = VectorClass(4.0, 0.0, 0.0);
+	vertical = VectorClass(0.0, 2.0, 0.0);
+	origin = VectorClass(0.0, 0.0, 0.0);
 
 	// not used currently
 	focalLength = 1.0;
