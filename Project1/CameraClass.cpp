@@ -69,6 +69,7 @@ CameraClass::CameraClass(double vfov, double aspectRatio, VectorClass origin, Ve
 	VectorClass u = vup.crossProd(w);
 	VectorClass v = w.crossProd(u);
 
+	origin = VectorClass(0.0, 0.0, 0.0);
 	lowerLeftCorner = origin - u * half_width - v * half_height - w;
 	horizontal = u * 2 * half_width;
 	vertical = v * 2 * half_height;*/
