@@ -578,6 +578,7 @@ bool Tracing::TraceRay_2debug_helper(RayClass ray_d, std::vector<ObjectClass*> o
 		{
 			hitAnything = true;
 			closestSoFar = tempRecord_d.t;
+			tempRecord_d.objectNo = i;
 			rec_d = tempRecord_d;
 		}
 	}
@@ -602,7 +603,7 @@ ColourClass Tracing::TraceRay_2debug(RayClass ray_d, std::vector<ObjectClass*> o
 
 	if (this->TraceRay_2debug_helper(ray_d, objects_d, 0.0, DBL_MAX, interRecord_d))
 	{
-		return 
+		return objects_d[interRecord_d.objectNo]->GetColour();
 		//return VectorClass(interRecord_d.normal.getX() + 1,
 		//	interRecord_d.normal.getY() + 1,
 		//	interRecord_d.normal.getZ() + 1) * 0.5;
