@@ -307,7 +307,7 @@ int main(int argc, char* argv[])
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
 		objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), ColourClass(0, 1, 0), new NoShadingModel(0, 0)));
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), ColourClass(0, 0, 1), new NoShadingModel(0, 0)));
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), ColourClass(1, 0, 1), new NoShadingModel(0, 0)));
+		objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.1, 0.0, -1.0), ColourClass(1, 0, 1), new NoShadingModel(0, 0)));
 
 		//double R = cos(3.1415926535897932385 / 4);
 		//objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
@@ -317,7 +317,7 @@ int main(int argc, char* argv[])
 		
 		Tracing traceObject_d = Tracing();
 		//CameraClass cam(0,0);
-		CameraClass cam(90, double(imageWidth) / double(imageHeight), VectorClass(-1,0,0), VectorClass(0, 0, -1), VectorClass(0, 1, 0));
+		CameraClass cam(90, double(imageWidth) / double(imageHeight), VectorClass(1,0,0), VectorClass(0, 0, -1), VectorClass(0, 1, 0));
 
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
