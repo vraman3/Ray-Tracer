@@ -66,7 +66,7 @@ CameraClass::CameraClass(double vfov, double aspectRatio, VectorClass origin, Ve
 	double half_width = aspectRatio * half_height;
 
 	VectorClass w = (origin - lookat).normalize();
-	VectorClass u = vup.crossProd(w);
+	VectorClass u = (vup.crossProd(w)).normalize();
 	VectorClass v = w.crossProd(u);
 
 	//origin = VectorClass(0.0, 0.0, 0.0);
