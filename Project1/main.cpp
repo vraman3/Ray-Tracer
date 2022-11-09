@@ -232,9 +232,9 @@ int main(int argc, char* argv[])
 	Render renderObject = Render();
 
 	// Temp remove later, 1 to enable either method.
-	int choiceBrute = 1;
+	int choiceBrute = 0;
 	int choicekdtree = 0;
-	int choiceDebug = 0;
+	int choiceDebug = 1;
 
 
 	
@@ -267,12 +267,6 @@ int main(int argc, char* argv[])
 		int filesize_debug = imageWidth * imageHeight;
 		ColourClass* pixels_debug = new ColourClass[filesize_debug];
 
-		// Camera
-		VectorClass lowerLeftCorner_d(-2.0, -1.0, -1.0);
-		VectorClass horizontal_d(4.0, 0.0, 0.0);
-		VectorClass vertical_d(0.0, 2.0, 0.0);
-		VectorClass origin_d(0.0, 0.0, 0.0);
-
 		/*
 		//start = std::chrono::high_resolution_clock::now();
 
@@ -304,7 +298,7 @@ int main(int argc, char* argv[])
 
 		std::vector<ObjectClass*> objects_debug;
 
-		objects_debug.push_back(new SphereClass(1, VectorClass(0.0, 0.0, -1.0), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
+		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
 		objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), ColourClass(0, 1, 0), new NoShadingModel(0, 0)));
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), ColourClass(0, 0, 1), new NoShadingModel(0, 0)));
 		objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.1, 0.0, -1.0), ColourClass(1, 0, 1), new NoShadingModel(0, 0)));
