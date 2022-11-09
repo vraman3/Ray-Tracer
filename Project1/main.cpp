@@ -232,9 +232,9 @@ int main(int argc, char* argv[])
 	Render renderObject = Render();
 
 	// Temp remove later, 1 to enable either method.
-	int choiceBrute = 0;
+	int choiceBrute = 1;
 	int choicekdtree = 0;
-	int choiceDebug = 1;
+	int choiceDebug = 0;
 
 
 	
@@ -317,7 +317,7 @@ int main(int argc, char* argv[])
 		
 		Tracing traceObject_d = Tracing();
 		//CameraClass cam(0,0);
-		CameraClass cam(90, double(imageWidth) / double(imageHeight), VectorClass(0,0,0.9), VectorClass(0, 0, -1), VectorClass(0, 1, 0));
+		CameraClass cam(90, double(imageWidth) / double(imageHeight), VectorClass(0,0,0), VectorClass(0, 0, -1), VectorClass(0, 1, 0));
 
 		for (int j = imageHeight - 1; j >= 0; --j)
 		{
