@@ -309,11 +309,10 @@ int main(int argc, char* argv[])
 			
 		
 		
-		Tracing traceObject_d = Tracing();
-		//CameraClass cam(0,0);
-		CameraClass cam(90, double(imageWidth) / double(imageHeight), VectorClass(0,0,0), VectorClass(0, 0, -1), VectorClass(0, 1, 0));
+		//renderObject.render(objects_debug,);
+		
 
-		for (int j = imageHeight - 1; j >= 0; --j)
+		/*for (int j = imageHeight - 1; j >= 0; --j)
 		{
 			for (int i = 0; i < imageWidth; ++ i)
 			{
@@ -327,22 +326,22 @@ int main(int argc, char* argv[])
 				ColourClass pixelColour;
 				pixelColour = traceObject_d.TraceRay_2debug(ray_d, objects_debug);
 
-				/*
-				// This is what the Tracing class will replace.
-				double tForSphere = SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection(ray_d);
+				//
+				//// This is what the Tracing class will replace.
+				//double tForSphere = SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection(ray_d);
 
-				if (tForSphere > 0.0)
-				{
-					VectorClass normalSphere = (ray_d.at(tForSphere) - VectorClass(0.0, 0.0, -1)).normalize();
-					pixelColour = VectorClass(normalSphere.getX() + 1.0,
-						normalSphere.getY() + 1.0,
-						normalSphere.getZ() + 1.0) * 0.5;
-				}
-				else
-				{
-					pixelColour = ray_d.colour();
-				}
-				*/
+				//if (tForSphere > 0.0)
+				//{
+				//	VectorClass normalSphere = (ray_d.at(tForSphere) - VectorClass(0.0, 0.0, -1)).normalize();
+				//	pixelColour = VectorClass(normalSphere.getX() + 1.0,
+				//		normalSphere.getY() + 1.0,
+				//		normalSphere.getZ() + 1.0) * 0.5;
+				//}
+				//else
+				//{
+				//	pixelColour = ray_d.colour();
+				//}
+				//
 				int ir = int(255.99 * pixelColour.GetRed());
 				int ig = int(255.99 * pixelColour.GetGreen());
 				int ib = int(255.99 * pixelColour.GetBlue());
@@ -356,7 +355,7 @@ int main(int argc, char* argv[])
 
 				position_debug++;
 			}
-		}
+		}*/
 
 		finish = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> renderTime_debug = finish - start;

@@ -164,7 +164,59 @@ void Render::render(int screenHeight, int screenWidth, double pixelW, double pix
 	}
 }
 
-void Render::debugRender()
+void Render::rt1wRender(std::vector<ObjectClass*> objects_debug, std::vector<VectorClass*> lights, ColourClass background,
+	ColourClass pointCol, ColourClass* pixels_debug, int imageHeight, int imageWidth, double pixelW, double pixelH,
+	CameraClass camera, int maxDepth)
 {
+	int position_debug = 0;
 
+	Tracing traceObject_d = Tracing();
+
+	//CameraClass cam(0,0);
+	CameraClass cam(90, double(imageWidth) / double(imageHeight), VectorClass(0, 0, 0), VectorClass(0, 0, -1), VectorClass(0, 1, 0));
+
+	for (int j = imageHeight - 1; j >= 0; --j)
+	{
+		for (int i = 0; i < imageWidth; ++i)
+		{
+			double u = double(i) / double(imageWidth);
+			double v = double(j) / double(imageHeight);
+
+			//VectorClass tempDirection = lowerLeftCorner_d + horizontal_d * u + vertical_d * v;
+			//RayClass ray_d(origin_d, tempDirection);
+			RayClass ray_d = cam.getRay(u, v);
+
+			ColourClass pixelColour;
+			pixelColour = traceObject_d.TraceRay_2debug(ray_d, objects_debug);
+
+			/*
+			// This is what the Tracing class will replace.
+			double tForSphere = SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection(ray_d);
+
+			if (tForSphere > 0.0)
+			{
+				VectorClass normalSphere = (ray_d.at(tForSphere) - VectorClass(0.0, 0.0, -1)).normalize();
+				pixelColour = VectorClass(normalSphere.getX() + 1.0,
+					normalSphere.getY() + 1.0,
+					normalSphere.getZ() + 1.0) * 0.5;
+			}
+			else
+			{
+				pixelColour = ray_d.colour();
+			}
+			*/
+			int ir = int(255.99 * pixelColour.GetRed());
+			int ig = int(255.99 * pixelColour.GetGreen());
+			int ib = int(255.99 * pixelColour.GetBlue());
+
+			pixels_debug[position_debug].SetRed(ir);//pixelColour.GetRed());
+			pixels_debug[position_debug].SetGreen(ig);//pixelColour.GetGreen());
+			pixels_debug[position_debug].SetBlue(ib);
+
+
+
+
+			position_debug++;
+		}
+	}
 }
