@@ -164,9 +164,8 @@ void Render::render(int screenHeight, int screenWidth, double pixelW, double pix
 	}
 }
 
-void Render::rt1wRender(std::vector<ObjectClass*> objects_debug, std::vector<VectorClass*> lights, ColourClass background,
-	ColourClass pointCol, ColourClass* pixels_debug, int imageHeight, int imageWidth, double pixelW, double pixelH,
-	CameraClass camera, int maxDepth)
+void Render::rt1wRender(std::vector<ObjectClass*> objects_debug, ColourClass background,
+	ColourClass* pixels_debug, int imageHeight, int imageWidth)
 {
 	int position_debug = 0;
 

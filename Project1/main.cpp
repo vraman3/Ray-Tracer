@@ -127,7 +127,7 @@ int main(int argc, char* argv[])
 	ObjLoaderClass objFile = ObjLoaderClass();
 
 	//objFile.readObjFile("icosphereObj.obj");
-	objFile.readObjFile("cubeStraight.obj");
+	//objFile.readObjFile("cubeStraight.obj");
 	//objFile.readObjFile("bunnyBlender_v2.obj");
 
 	int noOfFaces = objFile.faces.size();
@@ -307,9 +307,9 @@ int main(int argc, char* argv[])
 		//objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
 		//objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
 			
+		start = std::chrono::high_resolution_clock::now();
 		
-		
-		//renderObject.render(objects_debug,);
+		renderObject.rt1wRender(objects_debug, background, pixels_debug, imageHeight, imageWidth);
 		
 
 		/*for (int j = imageHeight - 1; j >= 0; --j)
@@ -358,7 +358,7 @@ int main(int argc, char* argv[])
 		}*/
 
 		finish = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double> renderTime_debug = finish - start;
+		std::chrono::duration<double> rt1wTime_debug = finish - start;
 
 		// Save the output
 		//start = std::chrono::high_resolution_clock::now();
@@ -368,13 +368,7 @@ int main(int argc, char* argv[])
 
 		saveObject_debug.saveppm("scene_debug.ppm", imageWidth, imageHeight, pixels_debug);
 
-		/*saveObject_debug.savebmp("scene_debug.bmp", imageWidth, imageHeight, 72, pixels_debug, whichTR);
-		finish = std::chrono::high_resolution_clock::now();
-
-		std::chrono::duration<double> savefileTime_debug = finish - start;
-
-		std::cout << "render time: " << renderTime_debug.count() << "seconds" << std::endl;
-		std::cout << "file write time: " << savefileTime_debug.count() << "seconds" << std::endl;*/
+		std::cout << "rt1w render: " << rt1wTime_debug.count() << "seconds" << std::endl;
 
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
