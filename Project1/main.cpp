@@ -276,15 +276,15 @@ int main(int argc, char* argv[])
 		//ColourClass material_left = ColourClass(0.0, 0.0, 0.0);
 		//ColourClass material_right = ColourClass(0.8, 0.6, 0.2);
 
-		//std::vector<ObjectClass*> objects_debug;
-		////objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), 
+		//std::vector<ObjectClass*> objects_rt1w;
+		////objects_rt1w.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), 
 		////	material_ground, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-		//objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), 
+		//objects_rt1w.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), 
 		//	material_center, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-		//objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), 
+		//objects_rt1w.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), 
 		//	material_left, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-		////objects_debug.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
-		//objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), 
+		////objects_rt1w.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
+		//objects_rt1w.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), 
 		//	material_right, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
 
 		//
@@ -296,20 +296,20 @@ int main(int argc, char* argv[])
 
 		*/
 
-		std::vector<ObjectClass*> objects_debug;
+		std::vector<ObjectClass*> objects_rt1w;
 
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
-		objects_debug.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), ColourClass(0, 1, 0), new NoShadingModel(0, 0)));
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), ColourClass(0, 0, 1), new NoShadingModel(0, 0)));
-		objects_debug.push_back(new SphereClass(0.5, VectorClass(-1.1, 0.0, -1.0), ColourClass(1, 0, 1), new NoShadingModel(0, 0)));
+		objects_rt1w.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
+		objects_rt1w.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), ColourClass(0, 1, 0), new NoShadingModel(0, 0)));
+		objects_rt1w.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), ColourClass(0, 0, 1), new NoShadingModel(0, 0)));
+		objects_rt1w.push_back(new SphereClass(0.5, VectorClass(-1.1, 0.0, -1.0), ColourClass(1, 0, 1), new NoShadingModel(0, 0)));
 
 		//double R = cos(3.1415926535897932385 / 4);
-		//objects_debug.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
-		//objects_debug.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
+		//objects_rt1w.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
+		//objects_rt1w.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
 			
 		start = std::chrono::high_resolution_clock::now();
 		
-		renderObject.rt1wRender(objects_debug, background, pixels_debug, imageHeight, imageWidth);
+		renderObject.rt1wRender(objects_rt1w, background, pixels_debug, imageHeight, imageWidth);
 		
 
 		/*for (int j = imageHeight - 1; j >= 0; --j)
@@ -324,7 +324,7 @@ int main(int argc, char* argv[])
 				RayClass ray_d = cam.getRay(u, v);
 				
 				ColourClass pixelColour;
-				pixelColour = traceObject_d.TraceRay_2debug(ray_d, objects_debug);
+				pixelColour = traceObject_d.TraceRay_2debug(ray_d, objects_rt1w);
 
 				//
 				//// This is what the Tracing class will replace.
