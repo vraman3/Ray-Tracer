@@ -562,11 +562,11 @@ ColourClass Tracing::TraceRay_debug(RayClass ray_debug, int depth, double incomi
 /*
 *
 * 
-* 
+* Rt1w tracer helper class
 * 
 * 
 */
-bool Tracing::TraceRay_2debug_helper(RayClass ray_d, std::vector<ObjectClass*> objects_d, double tMin_d, double tMax_d, intersection_record& rec_d)
+bool Tracing::TraceRay_rt1w_helper(RayClass ray_d, std::vector<ObjectClass*> objects_d, double tMin_d, double tMax_d, intersection_record& rec_d)
 {
 	intersection_record tempRecord_d;
 	bool hitAnything = false;
@@ -588,12 +588,12 @@ bool Tracing::TraceRay_2debug_helper(RayClass ray_d, std::vector<ObjectClass*> o
 
 /*
 * 
-* 
+* Rt1w tracer
 * 
 * 
 * 
 */
-ColourClass Tracing::TraceRay_2debug(RayClass ray_d, std::vector<ObjectClass*> objects_d)
+ColourClass Tracing::TraceRay_rt1w(RayClass ray_d, std::vector<ObjectClass*> objects_d)
 {
 	intersection_record interRecord_d;
 	
@@ -601,7 +601,7 @@ ColourClass Tracing::TraceRay_2debug(RayClass ray_d, std::vector<ObjectClass*> o
 	// Here!
 	
 
-	if (this->TraceRay_2debug_helper(ray_d, objects_d, 0.0, DBL_MAX, interRecord_d))
+	if (this->TraceRay_rt1w_helper(ray_d, objects_d, 0.0, DBL_MAX, interRecord_d))
 	{
 		return objects_d[interRecord_d.objectNo]->GetColour();
 		//return VectorClass(interRecord_d.normal.getX() + 1,
@@ -616,7 +616,4 @@ ColourClass Tracing::TraceRay_2debug(RayClass ray_d, std::vector<ObjectClass*> o
 		VectorClass returnVal = VectorClass(1.0, 1.0, 1.0) * (1.0 - t) + VectorClass(0.5, 0.7, 1.0) * t;
 		return returnVal;
 	}
-
-	// temp default. please remove
-	//return ColourClass(0.0, 0.0, 0.0);
 }

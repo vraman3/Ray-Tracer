@@ -263,38 +263,8 @@ int main(int argc, char* argv[])
 		int imageWidth = 400;//640;
 		int imageHeight = static_cast<int>(imageWidth / aspectRatio);
 
-		int position_debug = 0;
 		int filesize_debug = imageWidth * imageHeight;
 		ColourClass* pixels_debug = new ColourClass[filesize_debug];
-
-		/*
-		//start = std::chrono::high_resolution_clock::now();
-
-		
-		//ColourClass material_ground = ColourClass(0.8, 0.8, 0.0);
-		//ColourClass material_center = ColourClass(0.1, 0.2, 0.5);
-		//ColourClass material_left = ColourClass(0.0, 0.0, 0.0);
-		//ColourClass material_right = ColourClass(0.8, 0.6, 0.2);
-
-		//std::vector<ObjectClass*> objects_rt1w;
-		////objects_rt1w.push_back(new SphereClass(100, VectorClass(0.0, -100.5, -1.0), 
-		////	material_ground, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-		//objects_rt1w.push_back(new SphereClass(0.5, VectorClass(0.0, 0.0, -1.0), 
-		//	material_center, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-		//objects_rt1w.push_back(new SphereClass(0.5, VectorClass(-1.0, 0.0, -1.0), 
-		//	material_left, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-		////objects_rt1w.push_back(new SphereClass(-0.45, VectorClass(-1, 0, -1), material_left));
-		//objects_rt1w.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), 
-		//	material_right, new PhongModel(0.3, 0.6, 0.0, 12.5, 0.1, 0.0)));
-
-		//
-		//Tracing traceObject_debug = Tracing();
-		//
-		//// Camera position VectorClass(2, 2, 3)
-		//CameraClass cam_debug = CameraClass(1, VectorClass(2, 2, 3), VectorClass(0, 0, -1), VectorClass(0, 1, 0),
-		//	90.0, aspectRatio);
-
-		*/
 
 		std::vector<ObjectClass*> objects_rt1w;
 
@@ -303,59 +273,10 @@ int main(int argc, char* argv[])
 		objects_rt1w.push_back(new SphereClass(0.5, VectorClass(1.0, 0.0, -1.0), ColourClass(0, 0, 1), new NoShadingModel(0, 0)));
 		objects_rt1w.push_back(new SphereClass(0.5, VectorClass(-1.1, 0.0, -1.0), ColourClass(1, 0, 1), new NoShadingModel(0, 0)));
 
-		//double R = cos(3.1415926535897932385 / 4);
-		//objects_rt1w.push_back(new SphereClass(R, VectorClass(-R, 0, -1), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
-		//objects_rt1w.push_back(new SphereClass(R, VectorClass(R, 0, -1), ColourClass(1, 0, 0), new NoShadingModel(0, 0)));
 			
 		start = std::chrono::high_resolution_clock::now();
 		
 		renderObject.rt1wRender(objects_rt1w, background, pixels_debug, imageHeight, imageWidth);
-		
-
-		/*for (int j = imageHeight - 1; j >= 0; --j)
-		{
-			for (int i = 0; i < imageWidth; ++ i)
-			{
-				double u = double(i) / double(imageWidth);
-				double v = double(j) / double(imageHeight);
-
-				//VectorClass tempDirection = lowerLeftCorner_d + horizontal_d * u + vertical_d * v;
-				//RayClass ray_d(origin_d, tempDirection);
-				RayClass ray_d = cam.getRay(u, v);
-				
-				ColourClass pixelColour;
-				pixelColour = traceObject_d.TraceRay_2debug(ray_d, objects_rt1w);
-
-				//
-				//// This is what the Tracing class will replace.
-				//double tForSphere = SphereClass(0.5, VectorClass(0, 0, -1)).GetIntersection(ray_d);
-
-				//if (tForSphere > 0.0)
-				//{
-				//	VectorClass normalSphere = (ray_d.at(tForSphere) - VectorClass(0.0, 0.0, -1)).normalize();
-				//	pixelColour = VectorClass(normalSphere.getX() + 1.0,
-				//		normalSphere.getY() + 1.0,
-				//		normalSphere.getZ() + 1.0) * 0.5;
-				//}
-				//else
-				//{
-				//	pixelColour = ray_d.colour();
-				//}
-				//
-				int ir = int(255.99 * pixelColour.GetRed());
-				int ig = int(255.99 * pixelColour.GetGreen());
-				int ib = int(255.99 * pixelColour.GetBlue());
-				
-				pixels_debug[position_debug].SetRed(ir);//pixelColour.GetRed());
-				pixels_debug[position_debug].SetGreen(ig);//pixelColour.GetGreen());
-				pixels_debug[position_debug].SetBlue(ib);
-
-				
-				
-
-				position_debug++;
-			}
-		}*/
 
 		finish = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> rt1wTime_debug = finish - start;
