@@ -186,7 +186,7 @@ void Render::rt1wRender(std::vector<ObjectClass*> objects_debug, ColourClass bac
 			RayClass ray_d = cam.getRay(u, v);
 
 			ColourClass pixelColour;
-			pixelColour = traceObject_d.TraceRay_2debug(ray_d, objects_debug);
+			pixelColour = traceObject_d.TraceRay_rt1w(ray_d, objects_debug);
 
 			/*
 			// This is what the Tracing class will replace.
