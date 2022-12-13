@@ -630,7 +630,7 @@ ColourClass Tracing::TraceRay_rt1w(RayClass ray_d, std::vector<ObjectClass*> obj
 
 		return interRecord_d.hitColour;
 		//return objects_d[interRecord_d.objectNo]->GetColour();
-
+		//
 
 		//return VectorClass(interRecord_d.normal.getX() + 1,
 		//	interRecord_d.normal.getY() + 1,
