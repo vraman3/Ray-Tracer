@@ -28,6 +28,8 @@ struct intersection_record
 	// The intersection point
 	VectorClass point;
 
+	ColourClass hitColour;
+
 	bool frontFace;
 
 	//this variable is to help record which exact object was hit in the brute force method.
@@ -58,8 +60,10 @@ class ObjectClass
 public:
 	IlluminationClass* illum;
 
+	double albedo;
+
 	/* Constructors*/
-	ObjectClass(){}
+	ObjectClass();
 
 	/* Getters */
 	virtual double GetAmbient();

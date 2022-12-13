@@ -14,7 +14,7 @@ class Render
 		/* Constructors */
 
 		/* Functions */
-		void rt1wRender(std::vector<ObjectClass*> objects, ColourClass background,
+		void rt1wRender(std::vector<ObjectClass*> objects, std::vector<VectorClass*> lights, ColourClass background,
 			ColourClass* pixels, int screenHeight, int screenWidth);
 
 		void render(int screenHeight, int screenWidth, double pixelW, double pixelH, double f, 

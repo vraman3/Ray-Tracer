@@ -11,6 +11,8 @@
 
 // Temp include
 #include "SphereClass.h"
+#include "CustomMath.h"
+#include<math.h>
 //
 
 /**
@@ -570,7 +572,7 @@ ColourClass Tracing::TraceRay(RayClass ray, int depth, double incomingni, std::v
 * 
 * 
 */
-bool Tracing::TraceRay_rt1w_helper(RayClass ray_d, std::vector<ObjectClass*> objects_d, double tMin_d, double tMax_d, intersection_record& rec_d)
+bool Tracing::TraceRay_rt1w_helper(RayClass ray_d, std::vector<ObjectClass*> objects_d, std::vector<VectorClass*> lights, double tMin_d, double tMax_d, intersection_record& rec_d)
 {
 	intersection_record tempRecord_d;
 	bool hitAnything = false;
@@ -578,12 +580,30 @@ bool Tracing::TraceRay_rt1w_helper(RayClass ray_d, std::vector<ObjectClass*> obj
 
 	for (int i = 0; i < objects_d.size(); i++)
 	{
-		if (objects_d[i]->GetIntersection(ray_d, tMin_d, closestSoFar, tempRecord_d))
+		double tValue = objects_d[i]->GetIntersection(ray_d, tMin_d, closestSoFar, tempRecord_d);
+
+		if (tValue)
 		{
 			hitAnything = true;
 			closestSoFar = tempRecord_d.t;
 			tempRecord_d.objectNo = i;
 			rec_d = tempRecord_d;
+		}
+	}
+
+	if (hitAnything)
+	{
+		VectorClass pi = ray_d.at(closestSoFar);
+
+		//For now only one light will be present.
+		int noOfLights = (int)lights.size();
+		if (noOfLights == 1)
+		{
+			// the light direction is reversed with a negative value 
+			// to make it the same direction as the normal.
+			VectorClass currLightDirection = (((*lights[0]) - pi)*-1).normalize();
+
+			rec_d.hitColour = ColourClass(1.0, 1.0, 1.0) * objects_d[rec_d.objectNo]->albedo / M_PI * 1 * std::max(0.0, rec_d.normal.dotProd(currLightDirection));
 		}
 	}
 
@@ -597,7 +617,7 @@ bool Tracing::TraceRay_rt1w_helper(RayClass ray_d, std::vector<ObjectClass*> obj
 * 
 * 
 */
-ColourClass Tracing::TraceRay_rt1w(RayClass ray_d, std::vector<ObjectClass*> objects_d)
+ColourClass Tracing::TraceRay_rt1w(RayClass ray_d, std::vector<ObjectClass*> objects_d, std::vector<VectorClass*> lights)
 {
 	intersection_record interRecord_d;
 	
@@ -605,13 +625,18 @@ ColourClass Tracing::TraceRay_rt1w(RayClass ray_d, std::vector<ObjectClass*> obj
 	// Here!
 	
 
-	if (this->TraceRay_rt1w_helper(ray_d, objects_d, 0.0, DBL_MAX, interRecord_d))
+	if (this->TraceRay_rt1w_helper(ray_d, objects_d, lights, 0.0, DBL_MAX, interRecord_d))
 	{
-		return objects_d[interRecord_d.objectNo]->GetColour();
+
+		return interRecord_d.hitColour;
+		//return objects_d[interRecord_d.objectNo]->GetColour();
+
+
 		//return VectorClass(interRecord_d.normal.getX() + 1,
 		//	interRecord_d.normal.getY() + 1,
 		//	interRecord_d.normal.getZ() + 1) * 0.5;
 	}
+	// no objects hit
 	else
 	{
 		// Original lerp

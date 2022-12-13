@@ -26,8 +26,8 @@ public:
 		ColourClass background, ColourClass pointCol, int maxDepth);
 
 
-	ColourClass TraceRay_rt1w(RayClass ray_d, std::vector<ObjectClass*> objects_d);
-	bool TraceRay_rt1w_helper(RayClass ray_d, std::vector<ObjectClass*> objects_d, double tMin_d, double tMax_d, intersection_record &rec_d);
+	ColourClass TraceRay_rt1w(RayClass ray_d, std::vector<ObjectClass*> objects_d, std::vector<VectorClass*> lights);
+	bool TraceRay_rt1w_helper(RayClass ray_d, std::vector<ObjectClass*> objects_d, std::vector<VectorClass*> lights, double tMin_d, double tMax_d, intersection_record &rec_d);
 
 	ColourClass TraceRay(RayClass ray, int depth, double incomingni, std::vector<TriangleClass*> objects, std::vector<VectorClass*> lights,
 		ColourClass background, ColourClass pointCol, int maxDepth);

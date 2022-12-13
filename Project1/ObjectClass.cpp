@@ -10,6 +10,10 @@
 */
 #include "ObjectClass.h"
 
+ObjectClass::ObjectClass()
+{
+	albedo = 0.18;
+}
 /**
 	Get the ambient quotient value for current object.
 

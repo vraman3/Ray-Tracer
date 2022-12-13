@@ -276,7 +276,7 @@ int main(int argc, char* argv[])
 			
 		start = std::chrono::high_resolution_clock::now();
 		
-		renderObject.rt1wRender(objects_rt1w, background, pixels_debug, imageHeight, imageWidth);
+		renderObject.rt1wRender(objects_rt1w, lights, background, pixels_debug, imageHeight, imageWidth);
 
 		finish = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> rt1wTime_debug = finish - start;
