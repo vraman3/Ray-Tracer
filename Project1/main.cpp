@@ -167,7 +167,7 @@ int main(int argc, char* argv[])
 #pragma region Lights
 	std::vector<VectorClass*> lights;
 
-	lights.push_back(new VectorClass(5, 7.4, 9));
+	lights.push_back(new VectorClass(5, 7.4, 5));
 #pragma endregion
 
 #pragma endregion

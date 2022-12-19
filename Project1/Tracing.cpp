@@ -601,9 +601,20 @@ bool Tracing::TraceRay_rt1w_helper(RayClass ray_d, std::vector<ObjectClass*> obj
 		{
 			// the light direction is reversed with a negative value 
 			// to make it the same direction as the normal.
-			VectorClass currLightDirection = (((*lights[0]) - pi)*-1).normalize();
+			VectorClass currLightDirection = ((*lights[0]) - pi).normalize() * (1);
 
-			rec_d.hitColour = ColourClass(1.0, 1.0, 1.0) * objects_d[rec_d.objectNo]->albedo / M_PI * 1 * std::max(0.0, rec_d.normal.dotProd(currLightDirection));
+			double lightIntensity = 1.0;
+
+			ColourClass colalbedo = ColourClass(1.0, 1.0, 1.0) * objects_d[rec_d.objectNo]->albedo / M_PI;
+
+			ColourClass term2 = colalbedo * lightIntensity;
+
+			double maxTerm = std::max(0.0, rec_d.normal.dotProd(currLightDirection));
+
+			ColourClass diffuse = term2 * maxTerm;
+
+			//ColourClass diffuse = ColourClass(1.0, 1.0, 1.0) * objects_d[rec_d.objectNo]->albedo / M_PI * lightIntensity * std::max(0.0, rec_d.normal.dotProd(currLightDirection));
+			rec_d.hitColour = diffuse;// *objects_d[rec_d.objectNo]->GetColour();
 		}
 	}
 
