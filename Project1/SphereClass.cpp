@@ -46,6 +46,9 @@ SphereClass::SphereClass(double paramRadius, VectorClass paramCenter)
 {
 	radius = paramRadius;
 	center = paramCenter;
+	diffuse = 0.0;
+	specular = 0.0;
+	ambient = 0.0;
 }
 
 /**
