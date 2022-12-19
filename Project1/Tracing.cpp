@@ -591,32 +591,32 @@ bool Tracing::TraceRay_rt1w_helper(RayClass ray_d, std::vector<ObjectClass*> obj
 		}
 	}
 
-	if (hitAnything)
-	{
-		VectorClass pi = ray_d.at(closestSoFar);
+	//if (hitAnything)
+	//{
+	//	VectorClass pi = ray_d.at(closestSoFar);
 
-		//For now only one light will be present.
-		int noOfLights = (int)lights.size();
-		if (noOfLights == 1)
-		{
-			// the light direction is reversed with a negative value 
-			// to make it the same direction as the normal.
-			VectorClass currLightDirection = ((*lights[0]) - pi).normalize() * (1);
+	//	//For now only one light will be present.
+	//	int noOfLights = (int)lights.size();
+	//	if (noOfLights == 1)
+	//	{
+	//		// the light direction is reversed with a negative value 
+	//		// to make it the same direction as the normal.
+	//		VectorClass currLightDirection = ((*lights[0]) - pi).normalize() * (1);
 
-			double lightIntensity = 1.0;
+	//		double lightIntensity = 1.0;
 
-			ColourClass colalbedo = ColourClass(1.0, 1.0, 1.0) * objects_d[rec_d.objectNo]->albedo / M_PI;
+	//		ColourClass colalbedo = ColourClass(1.0, 1.0, 1.0) * objects_d[rec_d.objectNo]->albedo / M_PI;
 
-			ColourClass term2 = colalbedo * lightIntensity;
+	//		ColourClass term2 = colalbedo * lightIntensity;
 
-			double maxTerm = std::max(0.0, rec_d.normal.dotProd(currLightDirection));
+	//		double maxTerm = std::max(0.0, rec_d.normal.dotProd(currLightDirection));
 
-			ColourClass diffuse = term2 * maxTerm;
+	//		ColourClass diffuse = term2 * maxTerm;
 
-			//ColourClass diffuse = ColourClass(1.0, 1.0, 1.0) * objects_d[rec_d.objectNo]->albedo / M_PI * lightIntensity * std::max(0.0, rec_d.normal.dotProd(currLightDirection));
-			rec_d.hitColour = diffuse;// *objects_d[rec_d.objectNo]->GetColour();
-		}
-	}
+	//		//ColourClass diffuse = ColourClass(1.0, 1.0, 1.0) * objects_d[rec_d.objectNo]->albedo / M_PI * lightIntensity * std::max(0.0, rec_d.normal.dotProd(currLightDirection));
+	//		rec_d.hitColour = diffuse;// *objects_d[rec_d.objectNo]->GetColour();
+	//	}
+	//}
 
 	return hitAnything;
 }
@@ -639,8 +639,8 @@ ColourClass Tracing::TraceRay_rt1w(RayClass ray_d, std::vector<ObjectClass*> obj
 	if (this->TraceRay_rt1w_helper(ray_d, objects_d, lights, 0.0, DBL_MAX, interRecord_d))
 	{
 
-		return interRecord_d.hitColour;
-		//return objects_d[interRecord_d.objectNo]->GetColour();
+		//return interRecord_d.hitColour;
+		return objects_d[interRecord_d.objectNo]->GetColour();
 		//
 
 		//return VectorClass(interRecord_d.normal.getX() + 1,
