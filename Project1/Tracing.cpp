@@ -639,13 +639,13 @@ ColourClass Tracing::TraceRay_rt1w(RayClass ray_d, std::vector<ObjectClass*> obj
 	if (this->TraceRay_rt1w_helper(ray_d, objects_d, lights, 0.0, DBL_MAX, interRecord_d))
 	{
 
-		//return interRecord_d.hitColour;
-		return objects_d[interRecord_d.objectNo]->GetColour();
-		//
+		////return interRecord_d.hitColour;
+		//return objects_d[interRecord_d.objectNo]->GetColour();
+		////
 
-		//return VectorClass(interRecord_d.normal.getX() + 1,
-		//	interRecord_d.normal.getY() + 1,
-		//	interRecord_d.normal.getZ() + 1) * 0.5;
+		return VectorClass(interRecord_d.normal.getX() + 1,
+			interRecord_d.normal.getY() + 1,
+			interRecord_d.normal.getZ() + 1) * 0.5;
 	}
 	// no objects hit
 	else
